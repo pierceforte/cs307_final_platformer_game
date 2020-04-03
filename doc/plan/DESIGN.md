@@ -1,9 +1,12 @@
-Introduction
+#Introduction
+
 This section describes the problem your team is trying to solve by writing this program, the primary design goals of the project (i.e., where is it most flexible), and the primary architecture of the design (i.e., what is closed and what is open). Discuss the design at a high-level (i.e., without referencing specific classes, data structures, or code).
 
 The basic idea behind the game is a scrolling platformer in which a player tries to reach one end of each level by building platforms that take the player from one end to the other while killing all enemies. 
 
 The premise is that there are two rival wizarding clans: the Snizards, and the Snizards. The Snizards (snake wizards) hate the snizards (snail wizards), but they cannot kill each other directly; according to some ancient wizarding rule, wizards can’t kill each other directly. They have to use traps and the environment to eliminate each other. The player can choose which wizard clan to join, the Snizards or the Snizards, and then can level up their first avatar, or as they advance, scoring points and finding coins, can unlock other snizards to play as, each with their own unique abilities--snail wizards or snake wizards depending on which clan they joined. 
+
+###Gameplay Structure
 
 The game is based on this premise. At first, the user is taken to the main menu, in which they can login and access any of three different campaigns (allowing the player to both play as either snizard or snizard); from there, if this is their first time, they are taken to a cutscene explaining the premise, or they can go to level directory and choose a level. 
 
@@ -19,34 +22,34 @@ Please refer to the wire frames below for the game layout.
 
 The primary architecture of the design is as follows.  
 
-User Data
+###Data Management
 
 User data management:
 A .txt file that stores username and password, inventory up to six spaces, high score per level, available coins, unlocked characters, unlocked levels, and saved level layouts.
-
 Level Data:
 
 Each level requires the following data files:
-A .json text file that records the initial map layout of the file, including the address of the map background images (light and dark versions) in the first line, and then in a CSV format the name of the object, the x and y position, and the length of the object in relation to this x and y coordinate. An example is : “brick” (2;3) 3,. The brick is 3 “tiles” long. 
-An empty .json text file that the back end will write based on how the user places objects in the map in the BLUEPRINT stage, in the same format.
-A .json text file that saves the address to at maximum three other .json file locations that store level layouts of this same level--in other words, if this player has tried other configurations of this level before, they can pull these saved files here.
-A .json file that will hold the player’s position in pixels for the replay function after the game is won or lost. 
+- A .json text file that records the initial map layout of the file, including the address of the map background images (light and dark versions) in the first line, and then in a CSV format the name of the object, the x and y position, and the length of the object in relation to this x and y coordinate. An example is : “brick” (2;3) 3,. The brick is 3 “tiles” long. 
+- An empty .json text file that the back end will write based on how the user places objects in the map in the BLUEPRINT stage, in the same format.
+- A .json text file that saves the address to at maximum three other .json file locations that store level layouts of this same level--in other words, if this player has tried other configurations of this level before, they can pull these saved files here.
+- A .json file that will hold the player’s position in pixels for the replay function after the game is won or lost. 
 
 The files are in addition to the files needed to render the images of the avatars, enemies, and object sprites. 
 
 Thus, in these stages:
 
-Blueprint stage
-In the back end, once a level is selected, the game will ask the LevelBuilder module to read the csv file associated with the level for the LevelRenderer module to assemble. The LevelRenderer will curate the images of avatars, enemies, and object sprites and make a basic map, and pass a root (Pane) of objects off to the BLUEPRINT class, which will add an affine grid and call the BankBuilder to assemble a Bank. The BankBuilder will read the Bank .json file associated with the level and curate a BANK of objects the user can insert into the map at will. The BLUEPRINT class will display this in the View.  
-In the BLUEPRINT stage, the user can click and drag from the BANK assembled by the BANK class based on information from the BankBuilder; when an object is placed on the map as shown by the BLUEPRINT class, this decision is conferred to the LevelWriter class, which writes a csv based on this input. When the player has used all the items from the BANK or is otherwise satisfied, they can press play, at which point the LevelWriter will send the complete CSV file to the LevelBuilder for the next stage.
-Gameplay Stage
-The LevelBuilder will read this csv and pass these findings to the LevelRenderer, which will assemble the map for the player to see. As the player moves, their position is recorded in a csv file by LevelWriter every 1/60th of a second.  
-The PlayLevel module will spawn the player and handle their inputs, letting the user control where in the map they go and how they interact with the objects. The PlayLevel module will call on the SpawnSnizard module, which spawns artificial enemy snizards and controls their movement on the map.
-Replay Stage
+####Blueprint stage
+- In the back end, once a level is selected, the game will ask the LevelBuilder module to read the csv file associated with the level for the LevelRenderer module to assemble. The LevelRenderer will curate the images of avatars, enemies, and object sprites and make a basic map, and pass a root (Pane) of objects off to the BLUEPRINT class, which will add an affine grid and call the BankBuilder to assemble a Bank. The BankBuilder will read the Bank .json file associated with the level and curate a BANK of objects the user can insert into the map at will. The BLUEPRINT class will display this in the View.  
+- In the BLUEPRINT stage, the user can click and drag from the BANK assembled by the BANK class based on information from the BankBuilder; when an object is placed on the map as shown by the BLUEPRINT class, this decision is conferred to the LevelWriter class, which writes a csv based on this input. When the player has used all the items from the BANK or is otherwise satisfied, they can press play, at which point the LevelWriter will send the complete CSV file to the LevelBuilder for the next stage.
+####Gameplay Stage
+- The LevelBuilder will read this csv and pass these findings to the LevelRenderer, which will assemble the map for the player to see. As the player moves, their position is recorded in a csv file by LevelWriter every 1/60th of a second.  
+- The PlayLevel module will spawn the player and handle their inputs, letting the user control where in the map they go and how they interact with the objects. The PlayLevel module will call on the SpawnSnizard module, which spawns artificial enemy snizards and controls their movement on the map.
+#### Replay Stage
 The Replay module will read the csv file written by the LevelWriter to learn where in the level the user has travelled; it will recreate this movement for the user to reflect on after winning or losing.
 
-Overview
+# Overview
 This section serves as a map of your design for other programmers to gain a general understanding of how and why the program was divided up, and how the individual parts work together to provide the desired functionality. Describe specific modules you intend to create, their purpose with regards to the program's functionality, and how they collaborate with each other, focusing specifically on each one's API. Include a picture of how the modules are related (these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a UML design program). Discuss specific classes, methods, and data structures, but not individual lines of code.
+
 Like the OOGA project overview recommends, our program is divided between the Engine, Data, and the Player.
 
 Frontend
@@ -66,57 +69,50 @@ Game flow features (e.g. pause, play, follow character feature)
 Updates the viewer based on backend methods
 
 
-
-
-
-
-Player Class
-Has its own image
-Score
-Location
-Lives
+The Player Class has its own image, Score, Location, Lives
 Personal high scores, preferences (e.g., name, password, age (if parental controls are implemented), and favorite variants, tokens, colors, etc).
 
-
+###Game Objects
 An object in the Game is added through the GameObject interface, which implements the basic Java Object. When GameObjects collide, they call upon the Interactions interface. The Interaction interface is implemented by the Game abstract class, which is extended by the Game child objects. 
 
 A GameObject needs to be able to load in images and occupy a space on the Game display. Here is a basic hierarchy of GameObjects in the game, which will be expounded upon in greater detail later. 
 
+- GameObject Class
+    - Platform Class (defined by the fact the player cannot pass through it)
+        - Hazard Class 
+            - (boolean, if you touch it (or its projectiles touch you), death/lose a life)
+        - Moving Platform Class
+        - Appendable Class 
+            - (does not occupy a tile space, but can be added to an object)
+            - PlayerAppendableAffect Class
+                - Example: Ice or Glue, which affect how a player moves through the object
+            - PlayerAppendableHazard
+                - Example: Barbed wire, which kills the player.
+    - Enemy Class
+        - They follow by some distance, follow different levels of intuition
+            - Level 1: Follows 20 pixels
+            - Level 2: Take the path you took exactly
+            - Level 3: Take the path you took when you died last (?)
+            - Level 4: Anticipates your moves, or moves you need to take
+        - BASIC ABILITIES of Enemies
+            - JUMP
+            - WALK 
+            - RUN
+            - EXTRA ABILITIES
+                - PROJECTILES
+                - FLY
+                - DOUBLE JUMP
+    - Power-up Class (objects that the user can pick up, and thus disappear after use)
+        - Example: Potions
+    - Player Class
+        - BASIC ABILITIES within PlayLevel
+            - WALK
+            - RUN
+            - JUMP
+            - EXTRA ABILITIES (based on which snizard player unlocks)
+                - PROJECTILES (up to 5)
+                - Special abilities (mentioned below)
 
-GameObject Class
-Platform Class (defined by the fact the player cannot pass through it)
-Hazard Class (boolean, if you touch it (or its projectiles touch you), death/lose a life)
-Moving Platform Class
-Appendable Class (does not occupy a tile space, but can be added to an object)
-PlayerAppendableAffect Class
-Example: Ice or Glue, which affect how a player moves through the object
-PlayerAppendableHazard
-Example: Barbed wire, which kills the player.
-Enemy Class
-They follow by some distance
-Level 1: Follows 20 pixels
-Level 2: Take the path you took exactly
-Level 3: Take the path you took when you died last (?)
-Level 4: Anticipates your moves, or moves you need to take
-BASIC ABILITIES
-JUMP
-WALK 
-RUN
-EXTRA ABILITIES
-PROJECTILES
-FLY
-DOUBLE JUMP
-Power-up Class (objects that the user can pick up, and thus disappear after use)
-Example: Potions
-Player Class
-BASIC ABILITIES
-WALK
-RUN
-JUMP
-EXTRA ABILITIES
-PROJECTILES (up to 5)
-Special abilities (mentioned above)
-POWER UPS (have to find)
 Engine Class (Controller) (API?)
 Replay Feature
 Follow character feature
