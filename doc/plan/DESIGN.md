@@ -72,6 +72,7 @@ Updates the viewer based on backend methods
 The Player Class has its own image, Score, Location, Lives
 Personal high scores, preferences (e.g., name, password, age (if parental controls are implemented), and favorite variants, tokens, colors, etc).
 
+## Engine Package
 ###Game Objects
 An object in the Game is added through the GameObject interface, which implements the basic Java Object. When GameObjects collide, they call upon the Interactions interface. The Interaction interface is implemented by the Game abstract class, which is extended by the Game child objects. 
 
@@ -104,7 +105,7 @@ A GameObject needs to be able to load in images and occupy a space on the Game d
                 - DOUBLE JUMP
     - Power-up Class (objects that the user can pick up, and thus disappear after use)
         - Example: Potions
-    - Player Class
+    - PlayerAvatar Class
         - BASIC ABILITIES within PlayLevel
             - WALK
             - RUN
@@ -112,136 +113,137 @@ A GameObject needs to be able to load in images and occupy a space on the Game d
             - EXTRA ABILITIES (based on which snizard player unlocks)
                 - PROJECTILES (up to 5)
                 - Special abilities (mentioned below)
+        - PlayerAvatar extends GameObject, BUT the user's information, the Player package, is different.
+## Data Package
 
-Engine Class (Controller) (API?)
-Replay Feature
-Follow character feature
-Control Enemy Plan feature
-Player interactions
-Build map
-Choose platforms for user based on the level what platforms to give the player
-Level 1: easy stuff
-Level 50: hard stuff
-Main Menu
-Customize Characters (in Player)
-Data    
-User’s information
-Avatar is chosen (sent to Player)
-High Score
-How much money you have
-Store
-Customizing
-Choose default abilities/ weapons/skills
-Pay for new abilities/weapons/skills
-Pay for new levels
+##Player
 
+##Modules
 
-Class Player {
-Field…
+- Replay Feature
+-  Follow character feature
+- Control Enemy Plan feature
+- Player interactions
+- Build map
+- Choose platforms for user based on the level what platforms to give the player
+- Choose Player Menu
+- Player Information Stage
+    - See user's information, chosen Avatar, High Score, how much money available
+- Main Menu
+- Store
+    - pay for new abilities/skills/players/levels with coins earned in game.
 
-Constructor
-    
-}
+###Point System
 
-Class controller() {
-    step() {
-        If (intersection == true)
-            interaction()
-    }
-}
-
-INTERACTIONS in the BACK END
-
-Front end communicates with Controller only
-
-
-POINTS:
-Killing enemies (capped)
-Objectives
-Kill the minions of a snizard
-But every time you have to kill the snizard over again
-Breaking blocks (capped)
-Lose points every round
-Money is separate from points (player 
-Killing enemies, breaking blocks
-Compete for best time on a level (fewest rounds)
+Earn points by killing enemies (capped at maximum number of enemies killed in level),
+and by completing objectives, like reaching a certain point, opening chests, killing a snizard's minions (scarabs).
+Breaking blocks also gets you points. Earning points is NOT the same as collecting coins, which you can spend in store;
+that way, you can reach a new high score for a level and compete against other players for high scores in a level, but
+it's not as important if you want to advance. There is also a best time feature shared in a global high score sheet for 
+fastest completed level. 
 
 MAIN MENU -->CUSTOMIZABLE MENU →CHOOSE LEVEL PHASE -->BANK PHASE: Player gets six or seven objects they can put in the level→ BLUE PRINT PHASE : Player can build their level→PLAYABLE PHASE: Player plays their level→
 REPLAY PHASE: (If they die) you can see a replay
-Example games
-Describe three example games that differ significantly in detail. Clearly identify how the functional differences in these games is supported by your design. Use these examples to help clarify the abstractions in your design.
-Different characters
-Different themes
-Different interactions between objects
+
+# Example games
 The complexity to this game comes from its customization. From the get-go, the user must choose between two clans, each of which have their own advantages and disadvantages. A snake wizard cannot go near a snake charmer; a snail wizard can be killed by salt, but a snail wizard ignores a snake charmer and a snake wizard ignores salt. Each playable character has special abilities, and all can use potions as they acquire them. The player also builds their own levels, and the game must have a developed enough data management program to save and access these levels again later, in addition to a robust inventory system. Thus, the Player package must be significantly advanced to accommodate for these vulnerabilities, which change as the user changes characters, gets money, builds levels, etc.
 
 Equally, the objective of the game is not only to build a level the player can navigate, but to build a level the artificial enemy snizards cannot navigate. 
-Playable Characters:
-Snake Lineup:
 
-Shadow Snake--Able to disappear from enemies’ view
-Fire Snake: Shoots fire (pictured below)
-Garden Snake: Grows climbable vines (pictured below)
-Teleporting Snake: Baby snake
-Exploding Snake: destroys one enemy within its radius
-Speedy Snake: moves super fast
-UNLOCKABLE SNAKE: King Cobra
+##Playable Characters:
+###Snake Lineup:
+1) Shadow Snake--Able to disappear from enemies’ view
+2) Fire Snake: Shoots fire (pictured below)
+3) Garden Snake: Grows climbable vines (pictured below)
+4) Teleporting Snake: Baby snake
+5) Exploding Snake: destroys one enemy within its radius
+6) Speedy Snake: moves super fast
+7) UNLOCKABLE SNAKE: King Cobra
 
-Full snake lineup: 1 (Fire snake), 2 (garden snake), 3 (baby/teleporting snake), 4 speedy snake, 5 shadow snake, 6 exploding snake
+Please refer to the following sprites for the above snake lineup.
 
+![the snizards](images/numbersnakewizards.png)
 
-Snail Lineup (incomplete):
+Full snake lineup (NUMBERS DIFFERENT FROM ABOVE): 1 (Fire snake), 2 (garden snake), 3 (baby/teleporting snake), 4 speedy snake, 5 shadow snake, 6 exploding snake
 
+Ideally we will have different "states" for the characters, like whether they are falling, attacking, jumping, what-have-you,
+with different animations accordingly.
 
+###Snail Lineup (incomplete)
+1. Fire Snail (Shoots fire)
+2. Ink Snail (leaves trails of ink, makes them slow)
+3. Crystal Ball Snail: Shoots beams of light
+4. Baby snail  (freezes enemies in place with cuteness)
+5. Zombie snail (extra life)
+6. Garden snail (grows vines)
+7. UNLOCKABLE SNAIL: The Slug
 
-Fire Snail (Shoots fire)
-Ink Snail (leaves trails of ink, makes them slow)
-Crystal Ball Snail: Shoots beams of light
-Baby snail  (freezes enemies in place with cuteness)
-Zombie snail (extra life)
-Garden snail (grows vines)
-UNLOCKABLE SNAIL: The Slug
+![the snizards](images/snaillineup0402.png)
 
-Minions (do not move, but shoot projectiles):
-Snakes have scarabs as minions (gold)
-Snails have beetles (black)
+Note: missing the zombie snail and garden snail from this image. Making pixel art is hard.
 
-Stable objects:
-Walls
-Water
-Earth
-Fan (catapult character forward)
-Vending machine (get potions)
-Vines (climbable)
+####Note on Minions
+If we have enough time, we may implement minions, which would have a similar role as 
+a turtle from Super Mario, walking aimlessly. They would shoot projectiles and be relatively "dumb", 
+and killing them would be optional for the player.
 
-Appendable objects:
-Salt (kills snails)
-Ice (makes surface slippery)
-Glue (sticks objects together)
-Spikes (kills instantly)
+- Minions (do not move, but shoot projectiles):
+    - Snakes have scarabs as minions (gold)
+    - Snails have beetles (black)
 
-Projectiles:
-Fire beetles: shoot fire
-Water beetles: send waves of water 
-Potion throwers: throws potions at a parabolic angle
+####A Full List of GameObjects in the Game
+- In built parts of a level BEFORE a user adds input in the BLUEPRINT stage:
+    - Water tile
+        - players _cannot swim_. Kills player instantly.
+    - Earth tile
+        - players can walk on this.
+    - Tree tile 
+        - players cannot jump over them without help from platformers.
+    - Flag (marks end of level/level objective)
+        - players cannot move or add things within 32 pixels of this flag.
+        - once player has reached the flag, the Gameplay stage is over.
+    - spawn location (denotated by an icon)
+        - players cannot move or add things within 32 pixels (one character length) of this flag.
+- Stable objects (added by player)
+    - Fan 
+        - (catapult character forward)
+    - Vending machine 
+        - player can spend a coin here to get a random potion.
+    - Vines 
+        - player can climb this. 
+- Appendable objects:
+    - PlayerAppendableAffect
+        - Ice 
+            - makes surface slippery, causing player to move x2 faster.
+        - Glue
+            - glue makes player x2 _slower_ AND glue can be added between two objects to stick them together.
+    - PlayerAppendableHazard
+        - Spike
+            - kills player instantly.
+        - Salt 
+            - kills snails wizards instantly; _does not affect snakes_
+- (Optional) Minions:
+    - Fire beetles/scarabs: shoot fire
+    - Water beetles/scarabs: send waves of water
+    - Note: Snakes get scarabs (gold beetles);
+            Snails get beetles (black beetles)
+- Projectiles:
+    - Potion throwers: a catapult that throws potions at a parabolic angle
+    - crossbow: shoots arrows in a straight direction.
+- Hazards: 
+    - Snake charmer ( a stable object )
+        - distracts snakes and keeps them immobilized for 15 seconds unless player pays them a coin.
+            - if the snake distracted is a NPC (i.e. a rival snizard), the immobilization is endless.
+        - snake charmers do not affect snail wizards.
+    - Venus fly trap ( a stable object )
+        - this hazard eats snakes and snails if character enters within its range.
+    - Vat of minions: player steps on it and falls into vat, dies
+- Movable objects:
+    - Witch broomsticks: move side to side
+    - Levitating platforms: move up and down
+    - Conveyer belts: a platform that if a character stands on it, moves them slowly to the side. 
+    - Cauldron: snail/snake hops in, can catapult to other side of map
 
-Hazards:
-Snake charmer: distracts snakes (not kill)
-a charmer that distracts and immobilizes snake wizards while not affected snail wizards
-Venus fly trap: eats snakes and snails, stable
-Vat of minions: player steps on it and falls into vat, dies
-
-Moving minions:
-Snakes get scarabs (gold beetles)
-Snails get beetles (black beetles)
-Golems kill all things indiscriminately
-
-Movable objects:
-Witch broomsticks: move side to side
-Levitating platforms: move up and down
-Conveyer belts 
-Trains move from one side of the map to the other
-Cauldron: snail/snake hops in, can catapult to other side of map
-Design Considerations
+#Design Considerations
 This section describes any issues which need to be addressed or resolved before attempting to devise a complete design solution. Include any design decisions discussed at length (include pros and cons from all sides of the discussion) as well as any ambiguities, assumptions, or dependencies regarding the program that impact the overall design.
 
