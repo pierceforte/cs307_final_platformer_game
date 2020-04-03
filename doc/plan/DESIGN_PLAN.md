@@ -1,4 +1,5 @@
-#Snizard vs. Snizard: Age of Snwarfare A Design Plan.
+#Snizard vs. Snizard: Age of Snwarfare 
+#A Design Plan.
 ![snizard](images/numbersnakewizards.png)
 ![snizard](images/snaillineup0402.png)
 #Introduction
