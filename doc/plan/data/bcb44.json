@@ -1,0 +1,17 @@
+[
+  {
+    “bcb44”: {
+      “Id”: “bcb44”,
+      “password”:  “****”,
+      “birthdate”:”07/27/1998”,
+      “avatar”:”location.png”,
+      “score”:2000,
+      “coins”:2000,
+      “object1”:1,
+      “object2”:2,
+      “object3”:0,.... ,
+      “level1highscore”: 2,
+      “Level2highscore”: 0,
+      ...
+  }
+]}
