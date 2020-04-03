@@ -82,11 +82,18 @@ public abstract class GameObject {
     }
 
     /**
-     * Check whether the two nodes on the screen intersects with each other
-     * @param node The node that is being checked for a collision with this object
-     * @return whether node (the parameter) is colliding with this object
+     * Update the x position of the object
+     * @param speed distance to move in x direction
      */
-    public boolean intersects(Node node) {
-        return this.getBoundsInParent().intersects(node.getBoundsInLocal());
+    void updateXPos(double speed) {
+        this.setX(this.getX() + speed);
+    }
+
+    /**
+     * Update the y position of the object
+     * @param speed distance to move in y direction
+     */
+    void updateYPos(double speed) {
+        this.setY(this.getY() + speed);
     }
 }

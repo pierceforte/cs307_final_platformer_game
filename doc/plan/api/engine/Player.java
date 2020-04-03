@@ -5,11 +5,9 @@
 public interface Player {
 
     /**
-     * Assigns how the player is affected by each input
-     * @param inputMap A map from each key code and its resulting action
+     * Assigns how the player is affected by each input; eg. jump, move left/right, run, shoot fireball, etc.
+     * @return Map of key codes and their actions when pressed
      */
-    void assignInputs(Map<KeyCode, Runnable> inputMap) {
-        // jump, move left/right, run, shoot fireball, etc.
-    }
+    Map<KeyCode, Runnable> assignInputs();
 
 }

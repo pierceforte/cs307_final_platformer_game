@@ -4,12 +4,10 @@
  */
 public interface Profile {
 
-    void signIn() throws InvalidLogInException {
-        // how does someone sign in? Google? Facebook? Locally?
-    }
+    // how does someone sign in? Google? Facebook? Locally?
+    void signIn() throws InvalidLogInException;
 
-    void assignAttributes() {
-        // avatar, username, file sharer, etc.
-    }
+    // avatar, username, file sharer, etc.
+    void assignAttributes();
 
 }
