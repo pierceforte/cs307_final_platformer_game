@@ -6,6 +6,7 @@ public class SimplePlayer extends GameObject implements Player{
     public static final int RIGHT = 1;
 
     public SimplePlayer(double xPos, double yPos, double xSpeed, double ySpeed) {
+        super(xPos, yPos, xSpeed, ySpeed);
     }
 
     public Map<KeyCode, Runnable> assignInputs() {

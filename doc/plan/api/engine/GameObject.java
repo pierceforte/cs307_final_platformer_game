@@ -12,7 +12,7 @@ public abstract class GameObject {
      * Set x position of the object
      * @param xPos new x position of the object
      */
-    void setX(double xPos) {
+    public void setX(double xPos) {
         this.xPos = xPos;
     }
 
@@ -20,7 +20,7 @@ public abstract class GameObject {
      * Set y position of the object
      * @param yPos new y position of the object
      */
-    void setY(double yPos) {
+    public void setY(double yPos) {
         this.yPos = yPos;
     }
 
@@ -28,7 +28,7 @@ public abstract class GameObject {
      * Get x position of the object
      * @return x position of the object
      */
-    double getX() {
+    public double getX() {
         return xPos;
     }
 
@@ -36,7 +36,7 @@ public abstract class GameObject {
      * Get y position of the object
      * @return y position of the object
      */
-    double getY() {
+    public double getY() {
         return yPos;
     }
 
@@ -44,7 +44,7 @@ public abstract class GameObject {
      * Get x speed of the object
      * @return x speed of object
      */
-    double getXSpeed() {
+    public double getXSpeed() {
         return xSpeed;
     }
 
@@ -52,7 +52,7 @@ public abstract class GameObject {
      * Set x speed of the object
      * @param xSpeed the x speed to set
      */
-    void setXSpeed(double xSpeed) {
+    public void setXSpeed(double xSpeed) {
         this.xSpeed = xSpeed;
     }
 
@@ -60,7 +60,7 @@ public abstract class GameObject {
      * Get y speed of the object
      * @return y speed of object
      */
-    double getYSpeed() {
+    public double getYSpeed() {
         return ySpeed;
     }
 
@@ -68,7 +68,7 @@ public abstract class GameObject {
      * Set y speed of the object
      * @param ySpeed the y speed to set
      */
-    void setYSpeed(double ySpeed) {
+    public void setYSpeed(double ySpeed) {
         this.ySpeed = ySpeed;
     }
 
@@ -76,7 +76,7 @@ public abstract class GameObject {
      * Update the position of the object for each step
      * @param elapsedTime the time that is elapsed after a single step
      */
-    void updatePositionOnStep(double elapsedTime) {
+    public void updatePositionOnStep(double elapsedTime) {
         this.setX(this.getX() + this.getXSpeed() * elapsedTime);
         this.setY(this.getY() - this.getYSpeed() * elapsedTime);
     }
@@ -85,7 +85,7 @@ public abstract class GameObject {
      * Update the x position of the object
      * @param speed distance to move in x direction
      */
-    void updateXPos(double speed) {
+    public void updateXPos(double speed) {
         this.setX(this.getX() + speed);
     }
 
@@ -93,7 +93,21 @@ public abstract class GameObject {
      * Update the y position of the object
      * @param speed distance to move in y direction
      */
-    void updateYPos(double speed) {
+    public void updateYPos(double speed) {
         this.setY(this.getY() + speed);
+    }
+
+    /**
+     * Reverse the x direction
+     */
+    public void reverseXDirection() {
+        this.xSpeed *= -1;
+    }
+
+    /**
+     * Reverse the y direction
+     */
+    public void reverseYDirection() {
+        this.ySpeed *= -1;
     }
 }

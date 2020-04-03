@@ -4,7 +4,9 @@ public class Mongoose extends GameObject implements Enemy {
 
     public static final double X_SPEED = 10;
 
-    public Mongoose(double xPos, double yPos, double xSpeed, double ySpeed);
+    public Mongoose(double xPos, double yPos, double xSpeed, double ySpeed) {
+        super(xPos, yPos, xSpeed, ySpeed);
+    }
 
     // logic is to simply move toward target in x direction
     public void assignLogic(Point2D targetPos) {
