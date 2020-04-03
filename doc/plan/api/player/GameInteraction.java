@@ -7,44 +7,32 @@ public interface GameInteraction {
     /**
      * Defines how the game is paused
      */
-    void pause() {
-
-    }
+    void pause();
 
     /**
      * Create and display a GUI for when the game is paused
      */
-    void createPauseMenu() {
-
-    }
+    void createPauseMenu();
 
     /**
      * Defines how the game is restarted
      */
-    void restart() {
-
-    }
+    void restart();
 
     /**
      * Defines how the game is saved
      */
-    void save() {
-
-    }
+    void save();
 
     /**
      * Defines how the game is exited
      */
-    void exit() {
-
-    }
+    void exit();
 
     /**
      * Defines how the user can switch to a different game
      */
-    void switchGame() {
-
-    }
+    void switchGame();
 
     /*
      * Maybe this stuff should be in GameState
@@ -53,15 +41,11 @@ public interface GameInteraction {
     /**
      * Create and display a GUI for when the game is being played
      */
-    void displayHUD() {
-
-    }
+    void displayHUD();
 
     /**
      * Update this GUI when necessary
      */
-    void updateHUD() {
-
-    }
+    void updateHUD();
 
 }

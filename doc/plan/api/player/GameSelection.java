@@ -4,12 +4,10 @@
  */
 public interface GameSelection {
 
-    void displayGames() {
-        // what do the games look like? where are there descriptions? can the user "scroll" through the options?
-    }
+    // what do the games look like? where are there descriptions? can the user "scroll" through the options?
+    void displayGames();
 
-    void assignGames() {
-        // assign games to their icons
-    }
+    // assign games to their icons
+    void assignGames();
 
 }
