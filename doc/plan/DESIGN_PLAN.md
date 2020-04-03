@@ -177,7 +177,7 @@ with different animations accordingly.
 3. Crystal Ball Snail: Shoots beams of light
 4. Baby snail  (freezes enemies in place with cuteness)
 5. Zombie snail (extra life)
-6. Garden snail (grows vines)
+6. Ghost snail (passes through a set amount of tiles)
 7. UNLOCKABLE SNAIL: The Slug
 
 ![the snizards](images/snaillineup0402.png)
