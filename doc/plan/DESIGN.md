@@ -1,6 +1,7 @@
+#Snizard vs. Snizard: Age of Snwarfare A Design Plan.
+![snizard](images/numbersnakewizards.png)
+![snizard](images/snaillineup0402.png)
 #Introduction
-
-This section describes the problem your team is trying to solve by writing this program, the primary design goals of the project (i.e., where is it most flexible), and the primary architecture of the design (i.e., what is closed and what is open). Discuss the design at a high-level (i.e., without referencing specific classes, data structures, or code).
 
 The basic idea behind the game is a scrolling platformer in which a player tries to reach one end of each level by building platforms that take the player from one end to the other while killing all enemies. 
 
