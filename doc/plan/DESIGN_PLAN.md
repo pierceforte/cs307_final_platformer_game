@@ -117,8 +117,21 @@ A GameObject needs to be able to load in images and occupy a space on the Game d
                 - Special abilities (mentioned below)
         - PlayerAvatar extends GameObject, BUT the user's information, the Player package, is different.
 ## Data Package
+###Engine Module:
+- LevelDirectory Module - manages the flow of time, levels setup, and interaction with the Player
+- GameObject Module - Anything object on the game screen.
+- Interaction Module - rules on how the objects interact with one another
+- GameObject Display Module - displays GameObjects that the user has pulled from the BANK . Allows the user to edit the positions of these GameObjects and buy them from the store 
+- Settings Module - saves the current level and shares the data to the cloud.
+- Opponent Module - for the movement of rival snizards within the map; this module controls the rivals either to obstruct the movement of the player or kill them.
+###Player Module:
+- I/O Module – For sending user input to the Game Engine and receiving user output from the Game Engine.
+- Save Progress Module - For saving the users progress in the game.
+- Play Module – For displaying the game and any auxiliary GUI components. Includes the display for the game as well as displays for saving, loading, and seeing high-scores.
+###Data Module:
+- Input Module
+- Output Module
 
-##Player
 
 ##Modules
 
@@ -247,5 +260,8 @@ and killing them would be optional for the player.
     - Cauldron: snail/snake hops in, can catapult to other side of map
 
 #Design Considerations
-This section describes any issues which need to be addressed or resolved before attempting to devise a complete design solution. Include any design decisions discussed at length (include pros and cons from all sides of the discussion) as well as any ambiguities, assumptions, or dependencies regarding the program that impact the overall design.
 
+The biggest design consideration we still have to solve is the division between the front end and back end. While the data
+and player packages have clearly defined roles, the Engine has a lot to accomplish in terms of both building the back end for the level
+and the front end, and we have struggled in our discussions in how to arrange our packages within the engine to ensure the 
+view is separate from the model.
