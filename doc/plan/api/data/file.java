@@ -1,12 +1,18 @@
 
 public interface file {
 
-    public save(Object saveObject);
+    /**
+     * Pass in object you are trying to save
+     * @param saveObject
+     * @throws UnableToSyncWOnlineDatabase
+     */
+    void save(Object saveObject) throws UnableToSyncWOnlineDatabase;
 
-    public pushToDatabase(Object saveObject);
-
-    public pullFromDatabase(String target);
-
-    public load(String target);
-
+    /**
+     * Returns the class for the target you specify
+     * @param target
+     * @return
+     * @throws UnableToSyncWOnlineDatabase
+     */
+    Object load(String target) throws UnableToSyncWOnlineDatabase;
 }

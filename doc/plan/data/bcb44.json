@@ -1,17 +1,16 @@
-[
-  {
-    “bcb44”: {
-      “Id”: “bcb44”,
-      “password”:  “****”,
-      “birthdate”:”07/27/1998”,
-      “avatar”:”location.png”,
-      “score”:2000,
-      “coins”:2000,
-      “object1”:1,
-      “object2”:2,
-      “object3”:0,.... ,
-      “level1highscore”: 2,
-      “Level2highscore”: 0,
-      ...
+{
+  "bcb44": {
+    "id": "bcb44",
+    "password": "benburnett",
+    "birthdate": "07/27/1998",
+    "avatar": "location.png",
+    "score": 2000,
+    "coins": 15,
+    "vines": 55,
+    "slime": 13,
+    "Angel of Death": 0,
+    "Level1 HighScore": 55,
+    "Level2 HighScore": 12,
+    "Level3 HighScore": 0
   }
-]}
+}
