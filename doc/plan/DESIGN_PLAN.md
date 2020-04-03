@@ -1,24 +1,69 @@
 #Snizard vs. Snizard: Age of Snwarfare 
-#A Design Plan.
+# Design Plan
 ![snizard](images/numbersnakewizards.png)
 ![snizard](images/snaillineup0402.png)
 #Introduction
 
-The basic idea behind the game is a scrolling platformer in which a player tries to reach one end of each level by building platforms that take the player from one end to the other while killing all enemies. 
+The basic idea behind the game is a scrolling platformer in which a player tries to reach one end of each level by 
+building platforms that take the player from one end to the other while killing and/or evading all enemies. 
 
-The premise is that there are two rival wizarding clans: the Snizards, and the Snizards. The Snizards (snake wizards) hate the snizards (snail wizards), but they cannot kill each other directly; according to some ancient wizarding rule, wizards can’t kill each other directly. They have to use traps and the environment to eliminate each other. The player can choose which wizard clan to join, the Snizards or the Snizards, and then can level up their first avatar, or as they advance, scoring points and finding coins, can unlock other snizards to play as, each with their own unique abilities--snail wizards or snake wizards depending on which clan they joined. 
+The premise is that there are two rival wizarding clans: the Snizards, and the Snizards. The Snizards (snake wizards) 
+hate the snizards (snail wizards), but they cannot kill each other directly; according to some ancient wizarding rule,
+wizards can’t kill each other directly. They have to use traps and the environment to eliminate each other. The player
+can choose which wizard clan to join, the Snizards or the Snizards, and then can level up their first avatar, or as 
+they advance, scoring points and finding coins, can unlock other snizards to play as, each with their own unique 
+abilities--snail wizards or snake wizards depending on which clan they joined.
 
-###Gameplay Structure
+### Project Goals
 
-The game is based on this premise. At first, the user is taken to the main menu, in which they can login and access any of three different campaigns (allowing the player to both play as either snizard or snizard); from there, if this is their first time, they are taken to a cutscene explaining the premise, or they can go to level directory and choose a level. 
+#### General Game Goals
+- To create a flexible scrollable game that allows users to place objects from a bank before the start of each level
+- To challenge the user to finish each level as fast as possible through the use of enemies
 
-The gameplay is as follows. The player needs to think strategically: their objective is to reach the flag icon at one end of the level while making sure all enemies don’t. First is the BLUEPRINT stage. In this stage, the user is able to see the complete level at once, and is shown a BANK of objects they can insert into the map to accomplish their objective. Some objects are simple platforms to help the user reach the end; others are hazards that can kill either the player or their enemies. The player also has a personal INVENTORY of objects that they can hold onto during both the gameplay stage and across levels, so even if a necessary object does not spawn during the BLUEPRINT stage’s BANK, they can still solve the puzzle.
+#### Primary Design Goals
+- Allow the future programmers to add new levels, objects, and change the interactions between objects
+- Allow the user to save and load game states
 
-Once the player is satisfied by their BLUEPRINT of the map, the GAMEPLAY stage begins. The user clicks play, and their snizard avatar spawns on the map they have designed, following by any number of artificial enemies. There are six possible snizards for each snizard clan; depending on the player’s initial choice, they ‘play’ against the opposite team. In the first levels, the player plays against one or two relatively “dumb” snizards that simply follow the player until the player manages to kill them. 
+#### Open Classes
+- Child objects (so new objects can be easily created by extending parent object classes)
+- Interaction classes that define how objects interact with one another
+- Actions from user input (e.g. keyboard controls, cheat keys, etc.)
+- Level layouts
 
-In this gameplay stage, there are two win conditions. First, the player must navigate their level without dying, an increasingly difficult objective as the game advances and the objects that spawn in the BANK become populated more and more with more hazards and less platforms, and as the maps get more and more sparse. Second, the player must kill the rival snizards, which will spawn in increasing numbers and with increasing abilities. No snizard can kill another snizard directly, but they can manipulate the environment with projectiles, object-destroying abilities, and other hazards. 
+#### Closed Classes
+- How items are placed from inside a bank (that holds all objects available to the player) onto the screen
+- How the game state is saved and loaded from either a locally saved file or from an external source
 
-If the player fails one of the win conditions, they are taken to a REPLAY stage that shows them where they failed; if the player succeeds in both objectives, they see a victory screen and can either move onto the next level or go back to the level directory. The game is over when all levels are beaten, but at that point the player can unlock the FREEPLAY  option in which the player can make their own levels over successive rounds and choose which enemies spawn. 
+
+### Gameplay Structure
+
+First, the user is taken to the main menu, where they can login and access any of three different campaigns (allowing 
+the player to both play as either snizard or snizard); from there, if this is their first time, they are taken to a 
+cutscene/transition scene explaining the premise, or they can skip to the level directory and choose a level. 
+
+Gameplay: The player needs to think strategically: their objective is to reach the flag icon at one end of the level 
+while making sure all enemies don’t. First is the BLUEPRINT stage. In this stage, the user is able to see the complete
+level at once, and is shown a BANK of objects they can insert into the map to accomplish their objective. Some objects 
+are simple platforms to help the user reach the end; others are hazards that can kill either the player or their enemies.
+The player also has a personal INVENTORY of objects that they can hold onto during both the gameplay stage and across 
+levels, so even if a necessary object does not spawn during the BLUEPRINT stage’s BANK, they can still solve the puzzle.
+
+Once the player is satisfied by their BLUEPRINT of the map, the GAMEPLAY stage begins. The user clicks play, and their 
+snizard avatar spawns on the map they have designed, following by any number of artificial enemies. There are six 
+possible snizards for each snizard clan; depending on the player’s initial choice, they ‘play’ against the opposite 
+team. In the first levels, the player plays against one or two relatively “dumb” snizards that simply follow the player 
+until the player manages to kill them. 
+
+In this gameplay stage, there are two win conditions. First, the player must navigate their level without dying, 
+an increasingly difficult objective as the game advances and the objects that spawn in the BANK become populated more 
+and more with more hazards and less platforms, and as the maps get more and more sparse. Second, the player must kill 
+the rival snizards, which will spawn in increasing numbers and with increasing abilities. No snizard can kill another 
+snizard directly, but they can manipulate the environment with projectiles, object-destroying abilities, and other hazards. 
+
+If the player fails one of the win conditions, they are taken to a REPLAY stage that shows them where they failed; if 
+the player succeeds in both objectives, they see a victory screen and can either move onto the next level or go back 
+to the level directory. The game is over when all levels are beaten, but at that point the player can unlock the FREEPLAY
+option in which the player can make their own levels over successive rounds and choose which enemies spawn. 
 
 Please refer to the wire frames below for the game layout.
 
@@ -50,103 +95,44 @@ Thus, in these stages:
 The Replay module will read the csv file written by the LevelWriter to learn where in the level the user has travelled; it will recreate this movement for the user to reflect on after winning or losing.
 
 # Overview
-This section serves as a map of your design for other programmers to gain a general understanding of how and why the program was divided up, and how the individual parts work together to provide the desired functionality. Describe specific modules you intend to create, their purpose with regards to the program's functionality, and how they collaborate with each other, focusing specifically on each one's API. Include a picture of how the modules are related (these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a UML design program). Discuss specific classes, methods, and data structures, but not individual lines of code.
+This section serves as a map of your design for other programmers to gain a general understanding of how and why the 
+program was divided up, and how the individual parts work together to provide the desired functionality. Describe 
+specific modules you intend to create, their purpose with regards to the program's functionality, and how they 
+collaborate with each other, focusing specifically on each one's API. Include a picture of how the modules are related 
+(these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a UML 
+design program). Discuss specific classes, methods, and data structures, but not individual lines of code.
 
 Like the OOGA project overview recommends, our program is divided between the Engine, Data, and the Player.
 
-Frontend
-Viewer (main frontend class)
-Button classes (user by the viewer)
-Input/Output
-Load and same level states
-Save player data
-Backend
-Immutable Objects API (objects that the user cannot change)
-Platforms, traps, etc.
-Includes interactions between objects
-Mutable Objects API (objects that the player places)
-Store
-Controller/Engine
-Game flow features (e.g. pause, play, follow character feature)
-Updates the viewer based on backend methods
+### Engine Module
+The engine package holds the bulk of the game's data and communicates with the other two packages. It contains the
+following modules:
 
+- Game Objects: All fixed objects in the Game are added through the GameObject interface. When a level is initiated from saved
+data, this package will be passed the object that needs to be created along with the object's current state (including
+its location, size, etc). Below is a hierarchy that we will loosely follow for this module
+- Interactable game object: This module is similar to the Game object package, but instead deals with the objects
+that the player places. 
+- Interaction: this module defines the results of interactions between different pairs of objects
+- Level directory: this class controls the flow of the game by controlling the levels and the stages of the game
+- Opponent: this class defines the opponents in the game that can harm the player
+- Settings: contains the settings used in the game such as the score multipliers, etc. This may be checked periodically
+during the game to see if the viewer needs to be updated
 
-The Player Class has its own image, Score, Location, Lives
-Personal high scores, preferences (e.g., name, password, age (if parental controls are implemented), and favorite variants, tokens, colors, etc).
-
-## Engine Package
-###Game Objects
-An object in the Game is added through the GameObject interface, which implements the basic Java Object. When GameObjects collide, they call upon the Interactions interface. The Interaction interface is implemented by the Game abstract class, which is extended by the Game child objects. 
-
-A GameObject needs to be able to load in images and occupy a space on the Game display. Here is a basic hierarchy of GameObjects in the game, which will be expounded upon in greater detail later. 
-
-- GameObject Class
-    - Platform Class (defined by the fact the player cannot pass through it)
-        - Hazard Class 
-            - (boolean, if you touch it (or its projectiles touch you), death/lose a life)
-        - Moving Platform Class
-        - Appendable Class 
-            - (does not occupy a tile space, but can be added to an object)
-            - PlayerAppendableAffect Class
-                - Example: Ice or Glue, which affect how a player moves through the object
-            - PlayerAppendableHazard
-                - Example: Barbed wire, which kills the player.
-    - Enemy Class
-        - They follow by some distance, follow different levels of intuition
-            - Level 1: Follows 20 pixels
-            - Level 2: Take the path you took exactly
-            - Level 3: Take the path you took when you died last (?)
-            - Level 4: Anticipates your moves, or moves you need to take
-        - BASIC ABILITIES of Enemies
-            - JUMP
-            - WALK 
-            - RUN
-            - EXTRA ABILITIES
-                - PROJECTILES
-                - FLY
-                - DOUBLE JUMP
-    - Power-up Class (objects that the user can pick up, and thus disappear after use)
-        - Example: Potions
-    - PlayerAvatar Class
-        - BASIC ABILITIES within PlayLevel
-            - WALK
-            - RUN
-            - JUMP
-            - EXTRA ABILITIES (based on which snizard player unlocks)
-                - PROJECTILES (up to 5)
-                - Special abilities (mentioned below)
-        - PlayerAvatar extends GameObject, BUT the user's information, the Player package, is different.
-## Data Package
-###Engine Module:
-- LevelDirectory Module - manages the flow of time, levels setup, and interaction with the Player
-- GameObject Module - Anything object on the game screen.
-- Interaction Module - rules on how the objects interact with one another
-- GameObject Display Module - displays GameObjects that the user has pulled from the BANK . Allows the user to edit the positions of these GameObjects and buy them from the store 
-- Settings Module - saves the current level and shares the data to the cloud.
-- Opponent Module - for the movement of rival snizards within the map; this module controls the rivals either to obstruct the movement of the player or kill them.
-###Player Module:
-- I/O Module – For sending user input to the Game Engine and receiving user output from the Game Engine.
+### Player Module
+- I/O Module – For sending user input to the Game Engine and receiving user output from the Game Engine
 - Save Progress Module - For saving the users progress in the game.
-- Play Module – For displaying the game and any auxiliary GUI components. Includes the display for the game as well as displays for saving, loading, and seeing high-scores.
-###Data Module:
-- Input Module
-- Output Module
+- Play Module – For displaying the game and any auxiliary GUI components. Includes the display for the game as well as 
+displays for saving, loading, and seeing high-scores.
+
+###Data Module
+This package handles the data for the project; logically it is divided into the following two packages
+- Input Module: this module accepts saved game files and stores it either locally or externally
+- Output Module: this module loads the current saved game file from storage and passes it to teh Save Progress Module
+in the Player Module
 
 
-##Modules
-
-- Replay Feature
--  Follow character feature
-- Control Enemy Plan feature
-- Player interactions
-- Build map
-- Choose platforms for user based on the level what platforms to give the player
-- Choose Player Menu
-- Player Information Stage
-    - See user's information, chosen Avatar, High Score, how much money available
-- Main Menu
-- Store
-    - pay for new abilities/skills/players/levels with coins earned in game.
+![ModuleDiagram](images/modulediagram.png)
 
 ###Point System
 
@@ -160,10 +146,67 @@ fastest completed level.
 MAIN MENU -->CUSTOMIZABLE MENU →CHOOSE LEVEL PHASE -->BANK PHASE: Player gets six or seven objects they can put in the level→ BLUE PRINT PHASE : Player can build their level→PLAYABLE PHASE: Player plays their level→
 REPLAY PHASE: (If they die) you can see a replay
 
-# Example games
-The complexity to this game comes from its customization. From the get-go, the user must choose between two clans, each of which have their own advantages and disadvantages. A snake wizard cannot go near a snake charmer; a snail wizard can be killed by salt, but a snail wizard ignores a snake charmer and a snake wizard ignores salt. Each playable character has special abilities, and all can use potions as they acquire them. The player also builds their own levels, and the game must have a developed enough data management program to save and access these levels again later, in addition to a robust inventory system. Thus, the Player package must be significantly advanced to accommodate for these vulnerabilities, which change as the user changes characters, gets money, builds levels, etc.
 
-Equally, the objective of the game is not only to build a level the player can navigate, but to build a level the artificial enemy snizards cannot navigate. 
+
+# Design Details
+Here are necessary classes/features/hierarchies in each module that were not mentioned in the previous section:
+
+### Engine Module
+The engine package holds the bulk of the game's data and communicates with the other two packages. It contains the
+following modules:
+
+- Game Objects:
+    - There will be a hierarchy for different types of platforms that are created. Each platform will interact
+    differently with the user
+    - There will also be a hierarchy for different types of bricks and traps
+- Interactable game object
+    - Objects that the user can place will all implement the GameObject interface which includes necessary methods
+    like get and set methods for an object's coordinates
+- Interaction
+    - We will classify interactions into different categories by grouping pairs of objects that feature the same
+    result in the same category. This allows for less code duplication and allows us to lookup interactions between
+    any pair of objects from a separate file or enum class
+- Level directory
+    - This module will contain a linkedlist which is formed by the sequence of game levels and transition
+    scenes that the game takes
+    - This will contain level classes that contain game objects, interactable game objects, opponents, and other
+    objects needed to initialize a level
+- Opponent
+    - this module will be similar to the Game object module, but the object here will also have some level of 
+    intelligence (i.e. an enemy might come and attack the user)
+- Settings
+    - This module contains the settings the user might set while playing the game
+
+### Player Module
+- I/O Module
+    - This module will accept user input
+    - Will also process the output from the Engine Module caused by the given user input
+    - it won't check for valid user input
+    - Holds the buttons on the frontend such as a pause button, play button, reset button, etc. These are sources
+    that collect user input as well
+- Save Progress Module
+    - Saves the current state of the level
+- Play Module
+    - Communicates with the level directory to load the current viewer
+
+###Data Module
+This package handles the data for the project; logically it is divided into the following two packages
+- Input Module: this module accepts saved game files and stores it either locally or externally
+- Output Module: this module loads the current saved game file from storage and passes it to the Save Progress Module
+in the Player Module
+
+
+# Example games
+The complexity to this game comes from its customization. From the get-go, the user must choose between two clans, 
+each of which have their own advantages and disadvantages. A snake wizard cannot go near a snake charmer; a snail wizard
+can be killed by salt, but a snail wizard ignores a snake charmer and a snake wizard ignores salt. Each playable character 
+has special abilities, and all can use potions as they acquire them. The player also builds their own levels, and the game 
+must have a developed enough data management program to save and access these levels again later, in addition to a robust 
+inventory system. Thus, the Player package must be significantly advanced to accommodate for these vulnerabilities, which 
+change as the user changes characters, gets money, builds levels, etc.
+
+Equally, the objective of the game is not only to build a level the player can navigate, but to build a level the artificial 
+enemy snizards cannot navigate. 
 
 ##Playable Characters:
 ###Snake Lineup:
@@ -259,7 +302,7 @@ and killing them would be optional for the player.
     - Conveyer belts: a platform that if a character stands on it, moves them slowly to the side. 
     - Cauldron: snail/snake hops in, can catapult to other side of map
 
-#Design Considerations
+# Design Considerations
 
 The biggest design consideration we still have to solve is the division between the front end and back end. While the data
 and player packages have clearly defined roles, the Engine has a lot to accomplish in terms of both building the back end for the level
