@@ -1,9 +1,14 @@
 package engine.leveldirectory.level;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class defines the basic level object. It contains the mutable and immutable objects within a level and
+ * supports add and remove methods.
+ *
+ * @author Jerry Huang
+ */
 public class Level {
 
     // holds all the objects in the level
