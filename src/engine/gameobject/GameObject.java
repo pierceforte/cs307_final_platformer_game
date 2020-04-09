@@ -2,10 +2,15 @@ package engine.gameobject;
 
 public abstract class GameObject {
 
+    public static final int LEFT = -1;
+    public static final int RIGHT = 1;
+
     private double xPos;
     private double yPos;
     private double xSpeed;
     private double ySpeed;
+    private int xDirection;
+    private int yDirection;
 
     public GameObject(double xPos, double yPos, double xSpeed, double ySpeed) {
         this.xPos = xPos;
@@ -93,6 +98,7 @@ public abstract class GameObject {
      */
     public void updateXPos(double speed) {
         this.setX(this.getX() + speed);
+        xDirection = setDirection(xDirection, speed);
     }
 
     /**
@@ -101,6 +107,23 @@ public abstract class GameObject {
      */
     public void updateYPos(double speed) {
         this.setY(this.getY() + speed);
+        yDirection = setDirection(yDirection, speed);
+    }
+
+    /**
+     * Get the x direction
+     * @return x direction
+     */
+    public int getXDirection() {
+        return xDirection;
+    }
+
+    /**
+     * Get the y direction
+     * @return y direction
+     */
+    public int getYDirection() {
+        return yDirection;
     }
 
     /**
@@ -108,6 +131,7 @@ public abstract class GameObject {
      */
     public void reverseXDirection() {
         this.xSpeed *= -1;
+        this.xDirection *= -1;
     }
 
     /**
@@ -115,5 +139,13 @@ public abstract class GameObject {
      */
     public void reverseYDirection() {
         this.ySpeed *= -1;
+        this.yDirection *= -1;
     }
+
+    private int setDirection(int initDirection, double speed) {
+        if (speed == 0) return initDirection;
+        return speed < 0 ? LEFT : RIGHT;
+    }
+
+
 }
