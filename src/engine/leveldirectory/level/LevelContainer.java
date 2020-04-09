@@ -1,5 +1,7 @@
 package engine.leveldirectory.level;
 
+import engine.general.Game;
+
 import java.util.ArrayList;
 import java.util.List;
 

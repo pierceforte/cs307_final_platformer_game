@@ -3,7 +3,6 @@ package engine.leveldirectory.level;
 import engine.gameobject.GameObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
