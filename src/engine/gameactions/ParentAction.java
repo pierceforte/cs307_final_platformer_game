@@ -2,13 +2,28 @@ package engine.gameactions;
 
 import engine.gameobject.GameObject;
 
-public abstract class ParentAction extends GameObject {
+import java.util.List;
 
-    public ParentAction(double xPos, double yPos, double xSpeed, double ySpeed) {
-        super(xPos, yPos, xSpeed, ySpeed);
+public abstract class ParentAction {
+
+    String commandName;
+    Object gameObject;
+
+    ParentAction() {
+        commandName = "";
     }
 
-    public abstract void carryOutAction();
+    ParentAction(String str) {
+        commandName = str;
+    }
 
+    /**
+     * carries out the action on the list of objects passed in
+     * @param o
+     */
+    public abstract void carryOutAction(List<Object> o);
 
+    public String getCommandName() {
+        return commandName;
+    }
 }
