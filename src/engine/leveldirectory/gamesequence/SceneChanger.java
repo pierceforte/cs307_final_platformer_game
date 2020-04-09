@@ -1,8 +1,11 @@
+package engine.leveldirectory.gamesequence;
 
 import javafx.scene.Scene;
 
 /**
  * This interface defines how the game will transition from one level or transition scene to the next
+ *
+ * @author Jerry Huang
  */
 public interface SceneChanger {
     /**

@@ -12,6 +12,9 @@ public class LevelContainer {
 
     private List<Level> levels;
     private int currentLevel;
+
+    private int score; // can be updated for more complicated scores -- how should we keep track of scores/points?
+
     private final Game game; // current game -- should not be modified by by this class
 
     /**
@@ -19,7 +22,7 @@ public class LevelContainer {
      * @param game: Game to be loaded
      */
     public LevelContainer(Game game) {
-        level = new game.getLevels();
+        levels = new game.getLevels();
         currentLevel = 0;
         this.game = game;
     }

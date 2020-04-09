@@ -1,4 +1,4 @@
-package engine.interaction;
+package engine.objectinteraction;
 
 /**
  * This class stores the different types of collisions and their effects

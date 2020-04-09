@@ -1,4 +1,6 @@
-package engine.interaction;
+package engine.objectinteraction;
+
+import engine.gameobject.GameObject;
 
 /**
  * This interface will define how we will handle interactions, rules, and events
@@ -12,7 +14,7 @@ public interface Interactions {
      * @return: the method returns a double which will correspond to a specific interaction we define beforehand
      * (e.g. 1 might mean the two objects bounce off of one another)
      */
-    double getCollisionEffect(Object o1, Object o2);
+    double getCollisionEffect(GameObject o1, GameObject o2);
 
     /**
      * This method checks if the objects are actually overlapping

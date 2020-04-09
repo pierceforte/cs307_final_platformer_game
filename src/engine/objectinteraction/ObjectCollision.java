@@ -1,6 +1,8 @@
-package engine.interaction;
+package engine.objectinteraction;
 
-import static engine.interaction.CollisionTypes.TEMP_COLLISION;
+import engine.gameobject.GameObject;
+
+import static engine.objectinteraction.CollisionTypes.TEMP_COLLISION;
 
 /**
  * This class returns the resulting physics when given two objects that have collided in the game
@@ -19,7 +21,7 @@ public class ObjectCollision implements Interactions {
      * @param one: first object
      * @param two: second object
      */
-    public ObjectCollision(Object one, Object two) {
+    public ObjectCollision(GameObject one, GameObject two) {
         firstObject = one;
         secondObject = two;
         flag = false;
@@ -40,7 +42,7 @@ public class ObjectCollision implements Interactions {
      * @return
      */
     @Override
-    public double getCollisionEffect(Object o1, Object o2) {
+    public double getCollisionEffect(GameObject o1, GameObject o2) {
 
         int[][] tempArray = TEMP_COLLISION.getTemp(); // finish after objects are created
 

@@ -39,7 +39,7 @@ public abstract class Game implements SceneChanger {
     private void userInput(KeyCode k);
 
     /**
-     * implements get method outlined in the SceneChanger interface
+     * implements get method outlined in the engine.leveldirectory.gamesequence.SceneChanger interface
      */
     @Override
     public Scene getScene() {
@@ -47,7 +47,7 @@ public abstract class Game implements SceneChanger {
     }
 
     /**
-     * implements the get method outlined in the SceneChanger interface
+     * implements the get method outlined in the engine.leveldirectory.gamesequence.SceneChanger interface
      */
     @Override
     public Runnable getNextScene() {
@@ -55,7 +55,7 @@ public abstract class Game implements SceneChanger {
     }
 
     /**
-     * implements setter outlined in the SceneChanger interface
+     * implements setter outlined in the engine.leveldirectory.gamesequence.SceneChanger interface
      *
      * @param s: scene currently stored within the class
      */
@@ -65,7 +65,7 @@ public abstract class Game implements SceneChanger {
     }
 
     /**
-     * implements setter outlined in the SceneChanger interface
+     * implements setter outlined in the engine.leveldirectory.gamesequence.SceneChanger interface
      *
      * @param s: scene currently stored within the class
      */

@@ -1,6 +1,9 @@
 package engine.leveldirectory.level;
 
+import engine.gameobject.GameObject;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -9,11 +12,11 @@ import java.util.List;
  *
  * @author Jerry Huang
  */
-public class Level {
+public class Level implements LevelInterface {
 
     // holds all the objects in the level
-    private List<Object> objects; // needs to be updated to the type of the parent object
-    private List<Object> interactableObjects;
+    private List<GameObject> gameObjects; // needs to be updated to the type of the parent object
+    private List<GameObject> interactableObjects;
     /*
     fields that might be added in the future
 
@@ -27,15 +30,16 @@ public class Level {
      * Constructor for the basic level
      */
     public Level() {
-        objects = new ArrayList<>();
+        gameObjects = new ArrayList<>();
         interactableObjects = new ArrayList<>();
     }
 
-    public List<Object> getObjects() {
-        return objects;
+    @Override
+    public List<GameObject> getAllGameObjects() {
+        return gameObjects;
     }
 
-    public List<Object> getInteractableObjects() {
+    public List<GameObject> getInteractableObjects() {
         return interactableObjects;
     }
 
@@ -43,40 +47,40 @@ public class Level {
      * adds an immutable object to the level
      * @param o
      */
-    public void addObject(Object o) {
-        objects.add(o);
+    @Override
+    public void addGameObject(GameObject o) {
+        gameObjects.add(o);
     }
 
-    public void addObject(List<Object> listOfObjects) {
-        objects.addAll(listOfObjects);
+    public void addObject(List<GameObject> listOfObjects) {
+        gameObjects.addAll(listOfObjects);
     }
 
-    public void addInteractableObject(Object o) {
+    public void addInteractableObject(GameObject o) {
         interactableObjects.add(o);
     }
 
-    public void addInteractableObject(List<Object> listofInteractableObjects) {
+    public void addInteractableObject(List<GameObject> listofInteractableObjects) {
         interactableObjects.addAll(listofInteractableObjects);
     }
 
     /**
      * corresponding remove methods
      */
-    public boolean removeObject(Object o) {
-        return objects.remove(o);
+    public boolean removeObject(GameObject o) {
+        return gameObjects.remove(o);
     }
 
-    public boolean removeObject(List<Object> o) {
-        return objects.removeAll(o);
+    public boolean removeObject(List<GameObject> o) {
+        return gameObjects.removeAll(o);
     }
 
-    public boolean removeInteractableObject(Object o) {
+    public boolean removeInteractableObject(GameObject o) {
         return interactableObjects.remove(o);
     }
 
-    public boolean removeInteractableObject(List<Object> o) {
+    public boolean removeInteractableObject(List<GameObject> o) {
         return interactableObjects.removeAll(o);
     }
-
 
 }
