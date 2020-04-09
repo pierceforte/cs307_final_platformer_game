@@ -1,3 +1,6 @@
+package engine.gameobject.opponent;
+
+import javafx.geometry.Point2D;
 
 /**
  * This interface defines how a unique enemy will operate

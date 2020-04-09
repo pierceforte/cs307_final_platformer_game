@@ -102,7 +102,7 @@ collaborate with each other, focusing specifically on each one's API. Include a 
 (these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a UML 
 design program). Discuss specific classes, methods, and data structures, but not individual lines of code.
 
-Like the OOGA project overview recommends, our program is divided between the Engine, Data, and the Player.
+Like the OOGA project overview recommends, our program is divided between the Engine, Data, and the engine.gameobject.player.Player.
 
 ### Engine Module
 The engine package holds the bulk of the game's data and communicates with the other two packages. It contains the
@@ -119,7 +119,7 @@ that the player places.
 - Settings: contains the settings used in the game such as the score multipliers, etc. This may be checked periodically
 during the game to see if the viewer needs to be updated
 
-### Player Module
+### engine.gameobject.player.Player Module
 - I/O Module – For sending user input to the Game Engine and receiving user output from the Game Engine
 - Save Progress Module - For saving the users progress in the game.
 - Play Module – For displaying the game and any auxiliary GUI components. Includes the display for the game as well as 
@@ -129,7 +129,7 @@ displays for saving, loading, and seeing high-scores.
 This package handles the data for the project; logically it is divided into the following two packages
 - Input Module: this module accepts saved game files and stores it either locally or externally
 - Output Module: this module loads the current saved game file from storage and passes it to teh Save Progress Module
-in the Player Module
+in the engine.gameobject.player.Player Module
 
 
 ![ModuleDiagram](images/modulediagram.png)
@@ -143,7 +143,7 @@ that way, you can reach a new high score for a level and compete against other p
 it's not as important if you want to advance. There is also a best time feature shared in a global high score sheet for 
 fastest completed level. 
 
-MAIN MENU -->CUSTOMIZABLE MENU →CHOOSE LEVEL PHASE -->BANK PHASE: Player gets six or seven objects they can put in the level→ BLUE PRINT PHASE : Player can build their level→PLAYABLE PHASE: Player plays their level→
+MAIN MENU -->CUSTOMIZABLE MENU →CHOOSE LEVEL PHASE -->BANK PHASE: engine.gameobject.player.Player gets six or seven objects they can put in the level→ BLUE PRINT PHASE : engine.gameobject.player.Player can build their level→PLAYABLE PHASE: engine.gameobject.player.Player plays their level→
 REPLAY PHASE: (If they die) you can see a replay
 
 
@@ -177,7 +177,7 @@ following modules:
 - Settings
     - This module contains the settings the user might set while playing the game
 
-### Player Module
+### engine.gameobject.player.Player Module
 - I/O Module
     - This module will accept user input
     - Will also process the output from the Engine Module caused by the given user input
@@ -193,7 +193,7 @@ following modules:
 This package handles the data for the project; logically it is divided into the following two packages
 - Input Module: this module accepts saved game files and stores it either locally or externally
 - Output Module: this module loads the current saved game file from storage and passes it to the Save Progress Module
-in the Player Module
+in the engine.gameobject.player.Player Module
 
 
 # Example games
@@ -202,7 +202,7 @@ each of which have their own advantages and disadvantages. A snake wizard cannot
 can be killed by salt, but a snail wizard ignores a snake charmer and a snake wizard ignores salt. Each playable character 
 has special abilities, and all can use potions as they acquire them. The player also builds their own levels, and the game 
 must have a developed enough data management program to save and access these levels again later, in addition to a robust 
-inventory system. Thus, the Player package must be significantly advanced to accommodate for these vulnerabilities, which 
+inventory system. Thus, the engine.gameobject.player.Player package must be significantly advanced to accommodate for these vulnerabilities, which 
 change as the user changes characters, gets money, builds levels, etc.
 
 Equally, the objective of the game is not only to build a level the player can navigate, but to build a level the artificial 

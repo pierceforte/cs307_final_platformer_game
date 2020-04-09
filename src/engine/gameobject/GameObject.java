@@ -1,3 +1,4 @@
+package engine.gameobject;
 
 public abstract class GameObject {
 
@@ -6,7 +7,12 @@ public abstract class GameObject {
     private double xSpeed;
     private double ySpeed;
 
-    public GameObject(double xPos, double yPos, double xSpeed, double ySpeed);
+    public GameObject(double xPos, double yPos, double xSpeed, double ySpeed) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+    }
 
     /**
      * Set x position of the object

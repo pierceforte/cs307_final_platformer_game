@@ -1,3 +1,6 @@
+package engine.gameobject.player;
+
+import javafx.scene.input.KeyCode;
 
 import java.util.Map;
 /**
