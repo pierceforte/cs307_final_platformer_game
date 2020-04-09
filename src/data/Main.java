@@ -17,8 +17,8 @@ public class Main {
         Map<String, Object> data = new HashMap<>();
         data.put("first", "Ada");
         data.put("last", "Lovelace");
-        //data.put("dob", new Integer[])
-        //ApiFuture<WriteResult> result = docRef.set(data);
+        //data.put("dob", new int[]{8,28,1998});
+        ApiFuture<WriteResult> result = docRef.set(data);
         ApiFuture<QuerySnapshot> query = db.collection("users").get();
         QuerySnapshot querySnapshot = query.get();
         List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
@@ -30,6 +30,7 @@ public class Main {
             }
             System.out.println("Last: " + document.getString("lastname"));
             System.out.println("Born: " + document.getLong("born"));
+            //System.out.println(": " + document.getLong("born"));
         }
 
     }
