@@ -24,7 +24,7 @@ public class LevelContainer {
      * @param game: Game to be loaded
      */
     public LevelContainer(Game game) {
-        levels = new game.getLevels();
+        levels = new ArrayList<>();
         currentLevel = 0;
         this.game = game;
     }
