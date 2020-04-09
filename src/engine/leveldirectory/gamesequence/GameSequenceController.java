@@ -6,6 +6,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+/*
 public class GameSequenceController {
     public static final int FRAME_DURATION = 10;
 
@@ -42,3 +43,4 @@ public class GameSequenceController {
         return timeline;
     }
 }
+*/

@@ -1,4 +1,5 @@
 
+/*
 public interface file {
 
     /**
@@ -6,6 +7,7 @@ public interface file {
      * @param saveObject
      * @throws UnableToSyncWOnlineDatabase
      */
+/*
     void save(Object saveObject) throws UnableToSyncWOnlineDatabase;
 
     /**
@@ -14,5 +16,6 @@ public interface file {
      * @return
      * @throws UnableToSyncWOnlineDatabase
      */
+/*
     Object load(String target) throws UnableToSyncWOnlineDatabase;
-}
+}*/

@@ -1,10 +1,11 @@
 package menu;
 
+import javafx.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.scene.*;
+
 
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -13,7 +14,6 @@ public class MainMenu extends Page {
 
     private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources");
     private static final String STYLESHEET = "menuresources/main.css";
-
 
     private Stage myStage;
     private Scene myScene;
@@ -32,7 +32,7 @@ public class MainMenu extends Page {
     }
 
     @Override
-    Scene buildScene(int height, int width) throws IOException {
+    public Scene buildScene(int height, int width) throws IOException {
 
         Pane myRoot = init_Root(height, width);
 

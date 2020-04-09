@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
 public class SimplePlayer extends GameObject implements Player{
 
     public static final double X_SPEED = 10;
@@ -34,4 +35,4 @@ public class SimplePlayer extends GameObject implements Player{
     public void jump() {
         updateYPos(Y_SPEED);
     }
-}
+} */
