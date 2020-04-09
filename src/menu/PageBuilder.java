@@ -20,36 +20,31 @@ public class PageBuilder {
     }
 
     public Button buildNewGameButton() {
-            Button save = new Button(myResource.getString("NewGame"));
-            save.setId("SaveButton");
-            save.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        Button save = new Button(myResource.getString("NewGame"));
+        save.setId("LaunchButton");
+        save.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     Dialog<String[]> dialog = new Dialog<>();
-                    dialog.setTitle(myResource.getString("SaveTitle"));
-                    dialog.setHeaderText(myResource.getString("Enter"));
+                    dialog.setTitle(myResource.getString("NGTitle"));
+                    dialog.setHeaderText(myResource.getString("NGPrompt"));
 
                     ButtonType save = new ButtonType(myResource.getString("Save"), ButtonBar.ButtonData.OK_DONE);
                     dialog.getDialogPane().getButtonTypes().addAll(save, ButtonType.CANCEL);
 
-                    TextField title = new TextField(myResource.getString("Simtitle"));
-                    title.setPromptText("Title");
+                    TextField title = new TextField(myResource.getString("NGUsername"));
+                    title.setPromptText(myResource.getString("NGUsername"));
 
-                    TextField saveloc = new TextField(myResource.getString("SaveLoc"));
-                    saveloc.setPromptText(myResource.getString("SaveLoc"));
+                    TextField saveloc = new TextField(myResource.getString("NGPassword"));
+                    saveloc.setPromptText(myResource.getString("NGPassword"));
 
-                    TextField author = new TextField(myResource.getString("Simauthor"));
-                    author.setPromptText("Author");
 
-                    TextField description = new TextField(myResource.getString("Simdetail"));
-                    description.setPromptText(myResource.getString("Describe"));
-
-                    VBox texts = new VBox(title, author, description, saveloc);
+                    VBox texts = new VBox(title, saveloc);
                     dialog.getDialogPane().setContent(texts);
 
                     dialog.setResultConverter(dialogButton-> {
                         if (dialogButton == save) {
-                            return new String[]{ saveloc.getText(), title.getText(), author.getText(), description.getText()};
+                            return new String[]{ saveloc.getText(), title.getText()};
                         }
                         return null;
                     });
@@ -64,8 +59,10 @@ public class PageBuilder {
                             alert.setHeaderText(myResource.getString("InvalidFile"));
                             alert.setContentText(myResource.getString("Try"));
                             //throw a "file already exists" exception
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    }}}
-            return save;
+                    }}});
+        return save;
     }
 }

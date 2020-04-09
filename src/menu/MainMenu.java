@@ -1,6 +1,7 @@
 package menu;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.*;
@@ -16,6 +17,7 @@ public class MainMenu extends Page {
 
     private Stage myStage;
     private Scene myScene;
+    private PageBuilder myFactory;
 
     /**
      * Constructs a basic Page. All animated Pages are extended from this class.
@@ -26,15 +28,13 @@ public class MainMenu extends Page {
     public MainMenu(Stage primaryStage) {
         super(primaryStage);
         myStage = primaryStage;
+        myFactory = new PageBuilder();
     }
 
     @Override
     Scene buildScene(int height, int width) throws IOException {
-        Pane myRoot = new Pane();
-        myRoot.setPrefSize(width, height);
 
-
-        myRoot.getChildren().addAll();
+        Pane myRoot = init_Root(height, width);
 
         myScene = new Scene(myRoot);
         myScene.getStylesheets().addAll(this.getClass().getResource("resources/main.css")
@@ -43,14 +43,23 @@ public class MainMenu extends Page {
         return myScene;
     }
 
+    private Pane init_Root(int height, int width) {
+        Pane myRoot = new Pane();
+        myRoot.setPrefSize(width, height);
+        Button newgame = myFactory.buildNewGameButton();
+        myRoot.getChildren().addAll(newgame);
+
+        return myRoot;
+    }
+
     @Override
     String getType() {
-        return null;
+        return "MainMenu";
     }
 
     @Override
     String getCommand() {
-        return null;
+        return "MainMenu";
     }
 
     @Override
