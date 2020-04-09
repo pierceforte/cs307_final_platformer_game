@@ -15,7 +15,7 @@ Engine Module:
 - Settings Module (Jerry)
 - Opponent Module (Pierce)
 
-Player Module:
+engine.gameobject.player.Player Module:
 - I/O Module (Ben)
 - Save Progress Module (Ben)
 - Play Module (Ben and Nichole)

@@ -18,7 +18,7 @@ http://agilemodeling.com/artifacts/systemUseCase.htm
         -   The player clicks the sign in icon
         -   The player enters their username and password
         -   The player is prompted to try again if their credentials are invalid, else they are signed in and can begin playing the game
-2. Player death
+2. engine.gameobject.player.Player death
     - Description
         - A player encounters a hazard and dies
     - Preconditions
@@ -163,7 +163,7 @@ http://agilemodeling.com/artifacts/systemUseCase.htm
         - Game has informed Data package of the changes made to the map so Data can rewrite the .json file associated with the saved level configurations to a map.
         - BANK has one less object in it.
     - Basic course of action
-        - User clicks an object. User must spend coins to buy the object; the coins are removed from the Player’s inventory (represented in Player API). If the user does not have the coins, nothing happens.
+        - User clicks an object. User must spend coins to buy the object; the coins are removed from the engine.gameobject.player.Player’s inventory (represented in engine.gameobject.player.Player API). If the user does not have the coins, nothing happens.
         - If they do, this object is no longer represented in the BANK, and a sprite of the object will follow the cursor until the user has placed it.
         - The user deposits the object in a tile space. The Engine will read the location of the object (represented in a Javafx affine) and tell the Data package to update the .json file associated with the saved level configurations of the map for the player to play later.
         - When the user presses play level, they will see this object represented in the level.
@@ -174,9 +174,9 @@ http://agilemodeling.com/artifacts/systemUseCase.htm
     - Preconditions
         - User has made a global account
     - Postconditions
-        - The Player’s information will update accordingly
+        - The engine.gameobject.player.Player’s information will update accordingly
     - Basic course of action
-        - User presses an icon associated with the Player’s description.
+        - User presses an icon associated with the engine.gameobject.player.Player’s description.
         - User is taken to a player info menu
         - Menu displays number of levels beaten with their high scores and time completed stats. They can also see how many coins they have.
         - In the bottom of the screen they can see other snizards they can unlock. If they have the coins, they can purchase a new snizard to play. If they have already unlocked a snizard and paid for it, they can switch characters anytime. Information on the abilities of their snizards is on the bottom of the screen.
@@ -191,22 +191,22 @@ http://agilemodeling.com/artifacts/systemUseCase.htm
         - Either they can unlock this snizard by paying the coins or they cannot. If they can, they will now play as this snizard avatar, with all abilities associated with this snizard available to them.
         - If they cannot, a dialogue box will open explaining that they cannot.
     - Basic course of action
-        - User clicks on a sprite. Engine tells Player that this sprite will cost X amount of coins.
-        - Player tells Engine how many coins the User has. Engine checks whether this is sufficient; if so, this amount is removed from the Player and the sprite is unlocked. The Engine tells the Player that the sprite is unlocked, and this unlocked character is given to Data to remember that this character is unlocked. 
-        - Automatically, in this scenario, the Player’s sprite switches to this snizard. Player now remembers this sprite; when called by Engine to produce the sprite associated with the Player in BLUEPRINT and GAMEPLAY, it will refer to the .json image associated with the sprite in Data.
+        - User clicks on a sprite. Engine tells engine.gameobject.player.Player that this sprite will cost X amount of coins.
+        - engine.gameobject.player.Player tells Engine how many coins the User has. Engine checks whether this is sufficient; if so, this amount is removed from the engine.gameobject.player.Player and the sprite is unlocked. The Engine tells the engine.gameobject.player.Player that the sprite is unlocked, and this unlocked character is given to Data to remember that this character is unlocked. 
+        - Automatically, in this scenario, the engine.gameobject.player.Player’s sprite switches to this snizard. engine.gameobject.player.Player now remembers this sprite; when called by Engine to produce the sprite associated with the engine.gameobject.player.Player in BLUEPRINT and GAMEPLAY, it will refer to the .json image associated with the sprite in Data.
 
 5. User clicks on a vending machine.
     - Description
-        - In the Playable Level, the user clicks on a Vending Machine, which is a GameObject the Player can see. 
+        - In the Playable Level, the user clicks on a Vending Machine, which is a GameObject the engine.gameobject.player.Player can see. 
     - Preconditions
         - User has already assembled their level in the BLUEPRINT stage and is playing it. 
         - User has placed a Vending Machine GameObject in their map, meaning it must have already spawned in the BANK and the user has paid for it with coins.
         - Playable character is within the Vending Machine’s set radius to interact with the object.
-        - Player has enough coins to pay for a Potion from the Vending Machine
+        - engine.gameobject.player.Player has enough coins to pay for a Potion from the Vending Machine
     - Postconditions
-        - User spends one coin to interact with the Vending Machine; that coin is removed from Player. 
+        - User spends one coin to interact with the Vending Machine; that coin is removed from engine.gameobject.player.Player. 
         - User now has a Potion in their inventory.
     - Basic course of action
-        - User has enough coins to pay the Vending Machine. The Engine tells the Player to remove a coin from their coin count.
-        - Engine animates the Vending Machine on screen and deposits a Potion in the Player’s inventory. Player can now press P to throw the Potion. 
-        - Engine tells Data that the Player has a Potion in their inventory. Data updates the .json file associated with the Player’s inventory accordingly.
+        - User has enough coins to pay the Vending Machine. The Engine tells the engine.gameobject.player.Player to remove a coin from their coin count.
+        - Engine animates the Vending Machine on screen and deposits a Potion in the engine.gameobject.player.Player’s inventory. engine.gameobject.player.Player can now press P to throw the Potion. 
+        - Engine tells Data that the engine.gameobject.player.Player has a Potion in their inventory. Data updates the .json file associated with the engine.gameobject.player.Player’s inventory accordingly.
