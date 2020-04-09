@@ -1,12 +1,11 @@
 package data;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -19,11 +18,19 @@ public class Main {
         data.put("first", "Ada");
         data.put("last", "Lovelace");
         //data.put("dob", new Integer[])
-//asynchronously write data
-        ApiFuture<WriteResult> result = docRef.set(data);
-// ...
-// result.get() blocks on response
-       // System.out.println("Update time : " + result.get().getUpdateTime());
+        //ApiFuture<WriteResult> result = docRef.set(data);
+        ApiFuture<QuerySnapshot> query = db.collection("users").get();
+        QuerySnapshot querySnapshot = query.get();
+        List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+        for (QueryDocumentSnapshot document : documents) {
+            System.out.println("User: " + document.getId());
+            System.out.println("First: " + document.getString("firstname"));
+            if (document.contains("middle")) {
+                System.out.println("Middle: " + document.getString("middlename"));
+            }
+            System.out.println("Last: " + document.getString("lastname"));
+            System.out.println("Born: " + document.getLong("born"));
+        }
 
     }
 }
