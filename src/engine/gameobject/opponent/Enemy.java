@@ -1,6 +1,6 @@
 package engine.gameobject.opponent;
 
-import javafx.geometry.Point2D;
+import engine.gameobject.GameObject;
 
 /**
  * This interface defines how a unique enemy will operate
@@ -9,8 +9,8 @@ public interface Enemy {
 
     /**
      * Assigns how the enemy moves; eg. how do they attack the player?
-     * @param targetPos where the target is located
+     * @param target the target is located
      */
-    void assignLogic(Point2D targetPos);
+    void assignLogic(GameObject target);
 
 }
