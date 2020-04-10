@@ -29,8 +29,10 @@ public class GameSequence {
 
         scoreDisplay = null; // get scorebar from the graphics engine
 
+        //TODO: properly implement code below
+        /*
         levelContainer = new LevelContainer(game, scoreDisplay, new StepInterface()); // need to finish this line
-
+         */
     }
 
     /**

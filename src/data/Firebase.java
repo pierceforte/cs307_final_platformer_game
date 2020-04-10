@@ -10,11 +10,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class firebase {
+public class Firebase {
 
     Firestore db;
 
-    public firebase() throws IOException {
+    public Firebase() throws IOException {
         // Use a service account
         InputStream serviceAccount = new FileInputStream("src/data/ServiceAccountKey.json");
         GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);

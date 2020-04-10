@@ -7,7 +7,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-/*
 public class GameSequenceController {
     public static final int FRAME_DURATION = 10;
     private LevelContainer levelContainer;
@@ -28,10 +27,7 @@ public class GameSequenceController {
     }
 
     private void step() {
-<<<<<<< HEAD
         levelContainer.getGameSequenceController().step();
-=======
->>>>>>> d41b87a0205cd27911b3bdc7dcfe2cb36c525185
     }
 
     public void pause() {
@@ -50,4 +46,3 @@ public class GameSequenceController {
         return timeline;
     }
 }
-*/

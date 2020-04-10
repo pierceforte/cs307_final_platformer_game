@@ -18,7 +18,10 @@ public class ScoreDisplay {
     public ScoreDisplay(Game game) {
         this.game = game;
         score = 0;
+        //TODO: properly implement code below
+        /*
         levelContainer = new LevelContainer(game);
+         */
     }
 
     public int getLives() {
