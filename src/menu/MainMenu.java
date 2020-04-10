@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 public class MainMenu extends Page {
 
-    private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources");
+    private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
     private static final String STYLESHEET = "menuresources/main.css";
 
     private Stage myStage;
@@ -37,17 +37,21 @@ public class MainMenu extends Page {
         Pane myRoot = init_Root(height, width);
 
         myScene = new Scene(myRoot);
-        myScene.getStylesheets().addAll(this.getClass().getResource("resources/main.css")
+        myScene.getStylesheets().addAll(this.getClass().getResource("menuresources/main.css")
                 .toExternalForm());
-
         return myScene;
     }
 
     private Pane init_Root(int height, int width) {
         Pane myRoot = new Pane();
         myRoot.setPrefSize(width, height);
+
         Button newgame = myFactory.buildNewGameButton();
-        myRoot.getChildren().addAll(newgame);
+
+        MenuBox myMenuBox = new MenuBox();
+        myFactory.addMainMenuButtons(myMenuBox);
+
+        myRoot.getChildren().addAll(newgame, myMenuBox, myFactory.buildTitleText(myResource.getString("MainTitle")));
 
         return myRoot;
     }

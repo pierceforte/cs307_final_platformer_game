@@ -1,5 +1,5 @@
 .root{
-    -fx-background-color: azure;
+    -fx-background-color: lightblue;
     -fx-background-size: cover, auto;
     -fx-font-size: 12pt;
 }
@@ -7,16 +7,16 @@
     -fx-font-fill: greenyellow;
     -fx-font-family: "Times New Roman";
     -fx-font-size: 32pt;
-    -fx-translate-x: 450;
-    -fx-translate-y: 450;
+    -fx-translate-x: 300;
+    -fx-translate-y: 200;
 }
 #MainTitle {
     -fx-font-fill: mediumblue;
     -fx-font-family: "Times New Roman";
-    -fx-font-size: 16pt;
+    -fx-font-size: 32pt;
     -fx-text-alignment: center;
-    -fx-translate-x: 715;
-    -fx-translate-y: 50;
+    -fx-translate-x: 250;
+    -fx-translate-y: 300;
 }
 #choiceBox{
     -fx-translate-x: 700;
@@ -28,13 +28,13 @@
     -fx-font-size: 12;
     -fx-hgap: 10;
     -fx-vgap: 10;
-    -fx-background-color: silver;
+    -fx-background-color: pink;
     -fx-opacity: 0.8;
     -fx-font-weight: bold;
 }
 #MenuBox{
-    -fx-translate-x: 675;
-    -fx-translate-y: 100;
+    -fx-translate-x: 320;
+    -fx-translate-y: 450;
 }
 #LaunchButton{
     -fx-background-color: goldenrod;
