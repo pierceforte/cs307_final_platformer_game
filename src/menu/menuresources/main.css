@@ -1,0 +1,71 @@
+.root{
+    -fx-background-color: lightblue;
+    -fx-background-size: cover, auto;
+    -fx-font-size: 12pt;
+}
+#Welcome{
+    -fx-font-fill: greenyellow;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 32pt;
+    -fx-translate-x: 300;
+    -fx-translate-y: 200;
+}
+#MainTitle {
+    -fx-font-fill: mediumblue;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 32pt;
+    -fx-text-alignment: center;
+    -fx-translate-x: 250;
+    -fx-translate-y: 300;
+}
+#choiceBox{
+    -fx-translate-x: 700;
+    -fx-translate-y: 650;
+}
+.button{
+    -fx-pref-height: 60;
+    -fx-pref-width: 200;
+    -fx-font-size: 12;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-color: pink;
+    -fx-opacity: 0.8;
+    -fx-font-weight: bold;
+}
+#MenuBox{
+    -fx-translate-x: 320;
+    -fx-translate-y: 450;
+}
+#LaunchButton{
+    -fx-background-color: goldenrod;
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-translate-x: 650;
+    -fx-translate-y: 800;
+}
+#selected{
+    -fx-pref-height: 60;
+    -fx-pref-width: 200;
+    -fx-font-size: 12;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-color: rosybrown;
+    -fx-opacity: 0.8;
+    -fx-font-weight: bold;
+}
+#ViewTextTitle{
+    -fx-text-fill: black;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 14pt;
+    -fx-translate-x: 400;
+    -fx-translate-y: 650;
+}
+#BackgroundPane{
+    -fx-fill: gainsboro;
+    -fx-stroke: mediumblue;
+    -fx-translate-y: 625;
+    -fx-translate-x: 350;
+    -fx-pref-width: 500;
+    -fx-pref-height: 150;
+    -fx-opacity: 0.2;
+}
