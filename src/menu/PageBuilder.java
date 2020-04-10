@@ -61,14 +61,14 @@ public class PageBuilder {
                     if (result.isPresent()) {
                         String[] g = result.get();
                         try {
+                            User player = new User(title.getText(), saveloc.getText());
 
+                        } catch (InvalidLoginException e) {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle(myResource.getString("InvalidFile"));
                             alert.setHeaderText(myResource.getString("InvalidFile"));
                             alert.setContentText(myResource.getString("Try"));
                             //throw a "file already exists" exception
-                        } catch (Exception e) {
-                            e.printStackTrace();
                         }
                     }}});
         return save;
@@ -109,13 +109,12 @@ public class PageBuilder {
                     String[] g = result.get();
                     try {
 
+                    } catch (InvalidLoginException e) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle(myResource.getString("InvalidFile"));
                         alert.setHeaderText(myResource.getString("InvalidFile"));
                         alert.setContentText(myResource.getString("Try"));
                         //throw a "file already exists" exception
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
                 }}});
         Button exit = new Button(myResource.getString("Exit"));
