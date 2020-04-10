@@ -1,21 +1,23 @@
 package player.saveprogress;
 
-import player.saveprogress.UnableToSyncWOnlineDatabase;
+import player.saveprogress.UnableToSyncWOnlineDatabaseException;
 
 public interface file {
 
     /**
      * Pass in object you are trying to save
      * @param saveObject
-     * @throws UnableToSyncWOnlineDatabase
+     * @throws UnableToSyncWOnlineDatabaseException
      */
-    void save(Object saveObject) throws UnableToSyncWOnlineDatabase;
+    void save(Object saveObject) throws UnableToSyncWOnlineDatabaseException;
 
     /**
      * Returns the class for the target you specify
      * @param target
      * @return
-     * @throws UnableToSyncWOnlineDatabase
+     * @throws UnableToSyncWOnlineDatabaseException
      */
-    Object load(String target) throws UnableToSyncWOnlineDatabase;
+    Object load(String target) throws UnableToSyncWOnlineDatabaseException;
+    
+
 }

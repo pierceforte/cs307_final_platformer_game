@@ -9,7 +9,7 @@ public class Raccoon extends GameObject implements Enemy {
 
     private double initXSpeed;
 
-    public Raccoon(double xPos, double yPos, double xSpeed, int direction) {
+    public Raccoon(double xPos, double yPos, double xSpeed) {
         super(xPos, yPos, xSpeed, DEFAULT_Y_SPEED);
         initXSpeed = xSpeed;
     }

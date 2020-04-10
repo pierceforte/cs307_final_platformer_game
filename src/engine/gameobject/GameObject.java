@@ -2,8 +2,8 @@ package engine.gameobject;
 
 public abstract class GameObject {
 
-    public static final int LEFT = -1;
-    public static final int RIGHT = 1;
+    public static final int DOWN_OR_LEFT = -1;
+    public static final int UP_OR_RIGHT = 1;
 
     private double xPos;
     private double yPos;
@@ -17,6 +17,8 @@ public abstract class GameObject {
         this.yPos = yPos;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
+        xDirection = UP_OR_RIGHT;
+        yDirection = UP_OR_RIGHT;
     }
 
     /**
@@ -144,7 +146,7 @@ public abstract class GameObject {
 
     private int setDirection(int initDirection, double speed) {
         if (speed == 0) return initDirection;
-        return speed < 0 ? LEFT : RIGHT;
+        return speed < 0 ? DOWN_OR_LEFT : UP_OR_RIGHT;
     }
 
 
