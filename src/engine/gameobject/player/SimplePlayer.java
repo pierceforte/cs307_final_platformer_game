@@ -9,13 +9,14 @@ import java.util.Map;
 /*
 public class SimplePlayer extends GameObject implements Player{
 
-    public static final double X_SPEED = 10;
-    public static final double Y_SPEED = 10; // for jumping
+    public static final double DEFAULT_X_SPEED = 10;
+    public static final double DEFAULT_Y_SPEED = 10; // for jumping
     public static final int LEFT = -1;
     public static final int RIGHT = 1;
 
     public SimplePlayer(double xPos, double yPos, double xSpeed, double ySpeed) {
         super(xPos, yPos, xSpeed, ySpeed);
+
     }
 
     public Map<KeyCode, Runnable> assignInputs() {
@@ -29,10 +30,10 @@ public class SimplePlayer extends GameObject implements Player{
     }
 
     public void move(int direction) {
-        updateXPos(direction * X_SPEED);
+        updateXPos(direction * DEFAULT_X_SPEED);
     }
 
     public void jump() {
-        updateYPos(Y_SPEED);
+        updateYPos(DEFAULT_Y_SPEED);
     }
 } */

@@ -9,11 +9,11 @@ public abstract class ParentAction {
     String commandName;
     Object gameObject;
 
-    ParentAction() {
+    public ParentAction() {
         commandName = "";
     }
 
-    ParentAction(String str) {
+    public ParentAction(String str) {
         commandName = str;
     }
 
