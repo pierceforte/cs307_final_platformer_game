@@ -1,3 +1,6 @@
+package player.saveprogress;
+
+import player.saveprogress.UnableToSyncWOnlineDatabase;
 
 public interface file {
 

@@ -26,6 +26,9 @@ public class GameSequenceController {
         timeline.getKeyFrames().add(frame);
     }
 
+    private void step() {
+    }
+
     public void pause() {
         timeline.pause();
     }

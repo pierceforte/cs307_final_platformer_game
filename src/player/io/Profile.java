@@ -1,3 +1,4 @@
+package player.io;
 
 /**
  * This interface will define how we will handle profile creation and interaction
