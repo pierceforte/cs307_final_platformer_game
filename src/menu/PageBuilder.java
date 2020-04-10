@@ -1,11 +1,15 @@
 package menu;
 
+import data.InvalidLoginException;
+import data.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -68,6 +72,12 @@ public class PageBuilder {
                             alert.setHeaderText(myResource.getString("InvalidFile"));
                             alert.setContentText(myResource.getString("Try"));
                             //throw a "file already exists" exception
+                        } catch (ParseException e) {
+                            //TODO: catch properly
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            //TODO: catch properly
+                            e.printStackTrace();
                         }
                     }}});
         return save;
@@ -106,15 +116,19 @@ public class PageBuilder {
                 Optional<String[]> result = dialog.showAndWait();
                 if (result.isPresent()) {
                     String[] g = result.get();
+                    //TODO: properly implement code below
+                    /*
                     try {
 
-                    } catch (InvalidLoginException e) {
+                    }
+                    catch (InvalidLoginException e) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle(myResource.getString("InvalidFile"));
                         alert.setHeaderText(myResource.getString("InvalidFile"));
                         alert.setContentText(myResource.getString("Try"));
                         //throw a "file already exists" exception
                     }
+                    }*/
                 }}});
         Button exit = new Button(myResource.getString("Exit"));
         exit.setOnMouseClicked(new EventHandler<MouseEvent>() {

@@ -4,6 +4,7 @@ import engine.gameactions.ParentAction;
 
 import java.util.List;
 
+/*
 public class UpdateScore extends ParentAction {
     public UpdateScore() {
         super();
@@ -12,4 +13,4 @@ public class UpdateScore extends ParentAction {
     public void carryOutAction(List<Object> o) {
 
     }
-}
+} */

@@ -33,4 +33,9 @@ public class HorizontalSlidingPlatform extends GameObject implements Platform {
         entity.setXSpeed(getXSpeed());
         entity.setYSpeed(NEW_ENTITY_Y_SPEED);
     }
+
+    @Override
+    public String getImgPath() {
+        return null;
+    }
 }

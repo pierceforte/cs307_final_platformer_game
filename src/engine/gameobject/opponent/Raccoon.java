@@ -26,4 +26,9 @@ public class Raccoon extends GameObject implements Enemy {
         int direction = target.getX() < this.getX() ? -1 : 1;
         setXSpeed(direction * initXSpeed);
     }
+
+    @Override
+    public String getImgPath() {
+        return null;
+    }
 }

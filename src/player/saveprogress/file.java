@@ -18,6 +18,6 @@ public interface file {
      * @throws UnableToSyncWOnlineDatabaseException
      */
     Object load(String target) throws UnableToSyncWOnlineDatabaseException;
-    
+
 
 }

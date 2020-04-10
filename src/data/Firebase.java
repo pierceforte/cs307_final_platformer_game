@@ -8,7 +8,6 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -23,7 +22,13 @@ public class Firebase {
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(credentials)
                 .build();
-        FirebaseApp.initializeApp(options);
+        // TODO: fix this
+        try {
+            FirebaseApp.initializeApp(options);
+        }
+        catch (IllegalStateException e) {
+            // don't try to re-initialize
+        }
         db = FirestoreClient.getFirestore();
     }
 
