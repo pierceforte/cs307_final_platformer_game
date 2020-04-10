@@ -11,6 +11,11 @@ public class StationaryPlatform extends GameObject implements Platform {
     }
 
     @Override
+    public String getImgPath() {
+        return null;
+    }
+
+    @Override
     public void move(int direction) {
         return;
     }

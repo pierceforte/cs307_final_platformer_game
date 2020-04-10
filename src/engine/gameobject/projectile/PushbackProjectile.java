@@ -27,4 +27,9 @@ public class PushbackProjectile extends GameObject implements Projectile {
         setXSpeed(0);
         setYSpeed(0);
     }
+
+    @Override
+    public String getImgPath() {
+        return null;
+    }
 }

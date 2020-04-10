@@ -18,6 +18,11 @@ public class SimplePlayer extends GameObject implements Player{
 
     }
 
+    @Override
+    public String getImgPath() {
+        return null;
+    }
+
     public Map<KeyCode, Runnable> assignInputs() {
         Map<KeyCode, Runnable> inputMap = new HashMap<>()
         {{

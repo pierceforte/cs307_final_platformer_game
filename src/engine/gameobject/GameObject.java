@@ -20,6 +20,11 @@ public abstract class GameObject {
         xDirection = UP_OR_RIGHT;
         yDirection = UP_OR_RIGHT;
     }
+    /**
+     * Get the image path for this object
+     * @return path to the image for this object
+     */
+    public abstract String getImgPath();
 
     /**
      * Set x position of the object
@@ -148,6 +153,5 @@ public abstract class GameObject {
         if (speed == 0) return initDirection;
         return speed < 0 ? DOWN_OR_LEFT : UP_OR_RIGHT;
     }
-
 
 }

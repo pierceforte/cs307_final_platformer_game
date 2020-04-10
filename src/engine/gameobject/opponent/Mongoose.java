@@ -22,4 +22,9 @@ public class Mongoose extends GameObject implements Enemy {
         int direction = target.getX() < this.getX() ? GameObject.DOWN_OR_LEFT : GameObject.UP_OR_RIGHT;
         setXSpeed(direction * initXSpeed);
     }
+
+    @Override
+    public String getImgPath() {
+        return null;
+    }
 }
