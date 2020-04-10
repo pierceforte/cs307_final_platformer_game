@@ -15,15 +15,20 @@ public class SequenceChanger {
     }
 
     public void pause() {
-
+        levelContainer.getGameSequenceController().pause();
     }
+
     public void play() {
-
+        levelContainer.getGameSequenceController().play();
     }
+
+
     public void nextLevel() {
 
     }
     public void lose() {
         
     }
+
+    public void setGame(Game game) { this.game = game; }
 }
