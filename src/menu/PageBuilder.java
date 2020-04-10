@@ -62,7 +62,6 @@ public class PageBuilder {
                         String[] g = result.get();
                         try {
                             User player = new User(title.getText(), saveloc.getText());
-
                         } catch (InvalidLoginException e) {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle(myResource.getString("InvalidFile"));

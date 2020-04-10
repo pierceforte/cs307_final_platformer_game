@@ -1,0 +1,42 @@
+[
+  {
+    "user": {
+      "id": "bcb44",
+      "password": "benburnett",
+      "birthday": {
+        "month": 7,
+        "day": 27,
+        "year": 1998
+      },
+      "avatar": "location.png",
+      "score": 2000,
+      "coins": 15,
+      "vines": 55,
+      "slime": 13,
+      "Angel of Death": 0,
+      "Level1": 55,
+      "Level2": 12,
+      "Level3": 0
+    }
+  },
+  {
+    "user": {
+      "id": "nl163",
+      "password": "nicole",
+      "birthday" :  {
+        "day": 15,
+        "month" : 12,
+        "year" : 1999
+      },
+      "avatar": "location.png",
+      "score": 2000,
+      "coins": 15,
+      "vines": 55,
+      "slime": 13,
+      "Angel of Death": 0,
+      "Level1": 55,
+      "Level2": 12,
+      "Level3": 0
+    }
+  }
+]

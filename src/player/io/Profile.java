@@ -6,7 +6,7 @@ package player.io;
 public interface Profile {
 
     // how does someone sign in? Google? Facebook? Locally?
-    void signIn() throws InvalidLogInException;
+    void signIn();
 
     // avatar, username, file sharer, etc.
     void assignAttributes();
