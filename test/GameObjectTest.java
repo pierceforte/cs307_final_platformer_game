@@ -1,14 +1,12 @@
-
 import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
-import engine.gameobject.player.Player;
 import engine.gameobject.player.SimplePlayer;
 import javafx.scene.input.KeyCode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class OogaTest extends DukeApplicationTest {
+public class GameObjectTest extends DukeApplicationTest {
 
     /**
      * Test player moves on key press.
