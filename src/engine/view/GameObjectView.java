@@ -8,12 +8,9 @@ public class GameObjectView extends ImageView {
 
     //TODO: change params to Coords and Dimensions objects OR just pass the GameObject (probably don't want this dependency though)
     public GameObjectView(String imgName, double xPos, double yPos, double width, double height) {
-        Image img = new Image(this.getClass().getClassLoader().getResource(imgName).toExternalForm());
-        setImage(img);
-        setX(xPos);
-        setY(yPos);
-        setFitWidth(width);
-        setFitHeight(height);
+        updateImage(imgName);
+        updatePos(xPos, yPos);
+        updateDimensions(width, height);
     }
 
     //TODO: change param to Coords object
