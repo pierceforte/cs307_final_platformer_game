@@ -2,21 +2,25 @@ package data;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import com.google.firebase.database.FirebaseDatabase;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class Main {
-    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
-        firebase database = new firebase();
+    public static void main(String[] args) throws ParseException, InvalidLoginException, IOException, ExecutionException, InterruptedException {
+        User oops = new User("bcb44", "benburnett");
+        Firebase database = new Firebase();
         Firestore db = database.getDatabase();
         DocumentReference docRef = db.collection("users").document("alovelace");
         Map<String, Object> data = new HashMap<>();
-        data.put("firstname", "Ada");
-        data.put("lastname", "Lovelace");
-        ArrayList<Long> numss = new ArrayList<>(Arrays.asList(8L, 28L, 1998L));
-        data.put("dob", numss);
+        data.put("first", "Nicole");
+        data.put("last", "Lovelace");
+        //data.put("dob", new int[]{8,28,1998});
         ApiFuture<WriteResult> result = docRef.set(data);
         ApiFuture<QuerySnapshot> query = db.collection("users").get();
         QuerySnapshot querySnapshot = query.get();
@@ -29,13 +33,7 @@ public class Main {
             }
             System.out.println("Last: " + document.getString("lastname"));
             System.out.println("Born: " + document.getLong("born"));
-            if (document.contains("dob")) {
-                List<Long> num = (ArrayList<Long>) document.get("dob");
-                for (Long nums : num) {
-                    System.out.println(nums);
-                }
-            }
+            //System.out.println(": " + document.getLong("born"));
         }
-
     }
 }

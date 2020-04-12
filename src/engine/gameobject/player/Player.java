@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * This interface defines how a specific game's user-operated player will operate
  */
+
 public interface Player {
 
     /**
