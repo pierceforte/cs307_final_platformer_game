@@ -34,12 +34,10 @@ public class GameSequenceController {
     private SimplePlayer mainCharacter;
     private StationaryPlatform examplePlatform;
     private Raccoon raccoon;
-    private Mongoose mongoose;
 
     private GameObjectView mainCharacterView;
     private GameObjectView examplePlatformView;
     private GameObjectView raccoonView;
-    private GameObjectView mongooseView;
     private Pane myPane;
 
     public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game) {
@@ -66,7 +64,6 @@ public class GameSequenceController {
         examplePlatform = new StationaryPlatform(0, 350);
         mainCharacter = new SimplePlayer(10, 310, 0, 0);
         raccoon = new Raccoon(250, 320, 5);
-        mongoose = new Mongoose(200, 310, 5);
 
         mainCharacterView = new GameObjectView(mainCharacter.getImgPath(), mainCharacter.getX(),
                 mainCharacter.getY(), 40, 40);
@@ -77,10 +74,7 @@ public class GameSequenceController {
         raccoonView = new GameObjectView(raccoon.getImgPath(), raccoon.getX(),
                 raccoon.getY(), 50, 30);
 
-        mongooseView = new GameObjectView(mongoose.getImgPath(), mongoose.getX(),
-                mongoose.getY(), 40, 40);
-
-        myPane.getChildren().addAll(List.of(examplePlatformView, mainCharacterView, raccoonView, mongooseView));
+        myPane.getChildren().addAll(List.of(examplePlatformView, mainCharacterView, raccoonView));
     }
 
     private void setupTimeline() {
@@ -103,16 +97,11 @@ public class GameSequenceController {
         raccoonView.setX(raccoon.getX());
         raccoonView.setY(raccoon.getY());
 
-        mongooseView.setX(mongoose.getX());
-        mongooseView.setY(mongoose.getY());
-
         mainCharacter.handleInputs(keyInput.getPressedKeys());
         raccoon.updateLogic(mainCharacter);
-        mongoose.updateLogic(mainCharacter);
 
         mainCharacter.updatePositionOnStep(0.167);
         raccoon.updatePositionOnStep(0.167);
-        mongoose.updatePositionOnStep(0.167);
     }
 
     public void pause() {

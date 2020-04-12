@@ -11,8 +11,8 @@ import java.util.Map;
 public class SimplePlayer extends GameObject implements Player{
 
     public static final String IMG_PATH = "example_player.png"; //TODO: make this more flexible
-    public static final double DEFAULT_X_SPEED = 10;
-    public static final double DEFAULT_Y_SPEED = 10; // for jumping
+    public static final double DEFAULT_X_SPEED = 2; // for key press
+    public static final double DEFAULT_Y_SPEED = -2; // for jumping
     public static final int LEFT = -1;
     public static final int RIGHT = 1;
 
@@ -22,8 +22,8 @@ public class SimplePlayer extends GameObject implements Player{
         super(xPos, yPos, xSpeed, ySpeed);
         inputMap = new HashMap<>()
         {{
-            put(KeyCode.L, () -> move(LEFT));
-            put(KeyCode.R, () -> move(RIGHT));
+            put(KeyCode.LEFT, () -> move(LEFT));
+            put(KeyCode.RIGHT, () -> move(RIGHT));
             put(KeyCode.SPACE, () -> jump());
         }};
     }

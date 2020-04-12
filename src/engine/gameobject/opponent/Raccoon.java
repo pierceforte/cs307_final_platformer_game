@@ -15,17 +15,17 @@ public class Raccoon extends GameObject implements Enemy {
         initXSpeed = xSpeed;
     }
 
-    // logic is to simply move toward target in x direction
+    // logic is to move toward target in x direction if target facing away
     public void updateLogic(GameObject target) {
-        if (target.getX() == this.getX()) {
-            setXSpeed(0); // don't move if touching target
-        }
+        //System.out.println(target.getXDirection());
         if ((target.getXDirection() > 0) == (target.getX() - getX()) > 0) { // if target is facing away, I attack
             int direction = target.getXDirection();
             setXSpeed(direction * initXSpeed);
         }
-        int direction = target.getX() < this.getX() ? -1 : 1;
-        setXSpeed(direction * initXSpeed);
+        else {
+            setXSpeed(0); // don't move if touching target or target facing me
+        }
+
     }
 
     @Override
