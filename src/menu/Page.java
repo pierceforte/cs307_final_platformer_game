@@ -102,7 +102,7 @@ public abstract class Page {
                         System.exit(0);
                     }
                     try {
-                        myStage.setScene(gotoScene(item));
+                        gotoScene(item);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
