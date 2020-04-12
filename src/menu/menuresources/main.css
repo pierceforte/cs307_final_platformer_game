@@ -1,6 +1,7 @@
 .root{
-    -fx-background-color: lightblue;
-    -fx-background-size: cover, auto;
+    -fx-background-image: url("backgroundmoon.jpg");;
+    -fx-background-size: cover;
+    -fx-opacity: .8;
     -fx-font-size: 12pt;
 }
 #Welcome{
@@ -11,12 +12,11 @@
     -fx-translate-y: 200;
 }
 #MainTitle {
-    -fx-font-fill: mediumblue;
     -fx-font-family: "Times New Roman";
-    -fx-font-size: 32pt;
-    -fx-text-alignment: center;
-    -fx-translate-x: 250;
-    -fx-translate-y: 300;
+    -fx-font-size: 60pt;
+    -fx-translate-y: 250;
+    -fx-translate-x: 125;
+    -fx-text-fill: white;
 }
 #choiceBox{
     -fx-translate-x: 700;
@@ -28,8 +28,9 @@
     -fx-font-size: 12;
     -fx-hgap: 10;
     -fx-vgap: 10;
-    -fx-background-color: pink;
-    -fx-opacity: 0.8;
+    -fx-background-color: blueviolet;
+    -fx-text-fill:greenyellow;
+    -fx-opacity: 0.9;
     -fx-font-weight: bold;
 }
 #MenuBox{
@@ -54,7 +55,7 @@
     -fx-font-weight: bold;
 }
 #ViewTextTitle{
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-font-family: "Times New Roman";
     -fx-font-size: 14pt;
     -fx-translate-x: 400;

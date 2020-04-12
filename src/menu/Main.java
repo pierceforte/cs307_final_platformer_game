@@ -12,12 +12,10 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
+
     @Override
     public void start(Stage stage) throws IOException {
-        // load resources from resource bundle
-        stage.setTitle("Snizards vs. Snizards");
         MainMenu myMenu = new MainMenu(stage);
-        stage.setScene(myMenu.buildScene(900,900));
         stage.show();
     }
 }
