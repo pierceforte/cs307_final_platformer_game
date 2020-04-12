@@ -1,5 +1,6 @@
 package builder;
 
+import engine.view.GameObjectView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -18,7 +19,7 @@ public class BankItem {
             double yPos = 0;
             double width = 10; //TODO: read in these dimensions
             double height = 10;
-            BuilderObjectView builderObj = new BuilderObjectView(img, xPos, yPos, width, height);
+            BuilderObjectView builderObj = new BuilderObjectView(img, xPos, yPos, width, height, GameObjectView.RIGHT);
             //TODO: add obj to scene
         });
     }

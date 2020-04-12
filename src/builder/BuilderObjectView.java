@@ -31,8 +31,8 @@ public class BuilderObjectView extends GameObjectView {
     private boolean isActive;
     private List<Node> actionIcons;
 
-    public BuilderObjectView(String imgPath, double xPos, double yPos, double width, double height) {
-        super(imgPath, xPos, yPos, width, height);
+    public BuilderObjectView(String imgPath, double xPos, double yPos, double width, double height, int xDirection) {
+        super(imgPath, xPos, yPos, width, height, xDirection);
         enableDrag();
         isActive = true;
         actionIcons = new ArrayList<>();

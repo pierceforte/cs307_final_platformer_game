@@ -6,11 +6,14 @@ import javafx.scene.image.ImageView;
 //TODO: Decide whether to use inheritance or composition for ImageView
 public class GameObjectView extends ImageView {
 
+    public static final int LEFT = -1;
+    public static final int RIGHT = 1;
     //TODO: change params to Coords and Dimensions objects OR just pass the GameObject (probably don't want this dependency though)
-    public GameObjectView(String imgPath, double xPos, double yPos, double width, double height) {
+    public GameObjectView(String imgPath, double xPos, double yPos, double width, double height, int xDirection) {
         updateImage(imgPath);
         updatePos(xPos, yPos);
-        updateDimensions(width, height);
+        int xOrientation = xDirection < 0 ? LEFT : RIGHT;
+        updateDimensions(xOrientation * width, height);
     }
 
     //TODO: change param to Coords object

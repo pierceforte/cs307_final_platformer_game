@@ -72,6 +72,7 @@ public abstract class GameObject {
      */
     public void setXSpeed(double xSpeed) {
         this.xSpeed = xSpeed;
+        xDirection = setDirection(getXDirection(), xSpeed);
     }
 
     /**
@@ -88,6 +89,7 @@ public abstract class GameObject {
      */
     public void setYSpeed(double ySpeed) {
         this.ySpeed = ySpeed;
+        yDirection = setDirection(getYDirection(), ySpeed);
     }
 
     /**

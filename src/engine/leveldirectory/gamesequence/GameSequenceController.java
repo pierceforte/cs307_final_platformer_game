@@ -1,7 +1,6 @@
 package engine.leveldirectory.gamesequence;
 
 import data.KeyInput;
-import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
 import engine.gameobject.platform.StationaryPlatform;
 import engine.gameobject.player.SimplePlayer;
@@ -11,14 +10,8 @@ import engine.leveldirectory.level.LevelContainer;
 import engine.view.GameObjectView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.List;
@@ -38,9 +31,10 @@ public class GameSequenceController {
     private GameObjectView mainCharacterView;
     private GameObjectView examplePlatformView;
     private GameObjectView raccoonView;
+    private Scene myScene;
     private Pane myPane;
 
-    public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game) {
+    public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root) {
         this.levelContainer = levelContainer;
         levelContainer.setGameSequenceController(this);
         setupTimeline();
@@ -52,27 +46,23 @@ public class GameSequenceController {
 
 
         //Pierce stuff
-
-        Stage myStage = new Stage();
-        myPane = new Pane();
-        myPane.setBackground(new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
-        Scene myScene = new Scene(myPane, 400, 400);
-        myStage.setScene(myScene);
-        myStage.show();
+        myScene = scene;
+        myPane = root;
+        myPane.getChildren().clear();
 
         keyInput = new KeyInput(myScene);
-        examplePlatform = new StationaryPlatform(0, 350);
-        mainCharacter = new SimplePlayer(10, 310, 0, 0);
+        examplePlatform = new StationaryPlatform(30, 350);
+        mainCharacter = new SimplePlayer(40, 310, 0, 0);
         raccoon = new Raccoon(250, 320, 5);
 
         mainCharacterView = new GameObjectView(mainCharacter.getImgPath(), mainCharacter.getX(),
-                mainCharacter.getY(), 40, 40);
+                mainCharacter.getY(), 40, 40, mainCharacter.getXDirection());
 
         examplePlatformView = new GameObjectView(examplePlatform.getImgPath(), examplePlatform.getX(),
-                examplePlatform.getY(), 400, 50);
+                examplePlatform.getY(), 800, 30, examplePlatform.getXDirection());
 
         raccoonView = new GameObjectView(raccoon.getImgPath(), raccoon.getX(),
-                raccoon.getY(), 50, 30);
+                raccoon.getY(), 50, 30, raccoon.getXDirection());
 
         myPane.getChildren().addAll(List.of(examplePlatformView, mainCharacterView, raccoonView));
     }
@@ -93,9 +83,11 @@ public class GameSequenceController {
         //Pierce stuff
         mainCharacterView.setX(mainCharacter.getX());
         mainCharacterView.setY(mainCharacter.getY());
+        mainCharacterView.setScaleX(mainCharacter.getXDirection());
 
         raccoonView.setX(raccoon.getX());
         raccoonView.setY(raccoon.getY());
+        raccoonView.setScaleX(raccoon.getXDirection());
 
         mainCharacter.handleInputs(keyInput.getPressedKeys());
         raccoon.updateLogic(mainCharacter);
