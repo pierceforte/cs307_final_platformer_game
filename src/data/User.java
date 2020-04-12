@@ -68,4 +68,8 @@ public class User {
             }
         }
     }
+
+    public boolean isUnlocked() {
+        return unlocked;
+    }
 }

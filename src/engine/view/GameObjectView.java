@@ -7,13 +7,10 @@ import javafx.scene.image.ImageView;
 public class GameObjectView extends ImageView {
 
     //TODO: change params to Coords and Dimensions objects OR just pass the GameObject (probably don't want this dependency though)
-    public GameObjectView(String imgName, double xPos, double yPos, double width, double height) {
-        Image img = new Image(this.getClass().getClassLoader().getResource(imgName).toExternalForm());
-        setImage(img);
-        setX(xPos);
-        setY(yPos);
-        setFitWidth(width);
-        setFitHeight(height);
+    public GameObjectView(String imgPath, double xPos, double yPos, double width, double height) {
+        updateImage(imgPath);
+        updatePos(xPos, yPos);
+        updateDimensions(width, height);
     }
 
     //TODO: change param to Coords object
@@ -28,12 +25,12 @@ public class GameObjectView extends ImageView {
         setFitHeight(height);
     }
 
-    public void updateImage(String imgName) {
-        Image img = makeImage(imgName);
+    public void updateImage(String imgPath) {
+        Image img = makeImage(imgPath);
         setImage(img);
     }
 
-    private Image makeImage(String imgName) {
-        return new Image(this.getClass().getClassLoader().getResource(imgName).toExternalForm());
+    protected Image makeImage(String imgPath) {
+        return new Image(this.getClass().getClassLoader().getResource(imgPath).toExternalForm());
     }
 }
