@@ -2,6 +2,11 @@ package menu;
 
 import data.InvalidLoginException;
 import data.User;
+import engine.general.Game;
+import engine.leveldirectory.gamesequence.GameSequence;
+import engine.leveldirectory.gamesequence.GameSequenceController;
+import engine.leveldirectory.graphicsengine.GraphicsEngine;
+import engine.leveldirectory.level.LevelContainer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
@@ -129,7 +134,13 @@ public class PageBuilder {
                         //throw a "file already exists" exception
                     }
                     }*/
-                }}});
+                }
+                GameSequenceController gameSequenceController = new GameSequenceController(
+                        new LevelContainer(null, null, null),
+                        new GraphicsEngine(),
+                        null);
+                gameSequenceController.play();
+            }});
         Button exit = new Button(myResource.getString("Exit"));
         exit.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

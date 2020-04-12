@@ -4,6 +4,7 @@ import engine.gameobject.GameObject;
 
 public class Raccoon extends GameObject implements Enemy {
 
+    public static final String IMG_PATH = "raccoon.png"; //TODO: make this more flexible
     public static final double DEFAULT_X_SPEED = 20;
     public static final double DEFAULT_Y_SPEED = 0;
 
@@ -15,7 +16,7 @@ public class Raccoon extends GameObject implements Enemy {
     }
 
     // logic is to simply move toward target in x direction
-    public void assignLogic(GameObject target) {
+    public void updateLogic(GameObject target) {
         if (target.getX() == this.getX()) {
             setXSpeed(0); // don't move if touching target
         }
@@ -29,6 +30,6 @@ public class Raccoon extends GameObject implements Enemy {
 
     @Override
     public String getImgPath() {
-        return null;
+        return IMG_PATH;
     }
 }
