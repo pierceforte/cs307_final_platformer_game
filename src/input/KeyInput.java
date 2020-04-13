@@ -1,4 +1,4 @@
-package data;
+package data.input;
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
