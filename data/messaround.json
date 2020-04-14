@@ -14,9 +14,11 @@
       "2": 12,
       "3": 0
     },
-    "inventory":["", "", "", "", ""],
-    "paths": {
-      "1": [1,1,1,1,1,1,11,1,11,1]
+    "attributes": {
+      "coins": 15,
+      "vines": 55,
+      "slime": 13,
+      "Angel of Death": 0
     }
   },
   "nl163": {
@@ -34,29 +36,11 @@
       "2": 12,
       "3": 0
     },
-    "inventory": ["", "", "", "", ""],
-    "paths": {
-      "1": [1,1,1,1,1,1,11,1,11,1]
-    }
-  },
-  "test": {
-    "id": "test",
-    "password": "tester",
-    "birthday": {
-      "month": 7,
-      "day": 27,
-      "year": 1998
-    },
-    "avatar": "location.png",
-    "score": 2000,
-    "levels": {
-      "1": 55,
-      "2": 12,
-      "3": 0
-    },
-    "inventory":["", "", "", "", ""],
-    "paths": {
-      "1": [1,1,1,1,1,1,11,1,11,1]
+    "attributes": {
+      "coins": 15,
+      "vines": 55,
+      "slime": 13,
+      "Angel of Death": 0
     }
   }
 }
