@@ -19,7 +19,7 @@ public class BankItem {
             double yPos = 0;
             double width = 10; //TODO: read in these dimensions
             double height = 10;
-            BuilderObjectView builderObj = new BuilderObjectView(img, xPos, yPos, width, height, GameObjectView.RIGHT);
+            //BuilderObjectView builderObj = new BuilderObjectView(img, xPos, yPos, width, height);
             //TODO: add obj to scene
         });
     }

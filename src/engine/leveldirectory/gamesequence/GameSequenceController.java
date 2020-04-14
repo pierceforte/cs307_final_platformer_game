@@ -1,5 +1,6 @@
 package engine.leveldirectory.gamesequence;
 
+import builder.BuilderObjectView;
 import data.KeyInput;
 import engine.gameobject.opponent.Raccoon;
 import engine.gameobject.platform.StationaryPlatform;
@@ -64,7 +65,9 @@ public class GameSequenceController {
         raccoonView = new GameObjectView(raccoon.getImgPath(), raccoon.getX(),
                 raccoon.getY(), 50, 30, raccoon.getXDirection());
 
-        myPane.getChildren().addAll(List.of(examplePlatformView, mainCharacterView, raccoonView));
+        BuilderObjectView builderObjectView = new BuilderObjectView(mainCharacter.getImgPath(), 50, 100, 50, 50, root);
+
+        myPane.getChildren().addAll(List.of(examplePlatformView, mainCharacterView, raccoonView, builderObjectView));
     }
 
     private void setupTimeline() {

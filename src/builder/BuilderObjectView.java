@@ -2,9 +2,11 @@ package builder;
 
 import engine.view.GameObjectView;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,18 +23,22 @@ import java.util.List;
  */
 public class BuilderObjectView extends GameObjectView {
 
-    public static final String PATH_TO_CHECK_IMG = "";
-    public static final String PATH_TO_X_IMG = "";
-    public static final String PATH_TO_MOVE_IMG = "";
+    public static final String PATH_TO_CHECK_IMG = "check_icon.png";
+    public static final String PATH_TO_X_IMG = "x_icon.png";
+    public static final String PATH_TO_MOVE_IMG = "move_icon.png";
+    public static final double ACTION_ICON_SIZE = 15;
     public static final int LEFT = -1;
     public static final int RIGHT = 1;
 
     private boolean isDraggable;
     private boolean isActive;
+    private boolean areActionIconsActive;
     private List<Node> actionIcons;
+    private Pane root;
 
-    public BuilderObjectView(String imgPath, double xPos, double yPos, double width, double height, int xDirection) {
-        super(imgPath, xPos, yPos, width, height, xDirection);
+    public BuilderObjectView(String imgPath, double xPos, double yPos, double width, double height, Pane root) {
+        super(imgPath, xPos, yPos, width, height, GameObjectView.RIGHT);
+        this.root = root; // TODO: maybe eliminate this dependency
         enableDrag();
         isActive = true;
         actionIcons = new ArrayList<>();
@@ -41,6 +47,14 @@ public class BuilderObjectView extends GameObjectView {
 
     public boolean isActive() {
         return isActive;
+    }
+
+    public boolean areActionIconsActive() {
+        return areActionIconsActive;
+    }
+
+    public List<Node> getActionIcons() {
+        return actionIcons;
     }
 
     //TODO: maybe replace this
@@ -56,7 +70,7 @@ public class BuilderObjectView extends GameObjectView {
             dragDelta.x = this.getX() - mouseEvent.getX();
             dragDelta.y = this.getY() - mouseEvent.getY();
             this.getScene().setCursor(Cursor.MOVE);
-            hideActionIcons();
+            deactivateActionIcons();
         });
         setOnMouseReleased(mouseEvent -> {
             this.getScene().setCursor(Cursor.HAND);
@@ -84,7 +98,7 @@ public class BuilderObjectView extends GameObjectView {
      */
     public void disableDrag() {
         isDraggable = false;
-        hideActionIcons();
+        deactivateActionIcons();
         setOnMousePressed(mouseEvent -> askUserToMoveMe());
         setOnMouseReleased(mouseEvent -> {return;});
         setOnMouseDragged(mouseEvent -> {return;});
@@ -99,33 +113,46 @@ public class BuilderObjectView extends GameObjectView {
         check.setOnMouseClicked(mouseEvent -> disableDrag());
         x.setOnMouseClicked(mouseEvent -> {
             isActive = false;
-            hideActionIcons();
+            deactivateActionIcons();
             // give back money
         });
+        activateActionIcons();
     }
 
     private void askUserToMoveMe() {
         ImageView move = createActionIcon(PATH_TO_MOVE_IMG, RIGHT);
         ImageView x = createActionIcon(PATH_TO_X_IMG, LEFT);
 
-        move.setOnMouseClicked(mouseEvent -> enableDrag());
+        move.setOnMouseClicked(mouseEvent -> {
+                enableDrag();
+                deactivateActionIcons();
+                askUserToPlaceMe();
+
+        });
         x.setOnMouseClicked(mouseEvent -> isActive = false);
+        activateActionIcons();
     }
 
     private ImageView createActionIcon(String imgPath, int side) {
         Image img = makeImage(imgPath);
         ImageView imgView = new ImageView(img);
-        imgView.setX(this.getX() + 10 * side);
-        imgView.setY(this.getY() - 10);
+        imgView.setX(this.getCenterX() + ACTION_ICON_SIZE/1.5 * side);
+        imgView.setY(this.getCenterY() + ACTION_ICON_SIZE * 2);
+        imgView.setFitWidth(ACTION_ICON_SIZE);
+        imgView.setFitHeight(ACTION_ICON_SIZE);
+        imgView.setPickOnBounds(true);
         actionIcons.add(imgView);
-        //TODO: add imgView to scene
+        root.getChildren().add(imgView);
         return imgView;
     }
 
-    private void hideActionIcons() {
-        for (Node actionIcon : actionIcons) {
-            //TODO: remove actionIcon from scene
-        }
+    private void activateActionIcons() {
+        areActionIconsActive = true;
+    }
+
+    private void deactivateActionIcons() {
+        root.getChildren().removeAll(actionIcons);
         actionIcons.clear();
+        areActionIconsActive = false;
     }
 }

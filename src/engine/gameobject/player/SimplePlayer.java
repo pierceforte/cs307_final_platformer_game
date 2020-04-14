@@ -20,12 +20,7 @@ public class SimplePlayer extends GameObject implements Player{
 
     public SimplePlayer(double xPos, double yPos, double xSpeed, double ySpeed) {
         super(xPos, yPos, xSpeed, ySpeed);
-        inputMap = new HashMap<>()
-        {{
-            put(KeyCode.LEFT, () -> move(LEFT));
-            put(KeyCode.RIGHT, () -> move(RIGHT));
-            put(KeyCode.SPACE, () -> jump());
-        }};
+        assignInputs();
     }
 
     @Override
@@ -33,6 +28,15 @@ public class SimplePlayer extends GameObject implements Player{
         return IMG_PATH;
     }
 
+    public void assignInputs() {
+        inputMap = new HashMap<>()
+        {{
+            put(KeyCode.LEFT, () -> move(LEFT));
+            put(KeyCode.RIGHT, () -> move(RIGHT));
+            put(KeyCode.SPACE, () -> jump());
+        }};
+    }
+    
     public void handleInputs(List<KeyCode> codes) {
         for (KeyCode code : codes) {
             if (inputMap.containsKey(code)) {
