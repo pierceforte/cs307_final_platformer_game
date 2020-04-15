@@ -15,10 +15,15 @@ public class SaveUser {
     private static final String fileLoc = "data/messaround.json";
     JSONObject users;
 
-    public SaveUser() throws IOException, ParseException {
+    public SaveUser() throws ReadSaveException {
         JSONParser jsonParser = new JSONParser();
-        FileReader reader = new FileReader(fileLoc);
-        users = (JSONObject) jsonParser.parse(reader);
+        try {
+            FileReader reader = new FileReader(fileLoc);
+            users = (JSONObject) jsonParser.parse(reader);
+        } catch (Exception e) {
+            throw new ReadSaveException("save", fileLoc);
+        }
+
     }
 
     public void save(JSONObject user) {

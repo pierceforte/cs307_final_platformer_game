@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class Main {
-    public static void main(String[] args) throws ParseException, InvalidLoginException, IOException, ExecutionException, InterruptedException {
+    public static void main(String[] args) throws InvalidLoginException, ReadSaveException {
         User oops = new User("bcb44", "benburnett");
-        NewUser user = new NewUser("pierce", "password", "home.img");
+        //NewUser user = new NewUser("pierce", "password", "home.img");
 //        Firebase database = new Firebase();
 //        Firestore db = database.getDatabase();
 //        DocumentReference docRef = db.collection("users").document("alovelace");
