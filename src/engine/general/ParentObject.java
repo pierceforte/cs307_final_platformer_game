@@ -11,17 +11,47 @@ import java.util.ResourceBundle;
  * useful for the GameObject, Action, and Event classes
  */
 public class ParentObject {
-    private List<Coordinates> parameter;
+    private List<Coordinates> parameters;
     private GameObject gameObject;
     private Game game;
-    private int id;
+    private int id; // used for testing
 
     private ResourceBundle resourceBundle;
 
     public ParentObject() {
-        //load up resources
         resourceBundle = ResourceBundle.getBundle("filePath");
+        parameters = new ArrayList<>();
+        id = 1; // used for testing
+    }
 
-        // parameter = new ArrayList<>(Para)
+    public List<Coordinates> getParameters() {
+        return parameters;
+    }
+    public void addParameter(Coordinates coord) {
+        this.parameters.add(coord);
+    }
+    public void removeParameter(String name) {
+        parameters.remove(findParameter(name));
+    }
+    private Coordinates findParameter(String name) {
+        for (Coordinates param : parameters)
+            if (param.getName().equals(name))
+                return param;
+        return null;
+    }
+
+    public GameObject getGameObject() { return gameObject; }
+    public void setGameObject(GameObject go) { gameObject = go; }
+    public Game getGame() {
+        return game;
+    }
+    public void setGame(Game game) {
+        this.game  = game;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }

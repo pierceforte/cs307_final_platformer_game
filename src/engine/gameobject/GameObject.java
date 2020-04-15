@@ -1,6 +1,10 @@
 package engine.gameobject;
 
+import engine.general.Game;
+
 public abstract class GameObject {
+
+    private Game game;
 
     public static final int DOWN_OR_LEFT = -1;
     public static final int UP_OR_RIGHT = 1;
@@ -12,6 +16,8 @@ public abstract class GameObject {
     private int xDirection;
     private int yDirection;
 
+    private boolean visible;
+
     public GameObject(double xPos, double yPos, double xSpeed, double ySpeed) {
         this.xPos = xPos;
         this.yPos = yPos;
@@ -19,6 +25,7 @@ public abstract class GameObject {
         this.ySpeed = ySpeed;
         xDirection = UP_OR_RIGHT;
         yDirection = UP_OR_RIGHT;
+        visible = false;
     }
     /**
      * Get the image path for this object
@@ -154,4 +161,17 @@ public abstract class GameObject {
         return speed < 0 ? DOWN_OR_LEFT : UP_OR_RIGHT;
     }
 
+    public Game getGame() {
+        return game;
+    }
+    public void setGame(Game g) {
+        game = g;
+    }
+
+    public void setVisible(boolean b) {
+        visible = b;
+    }
+    public boolean getVisible() {
+        return visible;
+    }
 }
