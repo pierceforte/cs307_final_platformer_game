@@ -4,14 +4,14 @@ import engine.gameobject.GameObject;
 
 public class Raccoon extends GameObject implements Enemy {
 
-    public static final String IMG_PATH = "raccoon.png"; //TODO: make this more flexible
+    public static final String EX_IMG_PATH = "raccoon.png"; //TODO: make this more flexible
     public static final double DEFAULT_X_SPEED = 20;
     public static final double DEFAULT_Y_SPEED = 0;
 
     private double initXSpeed;
 
-    public Raccoon(double xPos, double yPos, double xSpeed) {
-        super(xPos, yPos, xSpeed, DEFAULT_Y_SPEED);
+    public Raccoon(double xPos, double yPos, double xSpeed, String imgPath) {
+        super(xPos, yPos, xSpeed, DEFAULT_Y_SPEED, imgPath);
         initXSpeed = xSpeed;
     }
 
@@ -25,11 +25,5 @@ public class Raccoon extends GameObject implements Enemy {
         else {
             setXSpeed(0); // don't move if touching target or target facing me
         }
-
-    }
-
-    @Override
-    public String getImgPath() {
-        return IMG_PATH;
     }
 }

@@ -6,21 +6,45 @@ import javafx.scene.image.ImageView;
 
 public class BankItem {
 
-    private ImageView icon;
+    private boolean isPurchased;
+    //private ImageView icon;
+    private String imgPath;
+    private int width;
+    private int height;
+    private int cost;
 
-    public BankItem() {
-        //TODO: read in imgPath for icon AND eliminate duplicate code here
-        String imgPath = "";
-        Image iconImg = new Image(this.getClass().getClassLoader().getResource(imgPath).toExternalForm());
-        icon = new ImageView(iconImg);
-        icon.setOnMouseClicked(mouseEvent -> {
-            String img = ""; //TODO: read in this path
-            double xPos = 0; //TODO: get coords for center of screen
-            double yPos = 0;
-            double width = 10; //TODO: read in these dimensions
-            double height = 10;
-            //BuilderObjectView builderObj = new BuilderObjectView(img, xPos, yPos, width, height);
-            //TODO: add obj to scene
-        });
+    public BankItem(String imgPath, int width, int height, int cost) {
+        this.imgPath = imgPath;
+        this.width = width;
+        this.height = height;
+        this.cost = cost;
+
+        //Image iconImg = new Image(this.getClass().getClassLoader().getResource(imgPath).toExternalForm());
+        //icon = new ImageView(iconImg);
     }
+
+    public boolean isPurchased() {
+        return isPurchased;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+/*
+    private void handleItemPurchase() {
+        // TODO: find a way to get center of screen to replace (200,200) pos
+        // BuilderObjectView builderObjectView = new BuilderObjectView(imgPath, 200, 200, width, height);
+    }*/
 }

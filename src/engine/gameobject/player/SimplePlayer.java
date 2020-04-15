@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class SimplePlayer extends GameObject implements Player{
 
-    public static final String IMG_PATH = "example_player.png"; //TODO: make this more flexible
+    public static final String EX_IMG_PATH = "example_player.png"; //TODO: make this more flexible
     public static final double DEFAULT_X_SPEED = 2; // for key press
     public static final double DEFAULT_Y_SPEED = -2; // for jumping
     public static final int LEFT = -1;
@@ -18,14 +18,9 @@ public class SimplePlayer extends GameObject implements Player{
 
     private Map<KeyCode, Runnable> inputMap;
 
-    public SimplePlayer(double xPos, double yPos, double xSpeed, double ySpeed) {
-        super(xPos, yPos, xSpeed, ySpeed);
+    public SimplePlayer(double xPos, double yPos, double xSpeed, double ySpeed, String imgPath) {
+        super(xPos, yPos, xSpeed, ySpeed, imgPath);
         assignInputs();
-    }
-
-    @Override
-    public String getImgPath() {
-        return IMG_PATH;
     }
 
     public void assignInputs() {
@@ -36,7 +31,7 @@ public class SimplePlayer extends GameObject implements Player{
             put(KeyCode.SPACE, () -> jump());
         }};
     }
-    
+
     public void handleInputs(List<KeyCode> codes) {
         for (KeyCode code : codes) {
             if (inputMap.containsKey(code)) {

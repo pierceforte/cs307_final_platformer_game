@@ -22,7 +22,6 @@ public class GameSequenceController {
     private LevelContainer levelContainer;
     private Timeline timeline;
 
-
     //Pierce stuff
     private KeyInput keyInput;
     private SimplePlayer mainCharacter;
@@ -52,9 +51,9 @@ public class GameSequenceController {
         myPane.getChildren().clear();
 
         keyInput = new KeyInput(myScene);
-        examplePlatform = new StationaryPlatform(30, 350);
-        mainCharacter = new SimplePlayer(40, 310, 0, 0);
-        raccoon = new Raccoon(250, 320, 5);
+        examplePlatform = new StationaryPlatform(30, 350, StationaryPlatform.EX_IMG_PATH);
+        mainCharacter = new SimplePlayer(40, 310, 0, 0, SimplePlayer.EX_IMG_PATH);
+        raccoon = new Raccoon(250, 320, 5, Raccoon.EX_IMG_PATH);
 
         mainCharacterView = new GameObjectView(mainCharacter.getImgPath(), mainCharacter.getX(),
                 mainCharacter.getY(), 40, 40, mainCharacter.getXDirection());

@@ -4,14 +4,14 @@ import engine.gameobject.GameObject;
 
 public class Mongoose extends GameObject implements Enemy {
 
-    public static final String IMG_PATH = "mongoose.png"; //TODO: make this more flexible
+    public static final String EX_IMG_PATH = "mongoose.png"; //TODO: make this more flexible
     public static final double DEFAULT_X_SPEED = 10;
     public static final double DEFAULT_Y_SPEED = 0;
 
     private double initXSpeed;
 
-    public Mongoose(double xPos, double yPos, double xSpeed) {
-        super(xPos, yPos, xSpeed, DEFAULT_Y_SPEED);
+    public Mongoose(double xPos, double yPos, double xSpeed, String imgPath) {
+        super(xPos, yPos, xSpeed, DEFAULT_Y_SPEED, imgPath);
         initXSpeed = xSpeed;
     }
 
@@ -22,10 +22,5 @@ public class Mongoose extends GameObject implements Enemy {
         }
         int direction = target.getX() < this.getX() ? GameObject.DOWN_OR_LEFT : GameObject.UP_OR_RIGHT;
         setXSpeed(direction * initXSpeed);
-    }
-
-    @Override
-    public String getImgPath() {
-        return IMG_PATH;
     }
 }

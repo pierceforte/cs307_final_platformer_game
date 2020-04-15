@@ -7,6 +7,6 @@ public class BuilderStage {
     private Bank bank;
 
     public BuilderStage(List<BankItem> bankItems) {
-        bank = new Bank(bankItems);
+        //bank = new Bank(bankItems);
     }
 }
