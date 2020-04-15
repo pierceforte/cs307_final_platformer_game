@@ -25,6 +25,14 @@ public abstract class GameEvent {
 
     public abstract void update();
 
+    public void attach(GameObject gameObject) {
+        gameObjects.add(gameObject);
+    }
+
+    public void detach(GameObject gameObject) {
+        gameObjects.remove(gameObject);
+    }
+
     public void add(GameObject gameObject) {
         gameObjects.add(gameObject);
     }

@@ -7,5 +7,7 @@ package engine.leveldirectory.gameevents;
  *
  * @author Jerry Huang
  */
-public class CollisionEvent {
+public class CollisionEvent extends GameEvent {
+
+    public void update() {}
 }

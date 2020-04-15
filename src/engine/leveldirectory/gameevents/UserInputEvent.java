@@ -1,11 +1,10 @@
 package engine.leveldirectory.gameevents;
 
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-
-import java.awt.geom.Point2D;
 
 /**
  * This class handles used keyboard and mouse inputs
@@ -42,9 +41,9 @@ public class UserInputEvent extends GameEvent {
             lastKeyPressed = event.getCode();
             keyReleased = true;
         });
-        graphicsEngine.getView().setOnMouseClicked(e -> {
+        graphicsEngine.getBorderPane().setOnMouseClicked(e -> {
             lastMousePressed = e.getButton();
-            lastPressedCoordinates = new javafx.geometry.Point2D(e.getX(), e.getY());
+            lastPressedCoordinates = new Point2D(e.getX(), e.getY());
             mouseClicked = true;
         });
     }

@@ -24,7 +24,7 @@ public class InfoBundle {
     }
 
     public void initializeInputForLevel(Game game) {
-        userInputEvent.setup();
+        userInputEvent.connect();
     }
 
     public void updateFields() {
@@ -38,7 +38,7 @@ public class InfoBundle {
     public CollisionEvent getCollisionEvent() {
         return collisionEvent;
     }
-    public CollisionEvent setCollisionEvent(CollisionEvent ce) {
+    public void setCollisionEvent(CollisionEvent ce) {
         collisionEvent = ce;
     }
 
