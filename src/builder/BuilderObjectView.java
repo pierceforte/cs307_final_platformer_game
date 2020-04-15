@@ -24,8 +24,8 @@ import java.util.List;
 public class BuilderObjectView extends GameObjectView {
 
     public static final String PATH_TO_CHECK_IMG = "check_icon.png";
-    public static final String PATH_TO_X_IMG = "x_icon.png";
     public static final String PATH_TO_MOVE_IMG = "move_icon.png";
+    public static final String PATH_TO_SELL_IMG = "dollar_icon.png";
     public static final double ACTION_ICON_SIZE = 15;
     public static final int LEFT = -1;
     public static final int RIGHT = 1;
@@ -108,10 +108,10 @@ public class BuilderObjectView extends GameObjectView {
 
     private void askUserToPlaceMe() {
         ImageView check = createActionIcon(PATH_TO_CHECK_IMG, RIGHT);
-        ImageView x = createActionIcon(PATH_TO_X_IMG, LEFT);
+        ImageView sell = createActionIcon(PATH_TO_SELL_IMG, LEFT);
 
         check.setOnMouseClicked(mouseEvent -> disableDrag());
-        x.setOnMouseClicked(mouseEvent -> {
+        sell.setOnMouseClicked(mouseEvent -> {
             isActive = false;
             deactivateActionIcons();
             // give back money
@@ -120,8 +120,8 @@ public class BuilderObjectView extends GameObjectView {
     }
 
     private void askUserToMoveMe() {
-        ImageView move = createActionIcon(PATH_TO_MOVE_IMG, RIGHT);
-        ImageView x = createActionIcon(PATH_TO_X_IMG, LEFT);
+        ImageView move = createActionIcon(PATH_TO_MOVE_IMG, LEFT);
+        ImageView check = createActionIcon(PATH_TO_CHECK_IMG, RIGHT);
 
         move.setOnMouseClicked(mouseEvent -> {
                 enableDrag();
@@ -129,7 +129,7 @@ public class BuilderObjectView extends GameObjectView {
                 askUserToPlaceMe();
 
         });
-        x.setOnMouseClicked(mouseEvent -> isActive = false);
+        check.setOnMouseClicked(mouseEvent -> disableDrag());
         activateActionIcons();
     }
 

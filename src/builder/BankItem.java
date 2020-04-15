@@ -4,6 +4,8 @@ import engine.view.GameObjectView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
 public class BankItem {
 
     private boolean isPurchased;
@@ -42,7 +44,24 @@ public class BankItem {
     public int getCost() {
         return cost;
     }
-/*
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BankItem bankItem = (BankItem) o;
+        return width == bankItem.width &&
+                height == bankItem.height &&
+                cost == bankItem.cost &&
+                imgPath.equals(bankItem.imgPath);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(imgPath, width, height, cost);
+    }
+
+    /*
     private void handleItemPurchase() {
         // TODO: find a way to get center of screen to replace (200,200) pos
         // BuilderObjectView builderObjectView = new BuilderObjectView(imgPath, 200, 200, width, height);

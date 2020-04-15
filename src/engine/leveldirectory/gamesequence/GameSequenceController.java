@@ -1,5 +1,7 @@
 package engine.leveldirectory.gamesequence;
 
+import builder.Bank;
+import builder.BankItem;
 import builder.BuilderObjectView;
 import data.KeyInput;
 import engine.gameobject.opponent.Raccoon;
@@ -31,6 +33,8 @@ public class GameSequenceController {
     private GameObjectView mainCharacterView;
     private GameObjectView examplePlatformView;
     private GameObjectView raccoonView;
+    private Bank bank;
+
     private Scene myScene;
     private Pane myPane;
 
@@ -64,9 +68,17 @@ public class GameSequenceController {
         raccoonView = new GameObjectView(raccoon.getImgPath(), raccoon.getX(),
                 raccoon.getY(), 50, 30, raccoon.getXDirection());
 
-        BuilderObjectView builderObjectView = new BuilderObjectView(mainCharacter.getImgPath(), 50, 100, 50, 50, root);
+        BankItem one = new BankItem(mainCharacter.getImgPath(), 30, 30, 10);
+        BankItem two = new BankItem("mongoose.png", 30, 30, 20);
+        BankItem three = new BankItem(raccoon.getImgPath(), 30, 30, 30);
+        BankItem four = new BankItem(mainCharacter.getImgPath(), 30, 30, 40);
+
+        bank = new Bank(List.of(one, two, three, four), 20, 20, 200, 200, 10000, root);
+
+        BuilderObjectView builderObjectView = new BuilderObjectView(mainCharacter.getImgPath(), 350, 350, 50, 50, root);
 
         myPane.getChildren().addAll(List.of(examplePlatformView, mainCharacterView, raccoonView, builderObjectView));
+
     }
 
     private void setupTimeline() {
