@@ -21,4 +21,8 @@ public class NodeFactory {
         i.setFitHeight(go.getHeight());
         return i;
     }
+
+    public ImageView getImage(String imagePath) {
+        return new ImageView(new Image(imagePath));
+    }
 }

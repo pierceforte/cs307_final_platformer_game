@@ -15,6 +15,9 @@ public abstract class GameObject {
     private double ySpeed;
     private int xDirection;
     private int yDirection;
+    private int width;
+    private int height;
+    private String imagePath;
 
     private boolean visible;
 
@@ -26,6 +29,11 @@ public abstract class GameObject {
         xDirection = UP_OR_RIGHT;
         yDirection = UP_OR_RIGHT;
         visible = false;
+
+        // TODO: update constructor for following fields
+        width = 0;
+        height = 0;
+        imagePath = "";
     }
     /**
      * Get the image path for this object
@@ -140,6 +148,9 @@ public abstract class GameObject {
         return yDirection;
     }
 
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+
     /**
      * Reverse the x direction
      */
@@ -174,4 +185,5 @@ public abstract class GameObject {
     public boolean getVisible() {
         return visible;
     }
+    public String getImagePath() { return imagePath; }
 }

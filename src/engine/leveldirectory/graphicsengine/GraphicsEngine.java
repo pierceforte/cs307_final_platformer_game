@@ -1,6 +1,7 @@
 package engine.leveldirectory.graphicsengine;
 
 import engine.gameobject.GameObject;
+import engine.general.Game;
 import engine.leveldirectory.gamesequence.ScoreDisplay;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -10,17 +11,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- *
+ * This class defines how the graphics are displayed
  */
 public class GraphicsEngine {
     private ResourceBundle resourceBundle;
-
     private List<GameObject> gameObjects;
     private List<ImageView> nodes;
 
     private ScoreDisplay scoreDisplay;
-
     private BorderPane borderPane;
+
+    public GraphicsEngine(Game game, Player)
 
     public Pane getBorderPane() { return borderPane; }
 

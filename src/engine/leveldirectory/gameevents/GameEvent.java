@@ -1,36 +1,43 @@
 package engine.leveldirectory.gameevents;
 
 import engine.gameactions.ParentAction;
+import engine.gameobject.GameObject;
 import engine.general.Game;
 import engine.general.ParentObject;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * Abstract class used for all Game Events.
  *
  * @author Jerry Huang
  */
-public abstract class GameEvent extends ParentObject {
-    private List<ParentAction> actions;
-    private SimpleIntegerProperty simpleInt; // binding
-    private int timesTriggered;
+public abstract class GameEvent {
+    private List<GameObject> gameObjects;
+    private ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/");
 
     public GameEvent() {
-        addPara
+        gameObjects = new ArrayList<>();
     }
 
-    public List<ParentAction> getActions() {
-        return actions;
+    public abstract void update();
+
+    public void add(GameObject gameObject) {
+        gameObjects.add(gameObject);
     }
 
+    public void remove(GameObject gameObject) {
+        if (gameObjects.contains(gameObject))
+            gameObjects.remove(gameObject);
+    }
 
-
-
-    public SimpleIntegerProperty
-
-    public Game getGame() {
-        return getGame();
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+    public void setGameObjects(List<GameObject> gameObjects) {
+        this.gameObjects = gameObjects;
     }
 }
