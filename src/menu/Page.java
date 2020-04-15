@@ -2,6 +2,7 @@ package menu;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -9,15 +10,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Level;
 
 /**
  * @author Nicole Lindbergh
  */
 
 public abstract class Page {
-    private static final int GAME_SIZE = 900;
 
     private Stage myStage;
+    private Pages myPage;
+    private Scene myScene;
 
     /**
      * Constructs a basic Page. All animated Pages are extended from this class.
@@ -26,8 +29,9 @@ public abstract class Page {
      * @return    Page
      */
 
-    public Page(Stage primaryStage) {
+    public Page(Stage primaryStage, Pages page) {
         myStage = primaryStage;
+        myPage = page;
     }
 
     /**
@@ -39,8 +43,16 @@ public abstract class Page {
      * @return    double
      */
 
-    abstract Scene buildScene(int height, int width) throws IOException;
+    Scene buildScene(int height, int width) throws IOException {
+        Pane myRoot = init_Root(height, width);
+        myScene = new Scene(myRoot);
+        myScene.getStylesheets().addAll(this.getClass().getResource("menuresources/main.css")
+                .toExternalForm());
+        return myScene;
+    }
 
+
+    abstract Pane init_Root(int height, int width);
     /**
      * Returns the Stage in use.
      *
@@ -52,18 +64,14 @@ public abstract class Page {
     /**
      * Returns the type of the page.
      *
-     * @return    String
+     * @return    Pages
      */
 
-    abstract String getType();
+    public Pages getType() {
+        return myPage;
+    }
 
-    /**
-     * Returns the command function of the page.
-     *
-     * @return    String
-     */
-
-    abstract String getCommand();
+    public Scene getMyScene() {return myScene;}
 
     /**
      * This nested class extends VBox.
@@ -85,7 +93,7 @@ public abstract class Page {
         public MenuBox(String... items) {
             for (String item : items) {
                 Button button = new Button(item);
-                //button.setPrefSize(300, 40);
+
                 getChildren().add(createSeparator());
                 button.setId("button");
 
@@ -94,7 +102,7 @@ public abstract class Page {
                         System.exit(0);
                     }
                     try {
-                        myStage.setScene(gotoScene(item));
+                        gotoScene(item);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -159,9 +167,14 @@ public abstract class Page {
 
     public Scene getScene(String name) throws IOException {
         Scene myScene = null;
-        if (name.equals("")) {
-            myScene = new Scene(myStage.getScene().getRoot());
+
+        if (name.equals("Continue")) {
+            LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory);
         }
+        if (name.equals("Debug")) {
+            DebugEnvironment de = new DebugEnvironment(myStage, Pages.Debug);
+        }
+
         return myScene;
     }
 

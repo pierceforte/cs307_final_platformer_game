@@ -1,17 +1,14 @@
 package menu;
 
-import data.InvalidLoginException;
-import data.User;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -21,13 +18,23 @@ import java.util.ResourceBundle;
 public class PageBuilder {
     private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
     private static final String STYLESHEET = "menuresources/main.css";
+    private Stage myStage;
 
-    public PageBuilder() {
+    public PageBuilder(Stage primaryStage) {
+        myStage = primaryStage;
     }
 
     public Text buildTitleText(String s) {
         Text t = new Text(s);
         t.setId("MainTitle");
+        t.setFill(Color.GREENYELLOW);
+
+        InnerShadow is = new InnerShadow();
+        is.setOffsetX(4.0f);
+        is.setOffsetY(4.0f);
+
+        t.setEffect(is);
+
         return t;
     }
 
@@ -65,19 +72,13 @@ public class PageBuilder {
                     if (result.isPresent()) {
                         String[] g = result.get();
                         try {
-                            User player = new User(title.getText(), saveloc.getText());
-                        } catch (InvalidLoginException e) {
+                            //User player = new User(title.getText(), saveloc.getText());
+                        } catch (Exception e) {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle(myResource.getString("InvalidFile"));
                             alert.setHeaderText(myResource.getString("InvalidFile"));
                             alert.setContentText(myResource.getString("Try"));
                             //throw a "file already exists" exception
-                        } catch (ParseException e) {
-                            //TODO: catch properly
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            //TODO: catch properly
-                            e.printStackTrace();
                         }
                     }}});
         return save;
@@ -116,20 +117,23 @@ public class PageBuilder {
                 Optional<String[]> result = dialog.showAndWait();
                 if (result.isPresent()) {
                     String[] g = result.get();
-                    //TODO: properly implement code below
-                    /*
                     try {
+                        //check with user
 
-                    }
-                    catch (InvalidLoginException e) {
+                        LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory);
+
+                        //myStage.setScene()
+
+                    } catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle(myResource.getString("InvalidFile"));
                         alert.setHeaderText(myResource.getString("InvalidFile"));
                         alert.setContentText(myResource.getString("Try"));
                         //throw a "file already exists" exception
                     }
-                    }*/
-                }}});
+                }
+
+            }});
         Button exit = new Button(myResource.getString("Exit"));
         exit.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
