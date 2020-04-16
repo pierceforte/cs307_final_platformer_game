@@ -1,4 +1,4 @@
-package data;
+package data.user;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;

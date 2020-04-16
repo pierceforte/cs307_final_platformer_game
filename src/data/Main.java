@@ -1,15 +1,8 @@
 package data;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.*;
-import com.google.firebase.database.FirebaseDatabase;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
+import data.user.InvalidLoginException;
+import data.user.ReadSaveException;
+import data.user.User;
 
 public class Main {
     public static void main(String[] args) throws InvalidLoginException, ReadSaveException {

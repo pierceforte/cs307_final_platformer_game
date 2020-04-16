@@ -1,12 +1,7 @@
 package data;
 
-import netscape.javascript.JSObject;
-import org.json.simple.JSONObject;
+import data.user.*;
 import org.junit.Test;
-
-import javax.swing.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class SaveDeleteUserTest {
 

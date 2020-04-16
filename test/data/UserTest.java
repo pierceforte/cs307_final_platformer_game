@@ -1,5 +1,6 @@
 package data;
 
+import data.user.*;
 import junit.framework.TestCase;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -10,7 +11,7 @@ import java.util.*;
 public class UserTest extends TestCase {
 
     @Test
-    public void testReadObject() throws InvalidLoginException, ReadSaveException{
+    public void testReadObject() throws InvalidLoginException, ReadSaveException {
         User user = new User("test", "tester");
         JSONObject json = user.getJSON();
         testUser(user, json, "test", "tester", 2000, "location.png", 7, 27,1998,

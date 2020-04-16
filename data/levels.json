@@ -1,0 +1,24 @@
+{
+  "ctors": {
+    "SimplePlayer" : {
+      "1": ["double xPos", "double yPos", "double xSpeed", "double ySpeed"]
+    },
+    "Mongoose": {
+      "1": ["double xPos", "double yPos", "double xSpeed"]
+    },
+    "Raccoon" : {
+      "1": ["double xPos", "double yPos", "double xSpeed"]
+    },
+    "HorizontalSlidingPlatform" : {
+      "1": ["double xPos", "double yPos", "double xSpeed", "double minX", "double maxX", "int direction"]
+    },
+
+
+
+  },
+  "1": {
+    "SimplePlayer": {
+
+    }
+  }
+}
