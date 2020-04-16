@@ -8,6 +8,10 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.util.*;
 
+/**
+ * @author benburnett
+ * User class is an object that holds all of the information for a player throughout the game
+ */
 public class User {
 
     private static final String filePath = "data/messaround.json";
