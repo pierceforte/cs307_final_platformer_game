@@ -1,6 +1,7 @@
 package engine.leveldirectory.gamesequence;
 
-import builder.Bank;
+import builder.BankController;
+import builder.BankView;
 import builder.BankItem;
 import builder.BuilderObjectView;
 import data.KeyInput;
@@ -33,7 +34,7 @@ public class GameSequenceController {
     private GameObjectView mainCharacterView;
     private GameObjectView examplePlatformView;
     private GameObjectView raccoonView;
-    private Bank bank;
+    private BankController bankController;
 
     private Scene myScene;
     private Pane myPane;
@@ -71,9 +72,11 @@ public class GameSequenceController {
         BankItem one = new BankItem(mainCharacter.getImgPath(), 30, 30, 10);
         BankItem two = new BankItem("mongoose.png", 30, 30, 20);
         BankItem three = new BankItem(raccoon.getImgPath(), 30, 30, 30);
-        BankItem four = new BankItem(mainCharacter.getImgPath(), 30, 30, 40);
+        BankItem four = new BankItem(mainCharacter.getImgPath(), 30, 30, 40000);
 
-        bank = new Bank(List.of(one, two, three, four), 20, 20, 200, 200, 10000, root);
+        BankView bankView = new BankView(20, 20, 200, 200, root);
+        bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
+
 
         BuilderObjectView builderObjectView = new BuilderObjectView(mainCharacter.getImgPath(), 350, 350, 50, 50, root);
 
@@ -108,6 +111,8 @@ public class GameSequenceController {
 
         mainCharacter.updatePositionOnStep(0.167);
         raccoon.updatePositionOnStep(0.167);
+
+        bankController.update();
     }
 
     public void pause() {

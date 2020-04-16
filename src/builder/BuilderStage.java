@@ -4,7 +4,7 @@ import java.util.List;
 
 public class BuilderStage {
 
-    private Bank bank;
+    private BankView bankView;
 
     public BuilderStage(List<BankItem> bankItems) {
         //bank = new Bank(bankItems);
