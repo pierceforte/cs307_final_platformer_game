@@ -10,10 +10,11 @@ import java.util.*;
 
 public class User {
 
-    private static final String filePath = "data/users.json";
+    private static final String filePath = "data/messaround.json";
     private static final int InventorySize = 5;
 
     private boolean unlocked = false;
+    private boolean warned = false;
 
     private JSONObject json;
     private SaveUser save = new SaveUser();
@@ -28,6 +29,15 @@ public class User {
     private Map<Integer, Integer> levelScores = new HashMap<>();
     private Map<Integer, List<Double>> levelPaths = new HashMap<>();
 
+    /**
+     * Constructor for existing account
+     * Scans the user file for account information and instantiates a player object if it finds that info
+     * @param id - the players username
+     * @param password - the player's password
+     * @throws InvalidLoginException - thrown if the id doesn't have an associated account or the password doesn't match
+     * the username
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
     public User(String id, String password) throws InvalidLoginException, ReadSaveException {
         this.id = id;
         this.password = password;
@@ -38,20 +48,48 @@ public class User {
             users = (JSONObject)jsonParser.parse(reader);
         }
         catch (Exception e) { throw new ReadSaveException("read", filePath); }
-
-        JSONObject user;
-        try { user = (JSONObject) users.get(id); }
-        catch(NullPointerException e) { throw new InvalidLoginException(id); }
+        if (!users.keySet().contains(id)) throw new InvalidLoginException(id);
+        JSONObject user = (JSONObject) users.get(id);
 
         if (user.get("password").equals(password)) unlockUser(user);
         else throw new InvalidLoginException(id, password);
     }
 
-    public User(String id, String password, String avatarImg, String[] birthdayArray) throws ReadSaveException {
+    /**
+     * Constructor for a new account
+     * Adds the new account to the user file and instanitates a player object for the new account
+     * @param id - the player's username
+     * @param password - the player's password
+     * @param avatarImg - a string for the file path to the player's desired avatar
+     * @param birthdayArray - a string array for the player's birthday
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     * @throws DuplicateUsernameException - thrown if the desired player id already exists
+     */
+    public User(String id, String password, String avatarImg, String[] birthdayArray) throws ReadSaveException, DuplicateUsernameException {
         this(id, password, avatarImg, Integer.parseInt(birthdayArray[0]), Integer.parseInt(birthdayArray[1]), Integer.parseInt(birthdayArray[2]));
     }
 
-    public User(String id, String password, String avatarImg, int month, int day, int year) throws ReadSaveException {
+    /**
+     * Constructor for a new account
+     * Adds the new account to the user file and instanitates a player object for the new account
+     * @param id - the player's username
+     * @param password - the player's password
+     * @param avatarImg - a string for the file path to the player's desired avatar
+     * @param month - the month the player was born
+     * @param day - the day the player was born
+     * @param year - the year the player was born
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     * @throws DuplicateUsernameException - thrown if the desired player id already exists
+     */
+    public User(String id, String password, String avatarImg, int month, int day, int year) throws ReadSaveException, DuplicateUsernameException {
+        JSONObject users;
+        JSONParser jsonParser = new JSONParser();
+        try {
+            FileReader reader = new FileReader(filePath);
+            users = (JSONObject)jsonParser.parse(reader);
+        }
+        catch (Exception e) { throw new ReadSaveException("read", filePath); }
+        if (users.keySet().contains(id)) throw new DuplicateUsernameException(id);
         this.id = id;
         this.password = password;
         this.avatarImg = avatarImg;
@@ -70,7 +108,12 @@ public class User {
         assignDefaults();
     }
 
-    private void assignDefaults() {
+    /**
+     * Used is the constructors for setting up a new player
+     * Instatiates all of the default instance variables for a new player
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    private void assignDefaults() throws ReadSaveException {
         json.put("score", 0);
 
         while (inventory.size() < InventorySize) {
@@ -90,9 +133,13 @@ public class User {
         json.put("paths", pathsJSON);
         levelPaths.put(1, new ArrayList<>(Arrays.asList(0.0, 0.0)));
         original = new UserHolder(json, id, password, avatarImg, birthday, score, inventory, levelScores, levelPaths);
+        saveHelper();
     }
 
-
+    /**
+     * Reads a json file to retrieve all of the information from the last time the account was saved
+     * @param data - a JSONObject containing all of the infomation on the account from the file
+     */
     private void unlockUser(JSONObject data) {
         unlocked = true;
         json = data;
@@ -123,27 +170,69 @@ public class User {
         original = new UserHolder(json, id, password, avatarImg, birthday, score, inventory, levelScores, levelPaths);
     }
 
-    public void updateScore(int increase) {
-        scoreHelper(score + increase);
+    /**
+     * Passes the JSONObject that is keeping track of all of the changes to instance variables to the SaveUser class
+     * where it can be saved
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    private void saveHelper() throws ReadSaveException {
+        try {
+            save.save(json);
+        } catch(ReadSaveException e) {
+            if (!warned) {
+                warned = true;
+                throw new ReadSaveException(e.getAction(), e.getFile());
+            }
+        }
     }
 
-    public void replaceScore(int newScore) {
+    /**
+     * Changes the value of the player's score
+     * @param change - the change in score
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    public void updateScore(int change) throws ReadSaveException {
+        scoreHelper(score + change);
+    }
+
+    /**
+     * Sets the player's score to the parameter
+     * @param newScore - the player's new score
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    public void replaceScore(int newScore) throws ReadSaveException {
         scoreHelper(newScore);
     }
 
-    private void scoreHelper(int newScore) {
+    /**
+     * Helper method for updateScore() and replaceScore() - updates the score instance variable and the json file
+     * @param newScore - the new score
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    private void scoreHelper(int newScore) throws ReadSaveException {
         score = Math.max(newScore, 0);
         json.replace("score", score);
-        save.save(json);
+        saveHelper();
     }
 
-    public void changeAvatar(String avatarImg) {
+    /**
+     * Updates the filepath to the player's chosen avatar
+     * @param avatarImg - the new filepath
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    public void changeAvatar(String avatarImg) throws ReadSaveException {
         this.avatarImg = avatarImg;
         json.replace("avatar", avatarImg);
-        save.save(json);
+        saveHelper();
     }
 
-    public void updateLevelScore(int level, int newScore) {
+    /**
+     * Adds or replaces the player's high score for a certain level
+     * @param level - the level the score was acheived on
+     * @param newScore - the new score
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    public void updateLevelScore(int level, int newScore) throws ReadSaveException {
         if (level < 0) return;
         JSONObject levelsJSON = (JSONObject) json.get("levels");
         if (levelScores.containsKey(level)) {
@@ -155,40 +244,76 @@ public class User {
             levelScores.put(level, newScore);
             levelsJSON.put(level, newScore);
         }
-        save.save(json);
+        saveHelper();
     }
 
-    public void updateInventory(String remove, String add, int index) {
+    /**
+     * Adds a new String to the inventory at a specified index and removes a specific string
+     * @param remove - the string to be removed
+     * @param add - the string to be added
+     * @param index - the index of the string to be added
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    public void updateInventory(String remove, String add, int index) throws ReadSaveException {
         inventory.remove(remove);
         inventory.add(index, add);
         JSONArray inventoryJSON = (JSONArray) json.get("inventory");
         inventoryJSON.remove(remove);
         inventoryJSON.add(index, add);
-        save.save(json);
+        saveHelper();
     }
 
-    public void updateInventory(String remove, String add) {
+    /**
+     * Removes a string from the inventory and dds another in the same index to the inventory
+     * @param remove - the string to be removed
+     * @param add - the string to be added
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    public void updateInventory(String remove, String add) throws ReadSaveException {
         updateInventory(remove, add, inventory.indexOf(remove));
     }
 
-    public void updateInventory(String add, int index) {
+    /**
+     * Adds a string to the inventory at a specific index and removes the first string
+     * @param add - the string to be added
+     * @param index - the string to be removed
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    public void updateInventory(String add, int index) throws ReadSaveException {
         updateInventory(inventory.get(0), add, index);
     }
 
-    public void updateInventory(String add) {
+    /**
+     * Adds a string to the front of the inventory and removes the old string in that place
+     * @param add - the string to be added
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    public void updateInventory(String add) throws ReadSaveException {
         updateInventory(add, 0);
     }
 
-    public void replaceInventory(List<String> newItems) {
+    /**
+     * Replaces the entire inventory with a new list of items
+     * @param newItems - the list of the new inventory
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    public void replaceInventory(List<String> newItems) throws ReadSaveException {
         inventory.clear();
         JSONArray inventoryJSON = (JSONArray) json.get("inventory");
         inventoryJSON.clear();
         if (newItems == null) return;
         inventory.addAll(newItems);
         inventoryJSON.addAll(newItems);
+        saveHelper();
     }
 
-    public void updateLevelPath(int level, List<Double> path) {
+    /**
+     * Adds a new path at a specific level for replay later - probably the high score path
+     * @param level - the level the path occured at
+     * @param path - the list of points indicating the path the player took
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    public void updateLevelPath(int level, List<Double> path) throws ReadSaveException {
         if (path == null || level < 1) return;
         JSONObject pathsJSON = (JSONObject) json.get("paths");
         if (levelPaths.containsKey(level)) {
@@ -200,14 +325,18 @@ public class User {
             levelPaths.put(level, path);
             pathsJSON.put(level, path);
         }
-        save.save(json);
-
+        saveHelper();
     }
 
-    public void changeInventoryLength(int length) {
-        if (length < 0) return;
+    /**
+     * Changes the length of the inventory - if the new length is shorter it will remove strings from the end, if its
+     * more it will add empty strings to the end
+     * @param length - the new length of the inventory
+     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
+     */
+    public void changeInventoryLength(int length) throws ReadSaveException {
         int size = inventory.size();
-        if (length == size) return;
+        if (length < 0 || length == size) return;
         if (length > size) {
             for (int count = 0; count < length - size; count ++) {
                 inventory.add("");
@@ -222,57 +351,91 @@ public class User {
                 jsonInv.remove(count);
             }
         }
+        saveHelper();
     }
 
-    public boolean isUnlocked() {
-        return unlocked;
-    }
-
+    /**
+     * @return - the user's id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * @return - the user's password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * @return - an immutable list of the (Month, Day, Year)
+     */
     public List<Integer> getBirthday() {
         return ImmutableList.copyOf(birthday);
     }
 
+    /**
+     * @return - an int of the player's birth month
+     */
     public int getBDayMonth() {
         return birthday.get(0);
     }
 
+    /**
+     * @return - an int of the player's birth day
+     */
     public int getBDayDay() {
         return birthday.get(1);
     }
 
+    /**
+     * @return - an int of the player's birth year
+     */
     public int getBDayYear() {
         return birthday.get(2);
     }
 
+    /**
+     * @return - a string of the filepath for the player's avatar
+     */
     public String getAvatar() {
         return avatarImg;
     }
 
+    /**
+     * @return - the player's score
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * @param level - the level of the score
+     * @return - the player's score on that level (0 if the player hasnt reached the level yet)
+     */
     public int getLevel(int level) {
         if (levelScores.containsKey(level)) return levelScores.get(level);
         return 0;
     }
 
+    /**
+     * @return - an immutable map of all of the levels and what the player scored on them
+     */
     public Map<Integer, Integer> getLevelScores() {
         return ImmutableMap.copyOf(levelScores);
     }
 
+    /**
+     * @return - an immutable list of the player's inventory
+     */
     public List<String> getInventory() {
         return ImmutableList.copyOf(inventory);
     }
 
+    /**
+     * @return - an immutable map of the player's best paths on each level
+     */
     public Map<Integer, List<Double>> getPaths() {
         Map<Integer, List<Double>> returnPaths = new HashMap<>();
         for (int key : levelPaths.keySet()) {
@@ -281,16 +444,27 @@ public class User {
         return ImmutableMap.copyOf(returnPaths);
     }
 
+    /**
+     * @param level - the level that you want the player's path for
+     * @return - the path for the level or an immutable list with 0.0, 0.0 as points if the level hasnt been attempted yet
+     */
     public List<Double> getPath(int level) {
         if (levelPaths.containsKey(level)) return ImmutableList.copyOf(levelPaths.get(level));
         return ImmutableList.copyOf(Arrays.asList(0.0, 0.0));
     }
 
+    /**
+     * @return - the player's json object that will be saved - for testing only
+     */
     public JSONObject getJSON() {
         return json;
     }
 
-    public void reset() {
+    /**
+     * Resets the player's instance variables to what they were when the object was instantiated - for testing only
+     * @throws ReadSaveException
+     */
+    public void reset() throws ReadSaveException {
         json = original.getJson();
         id = original.getID();
         password = original.getPassword();
@@ -301,5 +475,6 @@ public class User {
         levelScores = original.getLevelScores();
         score = original.getScore();
         Map<Integer, Integer> oldScores = original.getLevelScores();
+        saveHelper();
     }
 }

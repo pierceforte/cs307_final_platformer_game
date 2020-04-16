@@ -1,11 +1,7 @@
 package data;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,24 +19,32 @@ public class SaveUser {
         } catch (Exception e) {
             throw new ReadSaveException("save", fileLoc);
         }
-
     }
 
-    public void save(JSONObject user) {
+    public void delete(String id) throws ReadSaveException {
+        if (!users.containsKey(id)) return;
+        users.remove(id);
+        write();
+    }
+
+    public void save(JSONObject user) throws ReadSaveException {
         String id = (String) user.get("id");
-        try {
+        if (users.keySet().contains(id)) {
             JSONObject stored = (JSONObject) users.get(id);
             users.replace(id, stored, user);
-        } catch (NullPointerException e) {
+        }
+        else {
             users.put(id, user);
         }
+        write();
+    }
 
+    private void write() throws ReadSaveException {
         try (FileWriter file = new FileWriter(fileLoc)) {
             file.write(users.toJSONString());
             file.flush();
-
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ReadSaveException("Save", fileLoc);
         }
     }
 }

@@ -13,15 +13,19 @@ public class UserTest extends TestCase {
     public void testReadObject() throws InvalidLoginException, ReadSaveException{
         User user = new User("test", "tester");
         JSONObject json = user.getJSON();
-        testPresetUser(user, json, 2000, 3, new ArrayList<>(Arrays.asList(55,12,0)),
+        testUser(user, json, "test", "tester", 2000, "location.png", 7, 27,1998,
+                3, 5, new ArrayList<>(Arrays.asList(55,12,0)), new String[]{"", "", "", "",""},
                 new ArrayList<>(Arrays.asList(1.0,1.0,1.0,1.0,1.0,1.0,11.0,1.0,11.0,1.0)));
     }
 
     @Test
-    public void testNewUser() throws ReadSaveException {
-        User user = new User("test", "tester", "location.png", new String[]{"7","27","1998"});
+    public void testNewUser() throws ReadSaveException, DuplicateUsernameException {
+        SaveUser save = new SaveUser();
+        save.delete("NewUser");
+        User user = new User("NewUser", "tester", "location.png", new String[]{"7","27","1998"});
         JSONObject json = user.getJSON();
-        testPresetUser(user, json, 0, 1, new ArrayList<>(Arrays.asList(0)),
+        testUser(user, json, "NewUser", "tester", 0, "location.png", 7, 27,1998,
+                1, 5,new ArrayList<>(Arrays.asList(0)), new String[]{"", "", "", "",""},
                 new ArrayList<>(Arrays.asList(0.0, 0.0)));
     }
 
@@ -45,8 +49,24 @@ public class UserTest extends TestCase {
         testInventory(new String[]{""}, 1, user, json);
         user.reset();
         json = user.getJSON();
-        testPresetUser(user, json, 2000, 3, new ArrayList<>(Arrays.asList(55,12,0)),
-                new ArrayList<>(Arrays.asList(1.0,1.0,1.0,1.0,1.0,1.0,11.0,1.0,11.0,1.0)));
+        testUser(user, json, "test", "tester", 2000, "location.png", 7, 27,1998,
+                3, 5, new ArrayList<>(Arrays.asList(55,12,0)), new String[]{"", "", "", "",""},
+                        new ArrayList<>(Arrays.asList(1.0,1.0,1.0,1.0,1.0,1.0,11.0,1.0,11.0,1.0)));
+    }
+
+    private void testUser(User user, JSONObject json, String id, String password, int score, String avatar, int month,
+                          int day, int year, int levels, int invLength, List<Integer> expectedScores,
+                          String[] expectedInv, List<Double> path) {
+        testID(id, user, json);
+        testPassword(password, user, json);
+        testScore(score, user, json);
+        testAvatar(avatar, user, json);
+        testBirthday(month,day, year, user, json);
+        testLevelScores(levels, user, json);
+        assertEquals(0, user.getLevel(100));
+        testLevels(expectedScores, user, json);
+        testInventory(expectedInv, invLength, user, json);
+        testPaths(path, user,json);
     }
 
     @Test
@@ -72,26 +92,6 @@ public class UserTest extends TestCase {
         testPaths(new ArrayList<>(Arrays.asList(0.1,0.2)), user, json);
         user.updateLevelScore(12, 120);
         testLevel(120, 12, user, json);
-    }
-
-    private void testPresetUser(User user, JSONObject json, int score, int levels, List<Integer> expectedScores, List<Double> path) {
-        testUser(user, json, "test", "tester", score, "location.png", 7, 27,1998, levels, 5,
-                expectedScores, new String[]{"", "", "", "",""}, path);
-    }
-
-    private void testUser(User user, JSONObject json, String id, String password, int score, String avatar, int month, int day, int year, int levels, int length,
-                          List<Integer> expectedScores, String[] expectedInv, List<Double> path) {
-        testID(id, user, json);
-        testPassword(password, user, json);
-        testScore(score, user, json);
-        testAvatar(avatar, user, json);
-        testBirthday(month,day, year, user, json);
-        testLevelScores(levels, user, json);
-        assertEquals(0, user.getLevel(100));
-        testLevels(expectedScores, user, json);
-        testInventory(expectedInv, length, user, json);
-        testPaths(path, user,json);
-        assertTrue(user.isUnlocked());
     }
 
     private void testID(String expected, User user, JSONObject json) {
