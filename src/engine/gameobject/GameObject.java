@@ -23,6 +23,14 @@ public abstract class GameObject {
         xDirection = UP_OR_RIGHT;
         yDirection = UP_OR_RIGHT;
     }
+
+    public GameObject(List<Object> parameters) {
+        xPos = (double) parameters.get(0);
+        yPos = (double) parameters.get(1);
+        xSpeed = (double) parameters.get(2);
+        ySpeed = (double) parameters.get(3);
+    }
+    
     /**
      * Get the image path for this object
      * @return path to the image for this object

@@ -12,7 +12,7 @@ public class Mongoose extends GameObject implements Enemy {
 
     private double initXSpeed;
 
-    public Mongoose(double xPos, double yPos, double xSpeed) {
+    public Mongoose(Double xPos, Double yPos, Double xSpeed) {
         super(xPos, yPos, xSpeed, DEFAULT_Y_SPEED);
         initXSpeed = xSpeed;
     }

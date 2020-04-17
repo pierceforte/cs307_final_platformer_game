@@ -12,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -41,7 +42,7 @@ public class SaveLevel {
 
     private void addObj(GameObject object, JSONObject temp) throws ReadSaveException {
         String objClass = object.getClass().toString();
-        System.out.println(objClass);
+        objClass = objClass.split("class ")[1];
         if (!levels.containsKey(objClass)) temp.put(objClass, new JSONArray());
         JSONArray objList = (JSONArray) temp.get(objClass);
         JSONArray instanceList = new JSONArray();
@@ -54,11 +55,11 @@ public class SaveLevel {
         write();
     }
 
-    public List<GameObject> getTempSave() throws ReadSaveException, ClassNotFoundException {
+    public List<GameObject> getTempSave() throws ReadSaveException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         return getSavedLevel("temp");
     }
 
-    public List<GameObject> getSavedLevel(Object level) throws ReadSaveException, ClassNotFoundException {
+    public List<GameObject> getSavedLevel(Object level) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         List<GameObject> levelObjects = new ArrayList<>();
         String target;
         if (!(level instanceof java.lang.String)) target = Integer.toString((Integer)level);
@@ -73,23 +74,42 @@ public class SaveLevel {
             for (Object obj : listOfType) {
                 levelObjects.add(makeObject(objClass, (JSONArray) obj));
             }
-
         }
-        return Arrays.asList(new Mongoose(1.0,2.0,3.0));
+        return levelObjects;
     }
 
-    private GameObject makeObject(Class objClass, JSONArray parameters) throws ClassNotFoundException {
-        List<Type> types = new ArrayList<>();
-        List<Object> types = new ArrayList<>();
-        for (Object paramObj : parameters) {
-            JSONArray param = (JSONArray) paramObj;
-            Class t = Class.forName((String) param.get(0));
-            Object par = t.getDeclaredConstructor().newInstance()
-            types.add((param.get(1));
+    private GameObject makeObject(Class objClass, JSONArray parameters) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Class[] classes = new Class[parameters.size()];
+        Object[] params = new Object[parameters.size()];
+        //List<Class> types = new ArrayList<>();
+        //List<Object> params = new ArrayList<>();
+        for (int index = 0; index < parameters.size(); index++) {
+            JSONArray param = (JSONArray) parameters.get(index);
+            String paramName = (String) param.get(0);
+            Class thisClass = Class.forName(paramName);
+            classes[index] = thisClass;
+            params[index] = parse(thisClass, (String) param.get(1));
         }
+//        for (Object paramObj : parameters) {
+//            JSONArray param = (JSONArray) paramObj;
+//            Class t = Class.forName((String) param.get(0));
+//            Object par = t.getDeclaredConstructor().newInstance();
+//            types.add(t);
+//            params.add(par);
+//        }
         // call constructor whose parameter matches the given class type
-        GameObject object = objClass.getDeclaredConstructor(String.class).newInstance("Test");
-        System.out.println("Printing: " + o);
+        GameObject object = (GameObject) objClass.getDeclaredConstructor(classes).newInstance(params);
+        //System.out.println("Printing: " + o);
+        return object;
+    }
+
+    public static <T> T parse(Class<T> type, String value) {
+        try {
+            return (T)type.getDeclaredMethod("valueOf", String.class).invoke(null, value);
+        }
+        catch(Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

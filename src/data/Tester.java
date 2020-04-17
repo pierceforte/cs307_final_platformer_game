@@ -1,31 +1,29 @@
 package data;
 
+import data.levels.SaveLevel;
 import data.user.InvalidLoginException;
 import data.user.ReadSaveException;
+import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Mongoose;
+import org.apache.commons.lang3.ClassUtils;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Tester {
     public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Mongoose mini = new Mongoose(1,1,1);
-        Class wee = mini.getClass();
-        Constructor ctor = wee.getConstructor();
-        System.out.println(ctor.toString());
-        Type[] me = ctor.getParameterTypes();
-        for (Type param : me) {
-            System.out.println(param);
-            System.out.println(param.getClass());
-        }
-        Double eep = 9.0;
-        Object we = (Object) eep;
-        System.out.println("0" + we.getClass().toString());
-        String className = "java.lang.Double";
-        Class e = Class.forName(className);
-        Mongoose v = Mongoose.class.getConstructor(e, e, e).newInstance(2.2, 2.2, 2.2);
-        v.getImgPath();
+        double eep = 9.0;
+        SaveLevel save = new SaveLevel();
+        List<GameObject> list = save.getTempSave();
+        list.size();
+//        List<Class> me = new ArrayList<>();
+//        List<Object> obj = new ArrayList<>();
+//        System.out.println(me.getClass().toString());
+//        System.out.println(obj.getClass().toString());
         //System.out.println(Arrays.toString());
         //User oops = new User("bcb44", "benburnett");
         //NewUser user = new NewUser("pierce", "password", "home.img");
