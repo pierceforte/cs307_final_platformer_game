@@ -1,10 +1,6 @@
-package engine.leveldirectory.gameevents;
+package engine.leveldirectory.gameeventhandler;
 
-import engine.gameactions.ParentAction;
 import engine.gameobject.GameObject;
-import engine.general.Game;
-import engine.general.ParentObject;
-import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 import java.util.List;

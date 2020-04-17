@@ -1,4 +1,4 @@
-package engine.leveldirectory.gameevents;
+package engine.leveldirectory.gameeventhandler;
 
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import javafx.geometry.Point2D;

@@ -1,4 +1,4 @@
-package engine.leveldirectory.gameevents;
+package engine.leveldirectory.gameeventhandler;
 
 /**
  * This class loops through all objects and checks if there are collisions

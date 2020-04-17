@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
  * useful for the GameObject, Action, and Event classes
  */
 public class ParentObject {
-    private List<Coordinates> parameters;
+    private List<Parameters> parameters;
     private GameObject gameObject;
     private Game game;
     private int id; // used for testing
@@ -24,17 +24,17 @@ public class ParentObject {
         id = 1; // used for testing
     }
 
-    public List<Coordinates> getParameters() {
+    public List<Parameters> getParameters() {
         return parameters;
     }
-    public void addParameter(Coordinates coord) {
+    public void addParameter(Parameters coord) {
         this.parameters.add(coord);
     }
     public void removeParameter(String name) {
         parameters.remove(findParameter(name));
     }
-    private Coordinates findParameter(String name) {
-        for (Coordinates param : parameters)
+    private Parameters findParameter(String name) {
+        for (Parameters param : parameters)
             if (param.getName().equals(name))
                 return param;
         return null;

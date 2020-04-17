@@ -2,8 +2,8 @@ package engine.leveldirectory.gamesequence;
 
 import engine.gameobject.GameObject;
 import engine.general.Game;
-import engine.leveldirectory.gameevents.CollisionEvent;
-import engine.leveldirectory.gameevents.UserInputEvent;
+import engine.leveldirectory.gameeventhandler.CollisionEvent;
+import engine.leveldirectory.gameeventhandler.UserInputEvent;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import javafx.scene.Scene;
 
