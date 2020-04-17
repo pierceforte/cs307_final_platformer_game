@@ -40,7 +40,7 @@ public class BuilderTest extends DukeApplicationTest {
     }
 
     /**
-     * Test purchase (on frontend) is registered properly in backend.
+     * Test purchase of item that is too expensive is rejected.
      */
     @Test
     public void testInValidPurchase() {
@@ -62,6 +62,11 @@ public class BuilderTest extends DukeApplicationTest {
         bankController.update();
         // assert error message has been displayed to user
         assertNotNull(root.lookup("#notEnoughMoneyMessage"));
+        // go to a different item
+        Rectangle prevButton = (Rectangle) root.lookup("#prevButton");
+        fireMouseClick(prevButton);
+        // assert error message is no longer present
+        assertNull(root.lookup("#notEnoughMoneyMessage"));
     }
 
     /**
@@ -88,9 +93,6 @@ public class BuilderTest extends DukeApplicationTest {
         // go to next item
         fireMouseClick(nextButton);
         bankController.update();
-        // go to next item
-        fireMouseClick(nextButton);
-        bankController.update();
         // assert next button is no longer present
         assertNull(root.lookup("#nextButton"));
         itemBeforeItemSwitch = bankModel.getCurItem();
@@ -100,7 +102,6 @@ public class BuilderTest extends DukeApplicationTest {
         // assert next button is now present and item has been changed
         assertNotNull(root.lookup("#nextButton"));
         assertNotEquals(bankModel.getCurItem(), itemBeforeItemSwitch);
-
     }
 
     protected void fireButtonEvent(Button button) {
@@ -118,10 +119,9 @@ public class BuilderTest extends DukeApplicationTest {
     private void createExampleBankController() {
         BankItem one = new BankItem("raccoon.png", 30, 30, 10);
         BankItem two = new BankItem("raccoon.png", 30, 30, 20);
-        BankItem three = new BankItem("raccoon.png", 30, 30, 30);
-        BankItem four = new BankItem("raccoon.png", 30, 30, 40000);
+        BankItem three = new BankItem("raccoon.png", 30, 30, 40000);
         root = new Pane();
         BankView bankView = new BankView(20, 20, 200, 200, root);
-        bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
+        bankController = new BankController(List.of(one, two, three), 10000, bankView);
     }
 }
