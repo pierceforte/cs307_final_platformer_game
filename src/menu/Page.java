@@ -1,11 +1,13 @@
 package menu;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -43,7 +45,7 @@ public abstract class Page {
      * @return    double
      */
 
-    public Scene buildScene(int height, int width) throws IOException {
+    Scene buildScene(int height, int width) throws IOException {
         Pane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
         myScene.getStylesheets().addAll(this.getClass().getResource("menuresources/main.css")
@@ -110,6 +112,10 @@ public abstract class Page {
                 getChildren().addAll(button, createSeparator());
 
             }
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+            this.setTranslateX(primaryScreenBounds.getWidth()/2 - 100);
+            this.setTranslateY(primaryScreenBounds.getHeight()/2);
         }
 
         public void addButtons(Button ...buttons) {

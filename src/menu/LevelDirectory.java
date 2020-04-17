@@ -1,8 +1,13 @@
 package menu;
 
+import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,9 +17,10 @@ public class LevelDirectory extends Page {
     private Stage myStage;
     private Scene myScene;
     private PageBuilder myFactory;
+    private boolean light;
 
     private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
-    private static final String STYLESHEET = "menuresources/main.css";
+    private String STYLESHEET;
 
     /**
      * Constructs a basic Page. All animated Pages are extended from this class.
@@ -24,11 +30,15 @@ public class LevelDirectory extends Page {
      * @return Page
      */
     public LevelDirectory(Stage primaryStage, Pages levelDirectory) throws IOException {
-        super(primaryStage, Pages.LevelDirectory);
+        super(primaryStage, levelDirectory);
         myStage=primaryStage;
+        myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
-        myStage.setScene(this.buildScene(900,900));
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        STYLESHEET = "menuresources/light.css";
+        light = true;
+        myStage.setScene(this.buildSpecialScene((int) primaryScreenBounds.getHeight(),(int) primaryScreenBounds.getWidth()));
     }
 
     @Override
@@ -41,8 +51,33 @@ public class LevelDirectory extends Page {
         MenuBox myBox = new MenuBox("Level 1", "Level 2", "Level 3", "Debug");
         myBox.setId("MenuBox");
 
-        myRoot.getChildren().addAll(t, myBox);
+        Button lightbutton = new Button();
+        lightbutton.setId("LightButton");
+        lightbutton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (light) {
+                    STYLESHEET = "menuresources/dark.css";
+                    myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
+                    light = false;
+                }
+                else {
+                    STYLESHEET = "menuresources/light.css";
+                    myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
+                    light = true;
+                }
+            }
+        });
+
+        myRoot.getChildren().addAll(t, myBox, lightbutton);
         return myRoot;
+    }
+
+    Scene buildSpecialScene(int height, int width) {
+        Pane myRoot = init_Root(height, width);
+        myScene = new Scene(myRoot);
+        myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
+        return myScene;
     }
 
     @Override
