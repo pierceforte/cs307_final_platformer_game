@@ -1,3 +1,10 @@
-{
-
+{"temp": {
+  "class engine.gameobject.opponent.Mongoose":[
+  [
+    ["class java.lang.Double","1.0"],
+    ["class java.lang.Double","2.0"],
+    ["class java.lang.Double","1.0"]
+  ]
+  ]
+}
 }
