@@ -26,6 +26,22 @@ public class BankController {
         }
     }
 
+    /**
+     * Used to retrieve bank backend for testing
+     * @return BankModel instance
+     */
+    public BankModel getBankModel() {
+        return bankModel;
+    }
+
+    /**
+     * Used to retrieve bank frontend for testing
+     * @return BankView instance
+     */
+    public BankView getBankView() {
+        return bankView;
+    }
+
     private void handlePurchaseRequest() {
         try {
             bankModel.attemptPurchase();

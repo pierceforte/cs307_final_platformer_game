@@ -57,6 +57,10 @@ public class BankModel {
 
     }
 
+    public int size() {
+        return bankItems.size();
+    }
+
     public void handlePrevRequest() {
         curIndex--;
     }

@@ -67,11 +67,13 @@ public class BankView {
                         bank.handleNextRequest();
                         removeInvalidPurchaseDisplay();
                     });
+            nextButton.setId("nextButton");
             prevButton = createChangeItemButton(PATH_TO_LEFT_ARROW, width*1/3,
                     () -> {
                         bank.handlePrevRequest();
                         removeInvalidPurchaseDisplay();
                     });
+            prevButton.setId("prevButton");
         }
     }
 
@@ -127,6 +129,7 @@ public class BankView {
 
     private void createPurchaseButton() {
         purchaseButton = new Button("PURCHASE");
+        purchaseButton.setId("purchaseButton");
         purchaseButton.setLayoutX(background.getX() + width*2/3);
         purchaseButton.setLayoutY(background.getY() + height/2 + height/3 + height/4);
         purchaseButton.setPrefWidth(width/3);
@@ -159,6 +162,7 @@ public class BankView {
         invalidPurchaseDisplay = createTextDisplay("NOT ENOUGH MONEY",
                 background.getX() + width/5, background.getY() + height*5/6);
         invalidPurchaseDisplay.setFill(Color.RED);
+        invalidPurchaseDisplay.setId("notEnoughMoneyMessage");
         root.getChildren().add(invalidPurchaseDisplay);
     }
 
@@ -188,7 +192,6 @@ public class BankView {
     private void addNonEmptyBankDisplays() {
         for (Node node : nonEmptyBankDisplays) {
             if (node != null && !root.getChildren().contains(node)) {
-                System.out.println("here");
                 root.getChildren().add(node);
             }
         }
