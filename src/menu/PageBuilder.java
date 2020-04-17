@@ -1,24 +1,21 @@
 package menu;
 
-import data.InvalidLoginException;
-import data.User;
-import engine.general.Game;
-import engine.leveldirectory.gamesequence.GameSequence;
-import engine.leveldirectory.gamesequence.GameSequenceController;
-import engine.leveldirectory.graphicsengine.GraphicsEngine;
-import engine.leveldirectory.level.LevelContainer;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static javafx.geometry.Pos.CENTER;
 
 /*
  * Builds items for any Page to add.
@@ -140,6 +137,7 @@ public class PageBuilder {
                         //throw a "file already exists" exception
                     }
                 }
+
             }});
         Button exit = new Button(myResource.getString("Exit"));
         exit.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -149,6 +147,6 @@ public class PageBuilder {
             }
         });
         myBox.addButtons(play, exit);
-        myBox.setId("MenuBox");
+
     }
 }

@@ -1,14 +1,13 @@
 package menu;
 
-import engine.leveldirectory.gamesequence.GameSequenceController;
-import engine.leveldirectory.graphicsengine.GraphicsEngine;
-import engine.leveldirectory.level.LevelContainer;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,7 +23,6 @@ public abstract class Page {
     private Stage myStage;
     private Pages myPage;
     private Scene myScene;
-    private Pane myRoot;
 
     /**
      * Constructs a basic Page. All animated Pages are extended from this class.
@@ -48,7 +46,7 @@ public abstract class Page {
      */
 
     Scene buildScene(int height, int width) throws IOException {
-        myRoot = init_Root(height, width);
+        Pane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
         myScene.getStylesheets().addAll(this.getClass().getResource("menuresources/main.css")
                 .toExternalForm());
@@ -106,7 +104,7 @@ public abstract class Page {
                         System.exit(0);
                     }
                     try {
-                        myStage.setScene(gotoScene(item));
+                        gotoScene(item);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -114,6 +112,10 @@ public abstract class Page {
                 getChildren().addAll(button, createSeparator());
 
             }
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+            this.setTranslateX(primaryScreenBounds.getWidth()/2 - 100);
+            this.setTranslateY(primaryScreenBounds.getHeight()/2);
         }
 
         public void addButtons(Button ...buttons) {
@@ -170,7 +172,7 @@ public abstract class Page {
      */
 
     public Scene getScene(String name) throws IOException {
-        //Scene myScene = null;
+        Scene myScene = null;
 
         if (name.equals("Continue")) {
             LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory);
@@ -179,11 +181,7 @@ public abstract class Page {
             DebugEnvironment de = new DebugEnvironment(myStage, Pages.Debug);
         }
         if (name.equals("Level 1")) {
-            GameSequenceController gameSequenceController = new GameSequenceController(
-                    new LevelContainer(null, null, null),
-                    new GraphicsEngine(),
-                    null, myScene, myRoot);
-            gameSequenceController.play();
+            LevelOne ll = new LevelOne(myStage, Pages.BluePrintStage);
         }
 
         return myScene;

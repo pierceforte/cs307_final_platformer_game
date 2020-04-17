@@ -1,16 +1,21 @@
 package menu;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
 import java.io.IOException;
 import java.util.ResourceBundle;
+
+import static javafx.geometry.Pos.CENTER;
 
 public class MainMenu extends Page {
 
@@ -20,6 +25,8 @@ public class MainMenu extends Page {
     private Stage myStage;
     private Scene myScene;
     private PageBuilder myFactory;
+    private int bheight;
+    private int bwidth;
 
     /**
      * Constructs a basic Page. All animated Pages are extended from this class.
@@ -30,9 +37,10 @@ public class MainMenu extends Page {
     public MainMenu(Stage primaryStage) throws IOException {
         super(primaryStage, Pages.MainMenu);
         myStage = primaryStage;
+        myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
-        myStage.setScene(this.buildScene(900,900));
+        myStage.setScene(this.buildScene(bheight, bwidth));
     }
 
     Pane init_Root(int height, int width) {
@@ -44,7 +52,8 @@ public class MainMenu extends Page {
         MenuBox myMenuBox = new MenuBox();
         myFactory.addMainMenuButtons(myMenuBox);
 
-        myRoot.getChildren().addAll(newgame, myMenuBox, myFactory.buildTitleText(myResource.getString("MainTitle")));
+
+        myRoot.getChildren().addAll(newgame, myMenuBox);
 
         return myRoot;
     }

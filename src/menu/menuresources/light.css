@@ -1,8 +1,15 @@
 .root{
-    -fx-background-image: url("mainmenubackground.png");;
+    -fx-background-image: url("lightbackground.png");;
     -fx-background-size: stretch;
     -fx-background-position: center, center;
     -fx-font-size: 12pt;
+}
+#LightButton{
+    -fx-background-image: url("lighticon.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
 }
 #Welcome{
     -fx-font-fill: greenyellow;
@@ -33,7 +40,13 @@
     -fx-opacity: 0.9;
     -fx-font-weight: bold;
 }
-
+#BankButton{
+    -fx-pref-width: 50;
+    -fx-pref-width: 50;
+    -fx-font-size: 12;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
 #LaunchButton{
     -fx-background-color: goldenrod;
     -fx-text-fill: black;

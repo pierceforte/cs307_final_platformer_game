@@ -1,5 +1,5 @@
 .root{
-    -fx-background-image: url("mainmenubackground.png");;
+    -fx-background-image: url("darkbackground.png");;
     -fx-background-size: stretch;
     -fx-background-position: center, center;
     -fx-font-size: 12pt;
@@ -10,6 +10,13 @@
     -fx-font-size: 32pt;
     -fx-translate-x: 300;
     -fx-translate-y: 200;
+}
+#BankButton{
+    -fx-pref-width: 50;
+    -fx-pref-width: 50;
+    -fx-font-size: 12;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
 }
 #MainTitle {
     -fx-font-family: "Times New Roman";

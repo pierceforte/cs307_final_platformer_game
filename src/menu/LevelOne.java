@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
-public class LevelDirectory extends Page {
+public class LevelOne extends Page {
     private Stage myStage;
     private Scene myScene;
     private PageBuilder myFactory;
@@ -26,12 +26,11 @@ public class LevelDirectory extends Page {
      * Constructs a basic Page. All animated Pages are extended from this class.
      *
      * @param primaryStage Pages pass back and force the stage and animate them accordingly.
-     * @param levelDirectory
+     * @param page
      * @return Page
      */
-    public LevelDirectory(Stage primaryStage, Pages levelDirectory) throws IOException {
-        super(primaryStage, levelDirectory);
-        myStage=primaryStage;
+    public LevelOne(Stage primaryStage, Pages page) {
+        super(primaryStage, page);
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
@@ -39,6 +38,7 @@ public class LevelDirectory extends Page {
         STYLESHEET = "menuresources/light.css";
         light = true;
         myStage.setScene(this.buildSpecialScene((int) primaryScreenBounds.getHeight(),(int) primaryScreenBounds.getWidth()));
+
     }
 
     @Override
@@ -46,10 +46,6 @@ public class LevelDirectory extends Page {
         Pane myRoot = new Pane();
         myRoot.setPrefSize(width, height);
 
-        Text t = myFactory.buildTitleText(myResource.getString("Choose"));
-
-        MenuBox myBox = new MenuBox("Level 1", "Level 2", "Level 3", "Debug");
-        myBox.setId("MenuBox");
 
         Button lightbutton = new Button();
         lightbutton.setId("LightButton");
@@ -69,19 +65,18 @@ public class LevelDirectory extends Page {
             }
         });
 
-        myRoot.getChildren().addAll(t, myBox, lightbutton);
+        myRoot.getChildren().addAll(lightbutton);
         return myRoot;
     }
 
+    @Override
+    Scene gotoScene(String name) throws IOException {
+        return null;
+    }
     Scene buildSpecialScene(int height, int width) {
         Pane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
         myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
         return myScene;
-    }
-
-    @Override
-    Scene gotoScene(String name) throws IOException {
-        return getScene(name);
     }
 }
