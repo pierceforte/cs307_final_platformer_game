@@ -43,7 +43,7 @@ public abstract class Page {
      * @return    double
      */
 
-    Scene buildScene(int height, int width) throws IOException {
+    public Scene buildScene(int height, int width) throws IOException {
         Pane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
         myScene.getStylesheets().addAll(this.getClass().getResource("menuresources/main.css")
