@@ -57,7 +57,6 @@ public class PageBuilder {
                     TextField saveloc = new TextField(myResource.getString("NGPassword"));
                     saveloc.setPromptText(myResource.getString("NGPassword"));
 
-
                     VBox texts = new VBox(title, saveloc);
                     dialog.getDialogPane().setContent(texts);
 

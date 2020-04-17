@@ -2,12 +2,20 @@ package engine.gameobject.platform;
 
 import engine.gameobject.GameObject;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class StationaryPlatform extends GameObject implements Platform {
 
     public static final double NEW_ENTITY_Y_SPEED = 0;
 
     public StationaryPlatform(double xPos, double yPos, double xSpeed, double ySpeed) {
         super(xPos, yPos, xSpeed, ySpeed);
+    }
+
+    @Override
+    public List<Object> getParameters() {
+        return Arrays.asList(getX(), getY(), getXSpeed(), getYSpeed());
     }
 
     @Override

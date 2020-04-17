@@ -3,7 +3,9 @@ package engine.gameobject.player;
 import engine.gameobject.GameObject;
 import javafx.scene.input.KeyCode;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -22,6 +24,11 @@ public class SimplePlayer extends GameObject implements Player{
     @Override
     public String getImgPath() {
         return null;
+    }
+
+    @Override
+    public List<Object> getParameters() {
+        return Arrays.asList(getX(), getY(), getXSpeed(), getYSpeed());
     }
 
     public Map<KeyCode, Runnable> assignInputs() {

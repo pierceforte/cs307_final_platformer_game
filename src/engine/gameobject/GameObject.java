@@ -1,5 +1,8 @@
 package engine.gameobject;
 
+import java.util.Arrays;
+import java.util.List;
+
 public abstract class GameObject {
 
     public static final int DOWN_OR_LEFT = -1;
@@ -154,4 +157,6 @@ public abstract class GameObject {
         return speed < 0 ? DOWN_OR_LEFT : UP_OR_RIGHT;
     }
 
+
+    public abstract List<Object> getParameters();
 }

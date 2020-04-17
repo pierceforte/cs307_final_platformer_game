@@ -3,6 +3,9 @@ package engine.gameobject.projectile;
 import engine.gameobject.GameObject;
 import engine.gameobject.platform.Platform;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class PushbackProjectile extends GameObject implements Projectile {
     public static final double DEFAULT_X_SPEED = 10;
     public static final double DEFAULT_Y_SPEED = 0;
@@ -31,5 +34,10 @@ public class PushbackProjectile extends GameObject implements Projectile {
     @Override
     public String getImgPath() {
         return null;
+    }
+
+    @Override
+    public List<Object> getParameters() {
+        return Arrays.asList(getX(), getY(), getXSpeed());
     }
 }

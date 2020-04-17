@@ -2,6 +2,9 @@ package engine.gameobject.opponent;
 
 import engine.gameobject.GameObject;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Mongoose extends GameObject implements Enemy {
 
     public static final double DEFAULT_X_SPEED = 10;
@@ -26,5 +29,10 @@ public class Mongoose extends GameObject implements Enemy {
     @Override
     public String getImgPath() {
         return null;
+    }
+
+    @Override
+    public List<Object> getParameters() {
+        return Arrays.asList(getX(), getY(), getXSpeed());
     }
 }

@@ -1,12 +1,18 @@
 package data;
 
+import data.levels.SaveLevel;
 import data.user.InvalidLoginException;
 import data.user.ReadSaveException;
-import data.user.User;
+import engine.gameobject.opponent.Mongoose;
 
-public class Main {
-    public static void main(String[] args) throws InvalidLoginException, ReadSaveException {
-        User oops = new User("bcb44", "benburnett");
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+
+public class Tester {
+    public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        SaveLevel level = new SaveLevel();
+        level.save(Arrays.asList(new Mongoose(1.0,2.0,1.0)));
+        //User oops = new User("bcb44", "benburnett");
         //NewUser user = new NewUser("pierce", "password", "home.img");
 //        Firebase database = new Firebase();
 //        Firestore db = database.getDatabase();
