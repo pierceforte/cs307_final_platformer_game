@@ -8,12 +8,18 @@ public class BankItem {
     private int width;
     private int height;
     private int cost;
+    private Class type;
 
-    public BankItem(String imgPath, int width, int height, int cost) {
+    public BankItem(String imgPath, Class type, int width, int height, int cost) {
         this.imgPath = imgPath;
+        this.type = type;
         this.width = width;
         this.height = height;
         this.cost = cost;
+    }
+
+    public Class getType() {
+        return type;
     }
 
     public String getImgPath() {

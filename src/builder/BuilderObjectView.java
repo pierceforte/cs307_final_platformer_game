@@ -29,6 +29,8 @@ public class BuilderObjectView extends GameObjectView {
     public static final int LEFT = -1;
     public static final int RIGHT = 1;
 
+    private boolean isSnapped;
+    private boolean isReadyForSnap;
     private boolean isDraggable;
     private boolean isActive;
     private boolean areActionIconsActive;
@@ -40,8 +42,26 @@ public class BuilderObjectView extends GameObjectView {
         this.root = root; // TODO: maybe eliminate this dependency
         enableDrag();
         isActive = true;
+        isDraggable = true;
+        isSnapped = false;
         actionIcons = new ArrayList<>();
         askUserToPlaceMe();
+    }
+
+    public boolean isDraggable() {
+        return isDraggable;
+    }
+
+    public boolean isReadyForSnap() {
+        return isReadyForSnap;
+    }
+
+    public boolean isSnapped() {
+        return isSnapped;
+    }
+
+    public void setSnapped() {
+        isSnapped = true;
     }
 
     public boolean isActive() {
@@ -74,10 +94,13 @@ public class BuilderObjectView extends GameObjectView {
         setOnMouseReleased(mouseEvent -> {
             this.getScene().setCursor(Cursor.HAND);
             askUserToPlaceMe();
+            isReadyForSnap = true;
         });
         setOnMouseDragged(mouseEvent -> {
             setX(mouseEvent.getX() + dragDelta.x);
             setY(mouseEvent.getY() + dragDelta.y);
+            isReadyForSnap = false;
+            isSnapped = false;
         });
         setOnMouseEntered(mouseEvent -> {
             if (!mouseEvent.isPrimaryButtonDown()) {

@@ -1,4 +1,5 @@
 import builder.*;
+import engine.gameobject.opponent.Raccoon;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -117,9 +118,9 @@ public class BuilderTest extends DukeApplicationTest {
     }
 
     private void createExampleBankController() {
-        BankItem one = new BankItem("raccoon.png", 30, 30, 10);
-        BankItem two = new BankItem("raccoon.png", 30, 30, 20);
-        BankItem three = new BankItem("raccoon.png", 30, 30, 40000);
+        BankItem one = new BankItem("raccoon.png", Raccoon.class, 30, 30, 10);
+        BankItem two = new BankItem("raccoon.png", Raccoon.class, 30, 30, 20);
+        BankItem three = new BankItem("raccoon.png", Raccoon.class, 30, 30, 40000);
         root = new Pane();
         BankView bankView = new BankView(20, 20, 200, 200, root);
         bankController = new BankController(List.of(one, two, three), 10000, bankView);

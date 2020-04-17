@@ -1,10 +1,8 @@
 package engine.leveldirectory.gamesequence;
 
-import builder.BankController;
-import builder.BankView;
-import builder.BankItem;
-import builder.BuilderObjectView;
+import builder.*;
 import data.KeyInput;
+import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
 import engine.gameobject.platform.StationaryPlatform;
 import engine.gameobject.player.SimplePlayer;
@@ -35,11 +33,12 @@ public class GameSequenceController {
     private GameObjectView examplePlatformView;
     private GameObjectView raccoonView;
     private BankController bankController;
+    private BuilderStage builderStage;
 
     private Scene myScene;
     private Pane myPane;
 
-    public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root) {
+    public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
         this.levelContainer = levelContainer;
         levelContainer.setGameSequenceController(this);
         setupTimeline();
@@ -53,34 +52,22 @@ public class GameSequenceController {
         //Pierce stuff
         myScene = scene;
         myPane = root;
-        myPane.getChildren().clear();
+        //myPane.getChildren().clear();
 
-        keyInput = new KeyInput(myScene);
-        examplePlatform = new StationaryPlatform(30, 350, StationaryPlatform.EX_IMG_PATH);
-        mainCharacter = new SimplePlayer(40, 310, 0, 0, SimplePlayer.EX_IMG_PATH);
-        raccoon = new Raccoon(250, 320, 5, Raccoon.EX_IMG_PATH);
+        //replace hardcode with methods that 1) read json bank file 2) generate list of BankItems
 
-        mainCharacterView = new GameObjectView(mainCharacter.getImgPath(), mainCharacter.getX(),
-                mainCharacter.getY(), 40, 40, mainCharacter.getXDirection());
-
-        examplePlatformView = new GameObjectView(examplePlatform.getImgPath(), examplePlatform.getX(),
-                examplePlatform.getY(), 800, 30, examplePlatform.getXDirection());
-
-        raccoonView = new GameObjectView(raccoon.getImgPath(), raccoon.getX(),
-                raccoon.getY(), 50, 30, raccoon.getXDirection());
-
-        BankItem one = new BankItem(mainCharacter.getImgPath(), 30, 30, 10);
-        BankItem two = new BankItem("mongoose.png", 30, 30, 20);
-        BankItem three = new BankItem(raccoon.getImgPath(), 30, 30, 30);
-        BankItem four = new BankItem(mainCharacter.getImgPath(), 30, 30, 40000);
+        BankItem one = new BankItem("raccoon.png", Raccoon.class, 30, 30, 10);
+        BankItem two = new BankItem("mongoose.png", Mongoose.class, 30, 30, 20);
+        BankItem three = new BankItem("raccoon.png", Raccoon.class, 30, 30, 30);
+        BankItem four = new BankItem("raccoon.png", Raccoon.class, 30, 30, 40000);
 
         BankView bankView = new BankView(20, 20, 200, 200, root);
+
+        //replace with more robust HUD display (see money available hardcode)
         bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
 
-
-        BuilderObjectView builderObjectView = new BuilderObjectView(mainCharacter.getImgPath(), 350, 350, 50, 50, root);
-
-        myPane.getChildren().addAll(List.of(examplePlatformView, mainCharacterView, raccoonView, builderObjectView));
+        builderStage = new BuilderStage(bankController, width, height);
+        myPane.getChildren().add(builderStage);
 
     }
 
@@ -98,21 +85,13 @@ public class GameSequenceController {
 
 
         //Pierce stuff
-        mainCharacterView.setX(mainCharacter.getX());
-        mainCharacterView.setY(mainCharacter.getY());
-        mainCharacterView.setScaleX(mainCharacter.getXDirection());
-
-        raccoonView.setX(raccoon.getX());
-        raccoonView.setY(raccoon.getY());
-        raccoonView.setScaleX(raccoon.getXDirection());
-
-        mainCharacter.handleInputs(keyInput.getPressedKeys());
-        raccoon.updateLogic(mainCharacter);
-
-        mainCharacter.updatePositionOnStep(0.167);
-        raccoon.updatePositionOnStep(0.167);
-
-        bankController.update();
+        if (builderStage.isDone()) {
+            myPane.getChildren().remove(builderStage);
+            bankController.getBankView().removeFromRoot();
+        }
+        else {
+            builderStage.update();
+        }
     }
 
     public void pause() {

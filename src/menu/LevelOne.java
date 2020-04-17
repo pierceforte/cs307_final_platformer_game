@@ -1,5 +1,8 @@
 package menu;
 
+import engine.leveldirectory.gamesequence.GameSequenceController;
+import engine.leveldirectory.graphicsengine.GraphicsEngine;
+import engine.leveldirectory.level.LevelContainer;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -19,6 +22,8 @@ public class LevelOne extends Page {
     private PageBuilder myFactory;
     private boolean light;
 
+    private double screenwidth;
+    private double screenheight;
     private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
     private String STYLESHEET;
 
@@ -31,13 +36,17 @@ public class LevelOne extends Page {
      */
     public LevelOne(Stage primaryStage, Pages page) {
         super(primaryStage, page);
+        myStage = primaryStage;
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         STYLESHEET = "menuresources/light.css";
         light = true;
-        myStage.setScene(this.buildSpecialScene((int) primaryScreenBounds.getHeight(),(int) primaryScreenBounds.getWidth()));
+        screenheight = primaryScreenBounds.getHeight();
+        screenwidth = primaryScreenBounds.getWidth();
+        myScene = this.buildSpecialScene((int)primaryScreenBounds.getHeight(), (int) primaryScreenBounds.getWidth());
+        myStage.setScene(myScene);
 
     }
 
@@ -76,6 +85,11 @@ public class LevelOne extends Page {
     Scene buildSpecialScene(int height, int width) {
         Pane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
+        GameSequenceController gameSequenceController = new GameSequenceController(
+                new LevelContainer(null, null, null),
+                new GraphicsEngine(),
+                null, myScene, myRoot, screenheight, screenwidth);
+        gameSequenceController.play();
         myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
         return myScene;
     }

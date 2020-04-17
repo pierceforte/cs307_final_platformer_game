@@ -81,6 +81,10 @@ public class BankView {
         return hasPurchaseRequest;
     }
 
+    public void removePurchaseRequest() {
+        hasPurchaseRequest = false;
+    }
+
     public void reInsertBankItem(BankItem bankItem) {
 
     }
@@ -148,14 +152,6 @@ public class BankView {
         return bttn;
     }
 
-    public void giveUserItem(BankItem item) {
-        hasPurchaseRequest = false;
-        //TODO: replace 400, 400 with relative pos
-        BuilderObjectView builderObjectView = new BuilderObjectView(item.getImgPath(),
-                400, 400, item.getWidth(), item.getHeight(), root);
-        root.getChildren().add(builderObjectView);
-    }
-
     public void rejectPurchase() {
         // tell user that they don't have enough money
         hasPurchaseRequest = false;
@@ -216,6 +212,11 @@ public class BankView {
         nonEmptyBankDisplays.add(itemIconDisplay);
         //nonEmptyBankDisplays.add(itemTitleDisplay);
         //nonEmptyBankDisplays.add(itemQuantityDisplay);
+    }
+
+    public void removeFromRoot() {
+        root.getChildren().removeAll(itemCostDisplay, moneyAvailableDisplay, purchaseButton, itemIconDisplay, prevButton,
+                nextButton, background);
     }
 
     private void removeInvalidPurchaseDisplay() {
