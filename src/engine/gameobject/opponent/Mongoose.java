@@ -10,9 +10,13 @@ public class Mongoose extends GameObject implements Enemy {
 
     private double initXSpeed;
 
-    public Mongoose(double xPos, double yPos, double xSpeed, String imgPath) {
-        super(xPos, yPos, xSpeed, DEFAULT_Y_SPEED, imgPath);
+    public Mongoose(String imgPath, double xPos, double yPos, double xSpeed) {
+        super(imgPath, xPos, yPos, xSpeed, DEFAULT_Y_SPEED);
         initXSpeed = xSpeed;
+    }
+
+    public Mongoose(Mongoose copy) {
+        this(copy.getImgPath(), copy.getX(), copy.getY(), copy.getXSpeed());
     }
 
     // logic is to simply move toward target in x direction

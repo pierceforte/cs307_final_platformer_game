@@ -1,5 +1,6 @@
 package builder;
 
+import engine.gameobject.GameObject;
 import engine.view.GameObjectView;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -36,9 +37,11 @@ public class BuilderObjectView extends GameObjectView {
     private boolean areActionIconsActive;
     private List<Node> actionIcons;
     private Pane root;
+    private GameObject gameObject;
 
-    public BuilderObjectView(String imgPath, double xPos, double yPos, double width, double height, Pane root) {
-        super(imgPath, xPos, yPos, width, height, GameObjectView.RIGHT);
+    public BuilderObjectView(GameObject gameObject, double xPos, double yPos, double width, double height, Pane root) {
+        super(gameObject.getImgPath(), xPos, yPos, width, height, GameObjectView.RIGHT);
+        this.gameObject = gameObject;
         this.root = root; // TODO: maybe eliminate this dependency
         enableDrag();
         isActive = true;
@@ -46,6 +49,10 @@ public class BuilderObjectView extends GameObjectView {
         isSnapped = false;
         actionIcons = new ArrayList<>();
         askUserToPlaceMe();
+    }
+
+    public GameObject getGameObject() {
+        return gameObject;
     }
 
     public boolean isDraggable() {

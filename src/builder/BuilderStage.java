@@ -14,6 +14,7 @@ import javafx.scene.transform.Affine;
 import javafx.scene.transform.NonInvertibleTransformException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -104,8 +105,8 @@ public class BuilderStage extends Pane {
     private void handlePurchasedItem() {
         if (bankController.hasPurchasedItem()) {
             BankItem item = bankController.getPurchasedItem();
-            BuilderObjectView builderObjectView = new BuilderObjectView(item.getImgPath(),
-                    width/2, height/2, item.getWidth(), item.getHeight(), this);
+            BuilderObjectView builderObjectView = new BuilderObjectView(item.getGameObject(),
+                    width/2, height/2, item.getWidth(), item.getHeight(),this);
             this.getChildren().add(builderObjectView);
             myObjects.add(builderObjectView);
             bankController.removePurchasedItem();
@@ -123,19 +124,18 @@ public class BuilderStage extends Pane {
 
     private void leaveBuilderStage() {
         gameObjects = new ArrayList<>();
-        for (BuilderObjectView obj : myObjects) {
-            if (obj.isDraggable()) {
+        for (BuilderObjectView builderObjectView : myObjects) {
+            if (builderObjectView.isDraggable()) {
                 rejectAttemptToLeave();
                 gameObjects.clear();
                 return;
             }
-            gameObjects.add(createGameObject(obj));
+            GameObject gameObject = builderObjectView.getGameObject();
+            gameObject.setX(builderObjectView.getX());
+            gameObject.setY(builderObjectView.getY());
+            gameObjects.add(gameObject);
         }
         isDone = true;
-    }
-
-    private GameObject createGameObject(BuilderObjectView obj) {
-        return null;
     }
 
     private void rejectAttemptToLeave() {

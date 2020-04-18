@@ -1,5 +1,7 @@
 package builder;
 
+import engine.gameobject.GameObject;
+
 import java.util.Objects;
 
 public class BankItem {
@@ -8,18 +10,18 @@ public class BankItem {
     private int width;
     private int height;
     private int cost;
-    private Class type;
+    private GameObject gameObject;
 
-    public BankItem(String imgPath, Class type, int width, int height, int cost) {
-        this.imgPath = imgPath;
-        this.type = type;
+    public BankItem(GameObject gameObject, int width, int height, int cost) {
+        this.gameObject = gameObject;
+        this.imgPath = gameObject.getImgPath();
         this.width = width;
         this.height = height;
         this.cost = cost;
     }
 
-    public Class getType() {
-        return type;
+    public GameObject getGameObject() {
+        return gameObject;
     }
 
     public String getImgPath() {

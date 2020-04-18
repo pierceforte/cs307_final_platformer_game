@@ -10,9 +10,13 @@ public class Raccoon extends GameObject implements Enemy {
 
     private double initXSpeed;
 
-    public Raccoon(double xPos, double yPos, double xSpeed, String imgPath) {
-        super(xPos, yPos, xSpeed, DEFAULT_Y_SPEED, imgPath);
+    public Raccoon(String imgPath, double xPos, double yPos, double xSpeed) {
+        super(imgPath, xPos, yPos, xSpeed, DEFAULT_Y_SPEED);
         initXSpeed = xSpeed;
+    }
+
+    public Raccoon(Raccoon copy) {
+        this(copy.getImgPath(), copy.getX(), copy.getY(), copy.getXSpeed());
     }
 
     // logic is to move toward target in x direction if target facing away
