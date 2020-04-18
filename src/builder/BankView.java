@@ -2,57 +2,48 @@ package builder;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class BankView {
 
     public static final String PATH_TO_RIGHT_ARROW = "right_bank_icon.png";
     public static final String PATH_TO_LEFT_ARROW = "left_bank_icon.png";
-    public static final String FONT = "Verdana";
-    public static final double FONT_SIZE_FACTOR = 0.015;
 
-    // display stuff
     private Rectangle background;
     private ImageView itemIconDisplay;
     private Text itemTitleDisplay;
     private Text itemQuantityDisplay;
     private Text itemCostDisplay;
     private Text moneyAvailableDisplay;
-    private Text invalidPurchaseDisplay;
+    private Text emptyBankDisplay;
     private Button purchaseButton;
     private ImageView nextButton;
     private ImageView prevButton;
     private Pane root;
     private List<Node> nonEmptyBankDisplays;
-
+    private ResourceBundle resources;
     private boolean hasPurchaseRequest;
     private boolean hasEmptyBank;
-
     private int width;
     private int height;
-    private double fontSize;
 
     public BankView(double xPos, double yPos, int width, int height, Pane root) {
         this.width = width;
         this.height = height;
         this.root = root;
+        resources = ResourceBundle.getBundle("builder.builderResources");
         hasPurchaseRequest = false;
-        fontSize = 10;
         createBackground(xPos, yPos);
         nonEmptyBankDisplays = new ArrayList<>();
     }
@@ -65,18 +56,6 @@ public class BankView {
         else {
             createDisplays(bank);
             createPurchaseButton();
-            nextButton = createChangeItemButton(PATH_TO_RIGHT_ARROW,
-                    () -> {
-                        bank.handleNextRequest();
-                        removeInvalidPurchaseDisplay();
-                    });
-            nextButton.setId("nextButton");
-            prevButton = createChangeItemButton(PATH_TO_LEFT_ARROW,
-                    () -> {
-                        bank.handlePrevRequest();
-                        removeInvalidPurchaseDisplay();
-                    });
-            prevButton.setId("prevButton");
         }
     }
 
@@ -94,8 +73,8 @@ public class BankView {
 
     public void update(BankModel bank) {
         BankItem item = bank.getCurItem();
-        updateDisplay(moneyAvailableDisplay, "MONEY AVAILABLE:\n" + bank.getMoneyAvailable());
-        updateDisplay(itemCostDisplay, "COST: " + item.getCost());
+        moneyAvailableDisplay.setText(resources.getString("Money") + ":\n" + bank.getMoneyAvailable());
+        itemCostDisplay.setText(resources.getString("Cost") + ": " + item.getCost());
         itemIconDisplay.setImage(makeImage(item.getImgPath()));
         //updateItemQuantityDisplay();
         //updateItemTitleDisplay();
@@ -110,12 +89,20 @@ public class BankView {
             return;
         }
         hasEmptyBank = true;
+        collectNonEmptyBankDisplays();
         root.getChildren().removeAll(nonEmptyBankDisplays);
-        root.getChildren().remove(prevButton);
-        root.getChildren().remove(nextButton);
-        Text emptyBankDisplay = createTextDisplay("NO ITEMS TO PURCHASE",
-                background.getX() + width/5, background.getY() + height/2);
+        emptyBankDisplay = createText(resources.getString("NoItemsLeft"), "noItemsLeft");
         root.getChildren().add(emptyBankDisplay);
+    }
+
+    public void rejectPurchase() {
+        // tell user that they don't have enough money
+        hasPurchaseRequest = false;
+        Dialog dialog = new Dialog();
+        dialog.initOwner(root.getScene().getWindow());
+        dialog.setContentText(resources.getString("NotEnoughMoney"));
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        Platform.runLater(() -> dialog.showAndWait());
     }
 
     private void createBackground(double xPos, double yPos) {
@@ -124,52 +111,39 @@ public class BankView {
         root.getChildren().add(background);
     }
 
-    private Text createTextDisplay(String text, double xPos, double yPos) {
-        Text tempDisplay = new Text(text);
-        tempDisplay.setFont(Font.font (FONT, fontSize));
-        tempDisplay.setX(xPos);
-        tempDisplay.setY(yPos);
-        tempDisplay.setFill(Color.WHITE);
-        tempDisplay.setTextAlignment(TextAlignment.CENTER);
-        return tempDisplay;
+    private void createDisplays(BankModel bank) {
+        BankItem item = bank.getCurItem();
+        moneyAvailableDisplay = createText(resources.getString("Money") + ":\n" + bank.getMoneyAvailable(), "moneyAvail");
+        itemCostDisplay = createText(resources.getString("Cost") + ": " + item.getCost(), "itemCost");
+        nextButton = createChangeItemButton(PATH_TO_RIGHT_ARROW, () -> bank.handleNextRequest(), "nextButton");
+        prevButton = createChangeItemButton(PATH_TO_LEFT_ARROW, () -> bank.handlePrevRequest(), "prevButton");
+        setItemIcon(item);
+        //itemQuantityDisplay
+        //itemTitleDisplay
+    }
+
+    private Text createText(String text, String id) {
+        Text display = new Text(text);
+        display.setId(id);
+        return display;
     }
 
     private void createPurchaseButton() {
-        purchaseButton = new Button("PURCHASE");
+        purchaseButton = new Button(resources.getString("Purchase"));
         purchaseButton.setId("purchaseButton");
         purchaseButton.setOnAction(event -> {
             hasPurchaseRequest = true;
-            removeInvalidPurchaseDisplay();
         });
     }
 
-    private ImageView createChangeItemButton(String imgPath, Runnable eventOnClick) {
+    private ImageView createChangeItemButton(String imgPath, Runnable eventOnClick, String id) {
         ImageView imgView = new ImageView();
         imgView.setImage(makeImage(imgPath));
         imgView.setFitWidth(25);
         imgView.setFitHeight(12.5);
         imgView.setOnMouseClicked(event -> eventOnClick.run());
+        imgView.setId(id);
         return imgView;
-    }
-
-    public void rejectPurchase() {
-        // tell user that they don't have enough money
-        hasPurchaseRequest = false;
-        Dialog dialog = new Dialog();
-        dialog.initOwner(root.getScene().getWindow());
-        dialog.setContentText("hello");
-        Platform.runLater(() -> dialog.showAndWait());
-    }
-
-    private void createDisplays(BankModel bank) {
-        BankItem item = bank.getCurItem();
-        moneyAvailableDisplay = new Text("MONEY AVAILABLE:\n" + bank.getMoneyAvailable());
-        moneyAvailableDisplay.setId("moneyAvailable");
-        itemCostDisplay = new Text("COST: " + item.getCost());
-        itemCostDisplay.setId("itemCost");
-        setItemIcon(item);
-        //itemQuantityDisplay
-        //itemTitleDisplay
     }
 
     private void setItemIcon(BankItem item) {
@@ -177,18 +151,6 @@ public class BankView {
         itemIconDisplay.setFitWidth(100);
         itemIconDisplay.setFitHeight(100);
         itemIconDisplay.setId("itemIcon");
-    }
-
-    private void updateDisplay(Text display, String text) {
-        display.setText(text);
-    }
-
-    private void addNonEmptyBankDisplays() {
-        for (Node node : nonEmptyBankDisplays) {
-            if (node != null && !root.getChildren().contains(node)) {
-                root.getChildren().add(node);
-            }
-        }
     }
 
     private void attemptToAddChangeItemButton(boolean buttonIsNeeded, ImageView button) {
@@ -202,28 +164,33 @@ public class BankView {
         }
     }
 
+    private void addNonEmptyBankDisplays() {
+        for (Node node : nonEmptyBankDisplays) {
+            if (node != null && !root.getChildren().contains(node)) {
+                root.getChildren().add(node);
+            }
+        }
+    }
+
     private void collectNonEmptyBankDisplays() {
         nonEmptyBankDisplays.clear();
         nonEmptyBankDisplays.add(itemCostDisplay);
         nonEmptyBankDisplays.add(moneyAvailableDisplay);
         nonEmptyBankDisplays.add(purchaseButton);
         nonEmptyBankDisplays.add(itemIconDisplay);
+        nonEmptyBankDisplays.add(prevButton);
+        nonEmptyBankDisplays.add(nextButton);
         //nonEmptyBankDisplays.add(itemTitleDisplay);
         //nonEmptyBankDisplays.add(itemQuantityDisplay);
     }
 
     public void removeFromRoot() {
         root.getChildren().removeAll(itemCostDisplay, moneyAvailableDisplay, purchaseButton, itemIconDisplay, prevButton,
-                nextButton, background);
-    }
-
-    private void removeInvalidPurchaseDisplay() {
-        root.getChildren().remove(invalidPurchaseDisplay);
+                nextButton, emptyBankDisplay, background);
     }
 
     //TODO: eliminate this duplicate code
     private Image makeImage(String imgPath) {
         return new Image(this.getClass().getClassLoader().getResource(imgPath).toExternalForm());
     }
-
 }

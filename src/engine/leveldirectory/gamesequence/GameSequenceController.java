@@ -55,7 +55,7 @@ public class GameSequenceController {
         BankItem one = new BankItem("raccoon.png", Raccoon.class, 30, 30, 10);
         BankItem two = new BankItem("mongoose.png", Mongoose.class, 30, 30, 20);
         BankItem three = new BankItem("raccoon.png", Raccoon.class, 30, 30, 30);
-        BankItem four = new BankItem("raccoon.png", Raccoon.class, 30, 30, 40000);
+        BankItem four = new BankItem("raccoon.png", Raccoon.class, 30, 30, 40);
         BankView bankView = new BankView(20, 20, 200, 260, root);
 
         //replace with more robust HUD display (see money available hardcode)

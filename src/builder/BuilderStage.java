@@ -1,21 +1,21 @@
 package builder;
 
+import engine.gameobject.Coordinates;
 import engine.gameobject.GameObject;
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.NonInvertibleTransformException;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static javafx.scene.paint.Color.WHITESMOKE;
+import java.util.ResourceBundle;
 
 public class BuilderStage extends Pane {
 
@@ -23,14 +23,14 @@ public class BuilderStage extends Pane {
     private Affine myGrid;
     private BankController bankController;
     private List<BuilderObjectView> myObjects;
-    private List<GameObject> passableObjects;
+    private List<GameObject> gameObjects;
     private double height;
     private double width;
     private boolean isDone;
+    private ResourceBundle resources;
 
     private double TILE_HEIGHT;
     private double TILE_WIDTH;
-    private StackPane error;
 
     public BuilderStage(BankController bankController, double height, double width) {
         this.bankController = bankController;
@@ -38,55 +38,20 @@ public class BuilderStage extends Pane {
         this.myGrid = new Affine();
         this.height = height;
         this.width = width;
+        resources = ResourceBundle.getBundle("builder.builderResources");
         myObjects = new ArrayList<>();
-        //we have to
-        /*
-         * read the json associated
-         *
-         */
-        TILE_HEIGHT = height/20;
+        TILE_HEIGHT = height/25;
         TILE_WIDTH = width/30;
         myGrid.appendScale(TILE_WIDTH, TILE_HEIGHT);
-
-        Button leave = new Button("Play!");
-        //leave.setTranslateX(TILE_WIDTH*25);
-        //leave.setTranslateY(TILE_HEIGHT*19);
-        leave.setOnMouseClicked(e -> leaveBuilderStage());
-
-        this.canvas.setOnMouseClicked(this::handleclick);
-
-        this.getChildren().addAll(canvas, leave);
+        this.canvas.setOnMouseClicked(this::handleClick);
+        Button playButton = createPlayButton();
+        this.getChildren().addAll(canvas, playButton);
     }
 
     public void update() {
         bankController.update();
         handlePurchasedItem();
-        for (BuilderObjectView object : myObjects) {
-            if (object.isReadyForSnap() && !object.isSnapped()) {
-                double clickX =  object.getX();
-                double clickY =  object.getY();
-                try{
-                    Point2D myclick = myGrid.inverseTransform(clickX,clickY);
-                    int x = (int) myclick.getX();
-                    int y = (int) myclick.getY();
-
-                    System.out.println(x+","+y);
-                    //add to PassableObjects (to pass to play level)
-
-                    object.setX(x * TILE_WIDTH);
-                    object.setY(y * TILE_HEIGHT);
-                    object.setSnapped();
-
-
-                } catch (NonInvertibleTransformException e) {
-                    e.printStackTrace();
-                }
-
-            }
-            if (object.isSnapped()) {
-
-            }
-        }
+        snapItems();
     }
 
     public boolean isDone() {
@@ -94,60 +59,45 @@ public class BuilderStage extends Pane {
     }
 
     public List<GameObject> getGameObjects() {
-        return passableObjects;
+        return gameObjects;
     }
 
-    private void leaveBuilderStage() {
-        passableObjects = new ArrayList<>();
-
-        for (BuilderObjectView obj : myObjects) {
-            if (obj.isDraggable()) {
-                rejectAttemptToLeave();
-                passableObjects.clear();
-                System.out.println("here");
-                return;
-            }
-            else {
-                if (error != null) {
-                    this.getChildren().remove(error);
-                    error = null;
-                }
-            }
-            // create game object
-            // passableObjects.add()
-        }
-
-
-        isDone = true;
-
-        //remove canvas
-
-    }
-
-    private void rejectAttemptToLeave() {
-        Text t = new Text("Save changes before continuing :/ ");
-        Rectangle r = new Rectangle(200, 60, WHITESMOKE);
-        error = new StackPane(r, t);
-        error.setTranslateX(width/2);
-        error.setTranslateY(height/2);
-        this.getChildren().add(error);
-    }
-
-
-    private void handleclick(MouseEvent mouseEvent) {
+    private void handleClick(MouseEvent mouseEvent) {
         double clickX = mouseEvent.getX();
         double clickY = mouseEvent.getY();
-
-        try{
-            Point2D myclick = myGrid.inverseTransform(clickX,clickY);
-            int x = (int) myclick.getX();
-            int y = (int) myclick.getY();
-
-            System.out.println(x+","+y);
-            //
-
-        } catch (NonInvertibleTransformException e) {
+        try {
+            convertToGridCoords(clickX, clickY);
+        } catch (NonInvertibleTransformException e){
             e.printStackTrace();
+            return;
+        }
+    }
+
+    private Coordinates convertToGridCoords(double clickX, double clickY) throws NonInvertibleTransformException{
+        Point2D myclick = myGrid.inverseTransform(clickX,clickY);
+        int x = (int) myclick.getX();
+        int y = (int) myclick.getY();
+        Coordinates coords = new Coordinates(x, y);
+        return coords;
+    }
+
+    private void snapItems() {
+        for (BuilderObjectView object : myObjects) {
+            if (object.isReadyForSnap() && !object.isSnapped()) {
+                double x = object.getX();
+                double y = object.getY();
+                try {
+                    Coordinates coords = convertToGridCoords(object.getX(), object.getY());
+                    x = coords.getX() * TILE_WIDTH;
+                    y = coords.getY() * TILE_HEIGHT;
+
+                } catch (NonInvertibleTransformException e) {
+                    e.printStackTrace();
+                }
+                object.setX(x);
+                object.setY(y);
+                object.setSnapped();
+            }
         }
     }
 
@@ -162,5 +112,38 @@ public class BuilderStage extends Pane {
         }
     }
 
+    private Button createPlayButton() {
+        Button playButton = new Button(resources.getString("Play"));
+        playButton.setId("playButton");
+        playButton.setTranslateX(TILE_WIDTH*40);
+        playButton.setTranslateY(TILE_HEIGHT*12);
+        playButton.setOnMouseClicked(e -> leaveBuilderStage());
+        return playButton;
+    }
+
+    private void leaveBuilderStage() {
+        gameObjects = new ArrayList<>();
+        for (BuilderObjectView obj : myObjects) {
+            if (obj.isDraggable()) {
+                rejectAttemptToLeave();
+                gameObjects.clear();
+                return;
+            }
+            gameObjects.add(createGameObject(obj));
+        }
+        isDone = true;
+    }
+
+    private GameObject createGameObject(BuilderObjectView obj) {
+        return null;
+    }
+
+    private void rejectAttemptToLeave() {
+        Dialog dialog = new Dialog();
+        dialog.initOwner(this.getScene().getWindow());
+        dialog.setContentText(resources.getString("InvalidLeave"));
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        Platform.runLater(() -> dialog.showAndWait());
+    }
 
 }
