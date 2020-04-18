@@ -17,7 +17,7 @@ public class HorizontalSlidingPlatform extends GameObject implements Platform {
     private double maxX;
 
     public HorizontalSlidingPlatform(String imgPath, Double xPos, Double yPos, Double xSpeed,
-                                     Double minX, Double maxX, int xDirection) {
+                                     Double minX, Double maxX, Integer xDirection) {
         super(imgPath, xPos, yPos, xDirection * xSpeed, DEFAULT_Y_SPEED);
         this.minX = minX;
         this.maxX = maxX;

@@ -1,6 +1,7 @@
 package data.levels;
 
-import data.user.ReadSaveException;
+import builder.BankItem;
+import data.ReadSaveException;
 import engine.gameobject.GameObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -12,19 +13,40 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-public class SaveLevel {
+public class LevelData {
     JSONObject levels;
+    JSONObject bank;
 
-    private static final String fileLoc = "data/levels.json";
+    private static final String levelLoc = "data/levels.json";
+    private static final String bankLoc = "data/bank.json";
 
-    public SaveLevel() throws ReadSaveException {
-        JSONParser jsonParser = new JSONParser();
+    public LevelData() throws ReadSaveException {
+        levels = jsonMaker(levelLoc);
+        bank = jsonMaker(bankLoc);
+    }
+
+    private JSONObject jsonMaker(String fileLoc) throws ReadSaveException {
+        JSONParser parser = new JSONParser();
         try {
             FileReader reader = new FileReader(fileLoc);
-            levels = (JSONObject) jsonParser.parse(reader);
+            return (JSONObject) parser.parse(reader);
         } catch (Exception e) {
-            throw new ReadSaveException("save", fileLoc);
+            throw new ReadSaveException("read", fileLoc);
         }
+    }
+
+    public List<BankItem> getBank(int level) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        if (!containsKey(bank, Integer.toString(level))) throw new ReadSaveException("read", bankLoc);
+        JSONObject levelBank = (JSONObject) bank.get(Integer.toString(level));
+        List<BankItem> bankItems = new ArrayList<>();
+        for (Object keyObj : levelBank.keySet()) {
+            Class objClass = Class.forName((String) keyObj);
+            JSONObject type = (JSONObject) levelBank.get((String) keyObj);
+            GameObject gameObj = makeObject(objClass, (JSONArray) type.get("ctor"));
+            bankItems.add(new BankItem(gameObj, Math.toIntExact((Long) type.get("width")), Math.toIntExact((Long) type.get("height")),
+                    Math.toIntExact((Long) type.get("cost"))));
+        }
+        return bankItems;
     }
 
     public void saveTemp(List<GameObject> list) throws ReadSaveException {
@@ -42,7 +64,7 @@ public class SaveLevel {
         for (GameObject object : list) {
             addObj(object, temp);
         }
-        write();
+        write(levelLoc);
     }
 
     private void addObj(GameObject object, JSONObject temp) throws ReadSaveException {
@@ -75,7 +97,7 @@ public class SaveLevel {
 
     private List<GameObject> loadHelper(String target) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         List<GameObject> levelObjects = new ArrayList<>();
-        if (!levels.containsKey(target)) throw new ReadSaveException("read", fileLoc);
+        if (!levels.containsKey(target)) throw new ReadSaveException("read", levelLoc);
         JSONObject temp = (JSONObject) levels.get("temp");
         for (Object key : temp.keySet()) {
             String className = (String) key;
@@ -96,11 +118,16 @@ public class SaveLevel {
             String paramType = (String) param.get(0);
             Class thisClass = Class.forName(paramType);
             classes[index] = thisClass;
-            if (!paramType.equals("java.lang.String")) {
-                params[index] = parse(thisClass, (String) param.get(1));
+            if (paramType.equals("java.lang.String")) {
+                params[index] = (String) param.get(1);
+            }
+            else if (param.get(1).getClass().equals(Long.class)) {
+                params[index] = Double.valueOf((Long) param.get(1));
             }
             else {
-                params[index] = (String) param.get(1);
+                System.out.println(param.get(1));
+                System.out.println(param.get(1).getClass().toString());
+                params[index] = parse(thisClass, (String) param.get(1));
             }
         }
         return (GameObject) objClass.getDeclaredConstructor(classes).newInstance(params);
@@ -119,12 +146,12 @@ public class SaveLevel {
      * Makes the users object into a string and then saves the string
      * @throws ReadSaveException - thrown if there is a problem writing to the user file
      */
-    private void write() throws ReadSaveException {
+    private void write(String fileLoc) throws ReadSaveException {
         try (FileWriter file = new FileWriter(fileLoc)) {
             file.write(levels.toJSONString());
             file.flush();
         } catch (IOException e) {
-            throw new ReadSaveException("Save", fileLoc);
+            throw new ReadSaveException("save", fileLoc);
         }
     }
 
@@ -134,5 +161,4 @@ public class SaveLevel {
         }
         return false;
     }
-
 }

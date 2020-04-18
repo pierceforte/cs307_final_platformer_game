@@ -1,4 +1,4 @@
-package data.user;
+package data;
 
 public class ReadSaveException extends Exception{
 
