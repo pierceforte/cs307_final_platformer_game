@@ -67,10 +67,6 @@ public class BankView {
         hasPurchaseRequest = false;
     }
 
-    public void reInsertBankItem(BankItem bankItem) {
-
-    }
-
     public void update(BankModel bank) {
         BankItem item = bank.getCurItem();
         moneyAvailableDisplay.setText(resources.getString("Money") + ":\n" + bank.getMoneyAvailable());
@@ -82,6 +78,8 @@ public class BankView {
         attemptToAddChangeItemButton(bank.hasNextItem(), nextButton);
         collectNonEmptyBankDisplays();
         addNonEmptyBankDisplays();
+        root.getChildren().remove(emptyBankDisplay);
+        hasEmptyBank = false;
     }
 
     public void createEmptyBank() {
