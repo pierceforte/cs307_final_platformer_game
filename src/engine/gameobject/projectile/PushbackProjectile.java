@@ -36,4 +36,9 @@ public class PushbackProjectile extends GameObject implements Projectile {
     public String getImgPath() {
         return null;
     }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
 }

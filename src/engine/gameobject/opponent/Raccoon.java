@@ -30,4 +30,9 @@ public class Raccoon extends GameObject implements Enemy {
             setXSpeed(0); // don't move if touching target or target facing me
         }
     }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
 }
