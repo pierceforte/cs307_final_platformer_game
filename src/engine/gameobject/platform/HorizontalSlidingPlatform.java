@@ -53,4 +53,9 @@ public class HorizontalSlidingPlatform extends GameObject implements Platform {
     public double getMaxX() {
         return maxX;
     }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
 }

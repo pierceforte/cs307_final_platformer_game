@@ -196,4 +196,6 @@ public abstract class GameObject {
         return visible;
     }
     public String getImagePath() { return imagePath; }
+
+    public abstract boolean isPlayer();
 }

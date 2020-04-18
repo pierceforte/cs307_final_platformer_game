@@ -29,6 +29,10 @@ public class SimplePlayer extends GameObject implements Player{
     public List<Object> getParameters() {
         return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed(), getYSpeed());
     }
+    @Override
+    public boolean isPlayer() {
+        return true;
+    }
 
     public SimplePlayer(SimplePlayer copy) {
         this(copy.getImgPath(), copy.getX(), copy.getY(), copy.getXSpeed(), copy.getYSpeed());

@@ -34,4 +34,7 @@ public class StationaryPlatform extends GameObject implements Platform {
     public List<Object> getParameters() {
         return Arrays.asList(getImgPath(), getX(), getY());
     }
+    public boolean isPlayer() {
+        return false;
+    }
 }

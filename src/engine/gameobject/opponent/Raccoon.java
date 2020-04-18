@@ -38,4 +38,8 @@ public class Raccoon extends GameObject implements Enemy {
     public List<Object> getParameters() {
         return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed());
     }
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
 }

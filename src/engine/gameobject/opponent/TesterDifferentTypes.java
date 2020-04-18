@@ -22,4 +22,9 @@ public class TesterDifferentTypes extends GameObject {
     public List<Object> getParameters() {
         return Arrays.asList(string, me);
     }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
 }
