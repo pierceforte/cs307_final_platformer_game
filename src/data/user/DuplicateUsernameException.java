@@ -1,4 +1,4 @@
-package data;
+package data.user;
 
 public class DuplicateUsernameException extends Exception{
     private static final String message = "The username \"%s\" already exists";

@@ -11,7 +11,8 @@ import java.util.ResourceBundle;
  * useful for the GameObject, Action, and Event classes
  */
 public class ParentObject {
-    private List<Parameters> parameters;
+
+    private List<Parameters> parameters = new ArrayList<>();
     private GameObject gameObject;
     private Game game;
     private int id; // used for testing
@@ -20,7 +21,6 @@ public class ParentObject {
 
     public ParentObject() {
         resourceBundle = ResourceBundle.getBundle("filePath");
-        parameters = new ArrayList<>();
         id = 1; // used for testing
     }
 
@@ -33,6 +33,7 @@ public class ParentObject {
     public void removeParameter(String name) {
         parameters.remove(findParameter(name));
     }
+
     private Parameters findParameter(String name) {
         for (Parameters param : parameters)
             if (param.getName().equals(name))

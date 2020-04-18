@@ -1,0 +1,31 @@
+{"1":{
+  "engine.gameobject.opponent.Mongoose":[
+    [
+      ["java.lang.Double","1.0"],
+      ["java.lang.Double","1.0"],
+      ["java.lang.Double","1.0"]
+    ],
+    [
+      ["java.lang.Double","2.0"],
+      ["java.lang.Double","2.0"],
+      ["java.lang.Double","2.0"]
+    ]
+  ]
+},
+  "temp":
+  {"engine.gameobject.opponent.Mongoose":[
+    [
+      ["java.lang.String","location1.png"],
+      ["java.lang.Double","1.0"],
+      ["java.lang.Double","1.0"],
+      ["java.lang.Double","1.0"]
+    ]
+  ],
+    "engine.gameobject.opponent.TesterDifferentTypes":[
+      [
+        ["java.lang.String","whelp.png"],
+        ["java.lang.Double","1.0"]
+      ]
+    ]
+  }
+}

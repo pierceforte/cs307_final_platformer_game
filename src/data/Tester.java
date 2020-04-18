@@ -1,19 +1,30 @@
 package data;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.*;
-import com.google.firebase.database.FirebaseDatabase;
-import org.json.simple.parser.ParseException;
+import data.levels.SaveLevel;
+import data.user.InvalidLoginException;
+import data.user.ReadSaveException;
+import engine.gameobject.GameObject;
+import engine.gameobject.opponent.Mongoose;
+import engine.gameobject.opponent.TesterDifferentTypes;
 
-import java.io.IOException;
-import java.util.HashMap;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
-public class Main {
-    public static void main(String[] args) throws InvalidLoginException, ReadSaveException {
-        User oops = new User("bcb44", "benburnett");
+public class Tester {
+    public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        SaveLevel save = new SaveLevel();
+        //save.saveTemp(Arrays.asList(new Mongoose("location1.png", 1d, 1d, 1d), new TesterDifferentTypes("whelp.png", 1d)));
+        List<GameObject> saved = save.getTempSave();
+        for (GameObject type : saved) {
+            System.out.println((type.getClass()));
+        }
+//        List<Class> me = new ArrayList<>();
+//        List<Object> obj = new ArrayList<>();
+//        System.out.println(me.getClass().toString());
+//        System.out.println(obj.getClass().toString());
+        //System.out.println(Arrays.toString());
+        //User oops = new User("bcb44", "benburnett");
         //NewUser user = new NewUser("pierce", "password", "home.img");
 //        Firebase database = new Firebase();
 //        Firestore db = database.getDatabase();
