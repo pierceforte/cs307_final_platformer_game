@@ -2,7 +2,7 @@ package engine.gameobject.player;
 
 import javafx.scene.input.KeyCode;
 
-import java.util.Map;
+import java.util.List;
 /**
  * This interface defines how a specific game's user-operated player will operate
  */
@@ -10,9 +10,13 @@ import java.util.Map;
 public interface Player {
 
     /**
-     * Assigns how the player is affected by each input; eg. jump, move left/right, run, shoot fireball, etc.
-     * @return Map of key codes and their actions when pressed
+     * Assign key inputs to their appropriate actions
      */
-    Map<KeyCode, Runnable> assignInputs();
+    void assignInputs();
 
+    /**
+     * Handle key inputs
+     * @param codes List of inputs currently pressed
+     */
+    void handleInputs(List<KeyCode> codes);
 }

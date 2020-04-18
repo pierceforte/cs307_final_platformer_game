@@ -20,7 +20,7 @@ public abstract class Game {
 
     public Game(GameSequence gameSequence) {
         this.levelContainer = gameSequence.getLevelContainer();
-        this.scoreDisplay = gameSequence.getScorebar();
+        //this.scoreDisplay = gameSequence.getScorebar();
         this.sequenceChanger = gameSequence.getGameSequenceChanger();
         this.graphicsEngine = gameSequence.getGraphicsEngine();
     }

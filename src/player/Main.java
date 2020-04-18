@@ -19,7 +19,6 @@ public class Main extends Application {
 
         stage.setTitle("Snizards vs. Snizards");
         MainMenu myMenu = new MainMenu(stage);
-
         //stage.setScene(myMenu.buildScene(1000,1000));
         stage.show();
     }

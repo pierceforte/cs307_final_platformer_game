@@ -13,8 +13,8 @@ public class PushbackProjectile extends GameObject implements Projectile {
      * @param yPos y position of the projectile
      * @param xSpeed x speed of the projectile
      */
-    public PushbackProjectile(double xPos, double yPos, double xSpeed) {
-        super(xPos, yPos, xSpeed, DEFAULT_Y_SPEED);
+    public PushbackProjectile(double xPos, double yPos, double xSpeed, String imgPath) {
+        super(xPos, yPos, xSpeed, DEFAULT_Y_SPEED, imgPath);
     }
 
     @Override

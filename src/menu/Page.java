@@ -180,6 +180,9 @@ public abstract class Page {
         if (name.equals("Debug")) {
             DebugEnvironment de = new DebugEnvironment(myStage, Pages.Debug);
         }
+        if (name.equals("Level 1")) {
+            LevelOne ll = new LevelOne(myStage, Pages.BluePrintStage);
+        }
 
         return myScene;
     }

@@ -14,8 +14,8 @@ public class HorizontalSlidingPlatform extends GameObject implements Platform {
     private double maxX;
 
     public HorizontalSlidingPlatform(double xPos, double yPos, double xSpeed,
-                                     double minX, double maxX, int direction) {
-        super(xPos, yPos, direction * xSpeed, DEFAULT_Y_SPEED);
+                                     double minX, double maxX, int direction, String imgPath) {
+        super(xPos, yPos, direction * xSpeed, DEFAULT_Y_SPEED, imgPath);
         this.minX = minX;
         this.maxX = maxX;
     }
@@ -32,10 +32,5 @@ public class HorizontalSlidingPlatform extends GameObject implements Platform {
     public void handleEntityInteraction(GameObject entity) {
         entity.setXSpeed(getXSpeed());
         entity.setYSpeed(NEW_ENTITY_Y_SPEED);
-    }
-
-    @Override
-    public String getImgPath() {
-        return null;
     }
 }

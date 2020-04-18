@@ -4,10 +4,12 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class KeyInput {
-    List<KeyCode> pressedKeys = new ArrayList<>();
+    Set<KeyCode> pressedKeys = new HashSet<>();
     Scene myScene;
 
     public KeyInput(Scene scene) {
@@ -25,6 +27,6 @@ public class KeyInput {
     }
 
     public List<KeyCode> getPressedKeys() {
-        return pressedKeys;
+        return new ArrayList<>(pressedKeys);
     }
 }

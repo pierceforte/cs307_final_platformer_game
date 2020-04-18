@@ -20,8 +20,9 @@ public abstract class GameObject {
     private String imagePath;
 
     private boolean visible;
+    private String imgPath;
 
-    public GameObject(double xPos, double yPos, double xSpeed, double ySpeed) {
+    public GameObject(double xPos, double yPos, double xSpeed, double ySpeed, String imgPath) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xSpeed = xSpeed;
@@ -34,12 +35,15 @@ public abstract class GameObject {
         width = 0;
         height = 0;
         imagePath = "";
+        this.imgPath = imgPath;
     }
     /**
      * Get the image path for this object
      * @return path to the image for this object
      */
-    public abstract String getImgPath();
+    public String getImgPath() {
+        return imgPath;
+    }
 
     /**
      * Set x position of the object
@@ -87,6 +91,7 @@ public abstract class GameObject {
      */
     public void setXSpeed(double xSpeed) {
         this.xSpeed = xSpeed;
+        xDirection = setDirection(getXDirection(), xSpeed);
     }
 
     /**
@@ -103,6 +108,7 @@ public abstract class GameObject {
      */
     public void setYSpeed(double ySpeed) {
         this.ySpeed = ySpeed;
+        yDirection = setDirection(getYDirection(), ySpeed);
     }
 
     /**
