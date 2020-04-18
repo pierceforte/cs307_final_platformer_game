@@ -23,7 +23,7 @@ public abstract class GameObject {
     private boolean visible;
     private String imgPath;
 
-    public GameObject(double xPos, double yPos, double xSpeed, double ySpeed, String imgPath) {
+    public GameObject(String imgPath, double xPos, double yPos, double xSpeed, double ySpeed) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xSpeed = xSpeed;

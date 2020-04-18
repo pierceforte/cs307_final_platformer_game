@@ -1,6 +1,7 @@
 package engine.gameobject.player;
 
 import engine.gameobject.GameObject;
+import engine.gameobject.platform.HorizontalSlidingPlatform;
 import javafx.scene.input.KeyCode;
 
 import java.util.Arrays;
@@ -19,9 +20,13 @@ public class SimplePlayer extends GameObject implements Player{
 
     private Map<KeyCode, Runnable> inputMap;
 
-    public SimplePlayer(double xPos, double yPos, double xSpeed, double ySpeed, String imgPath) {
-        super(xPos, yPos, xSpeed, ySpeed, imgPath);
+    public SimplePlayer(String imgPath, double xPos, double yPos, double xSpeed, double ySpeed) {
+        super(imgPath, xPos, yPos, xSpeed, ySpeed);
         assignInputs();
+    }
+
+    public SimplePlayer(SimplePlayer copy) {
+        this(copy.getImgPath(), copy.getX(), copy.getY(), copy.getXSpeed(), copy.getYSpeed());
     }
 
     public void assignInputs() {

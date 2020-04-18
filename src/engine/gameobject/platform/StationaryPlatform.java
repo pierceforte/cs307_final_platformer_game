@@ -12,8 +12,12 @@ public class StationaryPlatform extends GameObject implements Platform {
     public static final double X_SPEED = 0;
     public static final double Y_SPEED = 0;
 
-    public StationaryPlatform(double xPos, double yPos, String imgPath) {
-        super(xPos, yPos, X_SPEED, Y_SPEED, imgPath);
+    public StationaryPlatform(String imgPath, double xPos, double yPos) {
+        super(imgPath, xPos, yPos, X_SPEED, Y_SPEED);
+    }
+
+    public StationaryPlatform(StationaryPlatform copy) {
+        this(copy.getImgPath(), copy.getX(), copy.getY());
     }
 
     @Override

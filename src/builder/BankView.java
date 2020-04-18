@@ -178,8 +178,6 @@ public class BankView {
         nonEmptyBankDisplays.add(moneyAvailableDisplay);
         nonEmptyBankDisplays.add(purchaseButton);
         nonEmptyBankDisplays.add(itemIconDisplay);
-        nonEmptyBankDisplays.add(prevButton);
-        nonEmptyBankDisplays.add(nextButton);
         //nonEmptyBankDisplays.add(itemTitleDisplay);
         //nonEmptyBankDisplays.add(itemQuantityDisplay);
     }
