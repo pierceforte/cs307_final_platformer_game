@@ -80,3 +80,50 @@
     -fx-pref-height: 150;
     -fx-opacity: 0.2;
 }
+#bankBackground{
+    -fx-fill: maroon;
+    -fx-stroke: black;
+}
+#purchaseButton{
+    -fx-background-color: goldenrod;
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-translate-x: 45;
+    -fx-translate-y: 210;
+    -fx-pref-height: 30;
+    -fx-pref-width: 150;
+}
+#itemCost{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15pt;
+    -fx-translate-x: 80;
+    -fx-translate-y: 200;
+}
+#moneyAvailable{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 12pt;
+    -fx-translate-x: 40;
+    -fx-translate-y: 50;
+    -fx-text-alignment: center;
+}
+#itemIcon{
+    -fx-translate-x: 80;
+    -fx-translate-y: 80;
+
+}
+#prevButton{
+    -fx-translate-x: 85;
+    -fx-translate-y: 255;
+}
+#nextButton{
+    -fx-translate-x: 150;
+    -fx-translate-y: 255;
+}
+#invalidPurchase{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 12pt;
+    -fx-translate-x: 40;
+    -fx-translate-y: 50;
+    -fx-text-fill: goldenrod;
+    -fx-text-alignment: center;
+}

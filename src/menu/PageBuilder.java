@@ -110,6 +110,7 @@ public class PageBuilder {
 
 
                 VBox texts = new VBox(title, saveloc);
+                dialog.initOwner(myStage.getOwner());
                 dialog.getDialogPane().setContent(texts);
 
                 dialog.setResultConverter(dialogButton-> {

@@ -1,12 +1,15 @@
 package builder;
 
+import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -32,8 +35,8 @@ public class BankView {
     private Text moneyAvailableDisplay;
     private Text invalidPurchaseDisplay;
     private Button purchaseButton;
-    private Rectangle nextButton;
-    private Rectangle prevButton;
+    private ImageView nextButton;
+    private ImageView prevButton;
     private Pane root;
     private List<Node> nonEmptyBankDisplays;
 
@@ -62,13 +65,13 @@ public class BankView {
         else {
             createDisplays(bank);
             createPurchaseButton();
-            nextButton = createChangeItemButton(PATH_TO_RIGHT_ARROW, width*2/3,
+            nextButton = createChangeItemButton(PATH_TO_RIGHT_ARROW,
                     () -> {
                         bank.handleNextRequest();
                         removeInvalidPurchaseDisplay();
                     });
             nextButton.setId("nextButton");
-            prevButton = createChangeItemButton(PATH_TO_LEFT_ARROW, width*1/3,
+            prevButton = createChangeItemButton(PATH_TO_LEFT_ARROW,
                     () -> {
                         bank.handlePrevRequest();
                         removeInvalidPurchaseDisplay();
@@ -91,7 +94,7 @@ public class BankView {
 
     public void update(BankModel bank) {
         BankItem item = bank.getCurItem();
-        updateDisplay(moneyAvailableDisplay, "MONEY AVAILABLE: " + bank.getMoneyAvailable());
+        updateDisplay(moneyAvailableDisplay, "MONEY AVAILABLE:\n" + bank.getMoneyAvailable());
         updateDisplay(itemCostDisplay, "COST: " + item.getCost());
         itemIconDisplay.setImage(makeImage(item.getImgPath()));
         //updateItemQuantityDisplay();
@@ -116,8 +119,8 @@ public class BankView {
     }
 
     private void createBackground(double xPos, double yPos) {
-        background = new Rectangle(xPos, yPos, width, height);
-        background.setFill(Color.STEELBLUE);
+        background = new Rectangle( xPos, yPos, width, height);
+        background.setId("bankBackground");
         root.getChildren().add(background);
     }
 
@@ -134,40 +137,36 @@ public class BankView {
     private void createPurchaseButton() {
         purchaseButton = new Button("PURCHASE");
         purchaseButton.setId("purchaseButton");
-        purchaseButton.setLayoutX(background.getX() + width*2/3);
-        purchaseButton.setLayoutY(background.getY() + height/2 + height/3 + height/4);
-        purchaseButton.setPrefWidth(width/3);
-        purchaseButton.setPrefHeight(height/10);
         purchaseButton.setOnAction(event -> {
             hasPurchaseRequest = true;
             removeInvalidPurchaseDisplay();
         });
     }
 
-    private Rectangle createChangeItemButton(String imgPath, double relativeX, Runnable eventOnClick) {
-        Rectangle bttn = new Rectangle(background.getX() + relativeX, background.getY() + height/2 + height/3,
-                width/10, height/20);
-        bttn.setFill(new ImagePattern(makeImage(imgPath)));
-        bttn.setOnMouseClicked(event -> eventOnClick.run());
-        return bttn;
+    private ImageView createChangeItemButton(String imgPath, Runnable eventOnClick) {
+        ImageView imgView = new ImageView();
+        imgView.setImage(makeImage(imgPath));
+        imgView.setFitWidth(25);
+        imgView.setFitHeight(12.5);
+        imgView.setOnMouseClicked(event -> eventOnClick.run());
+        return imgView;
     }
 
     public void rejectPurchase() {
         // tell user that they don't have enough money
         hasPurchaseRequest = false;
-        invalidPurchaseDisplay = createTextDisplay("NOT ENOUGH MONEY",
-                background.getX() + width/5, background.getY() + height*5/6);
-        invalidPurchaseDisplay.setFill(Color.RED);
-        invalidPurchaseDisplay.setId("notEnoughMoneyMessage");
-        root.getChildren().add(invalidPurchaseDisplay);
+        Dialog dialog = new Dialog();
+        dialog.initOwner(root.getScene().getWindow());
+        dialog.setContentText("hello");
+        Platform.runLater(() -> dialog.showAndWait());
     }
 
     private void createDisplays(BankModel bank) {
         BankItem item = bank.getCurItem();
-        moneyAvailableDisplay = createTextDisplay("MONEY AVAILABLE: " + bank.getMoneyAvailable(),
-                background.getX() + width/6, background.getY() + height/10);
-        itemCostDisplay = createTextDisplay("COST: " + item.getCost(),
-                background.getX() + width*2/5, background.getY() + height*3/4);
+        moneyAvailableDisplay = new Text("MONEY AVAILABLE:\n" + bank.getMoneyAvailable());
+        moneyAvailableDisplay.setId("moneyAvailable");
+        itemCostDisplay = new Text("COST: " + item.getCost());
+        itemCostDisplay.setId("itemCost");
         setItemIcon(item);
         //itemQuantityDisplay
         //itemTitleDisplay
@@ -175,10 +174,9 @@ public class BankView {
 
     private void setItemIcon(BankItem item) {
         itemIconDisplay = new ImageView(makeImage(item.getImgPath()));
-        itemIconDisplay.setFitWidth(width/3);
-        itemIconDisplay.setFitHeight(height/3);
-        itemIconDisplay.setX(width/2 - itemIconDisplay.getBoundsInLocal().getWidth()/3);
-        itemIconDisplay.setY(height/2 - itemIconDisplay.getBoundsInLocal().getHeight()/3);
+        itemIconDisplay.setFitWidth(100);
+        itemIconDisplay.setFitHeight(100);
+        itemIconDisplay.setId("itemIcon");
     }
 
     private void updateDisplay(Text display, String text) {
@@ -193,7 +191,7 @@ public class BankView {
         }
     }
 
-    private void attemptToAddChangeItemButton(boolean buttonIsNeeded, Rectangle button) {
+    private void attemptToAddChangeItemButton(boolean buttonIsNeeded, ImageView button) {
         if (buttonIsNeeded) {
             if (!root.getChildren().contains(button)) {
                 root.getChildren().add(button);
