@@ -88,6 +88,7 @@ public class SaveLevel {
             String paramName = (String) param.get(0);
             Class thisClass = Class.forName(paramName);
             classes[index] = thisClass;
+            System.out.println(param.get(1).getClass());
             params[index] = parse(thisClass, (String) param.get(1));
         }
 //        for (Object paramObj : parameters) {

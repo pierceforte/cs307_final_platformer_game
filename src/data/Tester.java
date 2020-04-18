@@ -16,7 +16,8 @@ import java.util.List;
 
 public class Tester {
     public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        double eep = 9.0;
+        Double eep = 9.0;
+        System.out.println(eep.getClass());
         SaveLevel save = new SaveLevel();
         List<GameObject> list = save.getTempSave();
         list.size();

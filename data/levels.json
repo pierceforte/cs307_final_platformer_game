@@ -1,8 +1,8 @@
 {"temp": {
   "engine.gameobject.opponent.TesterDifferentTypes":[
   [
-    ["double.class","1.0"],
-    ["double.class","2.0"]
+    ["java.lang.Double","1.0"],
+    ["java.lang.Double","2.0"]
   ]
   ]
 }
