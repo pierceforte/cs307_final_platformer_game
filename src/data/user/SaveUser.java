@@ -1,6 +1,6 @@
 package data.user;
 
-import data.user.ReadSaveException;
+import data.ReadSaveException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.FileReader;

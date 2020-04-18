@@ -1,23 +1,25 @@
 package data;
 
-import data.levels.SaveLevel;
+import builder.BankItem;
+import data.levels.LevelData;
 import data.user.InvalidLoginException;
-import data.user.ReadSaveException;
 import engine.gameobject.GameObject;
-import engine.gameobject.opponent.Mongoose;
-import engine.gameobject.opponent.TesterDifferentTypes;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.List;
 
 public class Tester {
     public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        SaveLevel save = new SaveLevel();
+        Long meep = 9l;
+        LevelData save = new LevelData();
         //save.saveTemp(Arrays.asList(new Mongoose("location1.png", 1d, 1d, 1d), new TesterDifferentTypes("whelp.png", 1d)));
-        List<GameObject> saved = save.getTempSave();
-        for (GameObject type : saved) {
-            System.out.println((type.getClass()));
+        List<GameObject> list = save.getTempSave();
+        for (GameObject item : list) {
+            System.out.println(item.getClass().toString());
+        }
+        List<BankItem> bank = save.getBank(1);
+        for (BankItem item : bank) {
+            System.out.println(item.getGameObject().getClass().toString());
         }
 //        List<Class> me = new ArrayList<>();
 //        List<Object> obj = new ArrayList<>();
