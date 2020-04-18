@@ -1,6 +1,10 @@
 package engine.gameobject;
 
+import engine.general.Game;
+
 public abstract class GameObject {
+
+    private Game game;
 
     public static final int DOWN_OR_LEFT = -1;
     public static final int UP_OR_RIGHT = 1;
@@ -11,6 +15,11 @@ public abstract class GameObject {
     private double ySpeed;
     private int xDirection;
     private int yDirection;
+    private int width;
+    private int height;
+    private String imagePath;
+
+    private boolean visible;
 
     public GameObject(double xPos, double yPos, double xSpeed, double ySpeed) {
         this.xPos = xPos;
@@ -19,6 +28,12 @@ public abstract class GameObject {
         this.ySpeed = ySpeed;
         xDirection = UP_OR_RIGHT;
         yDirection = UP_OR_RIGHT;
+        visible = false;
+
+        // TODO: update constructor for following fields
+        width = 0;
+        height = 0;
+        imagePath = "";
     }
     /**
      * Get the image path for this object
@@ -133,6 +148,9 @@ public abstract class GameObject {
         return yDirection;
     }
 
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+
     /**
      * Reverse the x direction
      */
@@ -154,4 +172,18 @@ public abstract class GameObject {
         return speed < 0 ? DOWN_OR_LEFT : UP_OR_RIGHT;
     }
 
+    public Game getGame() {
+        return game;
+    }
+    public void setGame(Game g) {
+        game = g;
+    }
+
+    public void setVisible(boolean b) {
+        visible = b;
+    }
+    public boolean getVisible() {
+        return visible;
+    }
+    public String getImagePath() { return imagePath; }
 }

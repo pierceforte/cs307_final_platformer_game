@@ -1,4 +1,4 @@
-package engine.leveldirectory.gameevents;
+package engine.leveldirectory.gameeventhandler;
 
 /**
  * This class loops through all objects and checks if there are collisions
@@ -7,5 +7,7 @@ package engine.leveldirectory.gameevents;
  *
  * @author Jerry Huang
  */
-public class CollisionEvent {
+public class CollisionEvent extends GameEvent {
+
+    public void update() {}
 }

@@ -10,7 +10,6 @@ import static engine.objectinteraction.CollisionTypes.TEMP_COLLISION;
  * @author Jerry Huang
  */
 public class ObjectCollision implements Interactions {
-
     private Object firstObject;
     private Object secondObject;
 

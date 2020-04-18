@@ -1,17 +1,17 @@
 package engine.general;
 
 /**
- * The coordinates class holds the necessary information for each
+ * The Parameter class holds the necessary information for each
  * object, action, etc.
  *
  * @author Jerry Huang
  */
-public class Coordinates {
+public class Parameters {
     private String name;
     private Object object;
     private Class<?> objectClass;
 
-    public Coordinates(String name, Object o, Class<?> oc) {
+    public Parameters(String name, Object o, Class<?> oc) {
         this.name = name;
         this.object = o;
         this.objectClass = oc;

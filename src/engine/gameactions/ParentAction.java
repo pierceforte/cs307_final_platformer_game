@@ -1,29 +1,21 @@
 package engine.gameactions;
 
-import engine.gameobject.GameObject;
+import engine.general.Game;
+import engine.general.ParentObject;
 
-import java.util.List;
-
-public abstract class ParentAction {
-
-    String commandName;
-    Object gameObject;
-
-    public ParentAction() {
-        commandName = "";
-    }
-
-    public ParentAction(String str) {
-        commandName = str;
-    }
+/**
+ * Abstract class used for all actions.
+ *
+ * @author Jerry, Pierce
+ */
+public abstract class ParentAction extends ParentObject {
 
     /**
-     * carries out the action on the list of objects passed in
-     * @param o
+     * does the action
      */
-    public abstract void carryOutAction(List<Object> o);
+    public abstract void act();
 
-    public String getCommandName() {
-        return commandName;
+    public Game getGame() {
+        return getGameObject().getGame();
     }
 }
