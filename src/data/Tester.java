@@ -5,22 +5,20 @@ import data.user.InvalidLoginException;
 import data.user.ReadSaveException;
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Mongoose;
-import org.apache.commons.lang3.ClassUtils;
+import engine.gameobject.opponent.TesterDifferentTypes;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 
 public class Tester {
     public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Double eep = 9.0;
-        System.out.println(eep.getClass());
         SaveLevel save = new SaveLevel();
-        List<GameObject> list = save.getTempSave();
-        list.size();
+        //save.saveTemp(Arrays.asList(new Mongoose("location1.png", 1d, 1d, 1d), new TesterDifferentTypes("whelp.png", 1d)));
+        List<GameObject> saved = save.getTempSave();
+        for (GameObject type : saved) {
+            System.out.println((type.getClass()));
+        }
 //        List<Class> me = new ArrayList<>();
 //        List<Object> obj = new ArrayList<>();
 //        System.out.println(me.getClass().toString());

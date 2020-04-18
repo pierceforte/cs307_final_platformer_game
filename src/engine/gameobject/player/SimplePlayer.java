@@ -13,16 +13,21 @@ import java.util.Map;
 public class SimplePlayer extends GameObject implements Player{
 
     public static final String EX_IMG_PATH = "example_player.png"; //TODO: make this more flexible
-    public static final double DEFAULT_X_SPEED = 2; // for key press
-    public static final double DEFAULT_Y_SPEED = -2; // for jumping
+    public static final Double DEFAULT_X_SPEED = 2d; // for key press
+    public static final Double DEFAULT_Y_SPEED = -2d; // for jumping
     public static final int LEFT = -1;
     public static final int RIGHT = 1;
 
     private Map<KeyCode, Runnable> inputMap;
 
-    public SimplePlayer(String imgPath, double xPos, double yPos, double xSpeed, double ySpeed) {
+    public SimplePlayer(String imgPath, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
         super(imgPath, xPos, yPos, xSpeed, ySpeed);
         assignInputs();
+    }
+
+    @Override
+    public List<Object> getParameters() {
+        return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed(), getYSpeed());
     }
 
     public SimplePlayer(SimplePlayer copy) {
@@ -53,12 +58,4 @@ public class SimplePlayer extends GameObject implements Player{
     public void jump() {
         updateYPos(DEFAULT_Y_SPEED);
     }
-
-    @Override
-    public List<Object> getParameters() {
-        return Arrays.asList(getX(), getY(), getXSpeed(), getYSpeed());
-    }
-
-
-
 }

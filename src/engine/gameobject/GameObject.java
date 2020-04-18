@@ -10,10 +10,10 @@ public abstract class GameObject {
     public static final int DOWN_OR_LEFT = -1;
     public static final int UP_OR_RIGHT = 1;
 
-    private double xPos;
-    private double yPos;
-    private double xSpeed;
-    private double ySpeed;
+    private Double xPos;
+    private Double yPos;
+    private Double xSpeed;
+    private Double ySpeed;
     private int xDirection;
     private int yDirection;
     private int width;
@@ -23,7 +23,7 @@ public abstract class GameObject {
     private boolean visible;
     private String imgPath;
 
-    public GameObject(String imgPath, double xPos, double yPos, double xSpeed, double ySpeed) {
+    public GameObject(String imgPath, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xSpeed = xSpeed;
@@ -38,13 +38,6 @@ public abstract class GameObject {
         imagePath = "";
         this.imgPath = imgPath;
     }
-
-    public GameObject(List<Object> parameters) {
-        xPos = (double) parameters.get(0);
-        yPos = (double) parameters.get(1);
-        xSpeed = (double) parameters.get(2);
-        ySpeed = (double) parameters.get(3);
-    }
     
     /**
      * Get the image path for this object
@@ -58,7 +51,7 @@ public abstract class GameObject {
      * Set x position of the object
      * @param xPos new x position of the object
      */
-    public void setX(double xPos) {
+    public void setX(Double xPos) {
         this.xPos = xPos;
     }
 
@@ -66,7 +59,7 @@ public abstract class GameObject {
      * Set y position of the object
      * @param yPos new y position of the object
      */
-    public void setY(double yPos) {
+    public void setY(Double yPos) {
         this.yPos = yPos;
     }
 
@@ -74,7 +67,7 @@ public abstract class GameObject {
      * Get x position of the object
      * @return x position of the object
      */
-    public double getX() {
+    public Double getX() {
         return xPos;
     }
 
@@ -82,7 +75,7 @@ public abstract class GameObject {
      * Get y position of the object
      * @return y position of the object
      */
-    public double getY() {
+    public Double getY() {
         return yPos;
     }
 
@@ -90,7 +83,7 @@ public abstract class GameObject {
      * Get x speed of the object
      * @return x speed of object
      */
-    public double getXSpeed() {
+    public Double getXSpeed() {
         return xSpeed;
     }
 
@@ -107,7 +100,7 @@ public abstract class GameObject {
      * Get y speed of the object
      * @return y speed of object
      */
-    public double getYSpeed() {
+    public Double getYSpeed() {
         return ySpeed;
     }
 

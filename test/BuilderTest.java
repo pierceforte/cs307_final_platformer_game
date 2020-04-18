@@ -118,7 +118,7 @@ public class BuilderTest extends DukeApplicationTest {
     }
 
     private void createExampleBankController() {
-        Raccoon raccoon = new Raccoon("raccoon.png", 1, 1, 10);
+        Raccoon raccoon = new Raccoon("raccoon.png", 1d, 1d, 10d);
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
         BankItem two = new BankItem(new Raccoon(raccoon), 30, 30, 20);
         BankItem three = new BankItem(new Raccoon(raccoon), 30, 30, 40000);

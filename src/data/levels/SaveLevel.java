@@ -27,41 +27,55 @@ public class SaveLevel {
         }
     }
 
-    public void save(List<GameObject> list) throws ReadSaveException {
-        if (!levels.containsKey("temp")) levels.put("temp", new JSONObject());
-        JSONObject temp = (JSONObject) levels.get("temp");
+    public void saveTemp(List<GameObject> list) throws ReadSaveException {
+        saveHelper(list, "temp");
+    }
+
+    public void saveLevel(List<GameObject> list, int level) throws ReadSaveException {
+        saveHelper(list, Integer.toString(level));
+    }
+
+    private void saveHelper(List<GameObject> list, String target) throws ReadSaveException {
+        if (!levels.containsKey(target)) levels.put(target, new JSONObject());
+        JSONObject temp = (JSONObject) levels.get(target);
         temp.clear();
         for (GameObject object : list) {
             addObj(object, temp);
         }
+        write();
     }
 
     private void addObj(GameObject object, JSONObject temp) throws ReadSaveException {
-        String objClass = object.getClass().toString();
-        objClass = objClass.split("class ")[1];
-        if (!levels.containsKey(objClass)) temp.put(objClass, new JSONArray());
+        String objClass = classString(object);
+        if (!containsKey(temp, objClass)) {
+            temp.put(objClass, new JSONArray());
+        }
         JSONArray objList = (JSONArray) temp.get(objClass);
         JSONArray instanceList = new JSONArray();
         for (Object param : object.getParameters()) {
             JSONArray paramList = new JSONArray();
-            paramList.addAll(Arrays.asList(param.getClass().toString(), param.toString()));
+            paramList.addAll(Arrays.asList(classString(param), param.toString()));
             instanceList.add(paramList);
         }
         objList.add(instanceList);
-        write();
+    }
+
+    private String classString(Object obj) {
+        String objClass = obj.getClass().toString();
+        return objClass.split("class ")[1];
     }
 
     public List<GameObject> getTempSave() throws ReadSaveException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        return getSavedLevel("temp");
+        return loadHelper("temp");
     }
 
-    public List<GameObject> getSavedLevel(Object level) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<GameObject> getSavedLevel(int level) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        return loadHelper(Integer.toString(level));
+    }
+
+    private List<GameObject> loadHelper(String target) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         List<GameObject> levelObjects = new ArrayList<>();
-        String target;
-        if (!(level instanceof java.lang.String)) target = Integer.toString((Integer)level);
-        else target = (String) level;
         if (!levels.containsKey(target)) throw new ReadSaveException("read", fileLoc);
-        List<GameObject> saved = new ArrayList<>();
         JSONObject temp = (JSONObject) levels.get("temp");
         for (Object key : temp.keySet()) {
             String className = (String) key;
@@ -77,27 +91,19 @@ public class SaveLevel {
     private GameObject makeObject(Class objClass, JSONArray parameters) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class[] classes = new Class[parameters.size()];
         Object[] params = new Object[parameters.size()];
-        //List<Class> types = new ArrayList<>();
-        //List<Object> params = new ArrayList<>();
         for (int index = 0; index < parameters.size(); index++) {
             JSONArray param = (JSONArray) parameters.get(index);
-            String paramName = (String) param.get(0);
-            Class thisClass = Class.forName(paramName);
+            String paramType = (String) param.get(0);
+            Class thisClass = Class.forName(paramType);
             classes[index] = thisClass;
-            System.out.println(param.get(1).getClass());
-            params[index] = parse(thisClass, (String) param.get(1));
+            if (!paramType.equals("java.lang.String")) {
+                params[index] = parse(thisClass, (String) param.get(1));
+            }
+            else {
+                params[index] = (String) param.get(1);
+            }
         }
-//        for (Object paramObj : parameters) {
-//            JSONArray param = (JSONArray) paramObj;
-//            Class t = Class.forName((String) param.get(0));
-//            Object par = t.getDeclaredConstructor().newInstance();
-//            types.add(t);
-//            params.add(par);
-//        }
-        // call constructor whose parameter matches the given class type
-        GameObject object = (GameObject) objClass.getDeclaredConstructor(classes).newInstance(params);
-        //System.out.println("Printing: " + o);
-        return object;
+        return (GameObject) objClass.getDeclaredConstructor(classes).newInstance(params);
     }
 
     public static <T> T parse(Class<T> type, String value) {
@@ -120,6 +126,13 @@ public class SaveLevel {
         } catch (IOException e) {
             throw new ReadSaveException("Save", fileLoc);
         }
+    }
+
+    private boolean containsKey(JSONObject json, String target) {
+        for (Object keyObj : json.keySet()) {
+            if (keyObj.equals(target)) return true;
+        }
+        return false;
     }
 
 }

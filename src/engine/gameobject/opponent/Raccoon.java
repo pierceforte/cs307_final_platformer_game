@@ -8,12 +8,12 @@ import java.util.List;
 public class Raccoon extends GameObject implements Enemy {
 
     public static final String EX_IMG_PATH = "raccoon.png"; //TODO: make this more flexible
-    public static final double DEFAULT_X_SPEED = 20;
-    public static final double DEFAULT_Y_SPEED = 0;
+    public static final Double DEFAULT_X_SPEED = 20d;
+    public static final Double DEFAULT_Y_SPEED = 0d;
 
     private double initXSpeed;
 
-    public Raccoon(String imgPath, double xPos, double yPos, double xSpeed) {
+    public Raccoon(String imgPath, Double xPos, Double yPos, Double xSpeed) {
         super(imgPath, xPos, yPos, xSpeed, DEFAULT_Y_SPEED);
         initXSpeed = xSpeed;
     }
@@ -36,6 +36,6 @@ public class Raccoon extends GameObject implements Enemy {
 
     @Override
     public List<Object> getParameters() {
-        return Arrays.asList(getX(), getY(), getXSpeed());
+        return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed());
     }
 }
