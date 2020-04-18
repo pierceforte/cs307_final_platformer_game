@@ -1,16 +1,21 @@
 package menu;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static javafx.geometry.Pos.CENTER;
 
 /*
  * Builds items for any Page to add.
@@ -104,6 +109,7 @@ public class PageBuilder {
 
 
                 VBox texts = new VBox(title, saveloc);
+                dialog.initOwner(myStage.getOwner());
                 dialog.getDialogPane().setContent(texts);
 
                 dialog.setResultConverter(dialogButton-> {
@@ -141,6 +147,6 @@ public class PageBuilder {
             }
         });
         myBox.addButtons(play, exit);
-        myBox.setId("MenuBox");
+
     }
 }

@@ -3,14 +3,19 @@ package engine.view;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javax.sound.midi.SysexMessage;
+
 //TODO: Decide whether to use inheritance or composition for ImageView
 public class GameObjectView extends ImageView {
 
+    public static final int LEFT = -1;
+    public static final int RIGHT = 1;
     //TODO: change params to Coords and Dimensions objects OR just pass the GameObject (probably don't want this dependency though)
-    public GameObjectView(String imgPath, double xPos, double yPos, double width, double height) {
+    public GameObjectView(String imgPath, double xPos, double yPos, double width, double height, int xDirection) {
         updateImage(imgPath);
         updatePos(xPos, yPos);
-        updateDimensions(width, height);
+        int xOrientation = xDirection < 0 ? LEFT : RIGHT;
+        updateDimensions(xOrientation * width, height);
     }
 
     //TODO: change param to Coords object
@@ -23,6 +28,14 @@ public class GameObjectView extends ImageView {
     public void updateDimensions(double width, double height) {
         setFitWidth(width);
         setFitHeight(height);
+    }
+
+    public double getCenterX() {
+        return getX() + getFitWidth()/2;
+    }
+
+    public double getCenterY() {
+        return getY() + getFitHeight()/2;
     }
 
     public void updateImage(String imgPath) {

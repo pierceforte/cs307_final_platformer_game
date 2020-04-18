@@ -1,7 +1,7 @@
 .root{
-    -fx-background-image: url("backgroundmoon.jpg");;
-    -fx-background-size: cover;
-    -fx-opacity: .8;
+    -fx-background-image: url("mainmenubackground.png");;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
     -fx-font-size: 12pt;
 }
 #Welcome{
@@ -33,10 +33,7 @@
     -fx-opacity: 0.9;
     -fx-font-weight: bold;
 }
-#MenuBox{
-    -fx-translate-x: 320;
-    -fx-translate-y: 450;
-}
+
 #LaunchButton{
     -fx-background-color: goldenrod;
     -fx-text-fill: black;

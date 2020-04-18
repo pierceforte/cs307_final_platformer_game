@@ -43,7 +43,7 @@ public class LevelContainer {
         levels.add(level);
     }
 
-    public Level getLevel() {
+    public Level getCurrentLevel() {
         return levels.get(currentLevel);
     }
 

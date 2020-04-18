@@ -2,9 +2,6 @@ package data.levels;
 
 import data.user.ReadSaveException;
 import engine.gameobject.GameObject;
-import engine.gameobject.opponent.Mongoose;
-import engine.general.Coordinates;
-import engine.general.ParentObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,7 +10,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Type;
 import java.util.*;
 
 public class SaveLevel {
@@ -126,8 +122,4 @@ public class SaveLevel {
         }
     }
 
-
-    public void savePermanent(List<Coordinates> list) {
-
-    }
 }

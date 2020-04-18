@@ -11,6 +11,6 @@ public interface Enemy {
      * Assigns how the enemy moves; eg. how do they attack the player?
      * @param target the target is located
      */
-    void assignLogic(GameObject target);
+    void updateLogic(GameObject target);
 
 }

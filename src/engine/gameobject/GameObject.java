@@ -1,9 +1,11 @@
 package engine.gameobject;
 
-import java.util.Arrays;
 import java.util.List;
+import engine.general.Game;
 
 public abstract class GameObject {
+
+    private Game game;
 
     public static final int DOWN_OR_LEFT = -1;
     public static final int UP_OR_RIGHT = 1;
@@ -14,14 +16,27 @@ public abstract class GameObject {
     private double ySpeed;
     private int xDirection;
     private int yDirection;
+    private int width;
+    private int height;
+    private String imagePath;
 
-    public GameObject(double xPos, double yPos, double xSpeed, double ySpeed) {
+    private boolean visible;
+    private String imgPath;
+
+    public GameObject(double xPos, double yPos, double xSpeed, double ySpeed, String imgPath) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         xDirection = UP_OR_RIGHT;
         yDirection = UP_OR_RIGHT;
+        visible = false;
+
+        // TODO: update constructor for following fields
+        width = 0;
+        height = 0;
+        imagePath = "";
+        this.imgPath = imgPath;
     }
 
     public GameObject(List<Object> parameters) {
@@ -35,7 +50,9 @@ public abstract class GameObject {
      * Get the image path for this object
      * @return path to the image for this object
      */
-    public abstract String getImgPath();
+    public String getImgPath() {
+        return imgPath;
+    }
 
     /**
      * Set x position of the object
@@ -83,6 +100,7 @@ public abstract class GameObject {
      */
     public void setXSpeed(double xSpeed) {
         this.xSpeed = xSpeed;
+        xDirection = setDirection(getXDirection(), xSpeed);
     }
 
     /**
@@ -99,6 +117,7 @@ public abstract class GameObject {
      */
     public void setYSpeed(double ySpeed) {
         this.ySpeed = ySpeed;
+        yDirection = setDirection(getYDirection(), ySpeed);
     }
 
     /**
@@ -144,6 +163,9 @@ public abstract class GameObject {
         return yDirection;
     }
 
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+
     /**
      * Reverse the x direction
      */
@@ -167,4 +189,18 @@ public abstract class GameObject {
 
 
     public abstract List<Object> getParameters();
+    public Game getGame() {
+        return game;
+    }
+    public void setGame(Game g) {
+        game = g;
+    }
+
+    public void setVisible(boolean b) {
+        visible = b;
+    }
+    public boolean getVisible() {
+        return visible;
+    }
+    public String getImagePath() { return imagePath; }
 }

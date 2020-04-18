@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
  * @author Jerry Huang
  */
 public class GameSequence {
+    private InfoBundle infoBundle;
     private LevelContainer levelContainer;
     private GraphicsEngine graphicsEngine;
     private SequenceChanger sequenceChanger;
@@ -51,7 +52,7 @@ public class GameSequence {
     //    return graphicsEngine.getView();
     //}
 
-    public ScoreDisplay getScorebar() {
+    public ScoreDisplay getScoreDisplay() {
         return scoreDisplay;
     }
 
