@@ -1,6 +1,6 @@
 package menu;
 
-import engine.leveldirectory.gamesequence.GameSequenceController;
+import engine.leveldirectory.gamesequence.GameSeqController;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import engine.leveldirectory.level.LevelContainer;
 import javafx.event.EventHandler;
@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -85,11 +84,11 @@ public class LevelOne extends Page {
     Scene buildSpecialScene(int height, int width) {
         Pane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
-        GameSequenceController gameSequenceController = new GameSequenceController(
+        GameSeqController gameSeqController = new GameSeqController(
                 new LevelContainer(null, null, null),
                 new GraphicsEngine(null, null, null),
                 null, myScene, myRoot, screenheight, screenwidth);
-        gameSequenceController.play();
+        gameSeqController.play();
         myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
         return myScene;
     }

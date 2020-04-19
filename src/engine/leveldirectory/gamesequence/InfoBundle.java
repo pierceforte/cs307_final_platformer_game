@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 /**
  * This class helps bundle information when the game loop is first created
  *
- * it acts like a "helper class" to the GameSequence class
+ * it acts like a "helper class" to the gamesequence.GameSequence class
  *
  * @author Jerry Huang
  */

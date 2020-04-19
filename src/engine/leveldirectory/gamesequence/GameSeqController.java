@@ -1,12 +1,14 @@
 package engine.leveldirectory.gamesequence;
 
 import builder.*;
+import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
 import engine.gameobject.platform.StationaryPlatform;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
+import engine.leveldirectory.graphicsengine.NodeFactory;
 import engine.leveldirectory.level.LevelContainer;
 import engine.view.GameObjectView;
 import javafx.animation.KeyFrame;
@@ -17,10 +19,14 @@ import javafx.util.Duration;
 
 import java.util.List;
 
-public class GameSequenceController {
+public class GameSeqController {
     public static final int FRAME_DURATION = 20;
     private LevelContainer levelContainer;
     private Timeline timeline;
+    private GraphicsEngine graphicsEngine;
+
+    private double height;
+    private double width;
 
     //Pierce stuff
     private data.input.KeyInput keyInput;
@@ -37,16 +43,17 @@ public class GameSequenceController {
     private Scene myScene;
     private Pane myPane;
 
-    public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
+    public GameSeqController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
         this.levelContainer = levelContainer;
-        levelContainer.setGameSequenceController(this);
+        levelContainer.setGameSeqController(this);
+        this.graphicsEngine = graphicsEngine;
+        this.height = height;
+        this.width = width;
         setupTimeline();
-        //
-        /*
-        levelContainer.getStepFunction().setup(levelContainer, graphicsEngine, game);
-         */
+        initialize(scene, root);
+    }
 
-
+    public void initialize(Scene scene, Pane root) {
         //Pierce stuff
         myScene = scene;
         myPane = root;
@@ -61,12 +68,18 @@ public class GameSequenceController {
         BankView bankView = new BankView(20, 20, 200, 260, root);
 
         //replace with more robust HUD display (see money available hardcode)
-
-
         //read in bank item list and money
         bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
         builderStage = new BuilderStage(bankController, width, height);
         myPane.getChildren().add(builderStage);
+    }
+
+    public void display() {
+        for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
+            myPane.getChildren().removeAll();
+            NodeFactory nodeFactory = new NodeFactory();
+            myPane.getChildren().add(nodeFactory.generateImage(g)); //  fix this line
+        }
     }
 
     private void setupTimeline() {
@@ -77,11 +90,6 @@ public class GameSequenceController {
     }
 
     private void step() {
-        /*
-        levelContainer.getGameSequenceController().step();
-         */
-
-
         //Pierce stuff
         if (builderStage.isDone()) {
             myPane.getChildren().remove(builderStage);
@@ -91,6 +99,8 @@ public class GameSequenceController {
             builderStage.update();
         }
     }
+
+    public Scene getMyScene() { return myScene; }
 
     public void pause() {
         timeline.pause();

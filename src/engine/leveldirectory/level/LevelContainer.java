@@ -1,8 +1,7 @@
 package engine.leveldirectory.level;
 
 import engine.general.Game;
-import engine.leveldirectory.gamesequence.GameSequence;
-import engine.leveldirectory.gamesequence.GameSequenceController;
+import engine.leveldirectory.gamesequence.GameSeqController;
 import engine.leveldirectory.gamesequence.ScoreDisplay;
 import engine.leveldirectory.gamesequence.StepInterface;
 
@@ -19,7 +18,7 @@ public class LevelContainer {
     private int currentLevel;
     private final Game game; // current game -- should not be modified by by this class
     private StepInterface stepFunction;
-    private GameSequenceController gameSequenceController;
+    private GameSeqController gameSeqController;
     private ScoreDisplay scoreDisplay;
 
     /**
@@ -59,9 +58,9 @@ public class LevelContainer {
 
     public StepInterface getStepFunction() { return stepFunction; }
 
-    public GameSequenceController getGameSequenceController() { return gameSequenceController; }
+    public GameSeqController getGameSeqController() { return gameSeqController; }
 
-    public void setGameSequenceController(GameSequenceController g) { gameSequenceController = g; }
+    public void setGameSeqController(GameSeqController g) { gameSeqController = g; }
 }
 
 

@@ -1,7 +1,6 @@
 package engine.general;
 
 import engine.leveldirectory.gamesequence.GameSequence;
-import engine.leveldirectory.gamesequence.GameSequenceController;
 import engine.leveldirectory.gamesequence.ScoreDisplay;
 import engine.leveldirectory.gamesequence.SequenceChanger;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
