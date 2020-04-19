@@ -103,8 +103,8 @@ public class BuilderStage extends GridStage {
     private Button createPlayButton() {
         Button playButton = new Button(resources.getString("Play"));
         playButton.setId("playButton");
-        playButton.setTranslateX(getTileWidth()*40);
-        playButton.setTranslateY(getTileHeight()*12);
+        playButton.setTranslateX(getTileWidth()*25);
+        playButton.setTranslateY(getTileHeight()*20);
         playButton.setOnAction(event -> leaveBuilderStage());
         return playButton;
     }
