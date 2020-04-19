@@ -132,7 +132,7 @@ public class BuilderStage extends Pane {
         playButton.setId("playButton");
         playButton.setTranslateX(TILE_WIDTH*40);
         playButton.setTranslateY(TILE_HEIGHT*12);
-        playButton.setOnMouseClicked(e -> leaveBuilderStage());
+        playButton.setOnAction(event -> leaveBuilderStage());
         return playButton;
     }
 

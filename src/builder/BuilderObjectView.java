@@ -146,6 +146,7 @@ public class BuilderObjectView extends GameObjectView {
         ImageView check = createActionIcon(PATH_TO_CHECK_IMG, RIGHT);
         ImageView sell = createActionIcon(PATH_TO_SELL_IMG, LEFT);
 
+        check.setId("checkMark" + this.hashCode());
         check.setOnMouseClicked(mouseEvent -> disableDrag());
         sell.setOnMouseClicked(mouseEvent -> {
             isActive = false;
