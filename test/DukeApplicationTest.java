@@ -3,12 +3,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ButtonBase;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -96,6 +91,18 @@ public class DukeApplicationTest extends ApplicationTest {
         Platform.runLater(action);
         // make it "later" so the requested event has time to run
         WaitForAsyncUtils.waitForFxEvents();
+    }
+
+    protected void fireButtonEvent(Button button) {
+        javafxRun(() -> button.fireEvent(new ActionEvent()));
+    }
+
+    protected void fireMouseClick(Node node) {
+        javafxRun(() -> node.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
+                node.getLayoutX(), node.getLayoutY(), node.getLayoutX(), node.getLayoutY(),
+                MouseButton.PRIMARY, 1, true, true,
+                true, true, true, true,
+                true, true, true, true, null)));
     }
 
     // HACKs: needed to get simulating an UI action working :(

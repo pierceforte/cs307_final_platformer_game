@@ -51,6 +51,7 @@ public class BuilderObjectView extends GameObjectView {
         isSnapped = false;
         actionIcons = new ArrayList<>();
         askUserToPlaceMe();
+        setId("builderObjectView");
     }
 
     public GameObject getGameObject() {
