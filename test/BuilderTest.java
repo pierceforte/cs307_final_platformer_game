@@ -80,8 +80,8 @@ public class BuilderTest extends DukeApplicationTest {
         assertNotNull(builderStage.lookup("#builderObjectView"));
         BuilderObjectView builderObjectView = (BuilderObjectView) builderStage.lookup("#builderObjectView");
         // assert check button is present
-        assertNotNull(builderStage.lookup("#checkMark" + builderObjectView.hashCode()));
-        ImageView checkMark = (ImageView) builderStage.lookup("#checkMark" + builderObjectView.hashCode());
+        assertNotNull(builderStage.lookup("#checkIcon" + builderObjectView.hashCode()));
+        ImageView checkMark = (ImageView) builderStage.lookup("#checkIcon" + builderObjectView.hashCode());
         // place the builderObjectView
         fireMouseClick(checkMark);
         builderStage.update();

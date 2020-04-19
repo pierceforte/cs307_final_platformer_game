@@ -8,13 +8,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.NonInvertibleTransformException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -86,21 +86,45 @@ public class BuilderStage extends Pane {
     private void snapItems() {
         for (BuilderObjectView object : myObjects) {
             if (object.isReadyForSnap() && !object.isSnapped()) {
-                double x = object.getX();
-                double y = object.getY();
-                try {
-                    Coordinates coords = convertToGridCoords(object.getX(), object.getY());
-                    x = coords.getX() * TILE_WIDTH;
-                    y = coords.getY() * TILE_HEIGHT;
-
-                } catch (NonInvertibleTransformException e) {
-                    e.printStackTrace();
-                }
-                object.setX(x);
-                object.setY(y);
-                object.setSnapped();
+                snapItem(object);
+            }
+            else if (!object.isReadyForSnap() || !object.isSnapped() || !object.areActionIconsActive()) {
+                this.getChildren().removeAll(object.getActionIcons());
+            }
+            else if (object.hasNewActionItems()) {
+                this.getChildren().removeAll(object.getActionIcons());
+                addActionItemsForObject(object);
+                object.setHasNewActionItems(false);
             }
         }
+    }
+
+    private void snapItem(BuilderObjectView object) {
+        double x = object.getX();
+        double y = object.getY();
+        try {
+            Coordinates coords = convertToGridCoords(object.getX(), object.getY());
+            x = coords.getX() * TILE_WIDTH;
+            y = coords.getY() * TILE_HEIGHT;
+
+        } catch (NonInvertibleTransformException e) {
+            e.printStackTrace();
+        }
+        object.setX(x);
+        object.setY(y);
+        object.setSnapped();
+        addActionItemsForObject(object);
+    }
+
+    private void addActionItemsForObject(BuilderObjectView object) {
+        ImageView leftIcon = object.getLeftIcon();
+        ImageView rightIcon = object.getRightIcon();
+        double y = object.getY() + 0.6*TILE_HEIGHT;
+        leftIcon.setX(object.getX() + leftIcon.getFitWidth()/2 - 0.4*TILE_WIDTH);
+        rightIcon.setX(object.getX() + leftIcon.getFitWidth()/2 + 0.4*TILE_WIDTH);
+        leftIcon.setY(y);
+        rightIcon.setY(y);
+        this.getChildren().addAll(leftIcon, rightIcon);
     }
 
     private void addItemsBackToBank() {
@@ -109,6 +133,7 @@ public class BuilderStage extends Pane {
             if (!object.isActive()) {
                 bankController.getBankModel().addBankItem(object.getBankItem());
                 bankController.getBankModel().addToMoneyAvailable(object.getBankItem().getCost());
+                this.getChildren().removeAll(object.getActionIcons());
                 this.getChildren().remove(object);
                 objectsToRemove.add(object);
             }
@@ -120,7 +145,7 @@ public class BuilderStage extends Pane {
         if (bankController.hasPurchasedItem()) {
             BankItem item = bankController.getPurchasedItem();
             BuilderObjectView builderObjectView = new BuilderObjectView(item.getGameObject(),
-                    item, width/2, height/2,this);
+                    item, width/2, height/2);
             this.getChildren().add(builderObjectView);
             myObjects.add(builderObjectView);
             bankController.removePurchasedItem();

@@ -6,7 +6,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,21 +34,27 @@ public class BuilderObjectView extends GameObjectView {
     private boolean isDraggable;
     private boolean isActive;
     private boolean areActionIconsActive;
+    private boolean hasNewActionItems;
     private List<Node> actionIcons;
-    private Pane root;
     private GameObject gameObject;
     private BankItem bankItem;
+    private ImageView leftIcon;
+    private ImageView rightIcon;
+    private ImageView moveIcon;
+    private ImageView checkIcon;
+    private ImageView sellIcon;
 
-    public BuilderObjectView(GameObject gameObject, BankItem bankItem, double xPos, double yPos, Pane root) {
+    public BuilderObjectView(GameObject gameObject, BankItem bankItem, double xPos, double yPos) {
         super(gameObject.getImgPath(), xPos, yPos, bankItem.getWidth(), bankItem.getHeight(), GameObjectView.RIGHT);
         this.gameObject = gameObject;
         this.bankItem = bankItem;
-        this.root = root; // TODO: maybe eliminate this dependency
         enableDrag();
         isActive = true;
         isDraggable = true;
         isSnapped = false;
+        isReadyForSnap = true;
         actionIcons = new ArrayList<>();
+        createActionIcons();
         askUserToPlaceMe();
         setId("builderObjectView");
     }
@@ -60,6 +65,26 @@ public class BuilderObjectView extends GameObjectView {
 
     public BankItem getBankItem() {
         return bankItem;
+    }
+
+    public ImageView getLeftIcon() {
+        return leftIcon;
+    }
+
+    public ImageView getRightIcon() {
+        return rightIcon;
+    }
+
+    public boolean areActionIconsActive() {
+        return areActionIconsActive;
+    }
+
+    public boolean hasNewActionItems() {
+        return hasNewActionItems;
+    }
+
+    public void setHasNewActionItems(boolean hasNewActionItems) {
+        this.hasNewActionItems = hasNewActionItems;
     }
 
     public boolean isDraggable() {
@@ -82,10 +107,6 @@ public class BuilderObjectView extends GameObjectView {
         return isActive;
     }
 
-    public boolean areActionIconsActive() {
-        return areActionIconsActive;
-    }
-
     public List<Node> getActionIcons() {
         return actionIcons;
     }
@@ -103,11 +124,12 @@ public class BuilderObjectView extends GameObjectView {
             dragDelta.x = this.getX() - mouseEvent.getX();
             dragDelta.y = this.getY() - mouseEvent.getY();
             this.getScene().setCursor(Cursor.MOVE);
-            deactivateActionIcons();
+            areActionIconsActive = true;
         });
         setOnMouseReleased(mouseEvent -> {
             this.getScene().setCursor(Cursor.HAND);
             askUserToPlaceMe();
+            areActionIconsActive = true;
             isReadyForSnap = true;
         });
         setOnMouseDragged(mouseEvent -> {
@@ -134,7 +156,7 @@ public class BuilderObjectView extends GameObjectView {
      */
     public void disableDrag() {
         isDraggable = false;
-        deactivateActionIcons();
+        areActionIconsActive = false;
         setOnMousePressed(mouseEvent -> askUserToMoveMe());
         setOnMouseReleased(mouseEvent -> {return;});
         setOnMouseDragged(mouseEvent -> {return;});
@@ -143,52 +165,47 @@ public class BuilderObjectView extends GameObjectView {
     }
 
     private void askUserToPlaceMe() {
-        ImageView check = createActionIcon(PATH_TO_CHECK_IMG, RIGHT);
-        ImageView sell = createActionIcon(PATH_TO_SELL_IMG, LEFT);
+        rightIcon = checkIcon;
+        leftIcon = sellIcon;
 
-        check.setId("checkMark" + this.hashCode());
-        check.setOnMouseClicked(mouseEvent -> disableDrag());
-        sell.setOnMouseClicked(mouseEvent -> {
-            isActive = false;
-            deactivateActionIcons();
+        checkIcon.setOnMouseClicked(mouseEvent -> {
+            disableDrag();
         });
-        activateActionIcons();
+        sellIcon.setOnMouseClicked(mouseEvent -> {
+            isActive = false;
+        });
+        areActionIconsActive = true;
+        hasNewActionItems = true;
     }
 
     private void askUserToMoveMe() {
-        ImageView move = createActionIcon(PATH_TO_MOVE_IMG, LEFT);
-        ImageView check = createActionIcon(PATH_TO_CHECK_IMG, RIGHT);
+        leftIcon = moveIcon;
+        rightIcon = checkIcon;
 
-        move.setOnMouseClicked(mouseEvent -> {
+        moveIcon.setOnMouseClicked(mouseEvent -> {
                 enableDrag();
-                deactivateActionIcons();
                 askUserToPlaceMe();
-
         });
-        check.setOnMouseClicked(mouseEvent -> disableDrag());
-        activateActionIcons();
+        checkIcon.setOnMouseClicked(mouseEvent -> disableDrag());
+        areActionIconsActive = true;
+        hasNewActionItems = true;
     }
 
-    private ImageView createActionIcon(String imgPath, int side) {
+    private void createActionIcons() {
+        checkIcon = createActionIcon(PATH_TO_CHECK_IMG,  "checkIcon");
+        sellIcon = createActionIcon(PATH_TO_SELL_IMG, "sellIcon");
+        moveIcon = createActionIcon(PATH_TO_MOVE_IMG, "moveIcon");
+        actionIcons.addAll(List.of(checkIcon, sellIcon, moveIcon));
+    }
+
+    private ImageView createActionIcon(String imgPath, String idPrefix) {
         Image img = makeImage(imgPath);
         ImageView imgView = new ImageView(img);
-        imgView.setX(this.getCenterX() + ACTION_ICON_SIZE/1.5 * side);
-        imgView.setY(this.getCenterY() + ACTION_ICON_SIZE * 2);
         imgView.setFitWidth(ACTION_ICON_SIZE);
         imgView.setFitHeight(ACTION_ICON_SIZE);
         imgView.setPickOnBounds(true);
+        imgView.setId(idPrefix + this.hashCode());
         actionIcons.add(imgView);
-        root.getChildren().add(imgView);
         return imgView;
-    }
-
-    private void activateActionIcons() {
-        areActionIconsActive = true;
-    }
-
-    private void deactivateActionIcons() {
-        root.getChildren().removeAll(actionIcons);
-        actionIcons.clear();
-        areActionIconsActive = false;
     }
 }
