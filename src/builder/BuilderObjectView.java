@@ -1,5 +1,6 @@
 package builder;
 
+import builder.bank.BankItem;
 import engine.gameobject.GameObject;
 import engine.view.GameObjectView;
 import javafx.scene.Cursor;

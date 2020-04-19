@@ -1,6 +1,6 @@
 package data;
 
-import builder.BankItem;
+import builder.bank.BankItem;
 import data.levels.LevelData;
 import data.user.InvalidLoginException;
 import engine.gameobject.GameObject;

@@ -1,10 +1,12 @@
-import builder.*;
+import builder.bank.BankController;
+import builder.bank.BankItem;
+import builder.bank.BankModel;
+import builder.bank.BankView;
 import engine.gameobject.opponent.Raccoon;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 

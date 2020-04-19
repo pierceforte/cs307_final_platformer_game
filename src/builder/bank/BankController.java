@@ -1,4 +1,6 @@
-package builder;
+package builder.bank;
+
+import builder.NotEnoughMoneyException;
 
 import java.util.List;
 

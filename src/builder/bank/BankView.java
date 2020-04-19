@@ -1,4 +1,4 @@
-package builder;
+package builder.bank;
 
 import javafx.application.Platform;
 import javafx.scene.Node;

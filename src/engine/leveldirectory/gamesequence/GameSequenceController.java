@@ -1,6 +1,9 @@
 package engine.leveldirectory.gamesequence;
 
 import builder.*;
+import builder.bank.BankController;
+import builder.bank.BankItem;
+import builder.bank.BankView;
 import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
 import engine.gameobject.platform.StationaryPlatform;
