@@ -100,6 +100,6 @@ public class GameSeqBuilderController extends GameSeqController {
 
     public void endPhase() {
         this.getTimeline().stop();
-        nextPlayScene.run();
+        //nextPlayScene.run();
     }
 }
