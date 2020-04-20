@@ -1,6 +1,7 @@
 package engine.leveldirectory.gamesequence;
 
 import builder.BuilderStage;
+import data.input.KeyInput;
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
@@ -20,6 +21,8 @@ import javafx.util.Duration;
 import java.util.List;
 
 public class GameSeqLevelController extends GameSeqController {
+
+    private KeyInput keyInput;
 
     public GameSeqLevelController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
@@ -57,24 +60,22 @@ public class GameSeqLevelController extends GameSeqController {
     public void step() {
         //System.out.println("StepStep");
         //getMyScene().setOnKeyPressed(e -> userInput(e.getCode()));
+
         List<GameObject> tempGameObjects = getLevelContainer().getCurrentLevel().getAllGameObjects();
         for (GameObject tempObj : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
             interactionsAndGravity(tempObj);
+
+            // TODO: need to find a better way to do this
+            if (tempObj.isPlayer()) {
+                ((SimplePlayer) tempObj).handleInputs(keyInput.getPressedKeys());
+            }
         }
         getLevelContainer().getCurrentLevel().setGameObjects(tempGameObjects);
         super.display();
     }
 
     private void setUpListeners() {
-        getMyScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            System.out.println("Key Pressed");
-            if (key.getCode() == KeyCode.LEFT)
-                getSimplePlayer().move(SimplePlayer.LEFT);
-            else if (key.getCode() == KeyCode.RIGHT)
-                getSimplePlayer().move(SimplePlayer.RIGHT);
-            else if (key.getCode() == KeyCode.SPACE)
-                getSimplePlayer().jump();
-        });
+        keyInput = new KeyInput(getMyScene());
     }
 
 
