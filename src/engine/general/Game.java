@@ -59,11 +59,11 @@ public class Game {
                 this, scene, root, height, width);
         gameSeqLevelController.play();
 
-        /*
+
         GameSeqBuilderController gameSeqBuilderController = new GameSeqBuilderController(levelContainer, graphicsEngine,
                 this, scene, root, height, width);
         gameSeqBuilderController.play();
-         */
+
     }
 
     public LevelContainer getLevelContainer() { return levelContainer; }

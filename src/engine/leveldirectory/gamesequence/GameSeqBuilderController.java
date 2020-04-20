@@ -91,6 +91,7 @@ public class GameSeqBuilderController extends GameSeqController {
         if (builderStage.isDone()) {
             getRoot().getChildren().remove(builderStage);
             bankController.getBankView().removeFromRoot();
+            endPhase();
             // TODO: add objects to the current level's list of GameObjects
         }
         else
@@ -98,6 +99,7 @@ public class GameSeqBuilderController extends GameSeqController {
     }
 
     public void endPhase() {
+        this.getTimeline().stop();
         nextPlayScene.run();
     }
 }

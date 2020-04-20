@@ -127,15 +127,14 @@ public class LevelData {
             Class thisClass = Class.forName(paramType);
             classes[index] = thisClass;
             if (paramType.equals("java.lang.String")) {
-                params[index] = param.get(1);
-                System.out.println(params[index]);
+                params[index] = (String) param.get(1);
             }
             else if (param.get(1).getClass().equals(Long.class)) {
                 params[index] = Double.valueOf((Long) param.get(1));
             }
             else {
-                System.out.println(param.get(1));
-                System.out.println(param.get(1).getClass().toString());
+                //System.out.println(param.get(1));
+                //System.out.println(param.get(1).getClass().toString());
                 params[index] = parse(thisClass, (String) param.get(1));
             }
         }

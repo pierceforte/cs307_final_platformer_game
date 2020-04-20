@@ -58,12 +58,10 @@ public abstract class GameSeqController {
     public void display() {
         myPane.getChildren().removeAll();
         for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
-            System.out.println(g.getImagePath());
-            GameObjectView gameObjectView = new GameObjectView(g.getImagePath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
-            gameObjectView.setX(300);
-            gameObjectView.setY(300);
-            gameObjectView.setFitWidth(100);
-            gameObjectView.setFitHeight(100);
+            System.out.println(g.getImgPath());
+            GameObjectView gameObjectView = new GameObjectView(g.getImgPath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
+            gameObjectView.setX(gameObjectView.getX() * width/30);
+            gameObjectView.setY(gameObjectView.getY() * height/20);
             myPane.getChildren().add(gameObjectView);
         }
         System.out.println("\n\n\n");
