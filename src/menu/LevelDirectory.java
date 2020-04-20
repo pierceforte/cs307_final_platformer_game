@@ -37,10 +37,9 @@ public class LevelDirectory extends Page {
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         STYLESHEET = "menuresources/light.css";
         light = true;
-        myStage.setScene(this.buildSpecialScene((int) primaryScreenBounds.getHeight(),(int) primaryScreenBounds.getWidth()));
+        myStage.setScene(this.buildSpecialScene((int) myFactory.getScreenHeight(),(int) myFactory.getScreenWidth()));
     }
 
     @Override

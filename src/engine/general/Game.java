@@ -54,9 +54,16 @@ public class Game {
 
 
     public void startLevelPhase(Scene scene, Pane root, double height, double width) {
+        //System.out.println(levelContainer.getCurrentLevel().getAllGameObjects().size());
         GameSeqLevelController gameSeqLevelController = new GameSeqLevelController(levelContainer, graphicsEngine,
                 this, scene, root, height, width);
         gameSeqLevelController.play();
+
+        /*
+        GameSeqBuilderController gameSeqBuilderController = new GameSeqBuilderController(levelContainer, graphicsEngine,
+                this, scene, root, height, width);
+        gameSeqBuilderController.play();
+         */
     }
 
     public LevelContainer getLevelContainer() { return levelContainer; }

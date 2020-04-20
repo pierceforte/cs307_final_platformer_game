@@ -1,6 +1,7 @@
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -98,7 +99,11 @@ public class DukeApplicationTest extends ApplicationTest {
     }
 
     protected void fireMouseClick(Node node) {
-        javafxRun(() -> node.fireEvent(new MouseEvent(MouseEvent.MOUSE_CLICKED,
+        fireMouseEvent(node, MouseEvent.MOUSE_CLICKED);
+    }
+
+    protected void fireMouseEvent(Node node, EventType<MouseEvent> eventType) {
+        javafxRun(() -> node.fireEvent(new MouseEvent(eventType,
                 node.getLayoutX(), node.getLayoutY(), node.getLayoutX(), node.getLayoutY(),
                 MouseButton.PRIMARY, 1, true, true,
                 true, true, true, true,

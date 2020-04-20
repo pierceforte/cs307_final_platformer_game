@@ -10,6 +10,15 @@ import java.util.List;
 public interface Player {
 
     /**
+     * True when the win condition is achieved.
+     */
+    boolean hasWon();
+
+    /**
+     * True when the player has died.
+     */
+    boolean hasLost();
+    /**
      * Assign key inputs to their appropriate actions
      */
     void assignInputs();

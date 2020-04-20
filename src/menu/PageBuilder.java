@@ -88,6 +88,23 @@ public class PageBuilder {
         return save;
     }
 
+    public double getScreenWidth() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        return primaryScreenBounds.getWidth();
+    }
+
+    public double getScreenHeight() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        return primaryScreenBounds.getHeight();
+    }
+
+    public double getTileWsize() {
+        return getScreenWidth()/30;
+    }
+    public double getTileHsize() {
+        return getScreenHeight()/25;
+    }
+
     public void addMainMenuButtons(Page.MenuBox myBox) {
         Button play = new Button (myResource.getString("Cont"));
         play.setId("button");
@@ -101,15 +118,15 @@ public class PageBuilder {
                 ButtonType play = new ButtonType(myResource.getString("Login"), ButtonBar.ButtonData.OK_DONE);
                 dialog.getDialogPane().getButtonTypes().addAll(play, ButtonType.CANCEL);
 
-                TextField title = new TextField(myResource.getString("NGUsername"));
+                TextField title = new TextField();
                 title.setPromptText(myResource.getString("NGUsername"));
 
-                TextField saveloc = new TextField(myResource.getString("NGPassword"));
+                TextField saveloc = new TextField();
                 saveloc.setPromptText(myResource.getString("NGPassword"));
 
 
                 VBox texts = new VBox(title, saveloc);
-                dialog.initOwner(myStage.getOwner());
+                dialog.initOwner(myStage.getScene().getWindow());
                 dialog.getDialogPane().setContent(texts);
 
                 dialog.setResultConverter(dialogButton-> {

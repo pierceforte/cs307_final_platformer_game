@@ -1,8 +1,5 @@
 package engine.leveldirectory.gamesequence;
 
-import builder.BankController;
-import builder.BankItem;
-import builder.BankView;
 import builder.BuilderStage;
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Mongoose;
@@ -48,6 +45,7 @@ public class GameSeqLevelController extends GameSeqController {
     }
 
     public void step() {
+        System.out.println("Step");
         getMyScene().setOnKeyPressed(e -> userInput(e.getCode()));
         List<GameObject> tempGameObjects = getLevelContainer().getCurrentLevel().getAllGameObjects();
         for (GameObject tempObj : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
@@ -58,7 +56,7 @@ public class GameSeqLevelController extends GameSeqController {
     }
 
     private void userInput(KeyCode keyCode) {
-        getSimplePlayer().handleInputs(keyCode);
+        //getSimplePlayer().handleInputs(keyCode);
     }
 
     private void interactionsAndGravity(GameObject gameObject) {

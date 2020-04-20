@@ -43,6 +43,8 @@ public abstract class GameSeqController {
         this.game = game;
         this.height = height;
         this.width = width;
+        this.myScene = scene;
+        this.myPane = root;
         setPlayer();
     }
 
@@ -51,11 +53,17 @@ public abstract class GameSeqController {
     }
 
     public void display() {
+        myPane.getChildren().removeAll();
         for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
-            myPane.getChildren().removeAll();
             GameObjectView gameObjectView = new GameObjectView(g.getImagePath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
+            gameObjectView.setX(300);
+            gameObjectView.setY(300);
+            gameObjectView.setFitWidth(100);
+            gameObjectView.setFitHeight(100);
             myPane.getChildren().add(gameObjectView);
+
         }
+        myPane.setVisible(true);
         // TODO: display score board
     }
 
