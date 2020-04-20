@@ -87,6 +87,14 @@ public class LevelData {
         return objClass.split("class ")[1];
     }
 
+    public Integer getNumLevels() {
+        Integer count = 0;
+        for (Object objKey : levels.keySet()) {
+            if (!objKey.equals("temp")) count ++;
+        }
+        return count;
+    }
+
     public List<GameObject> getTempSave() throws ReadSaveException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         return loadHelper("temp");
     }
@@ -133,7 +141,7 @@ public class LevelData {
         return (GameObject) objClass.getDeclaredConstructor(classes).newInstance(params);
     }
 
-    public static <T> T parse(Class<T> type, String value) {
+    private static <T> T parse(Class<T> type, String value) {
         try {
             return (T)type.getDeclaredMethod("valueOf", String.class).invoke(null, value);
         }
