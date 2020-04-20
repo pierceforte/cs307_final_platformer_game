@@ -5,17 +5,12 @@ import engine.gameobject.GameObject;
 import java.util.Arrays;
 import java.util.List;
 
-public class Raccoon extends GameObject implements Enemy {
+public class Raccoon extends Opponent {
 
-    public static final String EX_IMG_PATH = "raccoon.png"; //TODO: make this more flexible
-    public static final Double DEFAULT_X_SPEED = 20d;
-    public static final Double DEFAULT_Y_SPEED = 0d;
-
-    private double initXSpeed;
+    private static final Double DEFAULT_Y_SPEED = 0d;
 
     public Raccoon(String imgPath, Double xPos, Double yPos, Double xSpeed) {
         super(imgPath, xPos, yPos, xSpeed, DEFAULT_Y_SPEED);
-        initXSpeed = xSpeed;
     }
 
     public Raccoon(Raccoon copy) {
@@ -27,19 +22,10 @@ public class Raccoon extends GameObject implements Enemy {
         //System.out.println(target.getXDirection());
         if ((target.getXDirection() > 0) == (target.getX() - getX()) > 0) { // if target is facing away, I attack
             int direction = target.getXDirection();
-            setXSpeed(direction * initXSpeed);
+            setXSpeed(direction * getInitialX());
         }
         else {
             setXSpeed(0); // don't move if touching target or target facing me
         }
-    }
-
-    @Override
-    public List<Object> getParameters() {
-        return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed());
-    }
-    @Override
-    public boolean isPlayer() {
-        return false;
     }
 }

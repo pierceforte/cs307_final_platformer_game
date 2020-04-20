@@ -18,7 +18,6 @@ public class User {
     private static final String filePath = "data/messaround.json";
     private static final int InventorySize = 5;
 
-    private boolean unlocked = false;
     private boolean warned = false;
 
     private JSONObject json;
@@ -100,7 +99,6 @@ public class User {
         this.avatarImg = avatarImg;
         birthday.addAll(Arrays.asList(month, day, year));
         score = 0;
-        unlocked = true;
         json = new JSONObject();
         json.put("id", id);
         json.put("password", password);
@@ -146,7 +144,6 @@ public class User {
      * @param data - a JSONObject containing all of the infomation on the account from the file
      */
     private void unlockUser(JSONObject data) {
-        unlocked = true;
         json = data;
         JSONObject birthdate = (JSONObject) data.get("birthday");
         birthday = new ArrayList<>(Arrays.asList(Optional.of(Math.toIntExact((Long) birthdate.get("month"))).orElse(0),

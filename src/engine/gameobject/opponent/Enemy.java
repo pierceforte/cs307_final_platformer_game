@@ -7,10 +7,6 @@ import engine.gameobject.GameObject;
  */
 public interface Enemy {
 
-    /**
-     * Assigns how the enemy moves; eg. how do they attack the player?
-     * @param target the target is located
-     */
-    void updateLogic(GameObject target);
+
 
 }

@@ -17,7 +17,7 @@ public class LevelData {
     JSONObject levels;
     JSONObject bank;
 
-    private static final String levelLoc = "data/levels.json";
+    private static final String levelLoc = "da/levels.json";
     private static final String bankLoc = "data/bank.json";
 
     public LevelData() throws ReadSaveException {
@@ -47,6 +47,14 @@ public class LevelData {
                     Math.toIntExact((Long) type.get("cost"))));
         }
         return bankItems;
+    }
+
+    public Integer levelNumber() {
+        Integer count = 0;
+        for (Object keyObj : levels.keySet()) {
+            if (!keyObj.equals("temp")) count++;
+        }
+        return count;
     }
 
     public void saveTemp(List<GameObject> list) throws ReadSaveException {
@@ -133,7 +141,7 @@ public class LevelData {
         return (GameObject) objClass.getDeclaredConstructor(classes).newInstance(params);
     }
 
-    public static <T> T parse(Class<T> type, String value) {
+    private static <T> T parse(Class<T> type, String value) {
         try {
             return (T)type.getDeclaredMethod("valueOf", String.class).invoke(null, value);
         }
@@ -161,4 +169,6 @@ public class LevelData {
         }
         return false;
     }
+
+
 }
