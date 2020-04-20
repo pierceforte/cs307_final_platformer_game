@@ -19,23 +19,42 @@ public class SimplePlayer extends GameObject implements Player{
     public static final int RIGHT = 1;
 
     private Map<KeyCode, Runnable> inputMap;
+    private boolean hasWon;
+    private boolean hasLost;
 
     public SimplePlayer(String imgPath, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
         super(imgPath, xPos, yPos, xSpeed, ySpeed);
         assignInputs();
     }
 
+    public SimplePlayer(SimplePlayer copy) {
+        this(copy.getImgPath(), copy.getX(), copy.getY(), copy.getXSpeed(), copy.getYSpeed());
+    }
+
+    public void setWinner() {
+        hasWon = true;
+    }
+
+    public void setLoser() {
+        hasLost = true;
+    }
+
     @Override
     public List<Object> getParameters() {
         return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed(), getYSpeed());
     }
+
     @Override
     public boolean isPlayer() {
         return true;
     }
 
-    public SimplePlayer(SimplePlayer copy) {
-        this(copy.getImgPath(), copy.getX(), copy.getY(), copy.getXSpeed(), copy.getYSpeed());
+    public boolean hasWon() {
+        return hasWon;
+    }
+
+    public boolean hasLost() {
+        return hasLost;
     }
 
     public void assignInputs() {
