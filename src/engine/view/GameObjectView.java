@@ -3,8 +3,6 @@ package engine.view;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import javax.sound.midi.SysexMessage;
-
 //TODO: Decide whether to use inheritance or composition for ImageView
 public class GameObjectView extends ImageView {
 

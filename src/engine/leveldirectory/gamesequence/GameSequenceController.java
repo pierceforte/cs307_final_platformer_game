@@ -49,7 +49,6 @@ public class GameSequenceController {
         levelContainer.getStepFunction().setup(levelContainer, graphicsEngine, game);
          */
 
-
         //Pierce stuff
         myScene = scene;
         myPane = root;
