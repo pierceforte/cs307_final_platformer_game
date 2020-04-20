@@ -61,6 +61,8 @@ public abstract class GameSeqController {
             GameObjectView gameObjectView = new GameObjectView(g.getImgPath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
             gameObjectView.setX(gameObjectView.getX() * width/30);
             gameObjectView.setY(gameObjectView.getY() * height/20);
+            gameObjectView.setFitWidth(width/30);
+            gameObjectView.setFitHeight(height/20);
             myPane.getChildren().add(gameObjectView);
         }
         myPane.getChildren().add(new GameObjectView(simplePlayer.getImgPath(), simplePlayer.getX(), simplePlayer.getY(),
