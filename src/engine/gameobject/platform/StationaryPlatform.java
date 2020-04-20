@@ -30,6 +30,9 @@ public class StationaryPlatform extends GameObject implements Platform {
     @Override
     public void handleEntityInteraction(GameObject entity) {
         entity.setYSpeed(NEW_ENTITY_Y_SPEED);
+        if (entity.getX() <= getX() || entity.getX() >= getX()) {
+            entity.setXSpeed(0);
+        }
     }
 
     public void handlePlayerInteraction(SimplePlayer player) {

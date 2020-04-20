@@ -1,0 +1,2 @@
+- Describe how much of the planned features were completed this Sprint and what helped or impeded progress
+    - In this sprint, we made a lot of progress regarding the overall design of our game, testing, and some implementations. Overall, we were really happy with this progress since we can finally see our game taking shape and have written extensible, flexible code that will allow for creating new features. Our frequent team meetings helped us complete work, even despite the many end-of-year exams and commitments we are all dealing with.
