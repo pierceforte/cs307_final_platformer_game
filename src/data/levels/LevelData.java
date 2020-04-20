@@ -133,8 +133,6 @@ public class LevelData {
                 params[index] = Double.valueOf((Long) param.get(1));
             }
             else {
-                //System.out.println(param.get(1));
-                //System.out.println(param.get(1).getClass().toString());
                 params[index] = parse(thisClass, (String) param.get(1));
             }
         }

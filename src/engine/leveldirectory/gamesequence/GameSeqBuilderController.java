@@ -4,6 +4,7 @@ import builder.BuilderStage;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.BankView;
+import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
 import engine.gameobject.platform.StationaryPlatform;
@@ -32,21 +33,14 @@ public class GameSeqBuilderController extends GameSeqController {
     private BankController bankController;
     private BuilderStage builderStage;
 
-    private Runnable nextPlayScene;
-
-    public void setNextPlayScene(Runnable nextPlayScene) {
-        this.nextPlayScene = nextPlayScene;
-    }
-    public Runnable getNextPlayScene() {
-        return nextPlayScene;
-    }
-
     public GameSeqBuilderController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game,
                                     Scene scene, Pane root, double height, double width) {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
+        System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size() + "size 1");
         setUpRunnable();
         setupTimeline();
         initialize(scene, root);
+        getTimeline().play();
     }
 
     private void setUpRunnable() {
@@ -54,29 +48,28 @@ public class GameSeqBuilderController extends GameSeqController {
             pause();
             GameSeqLevelController playTemp = new GameSeqLevelController(getLevelContainer(), getGraphicsEngine(),
                     getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
+            System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size() + "size 2");
             playTemp.play();
         });
     }
 
     public void initialize(Scene scene, Pane root) {
-        // TODO: initialize from levelContainer.getCurrentLevel()
+        // TODO: initialize from stored info
         setMyScene(scene);
         setRoot(root);
 
         Raccoon raccoon = new Raccoon("raccoon.png", 1., 1., 10.);
         Mongoose mongoose = new Mongoose("mongoose.png", 1., 1., 10.);
-
         BankItem one = new BankItem(new Raccoon(raccoon),  30, 30, 10);
         BankItem two = new BankItem(new Mongoose(mongoose), 30, 30, 20);
         BankItem three = new BankItem(new Mongoose(mongoose), 30, 30, 30);
         BankItem four = new BankItem(new Raccoon(raccoon), 30, 30, 40);
         BankView bankView = new BankView(20, 20, 200, 260, root);
 
-        //replace with more robust HUD display (see money available hardcode)
-        //read in bank item list and money
         bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
         builderStage = new BuilderStage(bankController, getWidth(), getHeight());
         getRoot().getChildren().add(builderStage);
+        builderDisplay();
     }
 
     private void setupTimeline() {
@@ -89,17 +82,29 @@ public class GameSeqBuilderController extends GameSeqController {
 
     public void step() {
         if (builderStage.isDone()) {
+            List<GameObject> temp = builderStage.getGameObjects();
+            getLevelContainer().getCurrentLevel().addGameObject(temp);
             getRoot().getChildren().remove(builderStage);
             bankController.getBankView().removeFromRoot();
             endPhase();
-            // TODO: add objects to the current level's list of GameObjects
         }
         else
             builderStage.update();
     }
 
+    private void builderDisplay() {
+        getRoot().getChildren().removeAll();
+        for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
+            GameObjectView gameObjectView = new GameObjectView(g.getImgPath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
+            gameObjectView.setX(gameObjectView.getX() * getWidth()/30);
+            gameObjectView.setY(gameObjectView.getY() * getHeight()/20);
+            getRoot().getChildren().add(gameObjectView);
+        }
+        getRoot().setVisible(true);
+    }
+
     public void endPhase() {
         this.getTimeline().stop();
-        nextPlayScene.run();
+        getNextPlayScene().run();
     }
 }

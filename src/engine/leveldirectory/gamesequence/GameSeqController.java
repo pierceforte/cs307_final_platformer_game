@@ -18,7 +18,7 @@ import javafx.scene.layout.Pane;
 
 
 public abstract class GameSeqController {
-    public static final int FRAME_DURATION = 100;
+    public static final int FRAME_DURATION = 500;
     private LevelContainer levelContainer;
     private Timeline timeline;
     private GraphicsEngine graphicsEngine;
@@ -58,21 +58,24 @@ public abstract class GameSeqController {
     public void display() {
         myPane.getChildren().removeAll();
         for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
-            System.out.println(g.getImgPath());
             GameObjectView gameObjectView = new GameObjectView(g.getImgPath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
             gameObjectView.setX(gameObjectView.getX() * width/30);
             gameObjectView.setY(gameObjectView.getY() * height/20);
             myPane.getChildren().add(gameObjectView);
         }
-        System.out.println("\n\n\n");
+        myPane.getChildren().add(new GameObjectView(simplePlayer.getImgPath(), simplePlayer.getX(), simplePlayer.getY(),
+                simplePlayer.getWidth(), simplePlayer.getHeight(), 20));
         myPane.setVisible(true);
         // TODO: display score board
     }
 
     private void setPlayer() {
         for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects())
-            if (g.isPlayer())
+            if (g.isPlayer()) {
                 simplePlayer = (SimplePlayer) g;
+                levelContainer.getCurrentLevel().removeObject(g);
+                return;
+            }
     }
 
     public Scene getMyScene() { return myScene; }
@@ -82,6 +85,7 @@ public abstract class GameSeqController {
     public double getHeight() { return this.height; }
     public double getWidth() { return width; }
     public SimplePlayer getSimplePlayer() { return simplePlayer; }
+    public void setSimplePlayer(SimplePlayer simplePlayer) { this.simplePlayer = simplePlayer; }
     public GraphicsEngine getGraphicsEngine() { return graphicsEngine; }
     public Game getGame() { return game; }
 
