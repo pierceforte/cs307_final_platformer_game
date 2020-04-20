@@ -100,8 +100,8 @@ public class BuilderObjectView extends GameObjectView {
         return isSnapped;
     }
 
-    public void setSnapped() {
-        isSnapped = true;
+    public void setIsSnapped(boolean isSnapped) {
+        this.isSnapped = isSnapped;
     }
 
     public boolean isActive() {

@@ -1,11 +1,13 @@
 import builder.*;
 import builder.bank.BankController;
 import builder.bank.BankItem;
+import builder.bank.BankModel;
 import builder.bank.BankView;
 import engine.gameobject.opponent.Raccoon;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
@@ -18,7 +20,9 @@ public class BuilderTest extends DukeApplicationTest {
 
     private Pane root;
     private BankController bankController;
+    private BankModel bankModel;
     private BuilderStage builderStage;
+    private BuilderObjectView builderObjectView;
 
     @Override
     public void start(Stage stage) {
@@ -27,6 +31,7 @@ public class BuilderTest extends DukeApplicationTest {
         root = new Pane();
         BankView bankView = new BankView(20, 20, 200, 200, root);
         bankController = new BankController(List.of(one), 10000, bankView);
+        bankModel = bankController.getBankModel();
         builderStage = new BuilderStage(bankController, 1000, 1000);
         javafxRun(() -> {
             Scene scene = new Scene(root);
@@ -78,7 +83,7 @@ public class BuilderTest extends DukeApplicationTest {
         builderStage.update();
         // assert builderObjectView is present
         assertNotNull(builderStage.lookup("#builderObjectView"));
-        BuilderObjectView builderObjectView = (BuilderObjectView) builderStage.lookup("#builderObjectView");
+        builderObjectView = (BuilderObjectView) builderStage.lookup("#builderObjectView");
         // assert check button is present
         assertNotNull(builderStage.lookup("#checkIcon" + builderObjectView.hashCode()));
         ImageView checkMark = (ImageView) builderStage.lookup("#checkIcon" + builderObjectView.hashCode());
@@ -91,5 +96,113 @@ public class BuilderTest extends DukeApplicationTest {
         builderStage.update();
         // assert builderStage is over and we have been allowed to begin playing
         assertTrue(builderStage.isDone());
+    }
+
+    @Test
+    public void testItemPlacement() {
+        purchaseFirstItemFromBank();
+        // assert that builder stage contains a builderObjectView
+        assertNotNull(builderStage.lookup("#builderObjectView"));
+        // assert that builder stage contains a checkIcon and a sellIcon for builderObjectView
+        assertNotNull(builderStage.lookup("#checkIcon" + builderObjectView.hashCode()));
+        assertNotNull(builderStage.lookup("#sellIcon" + builderObjectView.hashCode()));
+        // press the checkIcon
+        ImageView checkIcon = (ImageView) builderStage.lookup("#checkIcon" + builderObjectView.hashCode());
+        fireMouseClick(checkIcon);
+        builderStage.update();
+        // assert that the builderObjectView has been placed and the action icons are no longer present
+        assertNull(builderStage.lookup("#checkIcon" + builderObjectView.hashCode()));
+        assertNull(builderStage.lookup("#sellIcon" + builderObjectView.hashCode()));
+    }
+
+    @Test
+    public void testItemSell() {
+        builderStage.update();
+        int itemCost = bankModel.getCurItem().getCost();
+        Button purchaseButton = (Button) root.lookup("#purchaseButton");
+        fireButtonEvent(purchaseButton);
+        builderStage.update();
+        int initBankMoney = bankModel.getMoneyAvailable();
+        int initBankSize = bankModel.size();
+        // assert that builder stage contains a builderObjectView
+        assertNotNull(builderStage.lookup("#builderObjectView"));
+        builderObjectView = (BuilderObjectView) builderStage.lookup("#builderObjectView");
+        // press the sellIcon
+        ImageView sellIcon = (ImageView) builderStage.lookup("#sellIcon" + builderObjectView.hashCode());
+        fireMouseClick(sellIcon);
+        builderStage.update();
+        // assert that the builderObjectView is no longer on the stage
+        assertNull(builderStage.lookup("#builderObjectView"));
+        // assert the bank has been updated accordingly
+        assertEquals(initBankMoney + itemCost, bankModel.getMoneyAvailable());
+        assertEquals(initBankSize + 1, bankModel.size());
+    }
+
+    @Test
+    public void testActionItemsAppearOnItemPress() {
+        placeFirstItemFromBank();
+        // assert that the action icons are no longer present
+        assertNull(builderStage.lookup("#checkIcon" + builderObjectView.hashCode()));
+        assertNull(builderStage.lookup("#sellIcon" + builderObjectView.hashCode()));
+        // press the builderObjectView
+        fireMouseEvent(builderObjectView, MouseEvent.MOUSE_PRESSED);
+        builderStage.update();
+        // assert that the move and place action icons are now present
+        assertNotNull(builderStage.lookup("#checkIcon" + builderObjectView.hashCode()));
+        assertNotNull(builderStage.lookup("#moveIcon" + builderObjectView.hashCode()));
+    }
+
+    @Test
+    public void testActionItemsDisappearOnItemDrag() {
+        placeFirstItemFromBank();
+        // make the builderObjectView movable
+        fireMouseEvent(builderObjectView, MouseEvent.MOUSE_PRESSED);
+        builderStage.update();
+        ImageView moveIcon = (ImageView) builderStage.lookup("#moveIcon" + builderObjectView.hashCode());
+        fireMouseClick(moveIcon);
+        builderStage.update();
+        // assert that the action icons are present
+        assertNotNull(builderStage.lookup("#checkIcon" + builderObjectView.hashCode()));
+        assertNotNull(builderStage.lookup("#sellIcon" + builderObjectView.hashCode()));
+        // begin dragging the builderObjectView
+        fireMouseEvent(builderObjectView, MouseEvent.MOUSE_DRAGGED);
+        builderStage.update();
+        // assert that the action icons are no longer present
+        assertNull(builderStage.lookup("#checkIcon" + builderObjectView.hashCode()));
+        assertNull(builderStage.lookup("#sellIcon" + builderObjectView.hashCode()));
+    }
+
+    @Test
+    public void testBuilderObjectViewSnap() {
+        purchaseFirstItemFromBank();
+        // set position of builderObjectView such that it will need to be snapped
+        double initXPos = builderStage.getTileWidth()+builderStage.getTileWidth()/2;
+        double initYPos = builderStage.getTileHeight()+builderStage.getTileHeight()/2;
+        builderObjectView.setX(initXPos);
+        builderObjectView.setY(initYPos);
+        builderObjectView.setIsSnapped(false);
+        // we need to remove action items manually to avoid error since we are setting position (instead of dragging)
+        builderStage.getChildren().removeAll(builderObjectView.getActionIcons());
+        // update (causing the object to be snapped to the grid)
+        builderStage.update();
+        // assert that the object's position has been changed (and, as such, snapped)
+        assertNotEquals(initXPos, builderObjectView.getX());
+        assertNotEquals(initYPos, builderObjectView.getY());
+    }
+
+    private void placeFirstItemFromBank() {
+        purchaseFirstItemFromBank();
+        // press the checkIcon
+        ImageView checkIcon = (ImageView) builderStage.lookup("#checkIcon" + builderObjectView.hashCode());
+        fireMouseClick(checkIcon);
+        builderStage.update();
+    }
+
+    private void purchaseFirstItemFromBank() {
+        builderStage.update();
+        Button purchaseButton = (Button) root.lookup("#purchaseButton");
+        fireButtonEvent(purchaseButton);
+        builderStage.update();
+        builderObjectView = (BuilderObjectView) builderStage.lookup("#builderObjectView");
     }
 }

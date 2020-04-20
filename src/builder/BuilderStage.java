@@ -50,7 +50,7 @@ public class BuilderStage extends GridStage {
         for (BuilderObjectView object : myObjects) {
             if (object.isReadyForSnap() && !object.isSnapped()) {
                 snapItem(object);
-                object.setSnapped();
+                object.setIsSnapped(true);
                 addActionItemsForObject(object);
             }
             else if (!object.isReadyForSnap() || !object.isSnapped() || !object.areActionIconsActive()) {

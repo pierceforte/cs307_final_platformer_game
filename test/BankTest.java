@@ -18,6 +18,8 @@ public class BankTest extends DukeApplicationTest {
 
     private Pane root;
     private BankController bankController;
+    private BankModel bankModel;
+    private BankView bankView;
 
     @Override
     public void start(Stage stage) {
@@ -26,8 +28,9 @@ public class BankTest extends DukeApplicationTest {
         BankItem two = new BankItem(new Raccoon(raccoon), 30, 30, 20);
         BankItem three = new BankItem(new Raccoon(raccoon), 30, 30, 40000);
         root = new Pane();
-        BankView bankView = new BankView(20, 20, 200, 200, root);
+        bankView = new BankView(20, 20, 200, 200, root);
         bankController = new BankController(List.of(one, two, three), 10000, bankView);
+        bankModel = bankController.getBankModel();
         javafxRun(() -> {
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -61,7 +64,6 @@ public class BankTest extends DukeApplicationTest {
     @Test
     public void testInValidPurchase() {
         bankController.update();
-        BankModel bankModel = bankController.getBankModel();
         // get to the item that is too expensive
         for (int i = 0; i < bankModel.size() - 1; i++) {
             ImageView nextButton = (ImageView) root.lookup("#nextButton");
@@ -112,5 +114,24 @@ public class BankTest extends DukeApplicationTest {
         // assert next button is now present and item has been changed
         assertNotNull(root.lookup("#nextButton"));
         assertNotEquals(bankModel.getCurItem(), itemBeforeItemSwitch);
+    }
+
+    @Test
+    public void testEmptyBankCreation() {
+        bankController.update();
+        // create a bank of items that are all affordable
+        Raccoon raccoon = new Raccoon("raccoon.png", 1d, 1d, 10d);
+        BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
+        bankController = new BankController(List.of(one), 10000, bankView);
+        // purchase all items
+        for (int i = 0; i < bankModel.size(); i++) {
+            // assert empty bank display is not present
+            assertNull(root.lookup("#noItemsLeft"));
+            Button purchaseButton = (Button) root.lookup("#purchaseButton");
+            fireButtonEvent(purchaseButton);
+        }
+        bankController.update();
+        // assert empty bank display is now present
+        assertNotNull(root.lookup("#noItemsLeft"));
     }
 }
