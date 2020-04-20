@@ -28,7 +28,7 @@ public class LevelContainer {
      */
     public LevelContainer(Game game) {
         this.game = game;
-        currentLevel = 0;
+        currentLevel = 1;
     }
 
     public void loadLevels() throws ReadSaveException, ClassNotFoundException, NoSuchMethodException,

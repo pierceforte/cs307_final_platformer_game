@@ -106,7 +106,7 @@ public class LevelData {
     private List<GameObject> loadHelper(String target) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         List<GameObject> levelObjects = new ArrayList<>();
         if (!levels.containsKey(target)) throw new ReadSaveException("read", levelLoc);
-        JSONObject temp = (JSONObject) levels.get("temp");
+        JSONObject temp = (JSONObject) levels.get("1");
         for (Object key : temp.keySet()) {
             String className = (String) key;
             Class objClass = Class.forName(className);
@@ -127,7 +127,8 @@ public class LevelData {
             Class thisClass = Class.forName(paramType);
             classes[index] = thisClass;
             if (paramType.equals("java.lang.String")) {
-                params[index] = (String) param.get(1);
+                params[index] = param.get(1);
+                System.out.println(params[index]);
             }
             else if (param.get(1).getClass().equals(Long.class)) {
                 params[index] = Double.valueOf((Long) param.get(1));

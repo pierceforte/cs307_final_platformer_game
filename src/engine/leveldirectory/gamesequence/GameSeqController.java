@@ -12,10 +12,13 @@ import engine.view.GameObjectView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+
 public abstract class GameSeqController {
-    public static final int FRAME_DURATION = 20;
+    public static final int FRAME_DURATION = 100;
     private LevelContainer levelContainer;
     private Timeline timeline;
     private GraphicsEngine graphicsEngine;
@@ -55,14 +58,15 @@ public abstract class GameSeqController {
     public void display() {
         myPane.getChildren().removeAll();
         for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
+            System.out.println(g.getImagePath());
             GameObjectView gameObjectView = new GameObjectView(g.getImagePath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
             gameObjectView.setX(300);
             gameObjectView.setY(300);
             gameObjectView.setFitWidth(100);
             gameObjectView.setFitHeight(100);
             myPane.getChildren().add(gameObjectView);
-
         }
+        System.out.println("\n\n\n");
         myPane.setVisible(true);
         // TODO: display score board
     }
