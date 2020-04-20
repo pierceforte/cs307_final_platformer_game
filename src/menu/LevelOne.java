@@ -22,8 +22,6 @@ public class LevelOne extends Page {
     private PageBuilder myFactory;
     private boolean light;
 
-    private double screenwidth;
-    private double screenheight;
     private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
     private String STYLESHEET;
 
@@ -40,12 +38,9 @@ public class LevelOne extends Page {
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         STYLESHEET = "menuresources/light.css";
         light = true;
-        screenheight = primaryScreenBounds.getHeight();
-        screenwidth = primaryScreenBounds.getWidth();
-        myScene = this.buildSpecialScene((int)primaryScreenBounds.getHeight(), (int) primaryScreenBounds.getWidth());
+        myScene = this.buildSpecialScene((int) myFactory.getScreenHeight(), (int) myFactory.getScreenWidth());
         myStage.setScene(myScene);
 
     }
@@ -88,7 +83,7 @@ public class LevelOne extends Page {
         GameSequenceController gameSequenceController = new GameSequenceController(
                 new LevelContainer(null, null, null),
                 new GraphicsEngine(null, null, null),
-                null, myScene, myRoot, screenheight, screenwidth);
+                null, myScene, myRoot, myFactory);
         gameSequenceController.play();
         myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
         return myScene;
