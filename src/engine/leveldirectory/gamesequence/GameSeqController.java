@@ -19,7 +19,7 @@ import javafx.util.Duration;
 
 import java.util.List;
 
-public class GameSeqController {
+public abstract class GameSeqController {
     public static final int FRAME_DURATION = 20;
     private LevelContainer levelContainer;
     private Timeline timeline;
@@ -27,18 +27,6 @@ public class GameSeqController {
 
     private double height;
     private double width;
-
-    //Pierce stuff
-    private data.input.KeyInput keyInput;
-    private SimplePlayer mainCharacter;
-    private StationaryPlatform examplePlatform;
-    private Raccoon raccoon;
-
-    private GameObjectView mainCharacterView;
-    private GameObjectView examplePlatformView;
-    private GameObjectView raccoonView;
-    private BankController bankController;
-    private BuilderStage builderStage;
 
     private Scene myScene;
     private Pane myPane;
@@ -49,63 +37,30 @@ public class GameSeqController {
         this.graphicsEngine = graphicsEngine;
         this.height = height;
         this.width = width;
-        setupTimeline();
-        initialize(scene, root);
     }
 
-    public void initialize(Scene scene, Pane root) {
-        //Pierce stuff
-        myScene = scene;
-        myPane = root;
-
-        //replace hardcode with methods that 1) read json bank file 2) generate list of BankItems
-        Raccoon raccoon = new Raccoon("raccoon.png", 1, 1, 10);
-        Mongoose mongoose = new Mongoose("mongoose.png", 1, 1, 10);
-        BankItem one = new BankItem(new Raccoon(raccoon),  30, 30, 10);
-        BankItem two = new BankItem(new Mongoose(mongoose), 30, 30, 20);
-        BankItem three = new BankItem(new Mongoose(mongoose), 30, 30, 30);
-        BankItem four = new BankItem(new Raccoon(raccoon), 30, 30, 40);
-        BankView bankView = new BankView(20, 20, 200, 260, root);
-
-        //replace with more robust HUD display (see money available hardcode)
-        //read in bank item list and money
-        bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
-        builderStage = new BuilderStage(bankController, width, height);
-        myPane.getChildren().add(builderStage);
+    public void setTimeline(Timeline t) {
+        timeline = t;
     }
 
     public void display() {
         for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
             myPane.getChildren().removeAll();
-            NodeFactory nodeFactory = new NodeFactory();
-            myPane.getChildren().add(nodeFactory.generateImage(g)); //  fix this line
-        }
-    }
-
-    private void setupTimeline() {
-        KeyFrame frame = new KeyFrame(Duration.millis(FRAME_DURATION), e -> step());
-        timeline = new Timeline();
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.getKeyFrames().add(frame);
-    }
-
-    private void step() {
-        //Pierce stuff
-        if (builderStage.isDone()) {
-            myPane.getChildren().remove(builderStage);
-            bankController.getBankView().removeFromRoot();
-        }
-        else {
-            builderStage.update();
+            GameObjectView gameObjectView = new GameObjectView(g.getImagePath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
+            myPane.getChildren().add(gameObjectView);
         }
     }
 
     public Scene getMyScene() { return myScene; }
+    public void setMyScene(Scene scene) { this.myScene = scene; }
+    public Pane getRoot() { return myPane; }
+    public void setRoot(Pane root) { this.myPane = root; }
+    public double getHeight() { return this.height; }
+    public double getWidth() { return width; }
 
     public void pause() {
         timeline.pause();
     }
-
     public void play() {
         timeline.play();
     }
@@ -113,7 +68,6 @@ public class GameSeqController {
     public LevelContainer getLevelContainer() {
         return levelContainer;
     }
-
     public Timeline getTimeline() {
         return timeline;
     }

@@ -1,5 +1,6 @@
 package menu;
 
+import engine.leveldirectory.gamesequence.GameSeqBuilderController;
 import engine.leveldirectory.gamesequence.GameSeqController;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import engine.leveldirectory.level.LevelContainer;
@@ -84,11 +85,11 @@ public class LevelOne extends Page {
     Scene buildSpecialScene(int height, int width) {
         Pane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
-        GameSeqController gameSeqController = new GameSeqController(
+        GameSeqBuilderController gameSeqBuilderController = new GameSeqBuilderController(
                 new LevelContainer(null, null, null),
                 new GraphicsEngine(null, null, null),
                 null, myScene, myRoot, screenheight, screenwidth);
-        gameSeqController.play();
+        gameSeqBuilderController.play();
         myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
         return myScene;
     }
