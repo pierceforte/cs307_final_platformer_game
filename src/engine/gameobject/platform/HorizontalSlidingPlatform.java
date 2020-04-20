@@ -1,6 +1,7 @@
 package engine.gameobject.platform;
 
 import engine.gameobject.GameObject;
+import engine.gameobject.player.SimplePlayer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,6 +46,12 @@ public class HorizontalSlidingPlatform extends GameObject implements Platform {
         entity.setXSpeed(getXSpeed());
         entity.setYSpeed(NEW_ENTITY_Y_SPEED);
     }
+
+    @Override
+    public void handlePlayerInteraction(SimplePlayer player) {
+        handleEntityInteraction(player);
+    }
+
 
     public double getMinX() {
         return minX;

@@ -17,8 +17,8 @@ public class LevelData {
     JSONObject levels;
     JSONObject bank;
 
-    private static final String levelLoc = "da/levels.json";
-    private static final String bankLoc = "data/bank.json";
+    private static final String levelLoc = "resources/levels.json";
+    private static final String bankLoc = "resources/bank.json";
 
     public LevelData() throws ReadSaveException {
         levels = jsonMaker(levelLoc);

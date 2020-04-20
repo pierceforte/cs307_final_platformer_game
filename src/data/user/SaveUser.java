@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class SaveUser {
 
-    private static final String fileLoc = "data/messaround.json";
+    private static final String fileLoc = "resources/messaround.json";
     JSONObject users;
 
     /**

@@ -8,6 +8,7 @@ import java.util.List;
 public class Raccoon extends Opponent {
 
     private static final Double DEFAULT_Y_SPEED = 0d;
+    public static final Double DEFAULT_X_SPEED = 20d;
 
     public Raccoon(String imgPath, Double xPos, Double yPos, Double xSpeed) {
         super(imgPath, xPos, yPos, xSpeed, DEFAULT_Y_SPEED);

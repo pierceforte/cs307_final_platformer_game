@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Mongoose extends Opponent {
 
-    private static final double DEFAULT_Y_SPEED = 0d;
+    public static final Double DEFAULT_X_SPEED = 10d;
+    public static final double DEFAULT_Y_SPEED = 0d;
 
     public Mongoose(String imgPath, Double xPos, Double yPos, Double xSpeed) {
         super(imgPath, xPos, yPos, xSpeed, DEFAULT_Y_SPEED);
@@ -23,5 +24,9 @@ public class Mongoose extends Opponent {
         }
         int direction = target.getX() < this.getX() ? GameObject.DOWN_OR_LEFT : GameObject.UP_OR_RIGHT;
         setXSpeed(direction * getInitialX());
+    }
+
+    public Double getYSpeedDefault() {
+        return DEFAULT_Y_SPEED;
     }
 }
