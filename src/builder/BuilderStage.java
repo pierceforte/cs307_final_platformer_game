@@ -53,6 +53,7 @@ public class BuilderStage extends Pane {
         bankController.update();
         handlePurchasedItem();
         snapItems();
+        addItemsBackToBank();
     }
 
     public boolean isDone() {
@@ -102,11 +103,24 @@ public class BuilderStage extends Pane {
         }
     }
 
+    private void addItemsBackToBank() {
+        List<BuilderObjectView> objectsToRemove = new ArrayList<>();
+        for (BuilderObjectView object : myObjects) {
+            if (!object.isActive()) {
+                bankController.getBankModel().addBankItem(object.getBankItem());
+                bankController.getBankModel().addToMoneyAvailable(object.getBankItem().getCost());
+                this.getChildren().remove(object);
+                objectsToRemove.add(object);
+            }
+        }
+        myObjects.removeAll(objectsToRemove);
+    }
+
     private void handlePurchasedItem() {
         if (bankController.hasPurchasedItem()) {
             BankItem item = bankController.getPurchasedItem();
             BuilderObjectView builderObjectView = new BuilderObjectView(item.getGameObject(),
-                    width/2, height/2, item.getWidth(), item.getHeight(),this);
+                    item, width/2, height/2,this);
             this.getChildren().add(builderObjectView);
             myObjects.add(builderObjectView);
             bankController.removePurchasedItem();

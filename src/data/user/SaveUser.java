@@ -1,5 +1,6 @@
-package data;
+package data.user;
 
+import data.ReadSaveException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
@@ -8,6 +9,7 @@ import java.io.IOException;
 
 /**
  * Save User helps with saving and deleting User profiles
+ * @author benburnett
  */
 public class SaveUser {
 

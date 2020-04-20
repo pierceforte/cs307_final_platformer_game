@@ -2,6 +2,9 @@ package engine.gameobject.platform;
 
 import engine.gameobject.GameObject;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class HorizontalSlidingPlatform extends GameObject implements Platform {
 
     public static final double DEFAULT_X_SPEED = 5;
@@ -13,11 +16,16 @@ public class HorizontalSlidingPlatform extends GameObject implements Platform {
     private double minX;
     private double maxX;
 
-    public HorizontalSlidingPlatform(String imgPath, double xPos, double yPos, double xSpeed,
-                                     double minX, double maxX, int xDirection) {
+    public HorizontalSlidingPlatform(String imgPath, Double xPos, Double yPos, Double xSpeed,
+                                     Double minX, Double maxX, Integer xDirection) {
         super(imgPath, xPos, yPos, xDirection * xSpeed, DEFAULT_Y_SPEED);
         this.minX = minX;
         this.maxX = maxX;
+    }
+
+    @Override
+    public List<Object> getParameters() {
+        return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed(), minX, maxX, getXDirection());
     }
 
     public HorizontalSlidingPlatform(HorizontalSlidingPlatform copy) {

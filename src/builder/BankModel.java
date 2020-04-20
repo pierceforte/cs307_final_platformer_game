@@ -43,6 +43,14 @@ public class BankModel {
         curIndex = 0;
     }
 
+    public void addBankItem(BankItem bankItem) {
+        bankItems.add(bankItem);
+    }
+
+    public void addToMoneyAvailable(int money) {
+        moneyAvailable += money;
+    }
+
     public void attemptPurchase() throws NotEnoughMoneyException {
         BankItem curBankItem = getCurItem();
         if (curBankItem.getCost() > moneyAvailable) {

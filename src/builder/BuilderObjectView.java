@@ -38,10 +38,12 @@ public class BuilderObjectView extends GameObjectView {
     private List<Node> actionIcons;
     private Pane root;
     private GameObject gameObject;
+    private BankItem bankItem;
 
-    public BuilderObjectView(GameObject gameObject, double xPos, double yPos, double width, double height, Pane root) {
-        super(gameObject.getImgPath(), xPos, yPos, width, height, GameObjectView.RIGHT);
+    public BuilderObjectView(GameObject gameObject, BankItem bankItem, double xPos, double yPos, Pane root) {
+        super(gameObject.getImgPath(), xPos, yPos, bankItem.getWidth(), bankItem.getHeight(), GameObjectView.RIGHT);
         this.gameObject = gameObject;
+        this.bankItem = bankItem;
         this.root = root; // TODO: maybe eliminate this dependency
         enableDrag();
         isActive = true;
@@ -49,10 +51,15 @@ public class BuilderObjectView extends GameObjectView {
         isSnapped = false;
         actionIcons = new ArrayList<>();
         askUserToPlaceMe();
+        setId("builderObjectView");
     }
 
     public GameObject getGameObject() {
         return gameObject;
+    }
+
+    public BankItem getBankItem() {
+        return bankItem;
     }
 
     public boolean isDraggable() {
@@ -143,7 +150,6 @@ public class BuilderObjectView extends GameObjectView {
         sell.setOnMouseClicked(mouseEvent -> {
             isActive = false;
             deactivateActionIcons();
-            // give back money
         });
         activateActionIcons();
     }
