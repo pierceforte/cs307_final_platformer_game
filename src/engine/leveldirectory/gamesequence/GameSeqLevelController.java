@@ -24,12 +24,19 @@ public class GameSeqLevelController extends GameSeqController {
 
     public GameSeqLevelController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
+        setUpRunnable();
         setupTimeline();
-        initialize(scene, root);
     }
 
-    public void initialize(Scene scene, Pane root) {
-
+    private void setUpRunnable() {
+        // TODO: check if this isn't the last level
+        super.setNextPlayScene(()->{
+            pause();
+            super.getLevelContainer().incrementLevel();
+            GameSeqBuilderController builderTemp = new GameSeqBuilderController(getLevelContainer(), getGraphicsEngine(),
+                    getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
+            builderTemp.play();
+        });
     }
 
     private void setupTimeline() {
@@ -44,19 +51,24 @@ public class GameSeqLevelController extends GameSeqController {
         getMyScene().setOnKeyPressed(e -> userInput(e.getCode()));
         List<GameObject> tempGameObjects = getLevelContainer().getCurrentLevel().getAllGameObjects();
         for (GameObject tempObj : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
-            gravity(tempObj);
-            // TODO
+            interactionsAndGravity(tempObj);
         }
         getLevelContainer().getCurrentLevel().setGameObjects(tempGameObjects);
         super.display();
     }
 
     private void userInput(KeyCode keyCode) {
-        if (keyCode == KeyCode.LEFT) {
-            // TODO
+        getSimplePlayer().handleInputs(keyCode);
+    }
+
+    private void interactionsAndGravity(GameObject gameObject) {
+        for (GameObject tempObj : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
+            // TODO check if the panes intersect etc.
+
         }
     }
-    private void gravity(GameObject gameObject) {
-        // TODO
+
+    public void endPhase() {
+        getNextPlayScene().run();
     }
 }

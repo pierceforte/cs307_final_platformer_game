@@ -16,8 +16,8 @@ public class Level implements LevelInterface {
     // holds all the objects in the level
     private List<GameObject> gameObjects; // needs to be updated to the type of the parent object
 
-    public Level() {
-        gameObjects = new ArrayList<>();
+    public Level(List<GameObject> objects) {
+        gameObjects = objects;
     }
 
     @Override

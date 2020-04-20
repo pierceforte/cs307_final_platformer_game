@@ -47,11 +47,9 @@ public class SimplePlayer extends GameObject implements Player{
         }};
     }
 
-    public void handleInputs(List<KeyCode> codes) {
-        for (KeyCode code : codes) {
-            if (inputMap.containsKey(code)) {
-                inputMap.get(code).run();
-            }
+    public void handleInputs(KeyCode code) {
+        if (inputMap.containsKey(code)) {
+            inputMap.get(code).run();
         }
     }
 

@@ -32,13 +32,34 @@ public class GameSeqBuilderController extends GameSeqController {
     private BankController bankController;
     private BuilderStage builderStage;
 
-    public GameSeqBuilderController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
+    private Runnable nextPlayScene;
+
+    public void setNextPlayScene(Runnable nextPlayScene) {
+        this.nextPlayScene = nextPlayScene;
+    }
+    public Runnable getNextPlayScene() {
+        return nextPlayScene;
+    }
+
+    public GameSeqBuilderController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game,
+                                    Scene scene, Pane root, double height, double width) {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
+        setUpRunnable();
         setupTimeline();
         initialize(scene, root);
     }
 
+    private void setUpRunnable() {
+        super.setNextPlayScene(()->{
+            pause();
+            GameSeqLevelController playTemp = new GameSeqLevelController(getLevelContainer(), getGraphicsEngine(),
+                    getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
+            playTemp.play();
+        });
+    }
+
     public void initialize(Scene scene, Pane root) {
+        // TODO: initialize from levelContainer.getCurrentLevel()
         setMyScene(scene);
         setRoot(root);
 
@@ -70,8 +91,13 @@ public class GameSeqBuilderController extends GameSeqController {
         if (builderStage.isDone()) {
             getRoot().getChildren().remove(builderStage);
             bankController.getBankView().removeFromRoot();
+            // TODO: add objects to the current level's list of GameObjects
         }
         else
             builderStage.update();
+    }
+
+    public void endPhase() {
+        nextPlayScene.run();
     }
 }

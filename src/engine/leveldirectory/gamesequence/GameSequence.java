@@ -38,6 +38,7 @@ public class GameSequence {
     /**
      * To be called by the Game Player
      */
+    /*
     public void startTimeline() {
         levelContainer.getGameSeqController().play();
     }
@@ -45,6 +46,7 @@ public class GameSequence {
     public void pauseTimeline() {
         levelContainer.getGameSeqController().pause();
     }
+     */
 
 
     //public Pane getGameView() {

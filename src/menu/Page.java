@@ -1,5 +1,6 @@
 package menu;
 
+import data.ReadSaveException;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -107,6 +109,18 @@ public abstract class Page {
                         gotoScene(item);
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (ReadSaveException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
                     }
                 });
                 getChildren().addAll(button, createSeparator());
@@ -171,7 +185,7 @@ public abstract class Page {
      * @return    Scene
      */
 
-    public Scene getScene(String name) throws IOException {
+    public Scene getScene(String name) throws IOException, NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         Scene myScene = null;
 
         if (name.equals("Continue")) {
@@ -193,7 +207,7 @@ public abstract class Page {
      * @return    Scene
      */
 
-    abstract Scene gotoScene(String name) throws IOException;
+    abstract Scene gotoScene(String name) throws IOException, NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException;
 
     void setFullScreen() {
         myStage.setFullScreen(true);

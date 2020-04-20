@@ -16,7 +16,7 @@ public interface Player {
 
     /**
      * Handle key inputs
-     * @param codes List of inputs currently pressed
+     * @param keyCode List of inputs currently pressed
      */
-    void handleInputs(List<KeyCode> codes);
+    void handleInputs(KeyCode keyCode);
 }

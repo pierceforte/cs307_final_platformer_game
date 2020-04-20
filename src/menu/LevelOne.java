@@ -1,5 +1,7 @@
 package menu;
 
+import data.ReadSaveException;
+import engine.general.Game;
 import engine.leveldirectory.gamesequence.GameSeqBuilderController;
 import engine.leveldirectory.gamesequence.GameSeqController;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
@@ -14,6 +16,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 public class LevelOne extends Page {
@@ -34,7 +37,7 @@ public class LevelOne extends Page {
      * @param page
      * @return Page
      */
-    public LevelOne(Stage primaryStage, Pages page) {
+    public LevelOne(Stage primaryStage, Pages page) throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         super(primaryStage, page);
         myStage = primaryStage;
         myStage.setFullScreen(true);
@@ -82,14 +85,18 @@ public class LevelOne extends Page {
     Scene gotoScene(String name) throws IOException {
         return null;
     }
-    Scene buildSpecialScene(int height, int width) {
+    Scene buildSpecialScene(int height, int width) throws NoSuchMethodException, ReadSaveException,
+            InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         Pane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
+        /*
         GameSeqBuilderController gameSeqBuilderController = new GameSeqBuilderController(
                 new LevelContainer(null, null, null),
                 new GraphicsEngine(null, null, null),
                 null, myScene, myRoot, screenheight, screenwidth);
         gameSeqBuilderController.play();
+        */
+        Game game = new Game(myScene, myRoot, height, width);
         myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
         return myScene;
     }

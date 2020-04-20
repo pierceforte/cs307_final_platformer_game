@@ -2,9 +2,7 @@ package engine.leveldirectory.gamesequence;
 
 import builder.*;
 import engine.gameobject.GameObject;
-import engine.gameobject.opponent.Mongoose;
-import engine.gameobject.opponent.Raccoon;
-import engine.gameobject.platform.StationaryPlatform;
+import engine.gameobject.player.Player;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
@@ -15,15 +13,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
-
-import java.util.List;
 
 public abstract class GameSeqController {
     public static final int FRAME_DURATION = 20;
     private LevelContainer levelContainer;
     private Timeline timeline;
     private GraphicsEngine graphicsEngine;
+    private SimplePlayer simplePlayer;
+    private Game game;
 
     private double height;
     private double width;
@@ -31,12 +28,22 @@ public abstract class GameSeqController {
     private Scene myScene;
     private Pane myPane;
 
+    private Runnable nextPlayScene;
+
+    public void setNextPlayScene(Runnable nextPlayScene) {
+        this.nextPlayScene = nextPlayScene;
+    }
+    public Runnable getNextPlayScene() {
+        return nextPlayScene;
+    }
+
     public GameSeqController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
         this.levelContainer = levelContainer;
-        levelContainer.setGameSeqController(this);
         this.graphicsEngine = graphicsEngine;
+        this.game = game;
         this.height = height;
         this.width = width;
+        setPlayer();
     }
 
     public void setTimeline(Timeline t) {
@@ -49,6 +56,13 @@ public abstract class GameSeqController {
             GameObjectView gameObjectView = new GameObjectView(g.getImagePath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
             myPane.getChildren().add(gameObjectView);
         }
+        // TODO: display score board
+    }
+
+    private void setPlayer() {
+        for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects())
+            if (g.isPlayer())
+                simplePlayer = (SimplePlayer) g;
     }
 
     public Scene getMyScene() { return myScene; }
@@ -57,6 +71,9 @@ public abstract class GameSeqController {
     public void setRoot(Pane root) { this.myPane = root; }
     public double getHeight() { return this.height; }
     public double getWidth() { return width; }
+    public SimplePlayer getSimplePlayer() { return simplePlayer; }
+    public GraphicsEngine getGraphicsEngine() { return graphicsEngine; }
+    public Game getGame() { return game; }
 
     public void pause() {
         timeline.pause();

@@ -1,5 +1,6 @@
 package menu;
 
+import data.ReadSaveException;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 public class DebugEnvironment extends Page {
@@ -78,7 +80,7 @@ public class DebugEnvironment extends Page {
     }
 
     @Override
-    Scene gotoScene(String name) throws IOException {
+    Scene gotoScene(String name) throws IOException, NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         return getScene(name);
     }
 }

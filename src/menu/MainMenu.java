@@ -1,5 +1,6 @@
 package menu;
 
+import data.ReadSaveException;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 import static javafx.geometry.Pos.CENTER;
@@ -60,6 +62,21 @@ public class MainMenu extends Page {
 
     @Override
     Scene gotoScene(String name) throws IOException {
-        return getScene(name);
+        try {
+            return getScene(name);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ReadSaveException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
