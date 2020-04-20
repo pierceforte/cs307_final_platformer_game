@@ -88,6 +88,23 @@ public class PageBuilder {
         return save;
     }
 
+    public double getScreenWidth() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        return primaryScreenBounds.getWidth();
+    }
+
+    public double getScreenHeight() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        return primaryScreenBounds.getHeight();
+    }
+
+    public double getTileWsize() {
+        return getScreenWidth()/30;
+    }
+    public double getTileHsize() {
+        return getScreenHeight()/25;
+    }
+
     public void addMainMenuButtons(Page.MenuBox myBox) {
         Button play = new Button (myResource.getString("Cont"));
         play.setId("button");

@@ -17,6 +17,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import menu.PageBuilder;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class GameSequenceController {
     private Scene myScene;
     private Pane myPane;
 
-    public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
+    public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, PageBuilder Factory) {
         this.levelContainer = levelContainer;
         levelContainer.setGameSequenceController(this);
         setupTimeline();
@@ -56,10 +57,10 @@ public class GameSequenceController {
         //replace hardcode with methods that 1) read json bank file 2) generate list of BankItems
         Raccoon raccoon = new Raccoon("raccoon.png", 1d, 1d, 10d);
         Mongoose mongoose = new Mongoose("mongoose.png", 1d, 1d, 10d);
-        BankItem one = new BankItem(new Raccoon(raccoon),  30, 30, 10);
-        BankItem two = new BankItem(new Mongoose(mongoose), 30, 30, 20);
-        BankItem three = new BankItem(new Mongoose(mongoose), 30, 30, 30);
-        BankItem four = new BankItem(new Raccoon(raccoon), 30, 30, 40);
+        BankItem one = new BankItem(new Raccoon(raccoon),  (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 10);
+        BankItem two = new BankItem(new Mongoose(mongoose), (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 20);
+        BankItem three = new BankItem(new Mongoose(mongoose), (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 30);
+        BankItem four = new BankItem(new Raccoon(raccoon), (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 40);
         BankView bankView = new BankView(20, 20, 200, 260, root);
 
         //replace with more robust HUD display (see money available hardcode)
@@ -67,7 +68,7 @@ public class GameSequenceController {
 
         //read in bank item list and money
         bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
-        builderStage = new BuilderStage(bankController, width, height);
+        builderStage = new BuilderStage(bankController, Factory.getScreenWidth(), Factory.getScreenHeight());
         myPane.getChildren().add(builderStage);
     }
 

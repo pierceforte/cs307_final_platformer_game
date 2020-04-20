@@ -2,20 +2,16 @@ package menu;
 
 public class PageManager {
 
-    private int[] maxScreen;
-    private int CurrentPixelHeight;
-    private int CurrentWidth;
+    private double ScreenHeight;
+    private double ScreenWidth;
 
-    public PageManager() {
+    public PageManager(double height, double width) {
+        ScreenHeight = height;
+        ScreenWidth = width;
     }
 
     public void initialize() {
 
-    }
-
-    //to implement: fullscreen finder
-    private int[] findFullScreen() {
-        return null;
     }
 
     //to implement play music!!!
