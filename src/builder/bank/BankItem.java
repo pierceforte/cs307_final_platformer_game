@@ -1,4 +1,4 @@
-package builder;
+package builder.bank;
 
 import engine.gameobject.GameObject;
 

@@ -1,54 +1,36 @@
 package builder;
 
-import engine.gameobject.Coordinates;
+import builder.bank.BankController;
+import builder.bank.BankItem;
 import engine.gameobject.GameObject;
 import javafx.application.Platform;
-import javafx.geometry.Point2D;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.transform.Affine;
-import javafx.scene.transform.NonInvertibleTransformException;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BuilderStage extends Pane {
+public class BuilderStage extends GridStage {
 
-    private Canvas canvas;
-    private Affine myGrid;
     private BankController bankController;
     private List<BuilderObjectView> myObjects;
     private List<GameObject> gameObjects;
-    private double height;
-    private double width;
     private boolean isDone;
     private ResourceBundle resources;
 
-    private double TILE_HEIGHT;
-    private double TILE_WIDTH;
-
-    public BuilderStage(BankController bankController, double height, double width) {
+    public BuilderStage(BankController bankController, double width, double height) {
+        super(width, height);
         this.bankController = bankController;
-        this.canvas = new Canvas(height, width);
-        this.myGrid = new Affine();
-        this.height = height;
-        this.width = width;
         resources = ResourceBundle.getBundle("builder.builderResources");
         myObjects = new ArrayList<>();
-        TILE_HEIGHT = height/25;
-        TILE_WIDTH = width/30;
-        myGrid.appendScale(TILE_WIDTH, TILE_HEIGHT);
-        this.canvas.setOnMouseClicked(this::handleClick);
         Button playButton = createPlayButton();
-        this.getChildren().addAll(canvas, playButton);
+        this.getChildren().add(playButton);
     }
 
+    @Override
     public void update() {
         bankController.update();
         handlePurchasedItem();
@@ -64,43 +46,33 @@ public class BuilderStage extends Pane {
         return gameObjects;
     }
 
-    private void handleClick(MouseEvent mouseEvent) {
-        double clickX = mouseEvent.getX();
-        double clickY = mouseEvent.getY();
-        try {
-            convertToGridCoords(clickX, clickY);
-        } catch (NonInvertibleTransformException e){
-            e.printStackTrace();
-            return;
-        }
-    }
-
-    private Coordinates convertToGridCoords(double clickX, double clickY) throws NonInvertibleTransformException{
-        Point2D myclick = myGrid.inverseTransform(clickX,clickY);
-        int x = (int) myclick.getX();
-        int y = (int) myclick.getY();
-        Coordinates coords = new Coordinates(x, y);
-        return coords;
-    }
-
     private void snapItems() {
         for (BuilderObjectView object : myObjects) {
             if (object.isReadyForSnap() && !object.isSnapped()) {
-                double x = object.getX();
-                double y = object.getY();
-                try {
-                    Coordinates coords = convertToGridCoords(object.getX(), object.getY());
-                    x = coords.getX() * TILE_WIDTH;
-                    y = coords.getY() * TILE_HEIGHT;
-
-                } catch (NonInvertibleTransformException e) {
-                    e.printStackTrace();
-                }
-                object.setX(x);
-                object.setY(y);
-                object.setSnapped();
+                snapItem(object);
+                object.setIsSnapped(true);
+                addActionItemsForObject(object);
+            }
+            else if (!object.isReadyForSnap() || !object.isSnapped() || !object.areActionIconsActive()) {
+                this.getChildren().removeAll(object.getActionIcons());
+            }
+            else if (object.hasNewActionItems()) {
+                this.getChildren().removeAll(object.getActionIcons());
+                addActionItemsForObject(object);
+                object.setHasNewActionItems(false);
             }
         }
+    }
+
+    private void addActionItemsForObject(BuilderObjectView object) {
+        ImageView leftIcon = object.getLeftIcon();
+        ImageView rightIcon = object.getRightIcon();
+        double y = object.getY() + getTileHeight();
+        leftIcon.setX(object.getX() + leftIcon.getFitWidth()/2 - 0.2*getTileWidth());
+        rightIcon.setX(object.getX() + leftIcon.getFitWidth()/2 + 0.2*getTileWidth());
+        leftIcon.setY(y);
+        rightIcon.setY(y);
+        this.getChildren().addAll(leftIcon, rightIcon);
     }
 
     private void addItemsBackToBank() {
@@ -109,6 +81,7 @@ public class BuilderStage extends Pane {
             if (!object.isActive()) {
                 bankController.getBankModel().addBankItem(object.getBankItem());
                 bankController.getBankModel().addToMoneyAvailable(object.getBankItem().getCost());
+                this.getChildren().removeAll(object.getActionIcons());
                 this.getChildren().remove(object);
                 objectsToRemove.add(object);
             }
@@ -120,7 +93,7 @@ public class BuilderStage extends Pane {
         if (bankController.hasPurchasedItem()) {
             BankItem item = bankController.getPurchasedItem();
             BuilderObjectView builderObjectView = new BuilderObjectView(item.getGameObject(),
-                    item, width/2, height/2,this);
+                    item, getWidth()/2, getHeight()/2);
             this.getChildren().add(builderObjectView);
             myObjects.add(builderObjectView);
             bankController.removePurchasedItem();
@@ -130,16 +103,16 @@ public class BuilderStage extends Pane {
     private Button createPlayButton() {
         Button playButton = new Button(resources.getString("Play"));
         playButton.setId("playButton");
-        playButton.setTranslateX(TILE_WIDTH*40);
-        playButton.setTranslateY(TILE_HEIGHT*12);
-        playButton.setOnMouseClicked(e -> leaveBuilderStage());
+        playButton.setTranslateX(getTileWidth()*25);
+        playButton.setTranslateY(getTileHeight()*20);
+        playButton.setOnAction(event -> leaveBuilderStage());
         return playButton;
     }
 
     private void leaveBuilderStage() {
         gameObjects = new ArrayList<>();
         for (BuilderObjectView builderObjectView : myObjects) {
-            if (builderObjectView.isDraggable()) {
+            if (builderObjectView.areActionIconsActive()) {
                 rejectAttemptToLeave();
                 gameObjects.clear();
                 return;

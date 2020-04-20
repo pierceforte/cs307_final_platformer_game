@@ -1,6 +1,6 @@
 package data.levels;
 
-import builder.BankItem;
+import builder.bank.BankItem;
 import data.ReadSaveException;
 import engine.gameobject.GameObject;
 import org.json.simple.JSONArray;
