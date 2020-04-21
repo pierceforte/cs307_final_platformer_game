@@ -1,0 +1,191 @@
+.root{
+    -fx-background-image: url("custommenubackground2.png");;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+    -fx-font-size: 12pt;
+}
+#LightButton{
+    -fx-background-image: url("lighticon.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snake1{
+    -fx-background-image: url("basicsnake.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snake2{
+    -fx-background-image: url("gardensnake.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snake3{
+    -fx-background-image: url("babysnake.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snake4{
+    -fx-background-image: url("explodingsnake.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snake5{
+    -fx-background-image: url("sneaksnake.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snake6{
+    -fx-background-image: url("bombsnake.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snail1{
+    -fx-background-image: url("wilbur.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snail2{
+    -fx-background-image: url("crystalsnail.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snail3{
+    -fx-background-image: url("inksnail.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snail4{
+    -fx-background-image: url("slowsnail.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snail5{
+    -fx-background-image: url("ghostsnail.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Snail6{
+    -fx-background-image: url("wilbur.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#Welcome{
+    -fx-font-fill: greenyellow;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 32pt;
+    -fx-translate-x: 300;
+    -fx-translate-y: 200;
+}
+.button{
+    -fx-pref-height: 60;
+    -fx-pref-width: 200;
+    -fx-font-size: 12;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-color: black;
+    -fx-text-fill:greenyellow;
+    -fx-opacity: 0.9;
+    -fx-font-weight: bold;
+}
+.toggle-button{
+    -fx-pref-height: 60;
+    -fx-pref-width: 200;
+    -fx-font-size: 12;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-color: black;
+    -fx-text-fill:greenyellow;
+    -fx-opacity: 0.9;
+    -fx-font-weight: bold;
+}
+#LaunchButton{
+    -fx-background-color: goldenrod;
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-translate-x: 650;
+    -fx-translate-y: 800;
+}
+#selected{
+    -fx-pref-height: 60;
+    -fx-pref-width: 200;
+    -fx-font-size: 12;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-color: rosybrown;
+    -fx-opacity: 0.8;
+    -fx-font-weight: bold;
+}
+#bankBackground{
+    -fx-fill: maroon;
+    -fx-stroke: black;
+}
+#purchaseButton{
+    -fx-background-color: goldenrod;
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-translate-x: 45;
+    -fx-translate-y: 210;
+    -fx-pref-height: 30;
+    -fx-pref-width: 150;
+}
+#itemCost{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15pt;
+    -fx-translate-x: 80;
+    -fx-translate-y: 200;
+}
+#moneyAvail{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 12pt;
+    -fx-translate-x: 40;
+    -fx-translate-y: 50;
+    -fx-text-alignment: center;
+}
+#itemIcon{
+    -fx-translate-x: 80;
+    -fx-translate-y: 80;
+
+}
+#prevButton{
+    -fx-translate-x: 85;
+    -fx-translate-y: 255;
+}
+#nextButton{
+    -fx-translate-x: 150;
+    -fx-translate-y: 255;
+}
+#playButton{
+    -fx-background-color: maroon;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-pref-height: 60;
+    -fx-pref-width: 120;
+    -fx-font-size: 20pt;
+    -fx-opacity: 1;
+}

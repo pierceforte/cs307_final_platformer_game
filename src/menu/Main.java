@@ -14,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        MainMenu myMenu = new MainMenu(stage);
+        CustomMenu cm = new CustomMenu(stage, Pages.CustomizePlayerMenu);
         stage.show();
     }
 }
