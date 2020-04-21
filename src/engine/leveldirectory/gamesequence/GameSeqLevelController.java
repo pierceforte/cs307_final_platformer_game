@@ -12,6 +12,7 @@ import engine.leveldirectory.level.LevelContainer;
 import engine.view.GameObjectView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -19,6 +20,8 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import java.util.List;
+
+import static javafx.application.Platform.exit;
 
 public class GameSeqLevelController extends GameSeqController {
 
@@ -36,6 +39,11 @@ public class GameSeqLevelController extends GameSeqController {
     private void playerTest() {
         SimplePlayer s = new SimplePlayer("babysnake.png", 300., 400., 200.,200.);
         setSimplePlayer(s);
+
+        GameObjectView g = new GameObjectView(getSimplePlayer().getImgPath(), getSimplePlayer().getX(),
+                getSimplePlayer().getY(), getSimplePlayer().getWidth(),
+                getSimplePlayer().getHeight(), 20);
+        setSimplePlayerView(g);
     }
 
     private void setUpRunnable() {
@@ -58,14 +66,9 @@ public class GameSeqLevelController extends GameSeqController {
     }
 
     public void step() {
-        //System.out.println("StepStep");
-        //getMyScene().setOnKeyPressed(e -> userInput(e.getCode()));
-
-        List<GameObject> tempGameObjects = getLevelContainer().getCurrentLevel().getAllGameObjects();
-        for (GameObject tempObj : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
-            interactionsAndGravity(tempObj);
-        }
-        getLevelContainer().getCurrentLevel().setGameObjects(tempGameObjects);
+        boolean flag = playerObjectCollisions();
+        if (!flag)
+            playerGravity();
         super.display();
     }
 
@@ -82,15 +85,59 @@ public class GameSeqLevelController extends GameSeqController {
         });
     }
 
-
-    private void interactionsAndGravity(GameObject gameObject) {
-        for (GameObject tempObj : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
-            // TODO check if the panes intersect etc.
-
-        }
+    // if the player isn't intersecting with anything, move it down
+    private void playerGravity() {
+        getSimplePlayer().setY(getSimplePlayer().getY() - getSimplePlayer().getHeight() / 4);
     }
 
+    // implements player-gameobject collisions
+    // if the player is intersecting with an enemy, move it backwards in the x direction in the direction it came from
+    private boolean playerObjectCollisions() {
+        for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
+            if (intersect(getSimplePlayer(), g)) ; // checks if the player is intersecting with the current object
+            { // TODO: check if g is an enemy
+                if (getSimplePlayer().getXDirection() > 0)
+                    getSimplePlayerView().setX(getSimplePlayer().getX() - getSimplePlayer().getWidth());
+                else
+                    getSimplePlayerView().setX(getSimplePlayer().getX() + getSimplePlayer().getWidth());
+                if (true) // TODO: check if g is an enemy
+                    getGame().getScoreDisplay().loseLife();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // returns true if two gameObjectViews are intersecting
+    private boolean intersect(GameObject g1, GameObject g2){
+        GameObjectView view1 = createGOView(g1);
+        GameObjectView view2 = createGOView(g2);
+
+        Bounds bounds1 = view1.getBoundsInLocal();
+        Bounds bounds2 = view2.getBoundsInLocal();
+
+        if (bounds1.intersects(bounds2))
+            return true;
+        else
+            return false;
+    }
+
+    // creates a GameObjectView when given a GameObject
+    private GameObjectView createGOView(GameObject g) {
+        GameObjectView gameObjectView = new GameObjectView(g.getImgPath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
+        gameObjectView.setX(gameObjectView.getX() * getWidth()/30);
+        gameObjectView.setY(gameObjectView.getY() * getHeight()/20);
+        gameObjectView.setFitWidth(getWidth()/30);
+        gameObjectView.setFitHeight(getHeight()/20);
+        return gameObjectView;
+    }
+
+
+
     public void endPhase() {
-        getNextPlayScene().run();
+        if (getGame().getScoreDisplay().getLives() <= 0)
+            exit();
+        // TODO: if (win)
+            getNextPlayScene().run();
     }
 }

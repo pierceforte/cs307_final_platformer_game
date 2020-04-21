@@ -27,6 +27,7 @@ public abstract class GameSeqController {
     private Timeline timeline;
     private GraphicsEngine graphicsEngine;
     private List<SimplePlayer> simplePlayer;
+    private GameObjectView simplePlayerView;
     private Game game;
 
     private double height;
@@ -53,6 +54,7 @@ public abstract class GameSeqController {
         this.myScene = scene;
         this.myPane = root;
         setPlayer();
+
     }
 
     public void setTimeline(Timeline t) {
@@ -70,21 +72,26 @@ public abstract class GameSeqController {
             gameObjectView.setFitHeight(height/20);
             myPane.getChildren().add(gameObjectView);
         }
-        System.out.println(simplePlayer.get(currentLevel).getX());
-        myPane.getChildren().add(new GameObjectView(simplePlayer.get(currentLevel).getImgPath(), simplePlayer.get(currentLevel).getX(),
+        simplePlayerView = new GameObjectView(simplePlayer.get(currentLevel).getImgPath(), simplePlayer.get(currentLevel).getX(),
                 simplePlayer.get(currentLevel).getY(), simplePlayer.get(currentLevel).getWidth(),
-                simplePlayer.get(currentLevel).getHeight(), 20));
+                simplePlayer.get(currentLevel).getHeight(), 20);
+        myPane.getChildren().add(simplePlayerView);
         myPane.setVisible(true);
         // TODO: display score board
     }
 
     private void setPlayer() {
+        int currentLevel = 0;
         simplePlayer = new ArrayList<>();
         for (Level l : levelContainer.getLevels())
             for (GameObject g : l.getAllGameObjects())
                 if (g.isPlayer()) {
                     simplePlayer.add((SimplePlayer) g);
                     l.removeObject(g);
+                    simplePlayerView = new GameObjectView(simplePlayer.get(currentLevel).getImgPath(), simplePlayer.get(currentLevel).getX(),
+                            simplePlayer.get(currentLevel).getY(), simplePlayer.get(currentLevel).getWidth(),
+                            simplePlayer.get(currentLevel).getHeight(), 20);
+
                     return;
             }
     }
@@ -99,6 +106,8 @@ public abstract class GameSeqController {
         int i = levelContainer.getLevelNum()-1;
         return simplePlayer.get(i);
     }
+    public GameObjectView getSimplePlayerView() {  return simplePlayerView; }
+    public void setSimplePlayerView(GameObjectView g) { simplePlayerView = g; }
 
     public void setSimplePlayer(SimplePlayer simplePlayer) {
         this.simplePlayer.add(simplePlayer);

@@ -39,6 +39,7 @@ public class ScoreDisplay {
         this.lives = lives;
     }
     public double getScore() { return score; }
+    public void loseLife() { lives--; }
     public void setScore(double score) { this.score = score; }
     public String getFilePath() {
         return filePath;
