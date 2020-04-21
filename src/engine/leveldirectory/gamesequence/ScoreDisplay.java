@@ -24,7 +24,9 @@ public class ScoreDisplay {
          */
     }
 
-    public void updateScore(int points) { score += points; }
+    public void updateScore(int points) {
+        score += points;
+    }
 
     public int getLives() {
         return lives;

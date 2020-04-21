@@ -8,6 +8,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
@@ -46,8 +47,8 @@ public class LevelOne extends Page {
     }
 
     @Override
-    Pane init_Root(int height, int width) {
-        Pane myRoot = new Pane();
+    BorderPane init_Root(int height, int width) {
+        BorderPane myRoot = new BorderPane();
         myRoot.setPrefSize(width, height);
 
 
@@ -78,7 +79,7 @@ public class LevelOne extends Page {
         return null;
     }
     Scene buildSpecialScene(int height, int width) {
-        Pane myRoot = init_Root(height, width);
+        BorderPane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
         GameSequenceController gameSequenceController = new GameSequenceController(
                 new LevelContainer(null, null, null),
