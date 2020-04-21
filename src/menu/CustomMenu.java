@@ -1,17 +1,25 @@
 package menu;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import static javafx.geometry.Pos.TOP_CENTER;
 
 public class CustomMenu extends Page {
     private Stage myStage;
@@ -26,7 +34,7 @@ public class CustomMenu extends Page {
     private ImageView avatar;
     private Pane myRoot;
 
-    private static final ResourceBundle deets = ResourceBundle.getBundle("Details");
+    private static final ResourceBundle deets = ResourceBundle.getBundle("menu.menuresources.Details");
 
     private final String Snake = "Snake";
     private final String Snail = "Snail";
@@ -138,12 +146,44 @@ public class CustomMenu extends Page {
     private void action(String x) {
         removeCurrentAvatar();
         displayAvatar(avatars.get(x));
-        displayDetails();
+        displayDetails(x);
+    }
+    private void removeNodes() {
+        myRoot.getChildren().remove(myRoot.lookup("ViewText"));
+        myRoot.getChildren().remove(myRoot.lookup("Name"));
+        myRoot.getChildren().remove(myRoot.lookup("Deet"));
     }
 
-    private void displayDetails() {
+    private void displayDetails(String x) {
+        removeNodes();
 
+        Pane c = new Pane();
+        c.setId("ViewText");
+
+        Text title = new Text(deets.getString(x+"Title"));
+        title.setTextAlignment(TextAlignment.CENTER);
+        title.setId("Name");
+        title.setFill(Color.WHITESMOKE);
+        title.setTranslateY(myFactory.getScreenHeight()*4/5 + spacing);
+        title.setTranslateX(myFactory.getScreenWidth()/2 - 2*imageSize + 20);
+
+        Text deet = new Text(deets.getString(x+"Deet"));
+
+        deet.setTextAlignment(TextAlignment.CENTER);
+        deet.setId("Deet");
+        deet.setTranslateY(myFactory.getScreenHeight()*4/5 +spacing+20);
+        deet.setFill(Color.WHITESMOKE);
+        deet.setTranslateX(myFactory.getScreenWidth()/2 - 2*imageSize+20);
+
+        //c.getChildren().addAll(title, deet);
+
+        c.setTranslateX(myFactory.getScreenWidth()/2 - 3*imageSize);
+        c.setTranslateY(myFactory.getScreenHeight()*4/5);
+
+        myRoot.getChildren().addAll(c, title, deet);
     }
+
+
     private void attemptPurchase() {
 
     }

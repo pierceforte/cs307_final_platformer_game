@@ -190,3 +190,19 @@
     -fx-font-size: 20pt;
     -fx-opacity: 1;
 }
+#ViewText{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-pref-width: 900;
+    -fx-pref-height: 150;
+    -fx-opacity: .8;
+}
+#Name{
+    -fx-font-size: 24;
+    -fx-text-fill: white;
+}
+#Deet{
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+}

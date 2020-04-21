@@ -44,6 +44,9 @@ public enum Avatars {
                 throw new IllegalStateException("Unexpected value: " + key);
         }
     }
+
+    public String getKey() {return key;}
+
     public int getPrice() {
         switch(key) {
             case "Snake1":
@@ -62,6 +65,7 @@ public enum Avatars {
             case "Snail6":
                 return 100;
         }
+        return 0;
     }
 
 }
