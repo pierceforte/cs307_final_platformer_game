@@ -4,6 +4,7 @@ import engine.gameobject.GameObject;
 import engine.gameobject.platform.HorizontalSlidingPlatform;
 import javafx.scene.input.KeyCode;
 
+import java.security.Key;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -60,17 +61,21 @@ public class SimplePlayer extends GameObject implements Player{
     public void assignInputs() {
         inputMap = new HashMap<>()
         {{
-            put(KeyCode.LEFT, () -> move(LEFT));
-            put(KeyCode.RIGHT, () -> move(RIGHT));
-            put(KeyCode.SPACE, () -> jump());
+            put(KeyCode.A, () -> move(LEFT));
+            put(KeyCode.D, () -> move(RIGHT));
+            put(KeyCode.W, () -> jump());
         }};
+    }
+
+    public void handleInput(KeyCode code) {
+        if (inputMap.containsKey(code)) {
+            inputMap.get(code).run();
+        }
     }
 
     public void handleInputs(List<KeyCode> keyInputs) {
         for (KeyCode code : keyInputs) {
-            if (inputMap.containsKey(code)) {
-                inputMap.get(code).run();
-            }
+            handleInput(code);
         }
     }
 

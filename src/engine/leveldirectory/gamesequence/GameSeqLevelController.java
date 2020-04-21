@@ -37,7 +37,7 @@ public class GameSeqLevelController extends GameSeqController {
         playerTest();
     }
     private void playerTest() {
-        SimplePlayer s = new SimplePlayer("babysnake.png", 300., 400., 200.,200.);
+        SimplePlayer s = new SimplePlayer("babysnake.png", 10., 5., 200.,200.);
         setSimplePlayer(s);
 
         GameObjectView g = new GameObjectView(getSimplePlayer().getImgPath(), getSimplePlayer().getX(),
@@ -74,15 +74,9 @@ public class GameSeqLevelController extends GameSeqController {
 
     private void setUpListeners() {
         getMyScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            if(key.getCode()==KeyCode.A) {
-                getRoot().getChildren().remove(getSimplePlayer());
-                getSimplePlayer().move(SimplePlayer.LEFT);
-            }
-            else if(key.getCode()==KeyCode.D)
-                getSimplePlayer().move(SimplePlayer.RIGHT);
-            else if(key.getCode()==KeyCode.W)
-                getSimplePlayer().jump();
+            getSimplePlayer().handleInput(key.getCode());
         });
+
     }
 
     // if the player isn't intersecting with anything, move it down
