@@ -193,6 +193,9 @@ public abstract class Page {
         if (name.equals("Customize Player")) {
             CustomMenu cm = new CustomMenu(myStage, Pages.CustomizePlayerMenu, new User("test", "tester", "basicsnake.png", new String[]{"05", "21", "1999"}));
         }
+        if (name.equals("New Game")) {
+            NewGamePage ng = new NewGamePage(myStage, Pages.FirstTimeCutScene);
+        }
 
         return myScene;
     }
