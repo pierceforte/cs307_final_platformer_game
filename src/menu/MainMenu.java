@@ -66,7 +66,6 @@ public class MainMenu extends Page {
         MenuBox myMenuBox = new MenuBox();
         myFactory.addMainMenuButtons(myMenuBox);
 
-
         myRoot.getChildren().addAll(newgame, myMenuBox);
 
         return myRoot;

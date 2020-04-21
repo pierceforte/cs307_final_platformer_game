@@ -3,9 +3,12 @@ package menu;
 import data.ReadSaveException;
 import data.user.DuplicateUsernameException;
 import data.user.User;
+import engine.leveldirectory.level.Level;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -25,6 +28,10 @@ public class NewGamePage extends Page {
 
     private TextField title;
     private TextField saveloc;
+    private TextField birthday;
+    private ToggleButton snail;
+    private ToggleButton snake;
+    private int side;
 
     private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
     private final String STYLESHEET = "menuresources/dark.css";
@@ -44,6 +51,7 @@ public class NewGamePage extends Page {
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
 
+        side = 0;
         myScene = this.buildSpecialScene((int) myFactory.getScreenHeight(), (int) myFactory.getScreenWidth());
         myStage.setScene(myScene);
     }
@@ -70,15 +78,31 @@ public class NewGamePage extends Page {
         saveloc.setTranslateX(myFactory.getScreenWidth()/2 - 50);
         saveloc.setTranslateY(myFactory.getScreenHeight()*3/4);
 
+        birthday = new TextField();
+        birthday.setPromptText(myResource.getString("Bday"));
+        birthday.setTranslateX(myFactory.getScreenWidth()/2 - 50);
+        birthday.setTranslateY(myFactory.getScreenHeight()*3/4-100);
+
+        snail = new ToggleButton();
+        snail.setId("ChooseSnail");
+        snail.setOnMouseClicked(event -> pickSide());
+        snake = new ToggleButton();
+        snake.setId("ChooseSnake");
+        snake.setOnMouseClicked(event -> pickSide());
+
         Button save = new Button(myResource.getString("Cont"));
         save.setId("LaunchButton");
-        save.setOnMouseClicked(event -> switchLevelDirectory());
+        save.setOnMouseClicked(event -> {
+            try { switchLevelDirectory();
+            } catch (ReadSaveException e) { } catch (DuplicateUsernameException e) { } catch (IOException e) {
+            }
+        });
 
         Pane backstory = buildTextDisplay();
         backstory.setTranslateX(myFactory.getScreenWidth()/2 - 450);
         backstory.setTranslateY(myFactory.getScreenHeight()/2);
 
-        myRoot.getChildren().addAll(dialogue, prompt, title, saveloc, save, backstory);
+        myRoot.getChildren().addAll(dialogue, prompt, title, saveloc, save, backstory, birthday, snake, snail);
         return myRoot;
     }
 
@@ -109,14 +133,51 @@ public class NewGamePage extends Page {
         return ret;
     }
 
-
-    private void switchLevelDirectory() {
-        saveInformation();
+    private void pickSide() {
+        if (snail.isSelected()) {
+            side = 1;
+        }
+        if (snake.isSelected()) {
+            side = 2;
+        }
     }
-    private void saveInformation() {
-        User u = new User(title.getText(), saveloc.getText(), )
+
+    private void switchLevelDirectory() throws ReadSaveException, DuplicateUsernameException, IOException {
+        User u = saveInformation();
+        LevelDirectory ll = new LevelDirectory(myStage, Pages.LevelDirectory, u);
     }
 
+    private User saveInformation() throws ReadSaveException, DuplicateUsernameException {
+        String imagePath = processSelections();
+        User u = null;
+        try {
+            u = new User(title.getText(), saveloc.getText(), imagePath, birthday.getText().split(" "));
+        } catch (ReadSaveException e) {
+        } catch (DuplicateUsernameException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(myResource.getString("Whoops"));
+            alert.setHeaderText(myResource.getString("Whoops"));
+            alert.setContentText(myResource.getString("BadName"));
+        }
+        return u;
+    }
+
+    private String processSelections() {
+        String imagePath = null;
+        if (side == 1) {
+            imagePath = Avatars.valueOf("Snail1").getimgpath();
+        }
+        if (side == 2) {
+            imagePath = Avatars.valueOf("Snake1").getimgpath();
+        }
+        if (side == 0) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(myResource.getString("Whoops"));
+            alert.setHeaderText(myResource.getString("Whoops"));
+            alert.setContentText(myResource.getString("Pick"));
+        }
+        return imagePath;
+    }
     @Override
     Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
         return getScene(name);

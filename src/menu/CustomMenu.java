@@ -111,7 +111,11 @@ public class CustomMenu extends Page {
         }
 
         Button back = new Button("Back");
-        back.setOnMouseClicked(event -> leaveStage());
+        back.setOnMouseClicked(event -> {
+            try {
+                leaveStage();
+            } catch (IOException e) { }
+        });
 
         myRoot.getChildren().addAll(myOptions);
         myRoot.getChildren().addAll(myOpponents);
@@ -232,29 +236,19 @@ public class CustomMenu extends Page {
         myRoot.getChildren().add(avatar);
 
     }
+
     private void removeCurrentAvatar() {
         myRoot.getChildren().remove(avatar);
     }
 
-    private void leaveStage() {
+    private void leaveStage() throws IOException {
         for (int x = 0; x < 6; x++) {
             if (myOptions[x].isSelected()) {
                 selected = x;
+                LevelDirectory ll = new LevelDirectory(myStage, Pages.LevelDirectory, myUser);
             }
         }
-        if (selected != 0) {
-            //tell user info to update in data
-
-        }
-        else {
-            rejectAttempttoLeave();
-        }
     }
-    private void rejectAttempttoLeave() {
-
-    }
-
-
 
     @Override
     Scene gotoScene(String name) throws IOException {

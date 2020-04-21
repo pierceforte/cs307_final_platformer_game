@@ -132,17 +132,21 @@
 }
 #ChooseSnake{
     -fx-background-image: url("choosesnakes.png");
-    -fx-pref-height: 64;
-    -fx-pref-width: 128;
+    -fx-pref-height: 128;
+    -fx-pref-width: 256;
     -fx-background-size: stretch;
     -fx-background-position: center, center;
+    -fx-translate-x: 400;
+    -fx-translate-y: 300;
 }
 #ChooseSnail{
     -fx-background-image: url("choosesnail.png");
-    -fx-pref-height: 64;
-    -fx-pref-width: 128;
+    -fx-pref-height: 128;
+    -fx-pref-width: 256;
     -fx-background-size: stretch;
     -fx-background-position: center, center;
+    -fx-translate-x: 800;
+    -fx-translate-y: 300;
 }#ViewText{
      -fx-background-color: black;
      -fx-text-fill: white;

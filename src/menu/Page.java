@@ -182,7 +182,7 @@ public abstract class Page {
         Scene myScene = null;
 
         if (name.equals("Continue")) {
-            LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory);
+            LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory, null);
         }
         if (name.equals("Debug")) {
             DebugEnvironment de = new DebugEnvironment(myStage, Pages.Debug);
