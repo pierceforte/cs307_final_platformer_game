@@ -161,8 +161,9 @@
 #moneyAvail{
     -fx-font-family: "Times New Roman";
     -fx-font-size: 12pt;
-    -fx-translate-x: 40;
-    -fx-translate-y: 50;
+    -fx-background-color: white;
+    -fx-translate-x: 600;
+    -fx-translate-y: 400;
     -fx-text-alignment: center;
 }
 #itemIcon{
@@ -183,8 +184,8 @@
     -fx-background-color: black;
     -fx-text-fill: white;
     -fx-font-size: 16;
-    -fx-pref-width: 700;
-    -fx-pref-height: 150;
+    -fx-pref-width: 900;
+    -fx-pref-height: 200;
     -fx-opacity: .8;
 }
 #Name{
