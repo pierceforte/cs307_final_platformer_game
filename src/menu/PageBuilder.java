@@ -88,6 +88,7 @@ public class PageBuilder {
         return save;
     }
 
+
     public double getScreenWidth() {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         return primaryScreenBounds.getWidth();

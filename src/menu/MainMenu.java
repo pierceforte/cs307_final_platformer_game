@@ -49,7 +49,19 @@ public class MainMenu extends Page {
         Pane myRoot = new Pane();
         myRoot.setPrefSize(width, height);
 
-        Button newgame = myFactory.buildNewGameButton();
+        Button newgame = new Button(myResource.getString("NewGame"));
+        newgame.setOnMouseClicked(event -> {
+            try {
+                gotoScene(myResource.getString("NewGame"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ReadSaveException e) {
+                e.printStackTrace();
+            } catch (DuplicateUsernameException e) {
+                e.printStackTrace();
+            }
+        });
+        newgame.setId("LaunchButton");
 
         MenuBox myMenuBox = new MenuBox();
         myFactory.addMainMenuButtons(myMenuBox);
