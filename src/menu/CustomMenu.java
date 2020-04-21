@@ -3,10 +3,13 @@ package menu;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class CustomMenu extends Page {
@@ -16,6 +19,11 @@ public class CustomMenu extends Page {
     private ToggleButton[] myOptions;
     private ToggleButton[] myOpponents;
     private int selected;
+
+    private HashMap<String, ImageView> avatars;
+
+    private ImageView avatar;
+    private Pane myRoot;
 
     private boolean Snails;
     private boolean Snakes;
@@ -39,6 +47,7 @@ public class CustomMenu extends Page {
         selected = 0;
 
         //read from data whether they are snails or snakes
+        //find and display avatar
 
         //plus scorebar and haspurchaseitem
 
@@ -53,8 +62,11 @@ public class CustomMenu extends Page {
 
     @Override
     Pane init_Root(int height, int width) {
-        Pane myRoot = new Pane();
+        myRoot = new Pane();
         myRoot.setPrefSize(width, height);
+
+        Image img = new Image("basicsnake.png");
+        displayAvatar(new ImageView(img););
 
         myOptions = new ToggleButton[6];
         myOpponents = new ToggleButton[6];
@@ -66,19 +78,21 @@ public class CustomMenu extends Page {
 
             if (Snakes) {
                 myOptions[x].setId("Snake"+y);
-                myOptions[x].setTranslateX(myFactory.getScreenWidth()-128);
-                myOptions[x].setTranslateY(y*128+20);
+                myOptions[x].setTranslateX(myFactory.getScreenWidth()-128-50);
+                myOptions[x].setTranslateY(y*128+50);
 
                 myOpponents[x].setId("Snail"+y);
-                myOpponents[x].setTranslateY(y*128+20);
+                myOpponents[x].setTranslateY(y*128+50);
+                myOpponents[x].setTranslateX(50);
             }
             if (Snails) {
                 myOptions[x].setId("Snail"+y);
-                myOptions[x].setTranslateY(y*128+20);
+                myOptions[x].setTranslateY(y*128+50);
+                myOptions[x].setTranslateX(50);
 
                 myOpponents[x].setId("Snake"+y);
-                myOpponents[x].setTranslateX(myFactory.getScreenWidth()-128);
-                myOpponents[x].setTranslateY(y*128+20);
+                myOpponents[x].setTranslateX(myFactory.getScreenWidth()-128-50);
+                myOpponents[x].setTranslateY(y*128+50);
             }
             y++;
         }
@@ -90,6 +104,32 @@ public class CustomMenu extends Page {
         myRoot.getChildren().addAll(myOpponents);
         myRoot.getChildren().add(back);
         return myRoot;
+    }
+
+    private HashMap<String, ImageView> init_avatars(){
+        HashMap<String, ImageView> hm = new HashMap<>();
+
+
+        return hm;
+    }
+    private void setSelected(int x) {
+
+    }
+
+    private void action(String x) {
+        removeCurrentAvatar();
+        displayAvatar();
+    }
+
+    private void displayAvatar(ImageView img) {
+        avatar = img;
+        avatar.setTranslateX(myFactory.getScreenWidth()/2 - 128);
+        avatar.setTranslateY(myFactory.getScreenHeight()/2);
+        myRoot.getChildren().add(avatar);
+
+    }
+    private void removeCurrentAvatar() {
+        myRoot.getChildren().remove(avatar);
     }
 
     private void leaveStage() {
@@ -109,6 +149,8 @@ public class CustomMenu extends Page {
     private void rejectAttempttoLeave() {
 
     }
+
+
 
     @Override
     Scene gotoScene(String name) throws IOException {

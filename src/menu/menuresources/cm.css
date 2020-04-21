@@ -108,7 +108,8 @@
     -fx-font-size: 12;
     -fx-hgap: 10;
     -fx-vgap: 10;
-    -fx-background-color: black;
+    -fx-padding: 30px, 30px;
+    -fx-background-color: blueviolet;
     -fx-text-fill:greenyellow;
     -fx-opacity: 0.9;
     -fx-font-weight: bold;
