@@ -48,6 +48,8 @@ public class LevelContainer {
         levels.add(level);
     }
 
+    public int getLevelNum() { return currentLevel; }
+
     public Level getCurrentLevel() {
         return levels.get(currentLevel);
     }

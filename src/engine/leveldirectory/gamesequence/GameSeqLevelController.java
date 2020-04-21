@@ -64,18 +64,22 @@ public class GameSeqLevelController extends GameSeqController {
         List<GameObject> tempGameObjects = getLevelContainer().getCurrentLevel().getAllGameObjects();
         for (GameObject tempObj : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
             interactionsAndGravity(tempObj);
-
-            // TODO: need to find a better way to do this
-            if (tempObj.isPlayer()) {
-                ((SimplePlayer) tempObj).handleInputs(keyInput.getPressedKeys());
-            }
         }
         getLevelContainer().getCurrentLevel().setGameObjects(tempGameObjects);
         super.display();
     }
 
     private void setUpListeners() {
-        keyInput = new KeyInput(getMyScene());
+        getMyScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if(key.getCode()==KeyCode.A) {
+                getRoot().getChildren().remove(getSimplePlayer());
+                getSimplePlayer().move(SimplePlayer.LEFT);
+            }
+            else if(key.getCode()==KeyCode.D)
+                getSimplePlayer().move(SimplePlayer.RIGHT);
+            else if(key.getCode()==KeyCode.W)
+                getSimplePlayer().jump();
+        });
     }
 
 
