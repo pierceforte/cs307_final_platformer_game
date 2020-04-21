@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class CustomMenu extends Page {
@@ -20,10 +21,17 @@ public class CustomMenu extends Page {
     private ToggleButton[] myOpponents;
     private int selected;
 
-    private HashMap<String, ImageView> avatars;
+    private Map<String, ImageView> avatars;
 
     private ImageView avatar;
     private Pane myRoot;
+
+    private static final ResourceBundle deets = ResourceBundle.getBundle("Details");
+
+    private final String Snake = "Snake";
+    private final String Snail = "Snail";
+    private final int imageSize = 128;
+    private final int spacing = 50;
 
     private boolean Snails;
     private boolean Snakes;
@@ -45,16 +53,29 @@ public class CustomMenu extends Page {
         myStage.setTitle(myResource.getString("MainTitle"));
 
         selected = 0;
+        avatars = new HashMap<>();
 
         //read from data whether they are snails or snakes
         //find and display avatar
 
+        /* DISCOVER
+         * -Snails or Snakes
+         * -Score
+         *  - purchase item from Pierce
+         * -their current avatar
+         *
+         * PASS BACK
+         * -new avatar
+         * -new score (if applicable)
+         *
+         */
         //plus scorebar and haspurchaseitem
 
         //Hardcode:
 
         Snails = false;
         Snakes = true;
+
 
         myScene = this.buildSpecialScene((int) myFactory.getScreenHeight(), (int) myFactory.getScreenWidth());
         myStage.setScene(myScene);
@@ -65,36 +86,16 @@ public class CustomMenu extends Page {
         myRoot = new Pane();
         myRoot.setPrefSize(width, height);
 
-        Image img = new Image("basicsnake.png");
-        displayAvatar(new ImageView(img););
-
         myOptions = new ToggleButton[6];
         myOpponents = new ToggleButton[6];
 
-        int y = 1;
         for (int x = 0; x < 6; x++) {
-            myOptions[x] = new ToggleButton();
-            myOpponents[x] = new ToggleButton();
-
             if (Snakes) {
-                myOptions[x].setId("Snake"+y);
-                myOptions[x].setTranslateX(myFactory.getScreenWidth()-128-50);
-                myOptions[x].setTranslateY(y*128+50);
-
-                myOpponents[x].setId("Snail"+y);
-                myOpponents[x].setTranslateY(y*128+50);
-                myOpponents[x].setTranslateX(50);
-            }
+                buildOptionButton(Snake, x);
+                buildOpponentButton(Snail, x);}
             if (Snails) {
-                myOptions[x].setId("Snail"+y);
-                myOptions[x].setTranslateY(y*128+50);
-                myOptions[x].setTranslateX(50);
-
-                myOpponents[x].setId("Snake"+y);
-                myOpponents[x].setTranslateX(myFactory.getScreenWidth()-128-50);
-                myOpponents[x].setTranslateY(y*128+50);
-            }
-            y++;
+                buildOptionButton(Snail, x);
+                buildOpponentButton(Snake, x); }
         }
 
         Button back = new Button("Back");
@@ -106,24 +107,50 @@ public class CustomMenu extends Page {
         return myRoot;
     }
 
-    private HashMap<String, ImageView> init_avatars(){
-        HashMap<String, ImageView> hm = new HashMap<>();
+    private void buildOptionButton(String type, int x) {
+        myOptions[x] = new ToggleButton();
 
+        int y = x + 1;
+        String key = type+y;
+        avatars.put(key, Avatars.valueOf(key).getImg());
 
-        return hm;
+        myOptions[x].setId(key);
+        myOptions[x].setTranslateX(myFactory.getScreenWidth()-imageSize-spacing);
+        myOptions[x].setTranslateY(y*imageSize+spacing);
+        myOptions[x].setOnMouseClicked(event -> action(key));
     }
-    private void setSelected(int x) {
+
+    private void buildOpponentButton(String type, int x) {
+        myOpponents[x] = new ToggleButton();
+
+        int y = x + 1;
+        String key = type+y;
+        avatars.put(key, Avatars.valueOf(key).getImg());
+
+        myOpponents[x].setId(type+y);
+        myOpponents[x].setTranslateY(y*imageSize+spacing);
+        myOpponents[x].setTranslateX(spacing);
+
+        myOpponents[x].setOnMouseClicked(event -> action(key));
 
     }
 
     private void action(String x) {
         removeCurrentAvatar();
-        displayAvatar();
+        displayAvatar(avatars.get(x));
+        displayDetails();
+    }
+
+    private void displayDetails() {
+
+    }
+    private void attemptPurchase() {
+
     }
 
     private void displayAvatar(ImageView img) {
         avatar = img;
-        avatar.setTranslateX(myFactory.getScreenWidth()/2 - 128);
+        avatar.setTranslateX(myFactory.getScreenWidth()/2 - imageSize);
         avatar.setTranslateY(myFactory.getScreenHeight()/2);
         myRoot.getChildren().add(avatar);
 
