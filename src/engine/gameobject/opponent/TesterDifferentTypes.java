@@ -11,7 +11,7 @@ public class TesterDifferentTypes extends GameObject {
     private Double me;
 
     public TesterDifferentTypes(String string, Double me) {
-        super("location.png", 1d, 1d,1d,1d);
+        super(1d, 1d, 1d, 1d, "location.png");
         this.string = string;
         this.me = me;
         System.out.println(string);

@@ -1,12 +1,12 @@
 package engine.gameobject.projectile;
 
 import engine.gameobject.GameObject;
+import engine.gameobject.MovingGameObject;
 import engine.gameobject.platform.Platform;
-
 import java.util.Arrays;
 import java.util.List;
 
-public class PushbackProjectile extends GameObject implements Projectile {
+public class PushbackProjectile extends MovingGameObject implements Projectile {
     public static final double DEFAULT_X_SPEED = 10;
     public static final double DEFAULT_Y_SPEED = 0;
 
@@ -16,12 +16,14 @@ public class PushbackProjectile extends GameObject implements Projectile {
      * @param yPos y position of the projectile
      * @param xSpeed x speed of the projectile
      */
-    public PushbackProjectile(String imgPath, double xPos, double yPos, double xSpeed) {
-        super(imgPath, xPos, yPos, xSpeed, DEFAULT_Y_SPEED);
+    public PushbackProjectile(String imgPath, Double width, Double height, Double xPos, Double yPos,
+                              Double xSpeed, Double ySpeed) {
+        super(imgPath, width, height, xPos, yPos, xSpeed, ySpeed);
     }
 
     public PushbackProjectile(PushbackProjectile copy) {
-        this(copy.getImgPath(), copy.getX(), copy.getY(), copy.getXSpeed());
+        this(copy.getImgPath(), copy.getWidth(), copy.getHeight(), copy.getX(), copy.getY(), copy.getXSpeed(),
+                copy.getYSpeed());
     }
 
     @Override
@@ -31,7 +33,9 @@ public class PushbackProjectile extends GameObject implements Projectile {
 
     @Override
     public void handleEntityInteraction(GameObject entity) {
-        entity.updateXPos(getXSpeed());
+        if(entity instanceof MovingGameObject) {
+            ((MovingGameObject) entity).updateXPos(getXSpeed());
+        }
     }
 
     @Override

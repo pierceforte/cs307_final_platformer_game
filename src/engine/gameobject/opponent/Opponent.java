@@ -10,7 +10,7 @@ public abstract class Opponent extends GameObject{
     private Double initXSpeed;
 
     public Opponent(String imgPath, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
-        super(imgPath, xPos, yPos, xSpeed, ySpeed);
+        super(yPos, xSpeed, ySpeed, xPos, imgPath);
         initXSpeed = xSpeed;
     }
 

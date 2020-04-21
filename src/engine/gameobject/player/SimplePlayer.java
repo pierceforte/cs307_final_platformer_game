@@ -1,18 +1,15 @@
 package engine.gameobject.player;
 
-import engine.gameobject.GameObject;
-import engine.gameobject.platform.HorizontalSlidingPlatform;
+import engine.gameobject.MovingGameObject;
 import javafx.scene.input.KeyCode;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class SimplePlayer extends GameObject implements Player{
+public class SimplePlayer extends MovingGameObject implements Player{
 
-    public static final String EX_IMG_PATH = "example_player.png"; //TODO: make this more flexible
     public static final Double DEFAULT_X_SPEED = 2d; // for key press
     public static final Double DEFAULT_Y_SPEED = -2d; // for jumping
     public static final int LEFT = -1;
@@ -22,13 +19,15 @@ public class SimplePlayer extends GameObject implements Player{
     private boolean hasWon;
     private boolean hasLost;
 
-    public SimplePlayer(String imgPath, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
-        super(imgPath, xPos, yPos, xSpeed, ySpeed);
+    public SimplePlayer(String imgPath, Double width, Double height,
+                        Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
+        super(imgPath, width, height, xPos, yPos, xSpeed, ySpeed);
         assignInputs();
     }
 
     public SimplePlayer(SimplePlayer copy) {
-        this(copy.getImgPath(), copy.getX(), copy.getY(), copy.getXSpeed(), copy.getYSpeed());
+        this(copy.getImgPath(), copy.getWidth(), copy.getHeight(), copy.getX(),
+                copy.getY(), copy.getXSpeed(), copy.getYSpeed());
     }
 
     public void setWinner() {

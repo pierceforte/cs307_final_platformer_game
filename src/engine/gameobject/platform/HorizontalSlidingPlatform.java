@@ -1,15 +1,14 @@
 package engine.gameobject.platform;
 
 import engine.gameobject.GameObject;
+import engine.gameobject.MovingGameObject;
 import engine.gameobject.player.SimplePlayer;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class HorizontalSlidingPlatform extends GameObject implements Platform {
+public class HorizontalSlidingPlatform extends MovingPlatform implements Platform {
 
-    public static final double DEFAULT_X_SPEED = 5;
-    public static final double DEFAULT_Y_SPEED = 0;
     public static final double NEW_ENTITY_Y_SPEED = 0;
     public static final int LEFT = -1;
     public static final int RIGHT = 1;
@@ -17,9 +16,9 @@ public class HorizontalSlidingPlatform extends GameObject implements Platform {
     private double minX;
     private double maxX;
 
-    public HorizontalSlidingPlatform(String imgPath, Double xPos, Double yPos, Double xSpeed,
-                                     Double minX, Double maxX, Integer xDirection) {
-        super(imgPath, xPos, yPos, xDirection * xSpeed, DEFAULT_Y_SPEED);
+    public HorizontalSlidingPlatform(String imgPath, Double width, Double height, Double xPos, Double yPos, Double xSpeed,
+                                     Double ySpeed, Double minX, Double maxX) {
+        super(imgPath, width, height, xPos, yPos, xSpeed, ySpeed);
         this.minX = minX;
         this.maxX = maxX;
     }
@@ -30,21 +29,26 @@ public class HorizontalSlidingPlatform extends GameObject implements Platform {
     }
 
     public HorizontalSlidingPlatform(HorizontalSlidingPlatform copy) {
-        this(copy.getImgPath(), copy.getX(), copy.getY(), copy.getXSpeed(), copy.getMinX(), copy.getMaxX(), copy.getXDirection());
+        this(copy.getImgPath(), copy.getWidth(), copy.getHeight(), copy.getX(), copy.getY(),
+                copy.getXSpeed(), copy.getYSpeed(), copy.getMinX(), copy.getMaxX());
     }
 
     public void move(int direction) {
-        if (getX() >= maxX || getX() <= minX) {
-            reverseXDirection();
-        }
-        else {
-            updateXPos(getXSpeed());
-        }
+        if (getX() >= maxX || getX() <= minX) reverseXDirection();
+        else updateXPos(getXSpeed());
     }
 
     public void handleEntityInteraction(GameObject entity) {
-        entity.setXSpeed(getXSpeed());
-        entity.setYSpeed(NEW_ENTITY_Y_SPEED);
+        if (!(entity instanceof MovingGameObject)) {
+            reverseXDirection();
+            reverseYDirection();
+            return;
+        }
+        MovingGameObject mover = (MovingGameObject) entity;
+        mover.reverseXDirection();
+        mover.reverseYDirection();
+        //TODO: needs to handle interaction with
+
     }
 
     @Override

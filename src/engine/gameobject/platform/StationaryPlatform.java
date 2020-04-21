@@ -1,30 +1,21 @@
 package engine.gameobject.platform;
 
 import engine.gameobject.GameObject;
-import engine.gameobject.player.Player;
+import engine.gameobject.MovingGameObject;
 import engine.gameobject.player.SimplePlayer;
-
 import java.util.Arrays;
 import java.util.List;
 
 public class StationaryPlatform extends GameObject implements Platform {
 
-    public static final String EX_IMG_PATH = "example_platform.png"; //TODO: make this more flexible
     public static final Double NEW_ENTITY_Y_SPEED = 0d;
-    public static final Double X_SPEED = 0d;
-    public static final Double Y_SPEED = 0d;
 
     public StationaryPlatform(String imgPath, Double xPos, Double yPos) {
-        super(imgPath, xPos, yPos, X_SPEED, Y_SPEED);
+        super(imgPath, xPos, yPos);
     }
 
     public StationaryPlatform(StationaryPlatform copy) {
         this(copy.getImgPath(), copy.getX(), copy.getY());
-    }
-
-    @Override
-    public void move(int direction) {
-        return;
     }
 
     @Override
