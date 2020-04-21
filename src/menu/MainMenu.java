@@ -1,5 +1,7 @@
 package menu;
 
+import data.ReadSaveException;
+import data.user.DuplicateUsernameException;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -59,7 +61,7 @@ public class MainMenu extends Page {
     }
 
     @Override
-    Scene gotoScene(String name) throws IOException {
+    Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
         return getScene(name);
     }
 }

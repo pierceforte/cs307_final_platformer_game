@@ -150,16 +150,13 @@
     -fx-background-color: goldenrod;
     -fx-text-fill: black;
     -fx-border-color: white;
-    -fx-translate-x: 45;
-    -fx-translate-y: 210;
     -fx-pref-height: 30;
     -fx-pref-width: 150;
 }
 #itemCost{
     -fx-font-family: "Times New Roman";
     -fx-font-size: 15pt;
-    -fx-translate-x: 80;
-    -fx-translate-y: 200;
+    -fx-text-fill: white;
 }
 #moneyAvail{
     -fx-font-family: "Times New Roman";
@@ -181,20 +178,12 @@
     -fx-translate-x: 150;
     -fx-translate-y: 255;
 }
-#playButton{
-    -fx-background-color: maroon;
-    -fx-text-fill: black;
-    -fx-border-color: black;
-    -fx-pref-height: 60;
-    -fx-pref-width: 120;
-    -fx-font-size: 20pt;
-    -fx-opacity: 1;
-}
+
 #ViewText{
     -fx-background-color: black;
     -fx-text-fill: white;
     -fx-font-size: 16;
-    -fx-pref-width: 900;
+    -fx-pref-width: 700;
     -fx-pref-height: 150;
     -fx-opacity: .8;
 }

@@ -1,5 +1,7 @@
 package menu;
 
+import data.ReadSaveException;
+import data.user.User;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -33,6 +35,7 @@ public class CustomMenu extends Page {
 
     private ImageView avatar;
     private Pane myRoot;
+    private User myUser;
 
     private static final ResourceBundle deets = ResourceBundle.getBundle("menu.menuresources.Details");
 
@@ -53,13 +56,14 @@ public class CustomMenu extends Page {
      * @param page
      * @return Page
      */
-    public CustomMenu(Stage primaryStage, Pages page) {
+    public CustomMenu(Stage primaryStage, Pages page, User user) {
         super(primaryStage, page);
         myStage = primaryStage;
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
 
+        myUser = user;
         selected = 0;
         avatars = new HashMap<>();
 
@@ -125,7 +129,7 @@ public class CustomMenu extends Page {
         myOptions[x].setId(key);
         myOptions[x].setTranslateX(myFactory.getScreenWidth()-imageSize-spacing);
         myOptions[x].setTranslateY(y*imageSize+spacing);
-        myOptions[x].setOnMouseClicked(event -> action(key));
+        myOptions[x].setOnMouseClicked(event -> action(key, type));
     }
 
     private void buildOpponentButton(String type, int x) {
@@ -139,22 +143,21 @@ public class CustomMenu extends Page {
         myOpponents[x].setTranslateY(y*imageSize+spacing);
         myOpponents[x].setTranslateX(spacing);
 
-        myOpponents[x].setOnMouseClicked(event -> action(key));
+        myOpponents[x].setOnMouseClicked(event -> action(key, type));
 
     }
 
-    private void action(String x) {
+    private void action(String x, String type) {
         removeCurrentAvatar();
         displayAvatar(avatars.get(x));
-        displayDetails(x);
+        displayDetails(x, type);
     }
     private void removeNodes() {
-        myRoot.getChildren().remove(myRoot.lookup("ViewText"));
-        myRoot.getChildren().remove(myRoot.lookup("Name"));
-        myRoot.getChildren().remove(myRoot.lookup("Deet"));
+        myRoot.getChildren().removeAll(myRoot.lookup("#ViewText"),myRoot.lookup("#Name"), myRoot.lookup("#Deet"),
+                myRoot.lookup("#purchaseButton"), myRoot.lookup("#itemCost"));
     }
 
-    private void displayDetails(String x) {
+    private void displayDetails(String x, String type) {
         removeNodes();
 
         Pane c = new Pane();
@@ -165,7 +168,7 @@ public class CustomMenu extends Page {
         title.setId("Name");
         title.setFill(Color.WHITESMOKE);
         title.setTranslateY(myFactory.getScreenHeight()*4/5 + spacing);
-        title.setTranslateX(myFactory.getScreenWidth()/2 - 2*imageSize + 20);
+        title.setTranslateX(myFactory.getScreenWidth()/2 - 3*imageSize + 20);
 
         Text deet = new Text(deets.getString(x+"Deet"));
 
@@ -173,19 +176,53 @@ public class CustomMenu extends Page {
         deet.setId("Deet");
         deet.setTranslateY(myFactory.getScreenHeight()*4/5 +spacing+20);
         deet.setFill(Color.WHITESMOKE);
-        deet.setTranslateX(myFactory.getScreenWidth()/2 - 2*imageSize+20);
-
-        //c.getChildren().addAll(title, deet);
+        deet.setTranslateX(myFactory.getScreenWidth()/2 - 3*imageSize + 20);
 
         c.setTranslateX(myFactory.getScreenWidth()/2 - 3*imageSize);
         c.setTranslateY(myFactory.getScreenHeight()*4/5);
 
         myRoot.getChildren().addAll(c, title, deet);
+
+        if ((Snakes && type.equals(Snake)) || (Snails && type.equals(Snail))) {
+            addPurchaseDetails(x);
+        }
+
     }
 
+    private void addPurchaseDetails(String x) {
+        Text purchaseinfo = new Text(deets.getString("Purchase") + Avatars.valueOf(x).getPrice());
+        purchaseinfo.setId("itemCost");
+        purchaseinfo.setTranslateX(myFactory.getScreenWidth()/2 - spacing*4);
+        purchaseinfo.setTranslateY(myFactory.getScreenHeight()*4/5 +spacing*2 + 20);
+        purchaseinfo.setFill(Color.WHITESMOKE);
 
-    private void attemptPurchase() {
+        Button purchaseButton = new Button("Purchase!");
+        purchaseButton.setId("purchaseButton");
 
+        purchaseButton.setTranslateX(myFactory.getScreenWidth()/2 + imageSize+20);
+        purchaseButton.setTranslateY(myFactory.getScreenHeight()*4/5 +spacing);
+
+        purchaseButton.setOnMouseClicked(event -> {
+            try {
+                attemptPurchase(x);
+            } catch (ReadSaveException e) {
+                myRoot.getChildren().add(new Text("Unable to process purchase"));
+            }
+        });
+
+        myRoot.getChildren().addAll(purchaseButton, purchaseinfo);
+    }
+
+    private void attemptPurchase(String x) throws ReadSaveException {
+        int userScore = myUser.getScore();
+
+        if (Avatars.valueOf(x).getPrice() <= userScore) {
+            myUser.updateScore(-userScore);
+            myUser.changeAvatar(Avatars.valueOf(x).getimgpath());
+        }
+        else {
+            myRoot.getChildren().add(new Text(deets.getString("NoMoney")));
+        }
     }
 
     private void displayAvatar(ImageView img) {
@@ -205,9 +242,9 @@ public class CustomMenu extends Page {
                 selected = x;
             }
         }
-
         if (selected != 0) {
             //tell user info to update in data
+
         }
         else {
             rejectAttempttoLeave();

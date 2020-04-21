@@ -7,12 +7,39 @@ public enum Avatars {
     Snake5("Snake5"), Snake6("Snake6"), Snail1("Snail1"), Snail2("Snail2"),
     Snail3("Snail3"), Snail4("Snail4"), Snail5("Snail5"), Snail6("Snail6");
 
-
     private String key;
-
 
     Avatars(String Key) {
         this.key = Key;
+    }
+
+    public String getimgpath() {
+        switch(key) {
+            case "Snake1":
+                return "basicsnake.png";
+            case "Snake2":
+                return "gardensnake.png";
+            case "Snake3":
+                return "babysnake.png";
+            case "Snake4":
+                return "explodingsnake.png";
+            case "Snake5":
+                return "sneaksnake.png";
+            case "Snake6":
+                return"bombsnake.png";
+            case "Snail1":
+            case "Snail6":
+                return "wilbur.png";
+            case "Snail2":
+                return "crystalsnail.png";
+            case "Snail3":
+                return "inksnail.png";
+            case "Snail4":
+                return "slowsnail.png";
+            case "Snail5":
+                return "ghostsnail.png";
+        }
+        return "";
     }
 
     public ImageView getImg(){

@@ -1,5 +1,7 @@
 package menu;
 
+import data.ReadSaveException;
+import data.user.DuplicateUsernameException;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -47,7 +49,7 @@ public class LevelDirectory extends Page {
 
         Text t = myFactory.buildTitleText(myResource.getString("Choose"));
 
-        MenuBox myBox = new MenuBox("Level 1", "Level 2", "Level 3", "Debug");
+        MenuBox myBox = new MenuBox("Level 1", "Level 2", "Level 3", "Debug", "Customize Player");
         myBox.setId("MenuBox");
 
         Button lightbutton = new Button();
@@ -80,7 +82,7 @@ public class LevelDirectory extends Page {
     }
 
     @Override
-    Scene gotoScene(String name) throws IOException {
+    Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
         return getScene(name);
     }
 }
