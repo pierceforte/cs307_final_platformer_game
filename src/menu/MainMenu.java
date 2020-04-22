@@ -1,5 +1,7 @@
 package menu;
 
+import data.ReadSaveException;
+import data.user.DuplicateUsernameException;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -47,11 +49,22 @@ public class MainMenu extends Page {
         Pane myRoot = new Pane();
         myRoot.setPrefSize(width, height);
 
-        Button newgame = myFactory.buildNewGameButton();
+        Button newgame = new Button(myResource.getString("NewGame"));
+        newgame.setOnMouseClicked(event -> {
+            try {
+                gotoScene(myResource.getString("NewGame"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ReadSaveException e) {
+                e.printStackTrace();
+            } catch (DuplicateUsernameException e) {
+                e.printStackTrace();
+            }
+        });
+        newgame.setId("LaunchButton");
 
         MenuBox myMenuBox = new MenuBox();
         myFactory.addMainMenuButtons(myMenuBox);
-
 
         myRoot.getChildren().addAll(newgame, myMenuBox);
 
@@ -59,7 +72,7 @@ public class MainMenu extends Page {
     }
 
     @Override
-    Scene gotoScene(String name) throws IOException {
+    Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
         return getScene(name);
     }
 }

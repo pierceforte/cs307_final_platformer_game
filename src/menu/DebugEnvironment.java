@@ -1,5 +1,7 @@
 package menu;
 
+import data.ReadSaveException;
+import data.user.DuplicateUsernameException;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -78,7 +80,7 @@ public class DebugEnvironment extends Page {
     }
 
     @Override
-    Scene gotoScene(String name) throws IOException {
+    Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
         return getScene(name);
     }
 }
