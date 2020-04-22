@@ -19,6 +19,7 @@ import static javafx.application.Platform.exit;
 
 public class GameSeqLevelController extends GameSeqController {
 
+    public static double GRAVITY = -40;
     private KeyInput keyInput;
 
     public GameSeqLevelController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
@@ -30,6 +31,7 @@ public class GameSeqLevelController extends GameSeqController {
         // TODO: remove player test later
         playerTest();
     }
+
     private void playerTest() {
         SimplePlayer s = new SimplePlayer("babysnake.png", 10., 5., 200.,200.);
         setSimplePlayer(s);
@@ -70,7 +72,6 @@ public class GameSeqLevelController extends GameSeqController {
         getMyScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             getSimplePlayer().handleInput(key.getCode());
         });
-
     }
 
     // if the player isn't intersecting with anything, move it down
@@ -127,5 +128,16 @@ public class GameSeqLevelController extends GameSeqController {
             exit();
         // TODO: if (win)
             getNextPlayScene().run();
+    }
+
+    public void gravity(GameObject gameObject) {
+        move(gameObject, gameObject.getXSpeed(), gameObject.getY());
+        gameObject.setYSpeed(gameObject.getYSpeed() -1 * GRAVITY);
+    }
+
+    private void move(GameObject gameObject, double xDelta, double yDelta) {
+        gameObject.setX(gameObject.getX() + xDelta);
+        gameObject.setY(gameObject.getY() - yDelta);
+        // do collision detection here. upon collision, set speedX/speedY to zero..!
     }
 }

@@ -9,6 +9,7 @@ public abstract class GameObject {
 
     public static final int DOWN_OR_LEFT = -1;
     public static final int UP_OR_RIGHT = 1;
+    public static final double GRAVITY = 40;
 
     private Double xPos;
     private Double yPos;
@@ -30,13 +31,11 @@ public abstract class GameObject {
         xDirection = UP_OR_RIGHT;
         yDirection = UP_OR_RIGHT;
         visible = false;
-
-        // TODO: update constructor for following fields
         width = 0;
         height = 0;
         this.imgPath = imgPath;
     }
-    
+
     /**
      * Get the image path for this object
      * @return path to the image for this object
