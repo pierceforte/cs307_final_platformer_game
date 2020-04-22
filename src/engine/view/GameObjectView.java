@@ -3,26 +3,41 @@ package engine.view;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 //TODO: Decide whether to use inheritance or composition for ImageView
 public class GameObjectView extends ImageView {
 
     public static final int LEFT = -1;
     public static final int RIGHT = 1;
-    //TODO: change params to Coords and Dimensions objects OR just pass the GameObject (probably don't want this dependency though)
+    private static Map<String, Image> imageMap = new HashMap<>();
+
     public GameObjectView(String imgPath, double xPos, double yPos, double width, double height, int xDirection) {
-        updateImage(imgPath);
+        setImage(imgPath);
         updatePos(xPos, yPos);
         int xOrientation = xDirection < 0 ? LEFT : RIGHT;
         updateDimensions(xOrientation * width, height);
     }
 
-    //TODO: change param to Coords object
+    public void setImage(String imgPath) {
+        // NOTE: we cannot use putIfAbsent because this requires you to make the Image object every time
+        Image image;
+        if (imageMap.containsKey(imgPath)) {
+            image = imageMap.get(imgPath);
+        }
+        else {
+            image = makeImage(imgPath);
+            imageMap.put(imgPath, image);
+        }
+        setImage(image);
+    }
+
     public void updatePos(double xPos, double yPos) {
         setX(xPos);
         setY(yPos);
     }
 
-    //TODO: change param to Dimensions object
     public void updateDimensions(double width, double height) {
         setFitWidth(width);
         setFitHeight(height);
@@ -36,12 +51,15 @@ public class GameObjectView extends ImageView {
         return getY() + getFitHeight()/2;
     }
 
-    public void updateImage(String imgPath) {
-        Image img = makeImage(imgPath);
-        setImage(img);
+    public void convertAttributesToGridBased(double tileWidth, double tileHeight) {
+        setX(getX() * tileWidth);
+        setY(getY() * tileHeight);
+        setFitWidth(tileWidth);
+        setFitHeight(tileHeight);
     }
 
     protected Image makeImage(String imgPath) {
         return new Image(this.getClass().getClassLoader().getResource(imgPath).toExternalForm());
     }
+
 }

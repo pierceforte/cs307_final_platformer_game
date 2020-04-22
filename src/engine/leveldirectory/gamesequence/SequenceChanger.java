@@ -13,14 +13,16 @@ public class SequenceChanger {
     public SequenceChanger(LevelContainer levelContainer) {
         this.levelContainer = levelContainer;
     }
-
+/*
     public void pause() {
-        levelContainer.getGameSequenceController().pause();
+        levelContainer.getGameSeqController().pause();
     }
 
     public void play() {
-        levelContainer.getGameSequenceController().play();
+        levelContainer.getGameSeqController().play();
     }
+
+ */
 
 
     public void nextLevel() {

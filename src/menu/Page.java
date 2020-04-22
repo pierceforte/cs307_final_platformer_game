@@ -14,6 +14,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -178,7 +179,7 @@ public abstract class Page {
      * @return    Scene
      */
 
-    public Scene getScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
+    public Scene getScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Scene myScene = null;
 
         if (name.equals("Continue")) {

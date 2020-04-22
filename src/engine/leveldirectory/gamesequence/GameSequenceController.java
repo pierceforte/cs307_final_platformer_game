@@ -43,7 +43,7 @@ public class GameSequenceController {
 
     public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, PageBuilder Factory) {
         this.levelContainer = levelContainer;
-        levelContainer.setGameSequenceController(this);
+        //levelContainer.setGameSequenceController(this);
         setupTimeline();
         //
         /*

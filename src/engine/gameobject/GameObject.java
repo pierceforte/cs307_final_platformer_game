@@ -18,7 +18,6 @@ public abstract class GameObject {
     private int yDirection;
     private int width;
     private int height;
-    private String imagePath;
 
     private boolean visible;
     private String imgPath;
@@ -35,7 +34,6 @@ public abstract class GameObject {
         // TODO: update constructor for following fields
         width = 0;
         height = 0;
-        imagePath = "";
         this.imgPath = imgPath;
     }
     
@@ -195,7 +193,6 @@ public abstract class GameObject {
     public boolean getVisible() {
         return visible;
     }
-    public String getImagePath() { return imagePath; }
 
     public abstract boolean isPlayer();
 }

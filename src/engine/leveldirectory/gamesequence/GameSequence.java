@@ -4,7 +4,6 @@ import engine.general.Game;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import engine.leveldirectory.level.LevelContainer;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 
 /**
  * This class describes the timeline logic in the game
@@ -39,13 +38,15 @@ public class GameSequence {
     /**
      * To be called by the Game Player
      */
+    /*
     public void startTimeline() {
-        levelContainer.getGameSequenceController().play();
+        levelContainer.getGameSeqController().play();
     }
 
     public void pauseTimeline() {
-        levelContainer.getGameSequenceController().pause();
+        levelContainer.getGameSeqController().pause();
     }
+     */
 
 
     //public Pane getGameView() {
