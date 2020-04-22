@@ -1,5 +1,5 @@
 .root{
-    -fx-background-image: url("mainmenubackground.png");;
+    -fx-background-image: url("images/backgrounds/darkbackground.png");;
     -fx-background-size: stretch;
     -fx-background-position: center, center;
     -fx-font-size: 12pt;
@@ -66,4 +66,67 @@
     -fx-pref-width: 500;
     -fx-pref-height: 150;
     -fx-opacity: 0.2;
+}
+#bankBackground{
+    -fx-fill: maroon;
+    -fx-stroke: black;
+}
+#purchaseButton{
+    -fx-background-color: goldenrod;
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-translate-x: 45;
+    -fx-translate-y: 210;
+    -fx-pref-height: 30;
+    -fx-pref-width: 150;
+}
+#itemCost{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15pt;
+    -fx-translate-x: 80;
+    -fx-translate-y: 200;
+}
+#moneyAvail{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 12pt;
+    -fx-translate-x: 40;
+    -fx-translate-y: 50;
+    -fx-text-alignment: center;
+}
+#itemIcon{
+    -fx-translate-x: 80;
+    -fx-translate-y: 80;
+
+}
+#prevButton{
+    -fx-translate-x: 85;
+    -fx-translate-y: 255;
+}
+#nextButton{
+    -fx-translate-x: 150;
+    -fx-translate-y: 255;
+}
+#invalidPurchase{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 12pt;
+    -fx-translate-x: 40;
+    -fx-translate-y: 50;
+    -fx-text-fill: goldenrod;
+    -fx-text-alignment: center;
+}
+#noItemsLeft{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15pt;
+    -fx-translate-x: 60;
+    -fx-translate-y: 140;
+    -fx-text-alignment: center;
+}
+#playButton{
+    -fx-background-color: maroon;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-pref-height: 60;
+    -fx-pref-width: 120;
+    -fx-font-size: 20pt;
+    -fx-opacity: 1;
 }

@@ -1,7 +1,6 @@
 package engine.gameobject.player;
 
 import engine.gameobject.GameObject;
-import engine.gameobject.platform.HorizontalSlidingPlatform;
 import javafx.scene.input.KeyCode;
 
 import java.util.Arrays;
@@ -12,7 +11,7 @@ import java.util.Map;
 
 public class SimplePlayer extends GameObject implements Player{
 
-    public static final String EX_IMG_PATH = "example_player.png"; //TODO: make this more flexible
+    public static final String EX_IMG_PATH = "images/avatars/example_player.png"; //TODO: make this more flexible
     public static final Double DEFAULT_X_SPEED = 2d; // for key press
     public static final Double DEFAULT_Y_SPEED = -2d; // for jumping
     public static final int LEFT = -1;

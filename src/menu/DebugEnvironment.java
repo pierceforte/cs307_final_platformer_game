@@ -19,7 +19,7 @@ public class DebugEnvironment extends Page {
     private PageBuilder myFactory;
 
 
-    private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
+    private ResourceBundle myResource = ResourceBundle.getBundle("resources.test.MenuButtons");
     private String STYLESHEET;
     private boolean light;
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Raccoon extends GameObject implements Enemy {
 
-    public static final String EX_IMG_PATH = "raccoon.png"; //TODO: make this more flexible
+    public static final String EX_IMG_PATH = "images/avatars/raccoon.png"; //TODO: make this more flexible
     public static final Double DEFAULT_X_SPEED = 20d;
     public static final Double DEFAULT_Y_SPEED = 0d;
 

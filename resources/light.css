@@ -1,11 +1,11 @@
 .root{
-    -fx-background-image: url("lightbackground.png");;
+    -fx-background-image: url("images/backgrounds/lightbackground.png");;
     -fx-background-size: stretch;
     -fx-background-position: center, center;
     -fx-font-size: 12pt;
 }
 #LightButton{
-    -fx-background-image: url("lighticon.png");
+    -fx-background-image: url("images/icons/lighticon.png");
     -fx-pref-height: 128;
     -fx-pref-width: 128;
     -fx-background-size: stretch;

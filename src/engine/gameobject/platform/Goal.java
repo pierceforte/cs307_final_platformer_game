@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Goal extends GameObject{
 
-    public static final String EX_IMG_PATH = "example_platform.png"; //TODO: make this more flexible
+    public static final String EX_IMG_PATH = "images/objects/example_platform.png"; //TODO: make this more flexible
     public static final Double NEW_ENTITY_Y_SPEED = 0d;
     public static final Double X_SPEED = 0d;
     public static final Double Y_SPEED = 0d;
