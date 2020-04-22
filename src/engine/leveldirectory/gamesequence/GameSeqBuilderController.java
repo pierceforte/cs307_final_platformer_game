@@ -17,26 +17,22 @@ import engine.view.GameObjectView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import java.util.List;
 
 public class GameSeqBuilderController extends GameSeqController {
-    private KeyInput keyInput;
-    private SimplePlayer mainCharacter;
-    private StationaryPlatform examplePlatform;
-    private Raccoon raccoon;
-
-    private GameObjectView mainCharacterView;
-    private GameObjectView examplePlatformView;
-    private GameObjectView raccoonView;
+    private BorderPane myPane;
+    private Pane leftPane;
     private BankController bankController;
     private BuilderStage builderStage;
 
     public GameSeqBuilderController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game,
-                                    Scene scene, Pane root, double height, double width) {
+                                    Scene scene, BorderPane root, double height, double width) {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
+        myPane = root;
         System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size() + "size 1");
         setUpRunnable();
         setupTimeline();
@@ -54,13 +50,13 @@ public class GameSeqBuilderController extends GameSeqController {
         });
     }
 
-    public void initialize(Scene scene, Pane root) {
+    public void initialize(Scene scene, BorderPane root) {
         // TODO: initialize from stored info
         setMyScene(scene);
         setRoot(root);
 
-        Raccoon raccoon = new Raccoon("raccoon.png", 1., 1., 10.);
-        Mongoose mongoose = new Mongoose("mongoose.png", 1., 1., 10.);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png", 1., 1., 10.);
+        Mongoose mongoose = new Mongoose("images/avatars/mongoose.png", 1., 1., 10.);
         BankItem one = new BankItem(new Raccoon(raccoon),  30, 30, 10);
         BankItem two = new BankItem(new Mongoose(mongoose), 30, 30, 20);
         BankItem three = new BankItem(new Mongoose(mongoose), 30, 30, 30);
@@ -69,8 +65,12 @@ public class GameSeqBuilderController extends GameSeqController {
 
         bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
         builderStage = new BuilderStage(bankController, getWidth(), getHeight());
-        getRoot().getChildren().add(builderStage);
-        builderDisplay();
+        leftPane = new Pane();
+        leftPane.setId("leftPane");
+        leftPane.getChildren().add(bankView);
+        myPane.setCenter(builderStage);
+        myPane.setLeft(leftPane);
+        leftPane.getChildren().add(builderStage.getPlayButton());
     }
 
     private void setupTimeline() {
@@ -96,6 +96,7 @@ public class GameSeqBuilderController extends GameSeqController {
     private void builderDisplay() {
         getRoot().getChildren().removeAll();
         for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
+            System.out.println(g.getImgPath());
             GameObjectView gameObjectView = new GameObjectView(g.getImgPath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
             gameObjectView.setX(gameObjectView.getX() * getWidth()/30);
             gameObjectView.setY(gameObjectView.getY() * getHeight()/20);

@@ -58,6 +58,7 @@ public class BuilderStage extends DraggableGridStage {
             if (object.isReadyForSnap() && !object.isSnapped()) {
                 snapItem(object);
                 object.setIsSnapped(true);
+                this.getChildren().removeAll(object.getActionIcons());
                 addActionItemsForObject(object);
             }
             else if (!object.isReadyForSnap() || !object.isSnapped() || !object.areActionIconsActive()) {

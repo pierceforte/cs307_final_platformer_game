@@ -12,6 +12,7 @@ import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -19,9 +20,10 @@ import static javafx.application.Platform.exit;
 
 public class GameSeqLevelController extends GameSeqController {
 
+
     private KeyInput keyInput;
 
-    public GameSeqLevelController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
+    public GameSeqLevelController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, BorderPane root, double height, double width) {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
         setUpRunnable();
         setupTimeline();

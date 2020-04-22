@@ -18,8 +18,8 @@ import java.util.ResourceBundle;
 
 public class BankView extends Pane {
 
-    public static final String PATH_TO_RIGHT_ARROW = "right_bank_icon.png";
-    public static final String PATH_TO_LEFT_ARROW = "left_bank_icon.png";
+    public static final String PATH_TO_RIGHT_ARROW = "images/builder/bank/right_bank_icon.png";
+    public static final String PATH_TO_LEFT_ARROW = "images/builder/bank/left_bank_icon.png";
     public static final double WIDTH = 200;
     public static final double HEIGHT = 260;
 
