@@ -20,7 +20,7 @@ public class BankController {
     public BankController(List<BankItem> bankItems, int moneyAvailable, BankView bankView) {
         bankModel = new BankModel(bankItems, moneyAvailable);
         this.bankView = bankView;
-        bankView.initialize(bankModel);  
+        bankView.initialize(bankModel);
         hasPurchasedItem = false;
     }
 
