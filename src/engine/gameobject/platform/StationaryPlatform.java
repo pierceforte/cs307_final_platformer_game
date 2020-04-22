@@ -1,7 +1,6 @@
 package engine.gameobject.platform;
 
 import engine.gameobject.GameObject;
-import engine.gameobject.player.Player;
 import engine.gameobject.player.SimplePlayer;
 
 import java.util.Arrays;
@@ -9,7 +8,7 @@ import java.util.List;
 
 public class StationaryPlatform extends GameObject implements Platform {
 
-    public static final String EX_IMG_PATH = "example_platform.png"; //TODO: make this more flexible
+    public static final String EX_IMG_PATH = "images/objects/example_platform.png"; //TODO: make this more flexible
     public static final Double NEW_ENTITY_Y_SPEED = 0d;
     public static final Double X_SPEED = 0d;
     public static final Double Y_SPEED = 0d;
@@ -30,6 +29,9 @@ public class StationaryPlatform extends GameObject implements Platform {
     @Override
     public void handleEntityInteraction(GameObject entity) {
         entity.setYSpeed(NEW_ENTITY_Y_SPEED);
+        if (entity.getX() <= getX() || entity.getX() >= getX()) {
+            entity.setXSpeed(0);
+        }
     }
 
     public void handlePlayerInteraction(SimplePlayer player) {

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Mongoose extends GameObject implements Enemy {
 
-    public static final String EX_IMG_PATH = "mongoose.png"; //TODO: make this more flexible
+    public static final String EX_IMG_PATH = "images/avatars/mongoose.png"; //TODO: make this more flexible
     public static final Double DEFAULT_X_SPEED = 10d;
     public static final double DEFAULT_Y_SPEED = 0d;
 

@@ -1,15 +1,8 @@
 .root{
-    -fx-background-image: url("lightbackground.png");;
+    -fx-background-image: url("images/backgrounds/darkbackground.png");;
     -fx-background-size: stretch;
     -fx-background-position: center, center;
     -fx-font-size: 12pt;
-}
-#LightButton{
-    -fx-background-image: url("lighticon.png");
-    -fx-pref-height: 128;
-    -fx-pref-width: 128;
-    -fx-background-size: stretch;
-    -fx-background-position: center, center;
 }
 #Welcome{
     -fx-font-fill: greenyellow;
@@ -40,6 +33,7 @@
     -fx-opacity: 0.9;
     -fx-font-weight: bold;
 }
+
 #LaunchButton{
     -fx-background-color: goldenrod;
     -fx-text-fill: black;
@@ -136,3 +130,28 @@
     -fx-font-size: 20pt;
     -fx-opacity: 1;
 }
+#ChooseSnake{
+    -fx-background-image: url("choosesnakes.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 256;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+    -fx-translate-x: 400;
+    -fx-translate-y: 300;
+}
+#ChooseSnail{
+    -fx-background-image: url("choosesnail.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 256;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+    -fx-translate-x: 800;
+    -fx-translate-y: 300;
+}#ViewText{
+     -fx-background-color: black;
+     -fx-text-fill: white;
+     -fx-font-size: 16;
+     -fx-pref-width: 750;
+     -fx-pref-height: 150;
+     -fx-opacity: .8;
+ }

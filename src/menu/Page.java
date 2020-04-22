@@ -1,6 +1,8 @@
 package menu;
 
 import data.ReadSaveException;
+import data.user.DuplicateUsernameException;
+import data.user.User;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -109,17 +111,9 @@ public abstract class Page {
                         gotoScene(item);
                     } catch (IOException e) {
                         e.printStackTrace();
-                    } catch (InstantiationException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
+                    } catch (DuplicateUsernameException e) {
                         e.printStackTrace();
                     } catch (ReadSaveException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
                 });
@@ -185,17 +179,23 @@ public abstract class Page {
      * @return    Scene
      */
 
-    public Scene getScene(String name) throws IOException, NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    public Scene getScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Scene myScene = null;
 
         if (name.equals("Continue")) {
-            LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory);
+            LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory, null);
         }
         if (name.equals("Debug")) {
             DebugEnvironment de = new DebugEnvironment(myStage, Pages.Debug);
         }
         if (name.equals("Level 1")) {
             LevelOne ll = new LevelOne(myStage, Pages.BluePrintStage);
+        }
+        if (name.equals("Customize Player")) {
+            CustomMenu cm = new CustomMenu(myStage, Pages.CustomizePlayerMenu, new User("test", "tester", "basicsnake.png", new String[]{"05", "21", "1999"}));
+        }
+        if (name.equals("New Game")) {
+            NewGamePage ng = new NewGamePage(myStage, Pages.FirstTimeCutScene);
         }
 
         return myScene;
@@ -207,7 +207,7 @@ public abstract class Page {
      * @return    Scene
      */
 
-    abstract Scene gotoScene(String name) throws IOException, NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException;
+    abstract Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException;
 
     void setFullScreen() {
         myStage.setFullScreen(true);

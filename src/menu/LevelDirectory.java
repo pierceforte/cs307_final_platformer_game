@@ -1,18 +1,19 @@
 package menu;
 
 import data.ReadSaveException;
+import data.user.DuplicateUsernameException;
+import data.user.User;
 import javafx.event.EventHandler;
-import javafx.geometry.Rectangle2D;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
+
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 public class LevelDirectory extends Page {
@@ -21,6 +22,7 @@ public class LevelDirectory extends Page {
     private PageBuilder myFactory;
     private boolean light;
 
+    private User user;
     private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
     private String STYLESHEET;
 
@@ -31,7 +33,7 @@ public class LevelDirectory extends Page {
      * @param levelDirectory
      * @return Page
      */
-    public LevelDirectory(Stage primaryStage, Pages levelDirectory) throws IOException {
+    public LevelDirectory(Stage primaryStage, Pages levelDirectory, User user) throws IOException {
         super(primaryStage, levelDirectory);
         myStage=primaryStage;
         myStage.setFullScreen(true);
@@ -39,6 +41,7 @@ public class LevelDirectory extends Page {
         myStage.setTitle(myResource.getString("MainTitle"));
         STYLESHEET = "menuresources/light.css";
         light = true;
+        this.user = user;
         myStage.setScene(this.buildSpecialScene((int) myFactory.getScreenHeight(),(int) myFactory.getScreenWidth()));
     }
 
@@ -51,6 +54,10 @@ public class LevelDirectory extends Page {
 
         MenuBox myBox = new MenuBox("Level 1", "Level 2", "Level 3", "Debug");
         myBox.setId("MenuBox");
+
+        Button customize = new Button(myResource.getString("Custom"));
+        customize.setId("LaunchButton");
+        customize.setOnMouseClicked(event -> goCustomize());
 
         Button lightbutton = new Button();
         lightbutton.setId("LightButton");
@@ -70,8 +77,12 @@ public class LevelDirectory extends Page {
             }
         });
 
-        myRoot.getChildren().addAll(t, myBox, lightbutton);
+        myRoot.getChildren().addAll(t, myBox, lightbutton, customize);
         return myRoot;
+    }
+
+    private void goCustomize() {
+        CustomMenu cm = new CustomMenu(myStage, Pages.CustomizePlayerMenu, user);
     }
 
     Scene buildSpecialScene(int height, int width) {
@@ -82,22 +93,7 @@ public class LevelDirectory extends Page {
     }
 
     @Override
-    Scene gotoScene(String name) throws IOException {
-        try {
-            return getScene(name);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (ReadSaveException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
+    Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
+        return getScene(name);
     }
 }

@@ -17,8 +17,8 @@ import java.util.ResourceBundle;
 
 public class BankView {
 
-    public static final String PATH_TO_RIGHT_ARROW = "right_bank_icon.png";
-    public static final String PATH_TO_LEFT_ARROW = "left_bank_icon.png";
+    public static final String PATH_TO_RIGHT_ARROW = "images/icons/right_bank_icon.png";
+    public static final String PATH_TO_LEFT_ARROW = "images/icons/left_bank_icon.png";
 
     private Rectangle background;
     private ImageView itemIconDisplay;
