@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class SaveUser {
 
-    private static final String fileLoc = "resources/messaround.json";
+    private static final String fileLoc = "resources/data/users.json";
     JSONObject users;
 
     /**
@@ -64,7 +64,7 @@ public class SaveUser {
      */
     private void write() throws ReadSaveException {
         try (FileWriter file = new FileWriter(fileLoc)) {
-            file.write(writePretty(users.toJSONString()));
+            file.write(writePretty(users.toString()));
             file.flush();
         } catch (IOException e) {
             throw new ReadSaveException("Save", fileLoc);

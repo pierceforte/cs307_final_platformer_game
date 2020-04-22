@@ -44,10 +44,6 @@ public class UserTest extends TestCase {
         testScore(3000, user, json);
         user.replaceScore(-3000);
         testScore(0, user, json);
-        user.changeInventoryLength(6);
-        testInventory(new String[]{"", "", "", "", "", ""}, 6, user, json);
-        user.replaceInventory(new ArrayList<>(Arrays.asList("")));
-        testInventory(new String[]{""}, 1, user, json);
         user.reset();
         json = user.getJSON();
         testUser(user, json, "test", "tester", 2000, "location.png", 7, 27,1998,
@@ -66,23 +62,7 @@ public class UserTest extends TestCase {
         testLevelScores(levels, user, json);
         assertEquals(0, user.getLevel(100));
         testLevels(expectedScores, user, json);
-        testInventory(expectedInv, invLength, user, json);
         testPaths(path, user,json);
-    }
-
-    @Test
-    public void testInventoryMethods() throws ReadSaveException, InvalidLoginException {
-        User user = new User("test", "tester");
-        JSONObject json = user.getJSON();
-        user.updateInventory("me");
-        testInventory(new String[]{"me","","","",""}, 5, user, json);
-        user.updateInventory("hi", 2);
-        testInventory(new String[]{"","","hi","",""}, 5, user, json);
-        user.updateInventory("hi", "removed", 2);
-        testInventory(new String[]{"","","removed","",""}, 5, user, json);
-        user.updateInventory("removed", "add");
-        testInventory(new String[]{"","","add","",""}, 5, user, json);
-        user.reset();
     }
 
     @Test
@@ -151,23 +131,6 @@ public class UserTest extends TestCase {
         assertEquals(expected, user.getLevel(level));
         JSONObject jsonLevel = (JSONObject) json.get("levels");
         intLong(expected, jsonLevel.get(Integer.toString(level)), "Level " + level);
-    }
-
-    private void testInventory(String[] expected, int length, User user, JSONObject json) {
-        List<String> inventory = user.getInventory();
-        JSONArray jsonInv = (JSONArray) json.get("inventory");
-        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
-            inventory.add("a");
-        });
-        for (int index = 0; index < length; index++) {
-            String expectedS = expected[index];
-            String invent = inventory.get(index);
-            String jsonS = (String) jsonInv.get(index);
-            assertEquals(expectedS, invent);
-            assertEquals(expectedS, jsonS);
-        }
-        assertEquals(length, inventory.size());
-        assertEquals(length, jsonInv.size());
     }
 
     private void testPaths(List<Double> expected, User user, JSONObject json) {
