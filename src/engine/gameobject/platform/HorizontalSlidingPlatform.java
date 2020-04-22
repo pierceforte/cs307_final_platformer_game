@@ -25,7 +25,7 @@ public class HorizontalSlidingPlatform extends MovingPlatform implements Platfor
 
     @Override
     public List<Object> getParameters() {
-        return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed(), minX, maxX, getXDirection());
+        return Arrays.asList(getImgPath(), getWidth(), getHeight(), getX(), getY(), getXSpeed(), minX, maxX);
     }
 
     public HorizontalSlidingPlatform(HorizontalSlidingPlatform copy) {

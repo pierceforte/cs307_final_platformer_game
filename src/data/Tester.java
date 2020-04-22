@@ -1,22 +1,42 @@
 package data;
 
-import builder.bank.BankItem;
 import data.levels.LevelData;
 import data.user.InvalidLoginException;
 import engine.gameobject.GameObject;
-import engine.gameobject.opponent.Mongoose;
-import engine.gameobject.opponent.TesterDifferentTypes;
+import engine.gameobject.platform.Goal;
+import engine.gameobject.platform.StationaryHazardPlatform;
+import engine.gameobject.platform.StationaryPlatform;
+import engine.gameobject.player.SimplePlayer;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tester {
     public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Long meep = 9l;
         LevelData save = new LevelData();
-        save.saveLevel(Arrays.asList(new Mongoose("location1.png",1d, 1d, 1d, 1d, 1d),
-                new Mongoose("location1.png",1d, 1d, 1d, 1d, 1d)), 9 );
+        List<GameObject> game = new ArrayList<>();
+        for (Double count  = 0.0; count <= 32.0; count = count + 1.0) {
+            game.add(new StationaryHazardPlatform("resources/images/objects/watertile.png", 10.0, 10.0, count, 12.0));
+        }
+        game.add(new SimplePlayer("resources/images/avatars/basicsnake.png", 10d, 10d, 9.0, 11.0, 1.0, 1.0));
+        game.add(new Goal("resources/images/avatar.png", 10.0, 10.0, 11.0, 9.0));
+        for (Double count = 10.0; count < 16; count = count + 1.0) {
+            game.add(new StationaryPlatform("resources/images/objects/grasstile.png", 10.0, 10.0, count, 10.0));
+        }
+        for (Double count = 22.0; count < 25; count = count + 1.0) {
+          game.add(new StationaryPlatform("resources/images/objects/grasstile.png", 10.0, 10.0, count, 13.0));
+        }
+        for (Double count = 24.0; count < 27.0; count = count + 1.0) {
+          game.add(new StationaryPlatform("resources/images/objects/grasstile.png", 10.0, 10.0, count, 14.0));
+        }
+        for (Double count = 10.0; count < 16; count = count + 1.0) {
+          game.add(new StationaryPlatform("resources/images/objects/innerblock.png", 10.0, 10.0, count, 11.0));
+        }
+        save.saveLevel(game, 1);
+
+        List<GameObject> games = save.getSavedLevel(0);
 //        List<Class> me = new ArrayList<>();
 //        List<Object> obj = new ArrayList<>();
 //        System.out.println(me.getClass().toString());

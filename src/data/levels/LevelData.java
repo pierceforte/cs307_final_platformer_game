@@ -145,7 +145,12 @@ public class LevelData {
                 params[index] = parse(thisClass, (String) param.get(1));
             }
         }
-        return (GameObject) objClass.getDeclaredConstructor(classes).newInstance(params);
+        try {
+            return (GameObject) objClass.getDeclaredConstructor(classes).newInstance(params);
+        }catch (NoSuchMethodException e) {
+            throw new NoSuchMethodException();
+        }
+
     }
 
     private static <T> T parse(Class<T> type, String value) {

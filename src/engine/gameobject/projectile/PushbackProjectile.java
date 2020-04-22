@@ -16,14 +16,12 @@ public class PushbackProjectile extends MovingGameObject implements Projectile {
      * @param yPos y position of the projectile
      * @param xSpeed x speed of the projectile
      */
-    public PushbackProjectile(String imgPath, Double width, Double height, Double xPos, Double yPos,
-                              Double xSpeed, Double ySpeed) {
+    public PushbackProjectile(String imgPath, Double width, Double height, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
         super(imgPath, width, height, xPos, yPos, xSpeed, ySpeed);
     }
 
     public PushbackProjectile(PushbackProjectile copy) {
-        this(copy.getImgPath(), copy.getWidth(), copy.getHeight(), copy.getX(), copy.getY(), copy.getXSpeed(),
-                copy.getYSpeed());
+        this(copy.getImgPath(), copy.getWidth(), copy.getHeight(), copy.getX(), copy.getY(), copy.getXSpeed(), copy.getYSpeed());
     }
 
     @Override

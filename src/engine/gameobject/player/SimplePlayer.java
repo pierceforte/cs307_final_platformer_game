@@ -19,8 +19,7 @@ public class SimplePlayer extends MovingGameObject implements Player{
     private boolean hasWon = false;
     private boolean hasLost = false;
 
-    public SimplePlayer(String imgPath, Double width, Double height,
-                        Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
+    public SimplePlayer(String imgPath, Double width, Double height, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
         super(imgPath, width, height, xPos, yPos, xSpeed, ySpeed);
         assignInputs();
     }
@@ -36,11 +35,6 @@ public class SimplePlayer extends MovingGameObject implements Player{
 
     public void setLoser() {
         hasLost = true;
-    }
-
-    @Override
-    public List<Object> getParameters() {
-        return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed(), getYSpeed());
     }
 
     @Override
