@@ -1,6 +1,7 @@
 package data.levels;
 
 import builder.bank.BankItem;
+import data.PrettyPrint;
 import data.ReadSaveException;
 import engine.gameobject.GameObject;
 import org.json.simple.JSONArray;
@@ -162,7 +163,8 @@ public class LevelData {
      */
     private void write(String fileLoc) throws ReadSaveException {
         try (FileWriter file = new FileWriter(fileLoc)) {
-            file.write(writePretty(levels.toString()));
+            PrettyPrint pretty = new PrettyPrint(levels.toString());
+            file.write(pretty.getString());
             file.flush();
         } catch (IOException e) {
             throw new ReadSaveException("save", fileLoc);
@@ -175,43 +177,4 @@ public class LevelData {
         }
         return false;
     }
-
-    private String writePretty(String jsonString) {
-        String pretty = "";
-        String newline = "\n";
-        String basicBuffer = "  ";
-        String buffer = "";
-        for (int index = 0; index < jsonString.length(); index++) {
-            String letter = Character.toString(jsonString.charAt(index));
-            pretty = pretty + letter;
-            if (letter.equals("{")) {
-                buffer = buffer + basicBuffer;
-                pretty = pretty + newline + buffer;
-
-            }
-            if (letter.equals("[")) {
-                if ((jsonString.substring(index + 1, index + 2)).equals("[")) {
-                    buffer = buffer + basicBuffer;
-                    pretty = pretty + newline + buffer;
-                }
-            }
-            if ((letter.equals("]") || letter.equals("}")) & (index + 1 < jsonString.length())){
-                if (!jsonString.substring(index + 1, index + 2).equals(",")){
-                    if (buffer.length() >= 2) buffer = buffer.substring(2);
-                    pretty = pretty + newline + buffer;
-                }
-            }
-
-            if (letter.equals(",")) {
-                if (jsonString.substring(index - 1, index).equals("]") || jsonString.substring(index - 1, index).equals("}")){
-                    pretty = pretty + newline + buffer;
-                }
-            }
-        }
-        return pretty;
-    }
-
-
-
-
 }
