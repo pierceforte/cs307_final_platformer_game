@@ -63,18 +63,16 @@ public abstract class GameSeqController {
 
     public void display() {
         int currentLevel = 0;
-        myPane.getChildren().removeAll();
+        myPane.getChildren().clear();
         for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
             GameObjectView gameObjectView = new GameObjectView(g.getImgPath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
-            gameObjectView.setX(gameObjectView.getX() * width/30);
-            gameObjectView.setY(gameObjectView.getY() * height/20);
-            gameObjectView.setFitWidth(width/30);
-            gameObjectView.setFitHeight(height/20);
+            gameObjectView.convertAttributesToGridBased(width/30, height/20);
             myPane.getChildren().add(gameObjectView);
         }
         simplePlayerView = new GameObjectView(simplePlayer.get(currentLevel).getImgPath(), simplePlayer.get(currentLevel).getX(),
                 simplePlayer.get(currentLevel).getY(), simplePlayer.get(currentLevel).getWidth(),
                 simplePlayer.get(currentLevel).getHeight(), 20);
+        simplePlayerView.convertAttributesToGridBased(width/30, height/20);
         myPane.getChildren().add(simplePlayerView);
         myPane.setVisible(true);
         // TODO: display score board
@@ -128,5 +126,10 @@ public abstract class GameSeqController {
     }
     public Timeline getTimeline() {
         return timeline;
+    }
+
+    //TODO: eliminate duplicate code here
+    private Image makeImage(String imgPath) {
+        return new Image(this.getClass().getClassLoader().getResource(imgPath).toExternalForm());
     }
 }

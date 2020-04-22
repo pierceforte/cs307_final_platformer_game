@@ -24,6 +24,12 @@ public interface Player {
     void assignInputs();
 
     /**
+     * Handle a single key input
+     * @param keyInput Key input
+     */
+    void handleInput(KeyCode keyInput);
+
+    /**
      * Handle key inputs
      * @param keyInputs List of inputs currently pressed
      */
