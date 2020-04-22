@@ -65,6 +65,10 @@ public abstract class GameObject {
         return xPos;
     }
 
+    public Integer getXDirection() {
+        return 1;
+    }
+
     /**
      * Get y position of the object
      * @return y position of the object

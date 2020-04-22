@@ -94,6 +94,7 @@ public abstract class MovingGameObject extends GameObject{
      * Get the x direction
      * @return x direction
      */
+    @Override
     public Integer getXDirection() {
         return xDir;
     }
