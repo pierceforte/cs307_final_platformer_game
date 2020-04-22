@@ -15,7 +15,11 @@ import java.util.*;
  */
 public class User {
 
+<<<<<<< HEAD
     private static final String filePath = "resources/messaround.json";
+=======
+    private static final String filePath = "resources/data/messaround.json";
+>>>>>>> master
     private static final int InventorySize = 5;
 
     private boolean warned = false;

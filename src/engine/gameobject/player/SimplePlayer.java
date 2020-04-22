@@ -63,17 +63,21 @@ public class SimplePlayer extends MovingGameObject implements Player{
     public void assignInputs() {
         inputMap = new HashMap<>()
         {{
-            put(KeyCode.LEFT, () -> move(LEFT));
-            put(KeyCode.RIGHT, () -> move(RIGHT));
-            put(KeyCode.SPACE, () -> jump());
+            put(KeyCode.A, () -> move(LEFT));
+            put(KeyCode.D, () -> move(RIGHT));
+            put(KeyCode.W, () -> jump());
         }};
     }
 
-    public void handleInputs(List<KeyCode> codes) {
-        for (KeyCode code : codes) {
-            if (inputMap.containsKey(code)) {
-                inputMap.get(code).run();
-            }
+    public void handleInput(KeyCode code) {
+        if (inputMap.containsKey(code)) {
+            inputMap.get(code).run();
+        }
+    }
+
+    public void handleInputs(List<KeyCode> keyInputs) {
+        for (KeyCode code : keyInputs) {
+            handleInput(code);
         }
     }
 

@@ -48,7 +48,6 @@ public class HorizontalSlidingPlatform extends MovingPlatform implements Platfor
         mover.reverseXDirection();
         mover.reverseYDirection();
         //TODO: needs to handle interaction with
-
     }
 
     @Override

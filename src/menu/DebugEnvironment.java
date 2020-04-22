@@ -1,5 +1,7 @@
 package menu;
 
+import data.ReadSaveException;
+import data.user.DuplicateUsernameException;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -10,6 +12,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 public class DebugEnvironment extends Page {
@@ -19,7 +22,7 @@ public class DebugEnvironment extends Page {
     private PageBuilder myFactory;
 
 
-    private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
+    private ResourceBundle myResource = ResourceBundle.getBundle("resources.test.MenuButtons");
     private String STYLESHEET;
     private boolean light;
 
@@ -78,7 +81,20 @@ public class DebugEnvironment extends Page {
     }
 
     @Override
-    Scene gotoScene(String name) throws IOException {
-        return getScene(name);
+    Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
+        try {
+            return getScene(name);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

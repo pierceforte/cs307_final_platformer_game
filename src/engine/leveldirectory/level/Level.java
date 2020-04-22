@@ -15,31 +15,14 @@ public class Level implements LevelInterface {
 
     // holds all the objects in the level
     private List<GameObject> gameObjects; // needs to be updated to the type of the parent object
-    private List<GameObject> interactableObjects;
-    /*
-    fields that might be added in the future
 
-    private Background background;
-
-    *** DOES NOT INCLUDE PLAYER'S CHARACTER ---> THIS CLASS ONLY LOADS THE DEFAULT LEVEL OBJECTS***
-     */
-
-
-    /**
-     * Constructor for the basic level
-     */
-    public Level() {
-        gameObjects = new ArrayList<>();
-        interactableObjects = new ArrayList<>();
+    public Level(List<GameObject> objects) {
+        gameObjects = objects;
     }
 
     @Override
     public List<GameObject> getAllGameObjects() {
         return gameObjects;
-    }
-
-    public List<GameObject> getInteractableObjects() {
-        return interactableObjects;
     }
 
     /**
@@ -51,17 +34,11 @@ public class Level implements LevelInterface {
         gameObjects.add(o);
     }
 
-    public void addObject(List<GameObject> listOfObjects) {
+    public void addGameObject(List<GameObject> listOfObjects) {
         gameObjects.addAll(listOfObjects);
     }
 
-    public void addInteractableObject(GameObject o) {
-        interactableObjects.add(o);
-    }
-
-    public void addInteractableObject(List<GameObject> listofInteractableObjects) {
-        interactableObjects.addAll(listofInteractableObjects);
-    }
+    public void setGameObjects(List<GameObject> gameObjects) { this.gameObjects = gameObjects; }
 
     /**
      * corresponding remove methods
@@ -73,13 +50,4 @@ public class Level implements LevelInterface {
     public boolean removeObject(List<GameObject> o) {
         return gameObjects.removeAll(o);
     }
-
-    public boolean removeInteractableObject(GameObject o) {
-        return interactableObjects.remove(o);
-    }
-
-    public boolean removeInteractableObject(List<GameObject> o) {
-        return interactableObjects.removeAll(o);
-    }
-
 }

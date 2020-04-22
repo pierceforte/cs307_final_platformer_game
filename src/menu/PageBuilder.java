@@ -1,5 +1,6 @@
 package menu;
 
+import data.user.User;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -21,8 +22,8 @@ import static javafx.geometry.Pos.CENTER;
  * Builds items for any Page to add.
  */
 public class PageBuilder {
-    private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
-    private static final String STYLESHEET = "menuresources/main.css";
+    private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
+    private static final String STYLESHEET = "main.css";
     private Stage myStage;
 
     public PageBuilder(Stage primaryStage) {
@@ -43,49 +44,21 @@ public class PageBuilder {
         return t;
     }
 
-    public Button buildNewGameButton() {
-        Button save = new Button(myResource.getString("NewGame"));
-        save.setId("LaunchButton");
-        save.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                    Dialog<String[]> dialog = new Dialog<>();
-                    dialog.setTitle(myResource.getString("NGTitle"));
-                    dialog.setHeaderText(myResource.getString("NGPrompt"));
+    public double getScreenWidth() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        return primaryScreenBounds.getWidth();
+    }
 
-                    ButtonType save = new ButtonType(myResource.getString("Login"), ButtonBar.ButtonData.OK_DONE);
-                    dialog.getDialogPane().getButtonTypes().addAll(save, ButtonType.CANCEL);
+    public double getScreenHeight() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        return primaryScreenBounds.getHeight();
+    }
 
-                    TextField title = new TextField(myResource.getString("NGUsername"));
-                    title.setPromptText(myResource.getString("NGUsername"));
-
-                    TextField saveloc = new TextField(myResource.getString("NGPassword"));
-                    saveloc.setPromptText(myResource.getString("NGPassword"));
-
-                    VBox texts = new VBox(title, saveloc);
-                    dialog.getDialogPane().setContent(texts);
-
-                    dialog.setResultConverter(dialogButton-> {
-                        if (dialogButton == save) {
-                            return new String[]{ saveloc.getText(), title.getText()};
-                        }
-                        return null;
-                    });
-
-                    Optional<String[]> result = dialog.showAndWait();
-                    if (result.isPresent()) {
-                        String[] g = result.get();
-                        try {
-                            //User player = new User(title.getText(), saveloc.getText());
-                        } catch (Exception e) {
-                            Alert alert = new Alert(Alert.AlertType.WARNING);
-                            alert.setTitle(myResource.getString("InvalidFile"));
-                            alert.setHeaderText(myResource.getString("InvalidFile"));
-                            alert.setContentText(myResource.getString("Try"));
-                            //throw a "file already exists" exception
-                        }
-                    }}});
-        return save;
+    public double getTileWsize() {
+        return getScreenWidth()/30;
+    }
+    public double getTileHsize() {
+        return getScreenHeight()/25;
     }
 
     public void addMainMenuButtons(Page.MenuBox myBox) {
@@ -123,29 +96,19 @@ public class PageBuilder {
                 if (result.isPresent()) {
                     String[] g = result.get();
                     try {
-                        //check with user
-
-                        LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory);
-
-                        //myStage.setScene()
-
+                        User user = new User(title.getText(), saveloc.getText());
+                        LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory, null);
                     } catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle(myResource.getString("InvalidFile"));
                         alert.setHeaderText(myResource.getString("InvalidFile"));
                         alert.setContentText(myResource.getString("Try"));
-                        //throw a "file already exists" exception
                     }
                 }
 
             }});
         Button exit = new Button(myResource.getString("Exit"));
-        exit.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.exit(0);
-            }
-        });
+        exit.setOnMouseClicked(event -> System.exit(0));
         myBox.addButtons(play, exit);
 
     }

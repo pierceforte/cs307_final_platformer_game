@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
  */
 public abstract class GameEvent {
     private List<GameObject> gameObjects;
-    private ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/");
+    private ResourceBundle resourceBundle = ResourceBundle.getBundle("resources/images/");
 
     public GameEvent() {
         gameObjects = new ArrayList<>();

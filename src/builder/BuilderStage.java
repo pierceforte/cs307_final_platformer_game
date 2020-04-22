@@ -13,21 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BuilderStage extends GridStage {
+public class BuilderStage extends DraggableGridStage {
 
     private BankController bankController;
     private List<BuilderObjectView> myObjects;
     private List<GameObject> gameObjects;
     private boolean isDone;
     private ResourceBundle resources;
+    private Button playButton;
 
     public BuilderStage(BankController bankController, double width, double height) {
         super(width, height);
         this.bankController = bankController;
+        //this.getChildren().add(bankController.getBankView());
         resources = ResourceBundle.getBundle("builder.builderResources");
         myObjects = new ArrayList<>();
-        Button playButton = createPlayButton();
-        this.getChildren().add(playButton);
+        playButton = createPlayButton();
     }
 
     @Override
@@ -36,6 +37,8 @@ public class BuilderStage extends GridStage {
         handlePurchasedItem();
         snapItems();
         addItemsBackToBank();
+        attemptToMakeGridDraggable();
+        snap(0,0);
     }
 
     public boolean isDone() {
@@ -44,6 +47,10 @@ public class BuilderStage extends GridStage {
 
     public List<GameObject> getGameObjects() {
         return gameObjects;
+    }
+
+    public Button getPlayButton() {
+        return playButton;
     }
 
     private void snapItems() {
@@ -75,6 +82,21 @@ public class BuilderStage extends GridStage {
         this.getChildren().addAll(leftIcon, rightIcon);
     }
 
+    private void attemptToMakeGridDraggable() {
+        boolean canMakeGridDraggable = true;
+        for (BuilderObjectView object : myObjects) {
+            if (object.areActionIconsActive() || object.isDraggable()) {
+                canMakeGridDraggable = false;
+                break;
+            }
+        }
+        if (canMakeGridDraggable) {
+            enableDrag();
+        } else {
+            disableDrag();
+        }
+    }
+
     private void addItemsBackToBank() {
         List<BuilderObjectView> objectsToRemove = new ArrayList<>();
         for (BuilderObjectView object : myObjects) {
@@ -103,8 +125,6 @@ public class BuilderStage extends GridStage {
     private Button createPlayButton() {
         Button playButton = new Button(resources.getString("Play"));
         playButton.setId("playButton");
-        playButton.setTranslateX(getTileWidth()*25);
-        playButton.setTranslateY(getTileHeight()*20);
         playButton.setOnAction(event -> leaveBuilderStage());
         return playButton;
     }

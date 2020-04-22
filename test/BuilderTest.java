@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class BuilderTest extends DukeApplicationTest {
 
-    private Pane root;
+    private BorderPane root;
     private BankController bankController;
     private BankModel bankModel;
     private BuilderStage builderStage;
@@ -26,10 +27,10 @@ public class BuilderTest extends DukeApplicationTest {
 
     @Override
     public void start(Stage stage) {
-        Raccoon raccoon = new Raccoon("raccoon.png", 1d, 1d, 10d);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png", 1d, 1d, 10d);
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
-        root = new Pane();
-        BankView bankView = new BankView(20, 20, 200, 200, root);
+        root = new BorderPane();
+        BankView bankView = new BankView();
         bankController = new BankController(List.of(one), 10000, bankView);
         bankModel = bankController.getBankModel();
         builderStage = new BuilderStage(bankController, 1000, 1000);

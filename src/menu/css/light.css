@@ -1,8 +1,15 @@
 .root{
-    -fx-background-image: url("darkbackground.png");;
+    -fx-background-image: url("../../../../resources/images/backgrounds/lightbackground.png");;
     -fx-background-size: stretch;
     -fx-background-position: center, center;
     -fx-font-size: 12pt;
+}
+#LightButton{
+    -fx-background-image: url("../../../../resources/images/objects/lighticon.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
 }
 #Welcome{
     -fx-font-fill: greenyellow;
@@ -33,7 +40,6 @@
     -fx-opacity: 0.9;
     -fx-font-weight: bold;
 }
-
 #LaunchButton{
     -fx-background-color: goldenrod;
     -fx-text-fill: black;

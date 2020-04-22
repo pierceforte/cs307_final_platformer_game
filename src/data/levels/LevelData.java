@@ -17,8 +17,13 @@ public class LevelData {
     JSONObject levels;
     JSONObject bank;
 
+<<<<<<< HEAD
     private static final String levelLoc = "resources/levels.json";
     private static final String bankLoc = "resources/bank.json";
+=======
+    private static final String levelLoc = "resources/data/levels.json";
+    private static final String bankLoc = "resources/data/bank.json";
+>>>>>>> master
 
     public LevelData() throws ReadSaveException {
         levels = jsonMaker(levelLoc);
@@ -95,6 +100,14 @@ public class LevelData {
         return objClass.split("class ")[1];
     }
 
+    public Integer getNumLevels() {
+        Integer count = 0;
+        for (Object objKey : levels.keySet()) {
+            if (!objKey.equals("temp")) count ++;
+        }
+        return count;
+    }
+
     public List<GameObject> getTempSave() throws ReadSaveException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         return loadHelper("temp");
     }
@@ -106,7 +119,7 @@ public class LevelData {
     private List<GameObject> loadHelper(String target) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         List<GameObject> levelObjects = new ArrayList<>();
         if (!levels.containsKey(target)) throw new ReadSaveException("read", levelLoc);
-        JSONObject temp = (JSONObject) levels.get("temp");
+        JSONObject temp = (JSONObject) levels.get("1");
         for (Object key : temp.keySet()) {
             String className = (String) key;
             Class objClass = Class.forName(className);
@@ -133,8 +146,6 @@ public class LevelData {
                 params[index] = Double.valueOf((Long) param.get(1));
             }
             else {
-                System.out.println(param.get(1));
-                System.out.println(param.get(1).getClass().toString());
                 params[index] = parse(thisClass, (String) param.get(1));
             }
         }

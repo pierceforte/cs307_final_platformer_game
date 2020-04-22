@@ -6,7 +6,6 @@ import engine.general.Game;
 public abstract class GameObject {
 
     private Game game;
-
     private Double xPos;
     private Double yPos;
     private Double width;
@@ -81,8 +80,7 @@ public abstract class GameObject {
     public Double getHeight() {
         return height;
     }
-
-
+    
     public Game getGame() {
         return game;
     }

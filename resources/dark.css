@@ -1,0 +1,164 @@
+.root{
+    -fx-background-image: url("images/backgrounds/darkbackground.png");;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+    -fx-font-size: 12pt;
+}
+#Welcome{
+    -fx-font-fill: greenyellow;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 32pt;
+    -fx-translate-x: 300;
+    -fx-translate-y: 200;
+}
+#MainTitle {
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 60pt;
+    -fx-translate-y: 250;
+    -fx-translate-x: 125;
+    -fx-text-fill: white;
+}
+#choiceBox{
+    -fx-translate-x: 700;
+    -fx-translate-y: 650;
+}
+.button{
+    -fx-pref-height: 60;
+    -fx-pref-width: 200;
+    -fx-font-size: 12;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-color: blueviolet;
+    -fx-text-fill:greenyellow;
+    -fx-opacity: 0.9;
+    -fx-font-weight: bold;
+}
+
+#LaunchButton{
+    -fx-background-color: goldenrod;
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-translate-x: 650;
+    -fx-translate-y: 800;
+}
+#selected{
+    -fx-pref-height: 60;
+    -fx-pref-width: 200;
+    -fx-font-size: 12;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-color: rosybrown;
+    -fx-opacity: 0.8;
+    -fx-font-weight: bold;
+}
+#ViewTextTitle{
+    -fx-text-fill: white;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 14pt;
+    -fx-translate-x: 400;
+    -fx-translate-y: 650;
+}
+#BackgroundPane{
+    -fx-fill: gainsboro;
+    -fx-stroke: mediumblue;
+    -fx-translate-y: 625;
+    -fx-translate-x: 350;
+    -fx-pref-width: 500;
+    -fx-pref-height: 150;
+    -fx-opacity: 0.2;
+}
+#bankBackground{
+    -fx-fill: maroon;
+    -fx-stroke: black;
+    -fx-translate-x: 0;
+    -fx-translate-y: 0;
+}
+#leftPane{
+    -fx-background-color: black;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
+#purchaseButton{
+    -fx-background-color: goldenrod;
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-translate-x: 25;
+    -fx-translate-y: 190;
+    -fx-pref-height: 30;
+    -fx-pref-width: 150;
+}
+#itemCost{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15pt;
+    -fx-translate-x: 60;
+    -fx-translate-y: 180;
+}
+#moneyAvail{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 12pt;
+    -fx-translate-x: 20;
+    -fx-translate-y: 30;
+    -fx-text-alignment: center;
+}
+#itemIcon{
+    -fx-translate-x: 60;
+    -fx-translate-y: 60;
+
+}
+#prevButton{
+    -fx-translate-x: 75;
+    -fx-translate-y: 235;
+}
+#nextButton{
+    -fx-translate-x: 120;
+    -fx-translate-y: 235;
+}
+#invalidPurchase{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 12pt;
+    -fx-translate-x: 20;
+    -fx-translate-y: 30;
+    -fx-text-fill: goldenrod;
+    -fx-text-alignment: center;
+}
+#noItemsLeft{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15pt;
+    -fx-translate-x: 40;
+    -fx-translate-y: 120;
+    -fx-text-alignment: center;
+}
+#playButton{
+    -fx-background-color: maroon;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-pref-height: 60;
+    -fx-pref-width: 140;
+    -fx-font-size: 20pt;
+    -fx-opacity: 1;
+}
+#ChooseSnake{
+    -fx-background-image: url("choosesnakes.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 256;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+    -fx-translate-x: 400;
+    -fx-translate-y: 300;
+}
+#ChooseSnail{
+    -fx-background-image: url("choosesnail.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 256;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+    -fx-translate-x: 800;
+    -fx-translate-y: 300;
+}#ViewText{
+     -fx-background-color: black;
+     -fx-text-fill: white;
+     -fx-font-size: 16;
+     -fx-pref-width: 750;
+     -fx-pref-height: 150;
+     -fx-opacity: .8;
+ }

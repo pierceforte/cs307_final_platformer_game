@@ -2,9 +2,11 @@ package builder;
 
 import engine.gameobject.Coordinates;
 import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -43,7 +45,6 @@ public abstract class GridStage extends Pane {
             }
         }
         canvas.setOpacity(.6);
-
     }
 
     public double getTileWidth() {
@@ -60,13 +61,15 @@ public abstract class GridStage extends Pane {
         double clickX = mouseEvent.getX();
         double clickY = mouseEvent.getY();
         try {
-            convertToGridCoords(clickX, clickY);
-            System.out.print("click");
+            Coordinates coords = convertToGridCoords(clickX, clickY);
+            System.out.println("click:" + coords.getX() + ", " + coords.getY());
         } catch (NonInvertibleTransformException e){
             e.printStackTrace();
             return;
         }
     }
+
+    static class Delta { double x, y; }
 
     protected Coordinates convertToGridCoords(double clickX, double clickY) throws NonInvertibleTransformException{
         Point2D myClick = myGrid.inverseTransform(clickX,clickY);
@@ -81,13 +84,19 @@ public abstract class GridStage extends Pane {
         double y = object.getY();
         try {
             Coordinates coords = convertToGridCoords(object.getX(), object.getY());
-            x = coords.getX() * getTileWidth();
-            y = coords.getY() * getTileHeight();
-
+            x = getSnappedPos(coords.getX(), getTileWidth());
+            y = getSnappedPos(coords.getY(), getTileHeight());
         } catch (NonInvertibleTransformException e) {
             e.printStackTrace();
         }
         object.setX(x);
         object.setY(y);
+    }
+
+    private double getSnappedPos(double pos, double tileSize) {
+        if (pos < 0) {
+            return 0;
+        }
+        return pos * tileSize;
     }
 }

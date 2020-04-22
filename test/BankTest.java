@@ -6,6 +6,7 @@ import engine.gameobject.opponent.Raccoon;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
@@ -16,19 +17,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BankTest extends DukeApplicationTest {
 
-    private Pane root;
+    private BorderPane root;
     private BankController bankController;
     private BankModel bankModel;
     private BankView bankView;
 
     @Override
     public void start(Stage stage) {
-        Raccoon raccoon = new Raccoon("raccoon.png", 1d, 1d, 10d);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png", 1d, 1d, 10d);
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
         BankItem two = new BankItem(new Raccoon(raccoon), 30, 30, 20);
         BankItem three = new BankItem(new Raccoon(raccoon), 30, 30, 40000);
-        root = new Pane();
-        bankView = new BankView(20, 20, 200, 200, root);
+        root = new BorderPane();
+        bankView = new BankView();
         bankController = new BankController(List.of(one, two, three), 10000, bankView);
         bankModel = bankController.getBankModel();
         javafxRun(() -> {
@@ -120,7 +121,7 @@ public class BankTest extends DukeApplicationTest {
     public void testEmptyBankCreation() {
         bankController.update();
         // create a bank of items that are all affordable
-        Raccoon raccoon = new Raccoon("raccoon.png", 1d, 1d, 10d);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png", 1d, 1d, 10d);
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
         bankController = new BankController(List.of(one), 10000, bankView);
         // purchase all items

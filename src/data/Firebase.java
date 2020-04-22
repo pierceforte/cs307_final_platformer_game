@@ -16,12 +16,16 @@ public class Firebase {
     Firestore db;
 
     public Firebase() throws IOException {
+        /*
         // Use a service account
         InputStream serviceAccount = new FileInputStream("src/data/ServiceAccountKey.json");
-        GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+        GoogleCredentials credentials = fromStream(serviceAccount);
+        /*
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(credentials)
                 .build();
+         */
+        /*
         // TODO: fix this
         try {
             FirebaseApp.initializeApp(options);
@@ -30,6 +34,7 @@ public class Firebase {
             // don't try to re-initialize
         }
         db = FirestoreClient.getFirestore();
+        */
     }
 
     public Firestore getDatabase() {

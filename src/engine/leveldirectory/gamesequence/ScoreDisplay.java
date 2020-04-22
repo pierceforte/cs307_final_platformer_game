@@ -7,10 +7,13 @@ import engine.leveldirectory.level.LevelContainer;
  * contains the information to be displayed
  */
 public class ScoreDisplay {
+    String filePath;
     private Game game;
-    private LevelContainer levelContainer;
-    private int score;
-    private int lives;
+    private double score;
+    private double lives;
+
+    private double xPos;
+    private double yPos;
 
     /**
      * Default Constructor
@@ -18,25 +21,29 @@ public class ScoreDisplay {
     public ScoreDisplay(Game game) {
         this.game = game;
         score = 0;
-        //TODO: properly implement code below
-        /*
-        levelContainer = new LevelContainer(game);
-         */
+        lives = 5;
+        xPos = 0;
+        yPos = 0;
+
+        // TODO: add file path for scoreboard
+        filePath = "";
     }
 
-    public void updateScore(int points) { score += points; }
+    public void updateScore(int points) {
+        score += points;
+    }
 
-    public int getLives() {
+    public Game getGame() { return game; }
+    public double getLives() {
         return lives;
     }
     public void setLives(int lives) {
         this.lives = lives;
     }
-
-    public LevelContainer getLevelContainer() {
-        return levelContainer;
-    }
-    public void setLevelContainer(LevelContainer lc) {
-        this.levelContainer = lc;
+    public double getScore() { return score; }
+    public void loseLife() { lives--; }
+    public void setScore(double score) { this.score = score; }
+    public String getFilePath() {
+        return filePath;
     }
 }
