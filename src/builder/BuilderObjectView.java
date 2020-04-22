@@ -21,9 +21,9 @@ import java.util.List;
  */
 public class BuilderObjectView extends GameObjectView {
 
-    public static final String PATH_TO_CHECK_IMG = "images/icons/check_icon.png";
-    public static final String PATH_TO_MOVE_IMG = "images/icons/move_icon.png";
-    public static final String PATH_TO_SELL_IMG = "images/icons/dollar_icon.png";
+    public static final String PATH_TO_CHECK_IMG = "images/builder/check_icon.png";
+    public static final String PATH_TO_MOVE_IMG = "images/builder/move_icon.png";
+    public static final String PATH_TO_SELL_IMG = "images/builder/dollar_icon.png";
     public static final double ACTION_ICON_SIZE = 15;
     public static final int LEFT = -1;
     public static final int RIGHT = 1;
@@ -136,14 +136,12 @@ public class BuilderObjectView extends GameObjectView {
                 askUserToPlaceMe();
                 areActionIconsActive = true;
                 isReadyForSnap = true;
-                System.out.println("Release");
             }
             @Override
             public void handleDraggableMouseDrag(MouseEvent mouseEvent, Node node) {
                 super.handleDraggableMouseDrag(mouseEvent, node);
                 isReadyForSnap = false;
                 isSnapped = false;
-                System.out.println("Drag");
             }
             @Override
             public void handleStationaryMousePress(MouseEvent mouseEvent, Node node) {

@@ -8,6 +8,7 @@ import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import engine.leveldirectory.level.Level;
 import engine.leveldirectory.level.LevelContainer;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -23,7 +24,7 @@ import java.util.List;
 public class Game {
     // fields for the UI
     private Stage stage;
-    private Pane root;
+    private BorderPane root;
     private Scene scene;
 
     private LevelContainer levelContainer;
@@ -36,7 +37,7 @@ public class Game {
     private double width;
 
     // default constructor
-    public Game(Scene scene, Pane root, double height, double width) throws NoSuchMethodException,
+    public Game(Scene scene, BorderPane root, double height, double width) throws NoSuchMethodException,
             ReadSaveException, InstantiationException,
             IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         this.scene = scene;
@@ -53,7 +54,7 @@ public class Game {
     }
 
 
-    public void startLevelPhase(Scene scene, Pane root, double height, double width) {
+    public void startLevelPhase(Scene scene, BorderPane root, double height, double width) {
         /*
         GameSeqLevelController gameSeqLevelController = new GameSeqLevelController(levelContainer, graphicsEngine,
                 this, scene, root, height, width);
