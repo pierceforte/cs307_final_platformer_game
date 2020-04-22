@@ -34,8 +34,8 @@ public class NewGamePage extends Page {
     private ToggleButton snake;
     private int side;
 
-    private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
-    private final String STYLESHEET = "menuresources/dark.css";
+    private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
+    private final String STYLESHEET = "css/dark.css";
 
     /**
      * Constructs a basic Page. All animated Pages are extended from this class.

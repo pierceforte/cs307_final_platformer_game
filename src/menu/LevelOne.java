@@ -26,7 +26,7 @@ public class LevelOne extends Page {
     private PageBuilder myFactory;
     private boolean light;
 
-    private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
+    private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
     private String STYLESHEET;
 
     /**
@@ -61,12 +61,12 @@ public class LevelOne extends Page {
             @Override
             public void handle(MouseEvent event) {
                 if (light) {
-                    STYLESHEET = "menuresources/dark.css";
+                    STYLESHEET = "css/dark.css";
                     myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
                     light = false;
                 }
                 else {
-                    STYLESHEET = "menuresources/light.css";
+                    STYLESHEET = "css/light.css";
                     myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
                     light = true;
                 }

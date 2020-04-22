@@ -24,7 +24,7 @@ public class LevelDirectory extends Page {
     private boolean light;
 
     private User user;
-    private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
+    private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
     private String STYLESHEET;
 
     /**
@@ -40,7 +40,7 @@ public class LevelDirectory extends Page {
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
-        STYLESHEET = "menuresources/light.css";
+        STYLESHEET = "css/light.css";
         light = true;
         this.user = user;
         myStage.setScene(this.buildSpecialScene((int) myFactory.getScreenHeight(),(int) myFactory.getScreenWidth()));
@@ -66,12 +66,12 @@ public class LevelDirectory extends Page {
             @Override
             public void handle(MouseEvent event) {
                 if (light) {
-                    STYLESHEET = "menuresources/dark.css";
+                    STYLESHEET = "css/dark.css";
                     myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
                     light = false;
                 }
                 else {
-                    STYLESHEET = "menuresources/light.css";
+                    STYLESHEET = "css/light.css";
                     myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
                     light = true;
                 }

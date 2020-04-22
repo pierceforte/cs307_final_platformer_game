@@ -2,13 +2,12 @@ package menu;
 
 import data.ReadSaveException;
 import data.user.User;
-import javafx.geometry.Pos;
+
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.Image;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -20,8 +19,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import static javafx.geometry.Pos.TOP_CENTER;
 
 public class CustomMenu extends Page {
     private Stage myStage;
@@ -47,8 +44,8 @@ public class CustomMenu extends Page {
     private boolean Snails;
     private boolean Snakes;
 
-    private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
-    private static final String STYLESHEET = "menuresources/cm.css";
+    private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
+    private static final String STYLESHEET = "css/cm.css";
     /**
      * Constructs a basic Page. All animated Pages are extended from this class.
      *
