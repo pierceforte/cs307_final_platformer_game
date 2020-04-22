@@ -35,4 +35,24 @@ public abstract class MovingPlatform extends MovingGameObject implements Platfor
     public void handlePlayerInteraction(SimplePlayer player) {
         handleEntityInteraction(player);
     }
+
+    public Double getMinX() {
+        return minX;
+    }
+
+    public Double getMinY() {
+        return minY;
+    }
+
+    public Double getMaxX() {
+        return maxX;
+    }
+
+    public Double getMaxY() {
+        return maxY;
+    }
+
+    public boolean isPlayer() {
+        return false;
+    }
 }

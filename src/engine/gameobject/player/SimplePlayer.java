@@ -16,8 +16,8 @@ public class SimplePlayer extends MovingGameObject implements Player{
     public static final int RIGHT = 1;
 
     private Map<KeyCode, Runnable> inputMap;
-    private boolean hasWon;
-    private boolean hasLost;
+    private boolean hasWon = false;
+    private boolean hasLost = false;
 
     public SimplePlayer(String imgPath, Double width, Double height,
                         Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
@@ -46,6 +46,10 @@ public class SimplePlayer extends MovingGameObject implements Player{
     @Override
     public boolean isPlayer() {
         return true;
+    }
+
+    public boolean isOpponent() {
+        return false;
     }
 
     public boolean hasWon() {

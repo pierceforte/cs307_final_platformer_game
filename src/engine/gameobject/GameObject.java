@@ -102,4 +102,6 @@ public abstract class GameObject {
     public abstract boolean isPlayer();
 
     public abstract List<Object> getParameters();
+
+    public abstract boolean isStationary();
 }

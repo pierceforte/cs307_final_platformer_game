@@ -27,11 +27,6 @@ public class PushbackProjectile extends MovingGameObject implements Projectile {
     }
 
     @Override
-    public List<Object> getParameters() {
-        return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed());
-    }
-
-    @Override
     public void handleEntityInteraction(GameObject entity) {
         if(entity instanceof MovingGameObject) {
             ((MovingGameObject) entity).updateXPos(getXSpeed());
@@ -44,12 +39,6 @@ public class PushbackProjectile extends MovingGameObject implements Projectile {
         setYSpeed(0);
     }
 
-    @Override
-    public String getImgPath() {
-        return null;
-    }
-
-    @Override
     public boolean isPlayer() {
         return false;
     }

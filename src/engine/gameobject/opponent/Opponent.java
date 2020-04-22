@@ -1,27 +1,31 @@
 package engine.gameobject.opponent;
 
 import engine.gameobject.GameObject;
+import engine.gameobject.MovingGameObject;
 
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Opponent extends GameObject{
+public abstract class Opponent extends MovingGameObject {
 
     private Double initXSpeed;
 
-    public Opponent(String imgPath, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
-        super(yPos, xSpeed, ySpeed, xPos, imgPath);
+    public Opponent(String imgPath, Double width, Double height, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
+        super(imgPath, width, height, xPos, yPos, xSpeed, ySpeed);
         initXSpeed = xSpeed;
     }
 
     @Override
     public List<Object> getParameters() {
-        return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed());
+        return Arrays.asList(getImgPath(), getWidth(), getHeight(), getX(), getY(), getXSpeed(), getYSpeed());
     }
 
-    @Override
     public boolean isPlayer() {
         return false;
+    }
+
+    public boolean isOpponent() {
+        return true;
     }
 
     protected Double getInitialX() {

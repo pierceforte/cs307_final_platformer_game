@@ -1,5 +1,8 @@
 package engine.gameobject;
 
+import java.util.Arrays;
+import java.util.List;
+
 public abstract class MovingGameObject extends GameObject{
 
     public static final int DOWN_OR_LEFT = -1;
@@ -117,5 +120,13 @@ public abstract class MovingGameObject extends GameObject{
     public void reverseYDirection() {
         ySpeed *= -1;
         yDir = ((Double)(ySpeed / Math.abs(ySpeed))).intValue();;
+    }
+
+    public List<Object> getParameters() {
+        return Arrays.asList(getImgPath(), getWidth(), getHeight(), getX(), getY(), getXSpeed(), getYSpeed());
+    }
+
+    public boolean isStationary() {
+        return false;
     }
 }
