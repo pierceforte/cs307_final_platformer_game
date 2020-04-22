@@ -15,8 +15,8 @@ public class Tester {
     public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Long meep = 9l;
         LevelData save = new LevelData();
-        save.saveTemp(Arrays.asList(new Mongoose("location1.png",1d, 1d, 1d, 1d, 1d),
-                new Mongoose("location1.png",1d, 1d, 1d, 1d, 1d)));
+        save.saveLevel(Arrays.asList(new Mongoose("location1.png",1d, 1d, 1d, 1d, 1d),
+                new Mongoose("location1.png",1d, 1d, 1d, 1d, 1d)), 9 );
 //        List<Class> me = new ArrayList<>();
 //        List<Object> obj = new ArrayList<>();
 //        System.out.println(me.getClass().toString());

@@ -14,11 +14,25 @@ public class PrettyPrint {
         for (int index = 0; index < jsonString.length(); index++) {
             String letter = Character.toString(jsonString.charAt(index));
             pretty = pretty + letter;
-            if (letter.equals("{")) openBracket(letter);
-            if (letter.equals("[")) openArray(letter, jsonString.substring(index + 1, index + 2));
-            if ((letter.equals("]")) & (index + 1 < jsonString.length())) closeBrackets(letter, jsonString.substring(index + 1, index + 2));
-            if (letter.equals(",")) comma(letter, jsonString.substring(index - 1, index), jsonString.substring(index + 1, index + 2));
-            if (index < jsonString.length() - 1) indent(letter, jsonString.substring(index + 1, index + 2));
+            String copy = letter;
+            if (index < jsonString.length() - 1 && (copy.concat(jsonString.substring(index + 1, index + 2))).equals("99")) {
+                pretty = pretty;
+            }
+            if (letter.equals("{")) {
+                openBracket(letter);
+            }
+            if (letter.equals("[")) {
+                openArray(letter, jsonString.substring(index + 1, index + 2));
+            }
+            if ((letter.equals("]")) & (index + 1 < jsonString.length())) {
+                closeBrackets(letter, jsonString.substring(index + 1, index + 2));
+            }
+            if (letter.equals(",")) {
+                comma(letter, jsonString.substring(index - 1, index), jsonString.substring(index + 1, index + 2));
+            }
+            if (index < jsonString.length() - 1) {
+                indent(letter, jsonString.substring(index + 1, index + 2));
+            }
         }
     }
 
@@ -38,8 +52,7 @@ public class PrettyPrint {
 
     private void closeBrackets(String letter, String nextLetter) {
         last.remove(last.size() - 1);
-
-        if (!nextLetter.equals(",") && !(nextLetter.equals("}") & letter.equals("]"))){
+        if ((!nextLetter.equals(",") && !(nextLetter.equals("}")) & letter.equals("]"))){
             if (buffer.length() >= 2) buffer = buffer.substring(2);
             pretty = pretty + newline + buffer;
         }
@@ -47,9 +60,7 @@ public class PrettyPrint {
 
     private void comma(String letter, String lastLetter, String nextLetter) {
         if (lastLetter.equals("]") || lastLetter.equals("}") || last.get(last.size() - 1).equals("{")){
-            if ((lastLetter.equals("]") & !nextLetter.equals("["))) {
-                if (buffer.length() >= 2) buffer = buffer.substring(2);
-            }
+
             pretty = pretty + newline + buffer;
         }
     }
