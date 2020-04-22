@@ -15,6 +15,7 @@ import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 public class NewGamePage extends Page {
@@ -180,7 +181,20 @@ public class NewGamePage extends Page {
     }
     @Override
     Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
-        return getScene(name);
+        try {
+            return getScene(name);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     Scene buildSpecialScene(int height, int width) {

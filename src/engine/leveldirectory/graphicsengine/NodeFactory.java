@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
  */
 public class NodeFactory {
     public ImageView generateImage(GameObject go) {
-        ImageView i = new ImageView(new Image(go.getImagePath()));
+        ImageView i = new ImageView(new Image(go.getImgPath()));
         i.setX(go.getX());
         i.setY(go.getY());
         i.setFitWidth(go.getWidth());

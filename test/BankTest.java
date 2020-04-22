@@ -6,6 +6,7 @@ import engine.gameobject.opponent.Raccoon;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BankTest extends DukeApplicationTest {
 
-    private Pane root;
+    private BorderPane root;
     private BankController bankController;
     private BankModel bankModel;
     private BankView bankView;
@@ -27,8 +28,8 @@ public class BankTest extends DukeApplicationTest {
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
         BankItem two = new BankItem(new Raccoon(raccoon), 30, 30, 20);
         BankItem three = new BankItem(new Raccoon(raccoon), 30, 30, 40000);
-        root = new Pane();
-        bankView = new BankView(20, 20, 200, 200, root);
+        root = new BorderPane();
+        bankView = new BankView();
         bankController = new BankController(List.of(one, two, three), 10000, bankView);
         bankModel = bankController.getBankModel();
         javafxRun(() -> {

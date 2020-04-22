@@ -7,6 +7,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -15,10 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BankView {
+public class BankView extends Pane {
 
-    public static final String PATH_TO_RIGHT_ARROW = "images/icons/right_bank_icon.png";
-    public static final String PATH_TO_LEFT_ARROW = "images/icons/left_bank_icon.png";
+    public static final String PATH_TO_RIGHT_ARROW = "right_bank_icon.png";
+    public static final String PATH_TO_LEFT_ARROW = "left_bank_icon.png";
+    public static final double WIDTH = 200;
+    public static final double HEIGHT = 260;
 
     private Rectangle background;
     private ImageView itemIconDisplay;
@@ -30,21 +33,17 @@ public class BankView {
     private Button purchaseButton;
     private ImageView nextButton;
     private ImageView prevButton;
-    private Pane root;
     private List<Node> nonEmptyBankDisplays;
     private ResourceBundle resources;
     private boolean hasPurchaseRequest;
     private boolean hasEmptyBank;
-    private int width;
-    private int height;
 
-    public BankView(double xPos, double yPos, int width, int height, Pane root) {
-        this.width = width;
-        this.height = height;
-        this.root = root;
+    public BankView() {
+        setWidth(WIDTH);
+        setHeight(HEIGHT);
         resources = ResourceBundle.getBundle("builder.builderResources");
         hasPurchaseRequest = false;
-        createBackground(xPos, yPos);
+        createBackground();
         nonEmptyBankDisplays = new ArrayList<>();
     }
 
@@ -78,7 +77,7 @@ public class BankView {
         attemptToAddChangeItemButton(bank.hasNextItem(), nextButton);
         collectNonEmptyBankDisplays();
         addNonEmptyBankDisplays();
-        root.getChildren().remove(emptyBankDisplay);
+        getChildren().remove(emptyBankDisplay);
         hasEmptyBank = false;
     }
 
@@ -88,25 +87,25 @@ public class BankView {
         }
         hasEmptyBank = true;
         collectNonEmptyBankDisplays();
-        root.getChildren().removeAll(nonEmptyBankDisplays);
+        getChildren().removeAll(nonEmptyBankDisplays);
         emptyBankDisplay = createText(resources.getString("NoItemsLeft"), "noItemsLeft");
-        root.getChildren().add(emptyBankDisplay);
+        getChildren().add(emptyBankDisplay);
     }
 
     public void rejectPurchase() {
         // tell user that they don't have enough money
         hasPurchaseRequest = false;
         Dialog dialog = new Dialog();
-        dialog.initOwner(root.getScene().getWindow());
+        dialog.initOwner(getScene().getWindow());
         dialog.setContentText(resources.getString("NotEnoughMoney"));
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         Platform.runLater(() -> dialog.showAndWait());
     }
 
-    private void createBackground(double xPos, double yPos) {
-        background = new Rectangle( xPos, yPos, width, height);
+    private void createBackground() {
+        background = new Rectangle(getWidth(), getHeight());
         background.setId("bankBackground");
-        root.getChildren().add(background);
+        getChildren().add(background);
     }
 
     private void createDisplays(BankModel bank) {
@@ -153,19 +152,19 @@ public class BankView {
 
     private void attemptToAddChangeItemButton(boolean buttonIsNeeded, ImageView button) {
         if (buttonIsNeeded) {
-            if (!root.getChildren().contains(button)) {
-                root.getChildren().add(button);
+            if (!getChildren().contains(button)) {
+                getChildren().add(button);
             }
         }
         else {
-            root.getChildren().remove(button);
+            getChildren().remove(button);
         }
     }
 
     private void addNonEmptyBankDisplays() {
         for (Node node : nonEmptyBankDisplays) {
-            if (node != null && !root.getChildren().contains(node)) {
-                root.getChildren().add(node);
+            if (node != null && !getChildren().contains(node)) {
+                getChildren().add(node);
             }
         }
     }
@@ -181,7 +180,7 @@ public class BankView {
     }
 
     public void removeFromRoot() {
-        root.getChildren().removeAll(itemCostDisplay, moneyAvailableDisplay, purchaseButton, itemIconDisplay, prevButton,
+        getChildren().removeAll(itemCostDisplay, moneyAvailableDisplay, purchaseButton, itemIconDisplay, prevButton,
                 nextButton, emptyBankDisplay, background);
     }
 

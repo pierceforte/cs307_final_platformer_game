@@ -12,9 +12,11 @@ import engine.general.Game;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import engine.leveldirectory.level.LevelContainer;
 import engine.view.GameObjectView;
+import input.KeyInput;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import menu.PageBuilder;
@@ -27,7 +29,7 @@ public class GameSequenceController {
     private Timeline timeline;
 
     //Pierce stuff
-    private data.input.KeyInput keyInput;
+    private KeyInput keyInput;
     private SimplePlayer mainCharacter;
     private StationaryPlatform examplePlatform;
     private Raccoon raccoon;
@@ -39,11 +41,12 @@ public class GameSequenceController {
     private BuilderStage builderStage;
 
     private Scene myScene;
-    private Pane myPane;
+    private BorderPane myPane;
+    private Pane leftPane;
 
-    public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, PageBuilder Factory) {
+    public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, BorderPane root, PageBuilder Factory) {
         this.levelContainer = levelContainer;
-        levelContainer.setGameSequenceController(this);
+        //levelContainer.setGameSequenceController(this);
         setupTimeline();
         //
         /*
@@ -61,7 +64,7 @@ public class GameSequenceController {
         BankItem two = new BankItem(new Mongoose(mongoose), (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 20);
         BankItem three = new BankItem(new Mongoose(mongoose), (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 30);
         BankItem four = new BankItem(new Raccoon(raccoon), (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 40);
-        BankView bankView = new BankView(20, 20, 200, 260, root);
+        BankView bankView = new BankView();
 
         //replace with more robust HUD display (see money available hardcode)
 
@@ -69,7 +72,12 @@ public class GameSequenceController {
         //read in bank item list and money
         bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
         builderStage = new BuilderStage(bankController, Factory.getScreenWidth(), Factory.getScreenHeight());
-        myPane.getChildren().add(builderStage);
+        leftPane = new Pane();
+        leftPane.setId("leftPane");
+        leftPane.getChildren().add(bankView);
+        myPane.setCenter(builderStage);
+        myPane.setLeft(leftPane);
+        leftPane.getChildren().add(builderStage.getPlayButton());
     }
 
     private void setupTimeline() {
@@ -87,7 +95,7 @@ public class GameSequenceController {
 
         //Pierce stuff
         if (builderStage.isDone()) {
-            myPane.getChildren().remove(builderStage);
+            myPane.getChildren().removeAll(builderStage, leftPane);
             bankController.getBankView().removeFromRoot();
         }
         else {
