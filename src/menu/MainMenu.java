@@ -2,27 +2,20 @@ package menu;
 
 import data.ReadSaveException;
 import data.user.DuplicateUsernameException;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.*;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
 import java.io.IOException;
 import java.util.ResourceBundle;
 
-import static javafx.geometry.Pos.CENTER;
-
 public class MainMenu extends Page {
 
-    private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
-    private static final String STYLESHEET = "menuresources/main.css";
+    private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
+    private static final String STYLESHEET = "css/main.css";
 
     private Stage myStage;
     private Scene myScene;

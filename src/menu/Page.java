@@ -51,8 +51,7 @@ public abstract class Page {
     Scene buildScene(int height, int width) throws IOException {
         Pane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
-        myScene.getStylesheets().addAll(this.getClass().getResource("menuresources/main.css")
-                .toExternalForm());
+        myScene.getStylesheets().addAll(this.getClass().getResource("css/main.css").toExternalForm());
         return myScene;
     }
 
@@ -207,8 +206,4 @@ public abstract class Page {
      */
 
     abstract Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException;
-
-    void setFullScreen() {
-        myStage.setFullScreen(true);
-    }
 }

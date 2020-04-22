@@ -22,8 +22,8 @@ import static javafx.geometry.Pos.CENTER;
  * Builds items for any Page to add.
  */
 public class PageBuilder {
-    private ResourceBundle myResource = ResourceBundle.getBundle("menu.menuresources.MenuButtons");
-    private static final String STYLESHEET = "menuresources/main.css";
+    private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
+    private static final String STYLESHEET = "main.css";
     private Stage myStage;
 
     public PageBuilder(Stage primaryStage) {

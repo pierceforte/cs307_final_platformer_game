@@ -16,28 +16,28 @@ public enum Avatars {
     public String getimgpath() {
         switch(key) {
             case "Snake1":
-                return "basicsnake.png";
+                return "images/avatars/basicsnake.png";
             case "Snake2":
-                return "gardensnake.png";
+                return "images/avatars/gardensnake.png";
             case "Snake3":
-                return "babysnake.png";
+                return "images/avatars/babysnake.png";
             case "Snake4":
-                return "explodingsnake.png";
+                return "images/avatars/explodingsnake.png";
             case "Snake5":
-                return "sneaksnake.png";
+                return "images/avatars/sneaksnake.png";
             case "Snake6":
-                return"bombsnake.png";
+                return"images/avatars/bombsnake.png";
             case "Snail1":
             case "Snail6":
-                return "wilbur.png";
+                return "images/avatars/wilbur.png";
             case "Snail2":
-                return "crystalsnail.png";
+                return "images/avatars/crystalsnail.png";
             case "Snail3":
-                return "inksnail.png";
+                return "images/avatars/inksnail.png";
             case "Snail4":
-                return "slowsnail.png";
+                return "images/avatars/slowsnail.png";
             case "Snail5":
-                return "ghostsnail.png";
+                return "images/avatars/ghostsnail.png";
         }
         return "";
     }
@@ -45,28 +45,28 @@ public enum Avatars {
     public ImageView getImg(){
         switch (key) {
             case "Snake1":
-                return new ImageView("basicsnake.png");
+                return new ImageView("images/avatars/basicsnake.png");
             case "Snake2":
-                return new ImageView("gardensnake.png");
+                return new ImageView("images/avatars/gardensnake.png");
             case "Snake3":
-                return new ImageView("babysnake.png");
+                return new ImageView("images/avatars/babysnake.png");
             case "Snake4":
-                return new ImageView("explodingsnake.png");
+                return new ImageView("images/avatars/explodingsnake.png");
             case "Snake5":
-                return new ImageView("sneaksnake.png");
+                return new ImageView("images/avatars/sneaksnake.png");
             case "Snake6":
-                return new ImageView("bombsnake.png");
+                return new ImageView("images/avatars/bombsnake.png");
             case "Snail1":
             case "Snail6":
-                return new ImageView("wilbur.png");
+                return new ImageView("images/avatars/wilbur.png");
             case "Snail2":
-                return new ImageView("crystalsnail.png");
+                return new ImageView("images/avatars/crystalsnail.png");
             case "Snail3":
-                return new ImageView("inksnail.png");
+                return new ImageView("images/avatars/inksnail.png");
             case "Snail4":
-                return new ImageView("slowsnail.png");
+                return new ImageView("images/avatars/slowsnail.png");
             case "Snail5":
-                return new ImageView("ghostsnail.png");
+                return new ImageView("images/avatars/ghostsnail.png");
             default:
                 throw new IllegalStateException("Unexpected value: " + key);
         }

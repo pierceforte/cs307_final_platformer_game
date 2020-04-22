@@ -37,7 +37,7 @@ public class CustomMenu extends Page {
     private Pane myRoot;
     private User myUser;
 
-    private static final ResourceBundle deets = ResourceBundle.getBundle("menu.menuresources.Details");
+    private static final ResourceBundle deets = ResourceBundle.getBundle("text.Details");
 
     private final String Snake = "Snake";
     private final String Snail = "Snail";
