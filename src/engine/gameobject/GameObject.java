@@ -84,7 +84,7 @@ public abstract class GameObject {
     public Double getHeight() {
         return height;
     }
-    
+
     public Game getGame() {
         return game;
     }

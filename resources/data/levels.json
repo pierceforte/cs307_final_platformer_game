@@ -1,1 +1,33 @@
-{"1":{"engine.gameobject.platform.StationaryHazardPlatform":[[["java.lang.String","images\/objects\/watertile.png"],["java.lang.Double","0.0"],["java.lang.Double","12.0"]]]},"temp":{"engine.gameobject.opponent.Mongoose":[[["java.lang.String","location1.png"],["java.lang.Double","1.0"],["java.lang.Double","1.0"],["java.lang.Double","1.0"],["java.lang.Double","1.0"],["java.lang.Double","1.0"],["java.lang.Double","0.0"]],[["java.lang.String","location1.png"],["java.lang.Double","1.0"],["java.lang.Double","1.0"],["java.lang.Double","1.0"],["java.lang.Double","1.0"],["java.lang.Double","1.0"],["java.lang.Double","0.0"]]]}}
+{
+  "1":{
+    "engine.gameobject.platform.StationaryHazardPlatform":[
+      [
+        ["java.lang.String","images\/objects\/watertile.png"],
+        ["java.lang.Double","0.0"],
+        ["java.lang.Double","12.0"]
+      ]
+    ]
+  },
+  "temp":{
+    "engine.gameobject.opponent.Mongoose":[
+      [
+        ["java.lang.String","location1.png"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","0.0"]
+      ],
+      [
+        ["java.lang.String","location1.png"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","0.0"]
+      ]
+    ]
+  }
+}
