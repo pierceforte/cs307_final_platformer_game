@@ -46,7 +46,7 @@ public class GameSequenceController {
 
     public GameSequenceController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, BorderPane root, PageBuilder Factory) {
         this.levelContainer = levelContainer;
-        levelContainer.setGameSequenceController(this);
+        //levelContainer.setGameSequenceController(this);
         setupTimeline();
         //
         /*
@@ -58,8 +58,8 @@ public class GameSequenceController {
         myPane = root;
 
         //replace hardcode with methods that 1) read json bank file 2) generate list of BankItems
-        Raccoon raccoon = new Raccoon("raccoon.png", 1d, 1d, 10d);
-        Mongoose mongoose = new Mongoose("mongoose.png", 1d, 1d, 10d);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png", 1d, 1d, 10d);
+        Mongoose mongoose = new Mongoose("images/avatars/mongoose.png", 1d, 1d, 10d);
         BankItem one = new BankItem(new Raccoon(raccoon),  (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 10);
         BankItem two = new BankItem(new Mongoose(mongoose), (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 20);
         BankItem three = new BankItem(new Mongoose(mongoose), (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 30);

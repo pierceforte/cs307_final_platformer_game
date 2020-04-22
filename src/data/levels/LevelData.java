@@ -17,8 +17,8 @@ public class LevelData {
     JSONObject levels;
     JSONObject bank;
 
-    private static final String levelLoc = "data/levels.json";
-    private static final String bankLoc = "data/bank.json";
+    private static final String levelLoc = "resources/data/levels.json";
+    private static final String bankLoc = "resources/data/bank.json";
 
     public LevelData() throws ReadSaveException {
         levels = jsonMaker(levelLoc);
@@ -106,7 +106,7 @@ public class LevelData {
     private List<GameObject> loadHelper(String target) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         List<GameObject> levelObjects = new ArrayList<>();
         if (!levels.containsKey(target)) throw new ReadSaveException("read", levelLoc);
-        JSONObject temp = (JSONObject) levels.get("temp");
+        JSONObject temp = (JSONObject) levels.get("1");
         for (Object key : temp.keySet()) {
             String className = (String) key;
             Class objClass = Class.forName(className);
@@ -133,8 +133,6 @@ public class LevelData {
                 params[index] = Double.valueOf((Long) param.get(1));
             }
             else {
-                System.out.println(param.get(1));
-                System.out.println(param.get(1).getClass().toString());
                 params[index] = parse(thisClass, (String) param.get(1));
             }
         }

@@ -21,9 +21,9 @@ import java.util.List;
  */
 public class BuilderObjectView extends GameObjectView {
 
-    public static final String PATH_TO_CHECK_IMG = "check_icon.png";
-    public static final String PATH_TO_MOVE_IMG = "move_icon.png";
-    public static final String PATH_TO_SELL_IMG = "dollar_icon.png";
+    public static final String PATH_TO_CHECK_IMG = "images/icons/check_icon.png";
+    public static final String PATH_TO_MOVE_IMG = "images/icons/move_icon.png";
+    public static final String PATH_TO_SELL_IMG = "images/icons/dollar_icon.png";
     public static final double ACTION_ICON_SIZE = 15;
     public static final int LEFT = -1;
     public static final int RIGHT = 1;

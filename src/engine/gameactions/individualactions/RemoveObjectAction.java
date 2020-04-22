@@ -13,7 +13,7 @@ public class RemoveObjectAction extends ParentAction {
                 getGameObject().setVisible(false);
                 // TODO: getGame().updateSavedInfo()
                 getGame().getLevelContainer().getCurrentLevel().removeObject(getGameObject());
-                getGame().getGraphicsEngine().updateUI();
+                //getGame().getGraphicsEngine().updateUI();
             }
         });
     }

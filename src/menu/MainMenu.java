@@ -1,5 +1,7 @@
 package menu;
 
+import data.ReadSaveException;
+import data.user.DuplicateUsernameException;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -13,6 +15,7 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 import static javafx.geometry.Pos.CENTER;
@@ -47,11 +50,22 @@ public class MainMenu extends Page {
         Pane myRoot = new Pane();
         myRoot.setPrefSize(width, height);
 
-        Button newgame = myFactory.buildNewGameButton();
+        Button newgame = new Button(myResource.getString("NewGame"));
+        newgame.setOnMouseClicked(event -> {
+            try {
+                gotoScene(myResource.getString("NewGame"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ReadSaveException e) {
+                e.printStackTrace();
+            } catch (DuplicateUsernameException e) {
+                e.printStackTrace();
+            }
+        });
+        newgame.setId("LaunchButton");
 
         MenuBox myMenuBox = new MenuBox();
         myFactory.addMainMenuButtons(myMenuBox);
-
 
         myRoot.getChildren().addAll(newgame, myMenuBox);
 
@@ -59,7 +73,20 @@ public class MainMenu extends Page {
     }
 
     @Override
-    Scene gotoScene(String name) throws IOException {
-        return getScene(name);
+    Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
+        try {
+            return getScene(name);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
