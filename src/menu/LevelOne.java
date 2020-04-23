@@ -86,13 +86,7 @@ public class LevelOne extends Page {
             InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         BorderPane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
-        /*
-        GameSeqBuilderController gameSeqBuilderController = new GameSeqBuilderController(
-                new LevelContainer(null, null, null),
-                new GraphicsEngine(null, null, null),
-                null, myScene, myRoot, screenheight, screenwidth);
-        gameSeqBuilderController.play();
-        */
+
         Game game = new Game(myScene, myRoot, height, width);
         game.startLevelPhase(myScene, myRoot, height, width);
         myScene.getStylesheets().add(STYLESHEET);

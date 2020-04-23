@@ -28,7 +28,7 @@ public abstract class GameSeqController {
     private LevelContainer levelContainer;
     private Timeline timeline;
     private GraphicsEngine graphicsEngine;
-    private List<SimplePlayer> simplePlayer;
+    private SimplePlayer simplePlayer;
     private GameObjectView simplePlayerView;
     private Game game;
 
@@ -55,7 +55,7 @@ public abstract class GameSeqController {
         this.width = width;
         this.myScene = scene;
         this.myPane = root;
-        setPlayer();
+        //setPlayer();
     }
 
     public void setTimeline(Timeline t) {
@@ -77,13 +77,13 @@ public abstract class GameSeqController {
             }
             myPane.getChildren().add(gameObjectView);
         }
-        simplePlayerView = createGameObjectView(simplePlayer.get(currentLevel));
+        simplePlayerView = createGameObjectView(simplePlayer);
         myPane.getChildren().add(simplePlayerView);
-        System.out.println(myPane.getChildren().size());
         //myPane.setVisible(true);
         // TODO: display score board
     }
 
+    /*
     private void setPlayer() {
         int currentLevel = 0;
         simplePlayer = new ArrayList<>();
@@ -99,6 +99,7 @@ public abstract class GameSeqController {
                     return;
             }
     }
+     */
 
     public GameObjectView createGameObjectView(GameObject gameObject) {
         GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(),
@@ -125,13 +126,12 @@ public abstract class GameSeqController {
     public double getHeight() { return this.height; }
     public double getWidth() { return width; }
     public SimplePlayer getSimplePlayer() {
-        int i = levelContainer.getLevelNum();
-        return simplePlayer.get(i);
+        return simplePlayer;
     }
     public GameObjectView getSimplePlayerView() {  return simplePlayerView; }
     public void setSimplePlayerView(GameObjectView g) { simplePlayerView = g; }
     public void setSimplePlayer(SimplePlayer simplePlayer) {
-        this.simplePlayer.add(simplePlayer);
+        this.simplePlayer = simplePlayer;
     }
     public GraphicsEngine getGraphicsEngine() { return graphicsEngine; }
     public Game getGame() { return game; }

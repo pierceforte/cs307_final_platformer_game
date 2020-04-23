@@ -41,14 +41,11 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
 
     @Override
     public void setNextScene() {
-        System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size());
         super.setNextPlayScene(()->{
             //getLevelContainer().getCurrentLevel().addGameObject(builderStage.getGameObjects());
             pause();
-            System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size());
             GameSeqLevelController playTemp = new GameSeqLevelController(getLevelContainer(), getGraphicsEngine(),
                     getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
-            System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size());
             playTemp.play();
         });
     }

@@ -1,6 +1,5 @@
 package engine.leveldirectory.gamesequence;
 
-import input.KeyInput;
 import engine.gameobject.GameObject;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
@@ -32,7 +31,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     }
 
     private void playerTest() {
-        SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, 10., 5., 0.,0.);
+        SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, 8., 5., 0.,0.);
         setSimplePlayer(s);
         getSimplePlayer().setXSpeed(0);
         getSimplePlayer().setYSpeed(0);
@@ -48,10 +47,11 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
      */
     @Override
     public void setNextScene() {
-        if (getLevelContainer().getLevelNum() == getLevelContainer().getTotalNumLevels())
-            exit();
+        //if (getLevelContainer().getLevelNum() == getLevelContainer().getTotalNumLevels())
+            //exit();
         super.setNextPlayScene(()->{
             pause();
+            getRoot().getChildren().clear();
             getLevelContainer().incrementLevel();
             GameSeqBuilderController builderTemp = new GameSeqBuilderController(getLevelContainer(), getGraphicsEngine(),
                     getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
@@ -138,8 +138,9 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     }
 
     public void endPhase() {
-        if (getGame().getHUDController().getLives() <= 0)
-            exit();
+        this.getTimeline().stop();
+        //if (getGame().getHUDController().getLives() <= 0)
+        //    exit();
         // TODO: if (win)
         getNextPlayScene().run();
     }
