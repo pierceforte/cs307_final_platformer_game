@@ -8,6 +8,8 @@ import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -16,17 +18,21 @@ import java.util.ResourceBundle;
 
 public class BuilderStage extends DraggableGridStage {
 
+    private GridDimensions dimensions;
     private BankController bankController;
     private List<BuilderObjectView> myObjects;
+    private List<GameObjectView> levelGameObjectViews;
     private List<GameObject> gameObjects;
     private boolean isDone;
     private ResourceBundle resources;
     private Button playButton;
 
     //TODO: add parameters for visible width AND max/min widths (based on level dimensions)
-    public BuilderStage(BankController bankController, double width, double height) {
-        super(width, height);
+    public BuilderStage(GridDimensions dimensions, BankController bankController, List<GameObjectView> gameObjectViews) {
+        super(dimensions);
+        this.dimensions = dimensions;
         this.bankController = bankController;
+        addGameObjectViews(gameObjectViews);
         resources = ResourceBundle.getBundle("text.builderResources");
         myObjects = new ArrayList<>();
         playButton = createPlayButton();
@@ -37,13 +43,11 @@ public class BuilderStage extends DraggableGridStage {
         bankController.update();
         handlePurchasedItem();
         snapItems();
+        handleOverlappingObjects();
         addItemsBackToBank();
         attemptToMakeGridDraggable();
-        snap(0,0);
-    }
-
-    public void addGameObjectViews(List<GameObjectView> gameObjectViews) {
-        this.getChildren().addAll(gameObjectViews);
+        snap(dimensions.getMinX() * getTileWidth(), dimensions.getMaxX() * getTileWidth(),
+                dimensions.getMinY() * getTileHeight(), dimensions.getMaxY() * getTileHeight());
     }
 
     public boolean isDone() {
@@ -56,6 +60,11 @@ public class BuilderStage extends DraggableGridStage {
 
     public Button getPlayButton() {
         return playButton;
+    }
+
+    private void addGameObjectViews(List<GameObjectView> gameObjectViews) {
+        this.getChildren().addAll(gameObjectViews);
+        levelGameObjectViews = gameObjectViews;
     }
 
     private void snapItems() {
@@ -77,12 +86,26 @@ public class BuilderStage extends DraggableGridStage {
         }
     }
 
+    private void handleOverlappingObjects() {
+        /*for (BuilderObjectView object : myObjects) {
+            for (GameObjectView gameObjectView : levelGameObjectViews) {
+                if (object.intersects(gameObjectView.getBoundsInParent())) {
+                    System.out.println("overlap");
+                    object.setEffect(new ColorAdjust(3,3,3,3));
+                }
+                else {
+                    object.setEffect(null);
+                }
+            }
+        }*/
+    }
+
     private void addActionItemsForObject(BuilderObjectView object) {
         ImageView leftIcon = object.getLeftIcon();
         ImageView rightIcon = object.getRightIcon();
-        double y = object.getY() + getTileHeight();
-        leftIcon.setX(object.getX() + leftIcon.getFitWidth()/2 - 0.2*getTileWidth());
-        rightIcon.setX(object.getX() + leftIcon.getFitWidth()/2 + 0.2*getTileWidth());
+        double y = object.getY() + object.getFitHeight();
+        leftIcon.setX(object.getX() + object.getFitWidth()/2 - leftIcon.getFitWidth()/2 - 0.2*getTileWidth());
+        rightIcon.setX(object.getX() + object.getFitWidth()/2 - leftIcon.getFitWidth()/2 + 0.2*getTileWidth());
         leftIcon.setY(y);
         rightIcon.setY(y);
         this.getChildren().addAll(leftIcon, rightIcon);
@@ -121,11 +144,26 @@ public class BuilderStage extends DraggableGridStage {
         if (bankController.hasPurchasedItem()) {
             BankItem item = bankController.getPurchasedItem();
             BuilderObjectView builderObjectView = new BuilderObjectView(item.getGameObject(),
-                    item, getWidth()/2, getHeight()/2);
+                    item, calculateXPosForPurchasedItem(), calculateYPosForPurchasedItem());
+            builderObjectView.setFitWidth(item.getWidth() * getTileWidth());
+            builderObjectView.setFitHeight(item.getHeight() * getTileHeight());
             this.getChildren().add(builderObjectView);
             myObjects.add(builderObjectView);
             bankController.removePurchasedItem();
         }
+    }
+
+    private double calculateXPosForPurchasedItem() {
+        double width = dimensions.getMaxX()*getTileWidth();
+        double middle = width < dimensions.getScreenWidth() ? width/2 : dimensions.getScreenWidth()/2;
+        System.out.println("dif: " + (dimensions.getMaxX() - dimensions.getMinX()) + "width: " + width + ", middle: " + middle);
+        return -1*getTranslateX() + middle;
+    }
+
+    private double calculateYPosForPurchasedItem() {
+        double height = dimensions.getMaxY()*getTileHeight();
+        double middle =  height < dimensions.getScreenHeight() ? height/2 : dimensions.getScreenHeight()/2;
+        return -1*getTranslateY() + middle;
     }
 
     private Button createPlayButton() {

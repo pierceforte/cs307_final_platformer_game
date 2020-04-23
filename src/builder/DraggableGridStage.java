@@ -8,15 +8,36 @@ public abstract class DraggableGridStage extends GridStage {
     private NodeDragger nodeDragger;
     private boolean isDraggable;
 
-    public DraggableGridStage(double width, double height) {
-        super(width, height);
+    public DraggableGridStage(GridDimensions dimensions) {
+        super(dimensions);
+        double width = getWidth();
+        double height = getHeight();
         nodeDragger = new NodeDragger() {
             @Override
             public void handleDraggableMouseDrag(MouseEvent mouseEvent, Node node) {
                 double newX = mouseEvent.getX() + getDeltaX();
                 double newY = mouseEvent.getY() + getDeltaY();
-                newX = newX >= 0 ? 0 : newX;
-                newY = newY >= 0 ? 0 : newY;
+
+                if (newX >= dimensions.getMinX()) {
+                    newX = dimensions.getMinX();
+                }
+                else if (newX <= dimensions.getScreenWidth() - width) {
+                    newX = dimensions.getScreenWidth() - width;
+                    if (width < dimensions.getScreenWidth()) {
+                        newX = dimensions.getMinX();
+                    }
+                }
+
+                if (newY >= dimensions.getMinY()) {
+                    newY = dimensions.getMinY();
+                }
+                else if (newY <= dimensions.getScreenHeight() - height) {
+                    newY = dimensions.getScreenHeight() - height;
+                    if (height < dimensions.getScreenHeight()) {
+                        newY = dimensions.getMinY();
+                    }
+                }
+
                 node.setTranslateX(newX);
                 node.setTranslateY(newY);
             }
@@ -39,12 +60,20 @@ public abstract class DraggableGridStage extends GridStage {
         }
     }
 
-    protected void snap(double maxX, double maxY) {
-        if (getTranslateX() >= maxX) {
-            setTranslateX(maxX);
+    protected void snap(double minX, double maxX, double minY, double maxY) {
+        if (getTranslateX() >= minX) {
+            //setTranslateX(minX);
         }
-        if (getTranslateY() >= maxY) {
-            setTranslateY(maxY);
+        else if (getTranslateX() <= maxX - getWidth()) {
+            //setTranslateX(maxX - getWidth());
         }
+
+        if (getTranslateY() >= minY) {
+            //setTranslateY(minY);
+        }
+        else if (getTranslateY() <= maxY - getHeight()) {
+            //setTranslateY(maxY - getHeight());
+        }
+
     }
 }

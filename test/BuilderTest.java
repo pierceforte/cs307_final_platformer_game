@@ -9,12 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BuilderTest extends DukeApplicationTest {
@@ -33,7 +33,7 @@ public class BuilderTest extends DukeApplicationTest {
         BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
         bankController = new BankController(List.of(one), 10000, bankView);
         bankModel = bankController.getBankModel();
-        builderStage = new BuilderStage(bankController, 1000, 1000);
+        builderStage = new BuilderStage(new GridDimensions(1000, 1000, null), bankController, new ArrayList<>());
         javafxRun(() -> {
             Scene scene = new Scene(root);
             stage.setScene(scene);

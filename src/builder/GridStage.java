@@ -15,18 +15,24 @@ import javafx.scene.transform.NonInvertibleTransformException;
 
 public abstract class GridStage extends Pane {
 
+    public static final double TILE_WIDTH_FACTOR = 30;
+    public static final double TILE_HEIGHT_FACTOR = 25;
     private Canvas canvas;
     private Affine myGrid;
+    private double tilesWide;
+    private double tilesHigh;
     private double tileHeight;
     private double tileWidth;
 
-    public GridStage(double width, double height) {
-        setWidth(width);
-        setHeight(height);
-        this.canvas = new Canvas(width, height);
+    public GridStage(GridDimensions dimensions) {
+        this.tilesWide = dimensions.getMaxX() - dimensions.getMinX();
+        this.tilesHigh = dimensions.getMaxY() - dimensions.getMinY();
+        tileWidth = dimensions.getScreenWidth()/TILE_WIDTH_FACTOR;
+        tileHeight = dimensions.getScreenHeight()/TILE_HEIGHT_FACTOR;
+        setWidth(tilesWide * tileWidth);
+        setHeight(tilesHigh * tileHeight);
+        this.canvas = new Canvas(getWidth(), getHeight());
         this.myGrid = new Affine();
-        tileWidth = width/30;
-        tileHeight = height/25;
         myGrid.appendScale(tileWidth, tileHeight);
         styleGrid();
         this.canvas.setOnMouseClicked(this::handleClick);
@@ -36,11 +42,11 @@ public abstract class GridStage extends Pane {
     private void styleGrid() {
         GraphicsContext g = canvas.getGraphicsContext2D();
         g.setFill(Color.DARKCYAN);
-        g.fillRect(0, 0, tileWidth*30, tileHeight*25);
+        g.fillRect(0, 0, getWidth(), getHeight());
         g.setFill(Color.WHITE);
         g.setStroke(Color.WHITE);
-        for (int y = 0; y < 25; y++) {
-            for (int x = 0 ; x < 30; x++) {
+        for (int y = 0; y < tilesHigh; y++) {
+            for (int x = 0 ; x < tilesWide; x++) {
                 g.strokeRect(x * tileWidth, y* tileHeight, tileWidth, tileHeight);
             }
         }
@@ -68,8 +74,6 @@ public abstract class GridStage extends Pane {
             return;
         }
     }
-
-    static class Delta { double x, y; }
 
     protected Coordinates convertToGridCoords(double clickX, double clickY) throws NonInvertibleTransformException{
         Point2D myClick = myGrid.inverseTransform(clickX,clickY);
