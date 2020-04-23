@@ -110,6 +110,11 @@ public class BuilderStage extends DraggableGridStage {
                     }
                 }
             }
+            if (!isNewlyOverlapped) {
+               if (isObjectOutOfBounds(object)) {
+                   isNewlyOverlapped = true;
+               }
+            }
             if (isNewlyOverlapped) {
                 handleOverlappedObject(object);
             }
@@ -179,7 +184,6 @@ public class BuilderStage extends DraggableGridStage {
     private double calculateXPosForPurchasedItem() {
         double width = dimensions.getMaxX()*getTileWidth();
         double middle = width < dimensions.getScreenWidth() ? width/2 : dimensions.getScreenWidth()/2;
-        System.out.println("dif: " + (dimensions.getMaxX() - dimensions.getMinX()) + "width: " + width + ", middle: " + middle);
         return -1*getTranslateX() + middle;
     }
 
@@ -246,6 +250,27 @@ public class BuilderStage extends DraggableGridStage {
             object.setHasNewActionItems(true);
         }
         object.setIsOverlapped(false);
+    }
+
+    private boolean isObjectOutOfBounds(ImageView object) {
+        if (object.getX() < dimensions.getMinX()*getTileWidth()) {
+            System.out.println("a");
+        }
+        if (object.getX() + object.getFitWidth() > dimensions.getMaxX()*getTileWidth()) {
+            System.out.println("b");
+        }
+        if (object.getY() < dimensions.getMinY()*getTileHeight()) {
+            System.out.println("c");
+        }
+        if (object.getY() + object.getFitHeight() > dimensions.getMaxY()*getTileHeight()) {
+            System.out.println("d");
+        }
+
+
+        return object.getX() < dimensions.getMinX()*getTileWidth() ||
+                object.getX() + object.getFitWidth() > dimensions.getMaxX()*getTileWidth() ||
+                object.getY() < dimensions.getMinY()*getTileHeight() ||
+                object.getY() + object.getFitHeight() > dimensions.getMaxY()*getTileHeight();
     }
 
 }

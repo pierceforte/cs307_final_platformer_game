@@ -2,11 +2,9 @@ package builder;
 
 import engine.gameobject.Coordinates;
 import javafx.geometry.Point2D;
-import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -23,8 +21,10 @@ public abstract class GridStage extends Pane {
     private double tilesHigh;
     private double tileHeight;
     private double tileWidth;
+    private GridDimensions dimensions;
 
     public GridStage(GridDimensions dimensions) {
+        this.dimensions = dimensions;
         this.tilesWide = dimensions.getMaxX() - dimensions.getMinX();
         this.tilesHigh = dimensions.getMaxY() - dimensions.getMinY();
         tileWidth = dimensions.getScreenWidth()/TILE_WIDTH_FACTOR;
@@ -88,8 +88,8 @@ public abstract class GridStage extends Pane {
         double y = object.getY();
         try {
             Coordinates coords = convertToGridCoords(object.getX(), object.getY());
-            x = getSnappedPos(coords.getX(), getTileWidth());
-            y = getSnappedPos(coords.getY(), getTileHeight());
+            x = getSnappedPos(coords.getX(), getTileWidth(), getTranslateX(), dimensions.getScreenWidth());
+            y = getSnappedPos(coords.getY(), getTileHeight(), getTranslateY(), dimensions.getScreenHeight());
         } catch (NonInvertibleTransformException e) {
             e.printStackTrace();
         }
@@ -97,10 +97,14 @@ public abstract class GridStage extends Pane {
         object.setY(y);
     }
 
-    private double getSnappedPos(double pos, double tileSize) {
-        if (pos < 0) {
-            return 0;
+    private double getSnappedPos(double pos, double tileSize, double gridPos, double screenSize) {
+        double adjustedPos = pos * tileSize;
+        if (adjustedPos < -1*gridPos) {
+            return -1*gridPos;
         }
-        return pos * tileSize;
+        else if (adjustedPos > -1*gridPos + screenSize) {
+            return -1*gridPos + screenSize;
+        }
+        return adjustedPos;
     }
 }
