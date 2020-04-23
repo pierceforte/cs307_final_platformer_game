@@ -1,6 +1,7 @@
 package engine.leveldirectory.gamesequence;
 
 import engine.general.Game;
+import engine.leveldirectory.hud.HUDController;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import engine.leveldirectory.level.LevelContainer;
 import javafx.scene.Scene;
@@ -19,7 +20,7 @@ public class GameSequence {
     private GraphicsEngine graphicsEngine;
     private SequenceChanger sequenceChanger;
 
-    private ScoreDisplay scoreDisplay;
+    private HUDController hudController;
 
     /**
      * Instantiates all relevant backend objects when the Game is first started or loaded
@@ -27,11 +28,11 @@ public class GameSequence {
     public GameSequence(Scene scene, Game game, GraphicsEngine graphicsEngine) {
         this.graphicsEngine = graphicsEngine;
 
-        scoreDisplay = null; // get scorebar from the graphics engine
+        hudController = null; // get scorebar from the graphics engine
 
         //TODO: properly implement code below
         /*
-        levelContainer = new LevelContainer(game, scoreDisplay, new StepInterface()); // need to finish this line
+        levelContainer = new LevelContainer(game, scoreBoardController, new StepInterface()); // need to finish this line
          */
     }
 
@@ -53,8 +54,8 @@ public class GameSequence {
     //    return graphicsEngine.getView();
     //}
 
-    public ScoreDisplay getScoreDisplay() {
-        return scoreDisplay;
+    public HUDController getHudController() {
+        return hudController;
     }
 
     public SequenceChanger getGameSequenceChanger() {

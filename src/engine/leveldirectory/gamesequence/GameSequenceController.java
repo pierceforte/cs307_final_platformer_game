@@ -64,7 +64,7 @@ public class GameSequenceController {
         BankItem two = new BankItem(new Mongoose(mongoose), (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 20);
         BankItem three = new BankItem(new Mongoose(mongoose), (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 30);
         BankItem four = new BankItem(new Raccoon(raccoon), (int) Factory.getTileWsize(), (int) Factory.getTileHsize(), 40);
-        BankView bankView = new BankView();
+        BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
 
         //replace with more robust HUD display (see money available hardcode)
 

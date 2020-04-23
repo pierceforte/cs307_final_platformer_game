@@ -61,16 +61,14 @@ public class GameSeqBuilderController extends GameSeqController {
         BankItem two = new BankItem(new Mongoose(mongoose), 30, 30, 20);
         BankItem three = new BankItem(new Mongoose(mongoose), 30, 30, 30);
         BankItem four = new BankItem(new Raccoon(raccoon), 30, 30, 40);
-        BankView bankView = new BankView();
+        BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
 
         bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
         builderStage = new BuilderStage(bankController, getWidth(), getHeight());
-        leftPane = new Pane();
-        leftPane.setId("leftPane");
-        leftPane.getChildren().add(bankView);
-        myPane.setCenter(builderStage);
-        myPane.setLeft(leftPane);
-        leftPane.getChildren().add(builderStage.getPlayButton());
+        // TODO: remove hardcoding here
+        addGameObjectsToBuilderStage(0);
+        // TODO: handle this stuff within BuilderStage
+        setUpView();
     }
 
     private void setupTimeline() {
@@ -89,24 +87,29 @@ public class GameSeqBuilderController extends GameSeqController {
             bankController.getBankView().removeFromRoot();
             endPhase();
         }
-        else
+        else {
             builderStage.update();
-    }
-
-    private void builderDisplay() {
-        getRoot().getChildren().removeAll();
-        for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
-            System.out.println(g.getImgPath());
-            GameObjectView gameObjectView = new GameObjectView(g.getImgPath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
-            gameObjectView.setX(gameObjectView.getX() * getWidth()/30);
-            gameObjectView.setY(gameObjectView.getY() * getHeight()/20);
-            getRoot().getChildren().add(gameObjectView);
         }
-        getRoot().setVisible(true);
     }
 
     public void endPhase() {
         this.getTimeline().stop();
+        myPane.getChildren().remove(leftPane);
         getNextPlayScene().run();
+    }
+
+    private void addGameObjectsToBuilderStage(int level) {
+        List<GameObject> gameObjects = getLevelContainer().getLevels().get(level).getAllGameObjects();
+        List<GameObjectView> gameObjectViews = createGameObjectViews(gameObjects);
+        builderStage.addGameObjectViews(gameObjectViews);
+    }
+
+    private void setUpView() {
+        leftPane = new Pane();
+        leftPane.setId("leftPane");
+        leftPane.getChildren().add(bankController.getBankView());
+        myPane.setCenter(builderStage);
+        myPane.setLeft(leftPane);
+        leftPane.getChildren().add(builderStage.getPlayButton());
     }
 }

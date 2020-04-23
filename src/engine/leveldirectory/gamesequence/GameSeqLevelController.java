@@ -13,7 +13,6 @@ import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import static javafx.application.Platform.exit;
@@ -91,7 +90,7 @@ public class GameSeqLevelController extends GameSeqController {
                 else
                     getSimplePlayerView().setX(getSimplePlayer().getX() + getSimplePlayer().getWidth());
                 if (true) // TODO: check if g is an enemy
-                    getGame().getScoreDisplay().loseLife();
+                    getGame().getHUDController().lowerLife();
                 return true;
             }
         }
@@ -125,7 +124,7 @@ public class GameSeqLevelController extends GameSeqController {
 
 
     public void endPhase() {
-        if (getGame().getScoreDisplay().getLives() <= 0)
+        if (getGame().getHUDController().getLives() <= 0)
             exit();
         // TODO: if (win)
             getNextPlayScene().run();

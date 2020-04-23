@@ -2,7 +2,7 @@ package engine.leveldirectory.graphicsengine;
 
 import engine.gameobject.GameObject;
 import engine.general.Game;
-import engine.leveldirectory.gamesequence.ScoreDisplay;
+import engine.leveldirectory.hud.HUDController;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -20,21 +20,22 @@ public class GraphicsEngine {
     private List<GameObject> gameObjects; // all the game objects to be displayed
     private List<ImageView> nodes;
 
-    private ScoreDisplay scoreDisplay;
+    private HUDController scoreBoardController;
     private BorderPane borderPane;
 
     public GraphicsEngine(Game game, ResourceBundle resourceBundle, AbstractPlayer abstractPlayer) {
         gameObjects = new ArrayList<>();
         nodes = new ArrayList<>();
-        scoreDisplay = new ScoreDisplay(game);
+        //TODO: read in player lives
+        scoreBoardController = new HUDController(5, 0, game.getLevelContainer().getLevelNum());
         this.resourceBundle = resourceBundle;
 
     }
 
     public Pane getBorderPane() { return borderPane; }
 
-    public ScoreDisplay getScoreDisplay() {
-        return scoreDisplay;
+    public HUDController getScoreBoardController() {
+        return scoreBoardController;
     }
 
     private void setGameObjects(List<GameObject> gameObjects) {

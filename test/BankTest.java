@@ -29,7 +29,7 @@ public class BankTest extends DukeApplicationTest {
         BankItem two = new BankItem(new Raccoon(raccoon), 30, 30, 20);
         BankItem three = new BankItem(new Raccoon(raccoon), 30, 30, 40000);
         root = new BorderPane();
-        bankView = new BankView();
+        bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
         bankController = new BankController(List.of(one, two, three), 10000, bankView);
         bankModel = bankController.getBankModel();
         javafxRun(() -> {

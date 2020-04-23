@@ -3,9 +3,7 @@ package engine.leveldirectory.level;
 import data.ReadSaveException;
 import data.levels.LevelData;
 import engine.general.Game;
-import engine.leveldirectory.gamesequence.GameSeqController;
-import engine.leveldirectory.gamesequence.ScoreDisplay;
-import engine.leveldirectory.gamesequence.StepInterface;
+import engine.leveldirectory.hud.HUDModel;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ public class LevelContainer {
     private List<Level> levels;
     private int currentLevel;
     private final Game game;
-    private ScoreDisplay scoreDisplay;
+    private HUDModel scoreBoardController;
 
     /**
      * constructor for the LevelContainer
