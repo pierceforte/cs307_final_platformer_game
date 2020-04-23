@@ -13,29 +13,27 @@ public abstract class GameObject {
 
     private Double xPos;
     private Double yPos;
-    private Double xSpeed;
-    private Double ySpeed;
-    private int xDirection;
-    private int yDirection;
-    private int width;
-    private int height;
-
-    private boolean visible;
+    private Double width;
+    private Double height;
+    private boolean visible = false;
     private String imgPath;
 
-    public GameObject(String imgPath, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
+    private double xSpeed;
+    private double ySpeed;
+
+    public GameObject(String imgPath, Double width, Double height, Double yPos, Double xPos) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.xSpeed = xSpeed;
-        this.ySpeed = ySpeed;
-        xDirection = UP_OR_RIGHT;
-        yDirection = UP_OR_RIGHT;
         visible = false;
-        width = 0;
-        height = 0;
+        this.width = width;
+        this.height = height;
         this.imgPath = imgPath;
     }
 
+    public GameObject(String imgPath, Double xPos, Double yPos) {
+        this(imgPath, 0d, 0d, yPos, xPos);
+    }
+    
     /**
      * Get the image path for this object
      * @return path to the image for this object
@@ -46,18 +44,26 @@ public abstract class GameObject {
 
     /**
      * Set x position of the object
-     * @param xPos new x position of the object
+     * @param xPosition new x position of the object
      */
-    public void setX(Double xPos) {
-        this.xPos = xPos;
+    public void setX(Double xPosition) {
+        xPos = xPosition;
     }
 
     /**
      * Set y position of the object
-     * @param yPos new y position of the object
+     * @param yPosition new y position of the object
      */
-    public void setY(Double yPos) {
-        this.yPos = yPos;
+    public void setY(Double yPosition) {
+        yPos = yPosition;
+    }
+
+    public void shiftX(Double shift) {
+        xPos += shift;
+    }
+
+    public void shiftY(Double shift) {
+        yPos += shift;
     }
 
     /**
@@ -68,6 +74,10 @@ public abstract class GameObject {
         return xPos;
     }
 
+    public Integer getXDirection() {
+        return 1;
+    }
+
     /**
      * Get y position of the object
      * @return y position of the object
@@ -76,112 +86,18 @@ public abstract class GameObject {
         return yPos;
     }
 
-    /**
-     * Get x speed of the object
-     * @return x speed of object
-     */
-    public Double getXSpeed() {
-        return xSpeed;
+    public Double getWidth() {
+        return width;
     }
 
-    /**
-     * Set x speed of the object
-     * @param xSpeed the x speed to set
-     */
-    public void setXSpeed(double xSpeed) {
-        this.xSpeed = xSpeed;
-        xDirection = setDirection(getXDirection(), xSpeed);
+    public Double getHeight() {
+        return height;
     }
 
-    /**
-     * Get y speed of the object
-     * @return y speed of object
-     */
-    public Double getYSpeed() {
-        return ySpeed;
-    }
-
-    /**
-     * Set y speed of the object
-     * @param ySpeed the y speed to set
-     */
-    public void setYSpeed(double ySpeed) {
-        this.ySpeed = ySpeed;
-        yDirection = setDirection(getYDirection(), ySpeed);
-    }
-
-    /**
-     * Update the position of the object for each step
-     * @param elapsedTime the time that is elapsed after a single step
-     */
-    public void updatePositionOnStep(double elapsedTime) {
-        this.setX(this.getX() + this.getXSpeed() * elapsedTime);
-        this.setY(this.getY() - this.getYSpeed() * elapsedTime);
-    }
-
-    /**
-     * Update the x position of the object
-     * @param speed distance to move in x direction
-     */
-    public void updateXPos(double speed) {
-        this.setX(this.getX() + speed);
-        xDirection = setDirection(xDirection, speed);
-    }
-
-    /**
-     * Update the y position of the object
-     * @param speed distance to move in y direction
-     */
-    public void updateYPos(double speed) {
-        this.setY(this.getY() + speed);
-        yDirection = setDirection(yDirection, speed);
-    }
-
-    /**
-     * Get the x direction
-     * @return x direction
-     */
-    public int getXDirection() {
-        return xDirection;
-    }
-
-    /**
-     * Get the y direction
-     * @return y direction
-     */
-    public int getYDirection() {
-        return yDirection;
-    }
-
-    public int getWidth() { return width; }
-    public int getHeight() { return height; }
-
-    /**
-     * Reverse the x direction
-     */
-    public void reverseXDirection() {
-        this.xSpeed *= -1;
-        this.xDirection *= -1;
-    }
-
-    /**
-     * Reverse the y direction
-     */
-    public void reverseYDirection() {
-        this.ySpeed *= -1;
-        this.yDirection *= -1;
-    }
-
-    private int setDirection(int initDirection, double speed) {
-        if (speed == 0) return initDirection;
-        return speed < 0 ? DOWN_OR_LEFT : UP_OR_RIGHT;
-    }
-
-
-    public abstract List<Object> getParameters();
     public Game getGame() {
         return game;
     }
+
     public void setGame(Game g) {
         game = g;
     }
@@ -189,9 +105,19 @@ public abstract class GameObject {
     public void setVisible(boolean b) {
         visible = b;
     }
+
     public boolean getVisible() {
         return visible;
     }
 
     public abstract boolean isPlayer();
+
+    public abstract List<Object> getParameters();
+
+    public abstract boolean isStationary();
+
+    public double getXSpeed() { return xSpeed; }
+    public void setXSpeed(double s) { xSpeed = s; }
+    public double getYSpeed() { return ySpeed; }
+    public void setYSpeed(double s) { ySpeed = s; }
 }

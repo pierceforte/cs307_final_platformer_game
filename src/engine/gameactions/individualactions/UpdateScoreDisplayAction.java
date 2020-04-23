@@ -14,6 +14,6 @@ public class UpdateScoreDisplayAction extends ParentAction {
 
     @Override
     public void act() {
-        getGame().getScoreDisplay().updateScore(0);
+        getGame().getHUDController().updateScore(0);
     }
 }

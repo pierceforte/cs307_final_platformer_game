@@ -42,7 +42,7 @@ public class LevelOne extends Page {
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
-        STYLESHEET = "menuresources/light.css";
+        STYLESHEET = "menu/css/light.css";
         light = true;
         myScene = this.buildSpecialScene((int) myFactory.getScreenHeight(), (int) myFactory.getScreenWidth());
         myStage.setScene(myScene);
@@ -84,7 +84,7 @@ public class LevelOne extends Page {
 
     Scene buildSpecialScene(int height, int width) throws NoSuchMethodException, ReadSaveException,
             InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
-        Pane myRoot = init_Root(height, width);
+        BorderPane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
         /*
         GameSeqBuilderController gameSeqBuilderController = new GameSeqBuilderController(
@@ -95,7 +95,7 @@ public class LevelOne extends Page {
         */
         Game game = new Game(myScene, myRoot, height, width);
         game.startLevelPhase(myScene, myRoot, height, width);
-        myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
+        myScene.getStylesheets().add(STYLESHEET);
         return myScene;
     }
 }

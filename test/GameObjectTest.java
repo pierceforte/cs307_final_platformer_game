@@ -16,7 +16,7 @@ public class GameObjectTest extends DukeApplicationTest {
         double xPos = 0; double yPos = 0;
         double xSpeed = SimplePlayer.DEFAULT_X_SPEED;
         double ySpeed = SimplePlayer.DEFAULT_Y_SPEED;
-        SimplePlayer myPlayer = new SimplePlayer("", xPos, yPos, xSpeed, ySpeed);
+        SimplePlayer myPlayer = new SimplePlayer("", 1d,1d,xPos, yPos, xSpeed, ySpeed);
         press(KeyCode.RIGHT);
         assertEquals(xPos + xSpeed, myPlayer.getX());
         press(KeyCode.LEFT);
@@ -32,12 +32,12 @@ public class GameObjectTest extends DukeApplicationTest {
     public void testMongooseMovement() {
         double xPos = 50; double yPos = 0;
         double xSpeed = Mongoose.DEFAULT_X_SPEED;
-        Mongoose mongoose = new Mongoose("", xPos, yPos, xSpeed);
+        Mongoose mongoose = new Mongoose("",1d,1d, xPos, yPos, xSpeed);
 
         double playerXPos = 0; double playerYPos = 0;
         double playerXSpeed = SimplePlayer.DEFAULT_X_SPEED;
         double playerYSpeed = SimplePlayer.DEFAULT_Y_SPEED;
-        SimplePlayer myPlayer = new SimplePlayer("", playerXPos, playerYPos, playerXSpeed, playerYSpeed);
+        SimplePlayer myPlayer = new SimplePlayer("", 1d,1d,playerXPos, playerYPos, playerXSpeed, playerYSpeed);
 
         /*
         step();
@@ -53,12 +53,12 @@ public class GameObjectTest extends DukeApplicationTest {
     public void testRaccoonMovement() {
         double xPos = 50; double yPos = 0;
         double xSpeed = Mongoose.DEFAULT_X_SPEED;
-        Raccoon raccoon = new Raccoon("", xPos, yPos, xSpeed);
+        Raccoon raccoon = new Raccoon("", 1d,1d,xPos, yPos, xSpeed);
 
         double playerXPos = 0; double playerYPos = 0;
         double playerXSpeed = SimplePlayer.DEFAULT_X_SPEED;
         double playerYSpeed = SimplePlayer.DEFAULT_Y_SPEED;
-        SimplePlayer myPlayer = new SimplePlayer("", playerXPos, playerYPos, playerXSpeed, playerYSpeed);
+        SimplePlayer myPlayer = new SimplePlayer("", 1d,1d,playerXPos, playerYPos, playerXSpeed, playerYSpeed);
 
         myPlayer.updateXPos(10); //make player move right (and face toward from enemy)
 

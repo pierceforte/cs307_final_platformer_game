@@ -3,6 +3,7 @@ package builder;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import engine.gameobject.GameObject;
+import engine.view.GameObjectView;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -22,11 +23,11 @@ public class BuilderStage extends DraggableGridStage {
     private ResourceBundle resources;
     private Button playButton;
 
+    //TODO: add parameters for visible width AND max/min widths (based on level dimensions)
     public BuilderStage(BankController bankController, double width, double height) {
         super(width, height);
         this.bankController = bankController;
-        //this.getChildren().add(bankController.getBankView());
-        resources = ResourceBundle.getBundle("builder.builderResources");
+        resources = ResourceBundle.getBundle("text.builderResources");
         myObjects = new ArrayList<>();
         playButton = createPlayButton();
     }
@@ -39,6 +40,10 @@ public class BuilderStage extends DraggableGridStage {
         addItemsBackToBank();
         attemptToMakeGridDraggable();
         snap(0,0);
+    }
+
+    public void addGameObjectViews(List<GameObjectView> gameObjectViews) {
+        this.getChildren().addAll(gameObjectViews);
     }
 
     public boolean isDone() {
@@ -58,6 +63,7 @@ public class BuilderStage extends DraggableGridStage {
             if (object.isReadyForSnap() && !object.isSnapped()) {
                 snapItem(object);
                 object.setIsSnapped(true);
+                this.getChildren().removeAll(object.getActionIcons());
                 addActionItemsForObject(object);
             }
             else if (!object.isReadyForSnap() || !object.isSnapped() || !object.areActionIconsActive()) {

@@ -3,9 +3,7 @@ package engine.leveldirectory.level;
 import data.ReadSaveException;
 import data.levels.LevelData;
 import engine.general.Game;
-import engine.leveldirectory.gamesequence.GameSeqController;
-import engine.leveldirectory.gamesequence.ScoreDisplay;
-import engine.leveldirectory.gamesequence.StepInterface;
+import engine.leveldirectory.hud.HUDModel;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ public class LevelContainer {
     private List<Level> levels;
     private int currentLevel;
     private final Game game;
-    private ScoreDisplay scoreDisplay;
+    private HUDModel scoreBoardController;
 
     /**
      * constructor for the LevelContainer
@@ -28,7 +26,7 @@ public class LevelContainer {
      */
     public LevelContainer(Game game) {
         this.game = game;
-        currentLevel = 1;
+        currentLevel = 0;
     }
 
     public void loadLevels() throws ReadSaveException, ClassNotFoundException, NoSuchMethodException,
@@ -37,7 +35,7 @@ public class LevelContainer {
         // TODO: int numLevels = levelData.getNumLevels()
         int numLevels = levelData.getNumLevels();
         List<Level> levels = new ArrayList<>();
-        for (int i = 1; i <= numLevels; i++) {
+        for (int i = 0; i < numLevels; i++) {
             Level levelTemp = new Level(levelData.getSavedLevel(i));
             levels.add(levelTemp);
         }

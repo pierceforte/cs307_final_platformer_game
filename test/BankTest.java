@@ -24,12 +24,12 @@ public class BankTest extends DukeApplicationTest {
 
     @Override
     public void start(Stage stage) {
-        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png", 1d, 1d, 10d);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",1d,1d, 1d, 1d, 10d);
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
         BankItem two = new BankItem(new Raccoon(raccoon), 30, 30, 20);
         BankItem three = new BankItem(new Raccoon(raccoon), 30, 30, 40000);
         root = new BorderPane();
-        bankView = new BankView();
+        bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
         bankController = new BankController(List.of(one, two, three), 10000, bankView);
         bankModel = bankController.getBankModel();
         javafxRun(() -> {
@@ -121,7 +121,7 @@ public class BankTest extends DukeApplicationTest {
     public void testEmptyBankCreation() {
         bankController.update();
         // create a bank of items that are all affordable
-        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png", 1d, 1d, 10d);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",1d,1d, 1d, 1d, 10d);
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
         bankController = new BankController(List.of(one), 10000, bankView);
         // purchase all items

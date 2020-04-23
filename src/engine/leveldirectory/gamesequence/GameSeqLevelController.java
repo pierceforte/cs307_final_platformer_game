@@ -12,7 +12,7 @@ import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
 import static javafx.application.Platform.exit;
@@ -22,7 +22,7 @@ public class GameSeqLevelController extends GameSeqController {
     public static double GRAVITY = -40;
     private KeyInput keyInput;
 
-    public GameSeqLevelController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
+    public GameSeqLevelController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, BorderPane root, double height, double width) {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
         setUpRunnable();
         setupTimeline();
@@ -33,7 +33,7 @@ public class GameSeqLevelController extends GameSeqController {
     }
 
     private void playerTest() {
-        SimplePlayer s = new SimplePlayer("babysnake.png", 10., 5., 200.,200.);
+        SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, 10., 5., 200.,200.);
         setSimplePlayer(s);
 
         GameObjectView g = new GameObjectView(getSimplePlayer().getImgPath(), getSimplePlayer().getX(),
@@ -90,7 +90,7 @@ public class GameSeqLevelController extends GameSeqController {
                 else
                     getSimplePlayerView().setX(getSimplePlayer().getX() + getSimplePlayer().getWidth());
                 if (true) // TODO: check if g is an enemy
-                    getGame().getScoreDisplay().loseLife();
+                    getGame().getHUDController().lowerLife();
                 return true;
             }
         }
@@ -124,7 +124,7 @@ public class GameSeqLevelController extends GameSeqController {
 
 
     public void endPhase() {
-        if (getGame().getScoreDisplay().getLives() <= 0)
+        if (getGame().getHUDController().getLives() <= 0)
             exit();
         // TODO: if (win)
             getNextPlayScene().run();

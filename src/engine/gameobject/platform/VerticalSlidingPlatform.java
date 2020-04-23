@@ -7,34 +7,25 @@ import engine.gameobject.player.SimplePlayer;
 import java.util.Arrays;
 import java.util.List;
 
-public class HorizontalSlidingPlatform extends MovingPlatform implements Platform {
+public class VerticalSlidingPlatform extends MovingPlatform implements Platform{
 
-    public static final double NEW_ENTITY_Y_SPEED = 0;
-    public static final int LEFT = -1;
-    public static final int RIGHT = 1;
-
-    private Double minX;
-    private Double maxX;
-
-    public HorizontalSlidingPlatform(String imgPath, Double width, Double height, Double xPos, Double yPos, Double xSpeed,
-                                     Double minX, Double maxX) {
-        super(imgPath, width, height, xPos, yPos, xSpeed, 0d, minX, maxX, yPos, yPos);
-        this.minX = minX;
-        this.maxX = maxX;
+    public VerticalSlidingPlatform(String imgPath, Double width, Double height, Double xPos, Double yPos, Double ySpeed,
+                                     Double minY, Double maxY) {
+        super(imgPath, width, height, xPos, yPos, 0d, ySpeed, xPos, xPos, minY, maxY);
     }
 
     @Override
     public List<Object> getParameters() {
-        return Arrays.asList(getImgPath(), getWidth(), getHeight(), getX(), getY(), getXSpeed(), minX, maxX);
+        return Arrays.asList(getImgPath(), getWidth(), getHeight(), getX(), getY(), getYSpeed(), getMinY(), getMaxY());
     }
 
-    public HorizontalSlidingPlatform(HorizontalSlidingPlatform copy) {
+    public VerticalSlidingPlatform(VerticalSlidingPlatform copy) {
         this(copy.getImgPath(), copy.getWidth(), copy.getHeight(), copy.getX(), copy.getY(),
-                copy.getXSpeed(), copy.getMinX(), copy.getMaxX());
+                copy.getYSpeed(), copy.getMinX(), copy.getMaxX());
     }
 
     public void move(int direction) {
-        if (getX() >= maxX || getX() <= minX) reverseXDirection();
+        if (getY() >= getMaxY() || getY() <= getMaxY()) reverseXDirection();
         else updateXPos(getXSpeed());
     }
 
@@ -48,6 +39,7 @@ public class HorizontalSlidingPlatform extends MovingPlatform implements Platfor
         mover.reverseXDirection();
         mover.reverseYDirection();
         //TODO: needs to handle interaction with
+
     }
 
     @Override

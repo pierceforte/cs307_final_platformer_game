@@ -1,62 +1,98 @@
 {
-  "bcb44": {
-    "id": "bcb44",
-    "password": "benburnett",
-    "birthday": {
-      "month": 7,
-      "day": 27,
-      "year": 1998
+  "":{
+    "birthday":{
+      "month":0,
+      "year":0,
+      "day":0
     },
-    "avatar": "location.png",
-    "score": 2000,
-    "levels": {
-      "1": 55,
-      "2": 12,
-      "3": 0
+    "score":0,
+    "password":"",
+    "paths":{
+      "1":[0.0,0.0]
     },
-    "inventory":["", "", "", "", ""],
-    "paths": {
-      "1": [1.0,1.0,1.0,1.0,1.0,1.0,11.0,1.0,11.0,1.0]
+    "id":"",
+    "avatar":null,
+    "type":1,
+    "levels":{
+      "1":0
     }
   },
-  "nl163": {
-    "id": "nl163",
-    "password": "nicole",
-    "birthday": {
-      "day": 15,
-      "month": 12,
-      "year": 1999
+  "bcb44":{
+    "birthday":{
+      "month":7,
+      "year":1998,
+      "day":27
     },
-    "avatar": "location.png",
-    "score": 2000,
-    "levels": {
-      "1": 55,
-      "2": 12,
-      "3": 0
+    "score":2000,
+    "password":"benburnett",
+    "paths":{
+      "1":[1.0,1.0,1.0,1.0,1.0,1.0,11.0,1.0,11.0,1.0]
     },
-    "inventory": ["", "", "", "", ""],
-    "paths": {
-      "1": [1.0,1.0,1.0,1.0,1.0,1.0,11.0,1.0,11.0,1.0]
+    "id":"bcb44",
+    "avatar":"location.png",
+    "type":1,
+    "levels":{
+      "1":55,
+      "2":12,
+      "3":0
     }
   },
-  "test": {
-    "id": "test",
-    "password": "tester",
-    "birthday": {
-      "month": 7,
-      "day": 27,
-      "year": 1998
+  "test":{
+    "birthday":{
+      "month":7,
+      "year":1998,
+      "day":27
     },
-    "avatar": "location.png",
-    "score": 2000,
-    "levels": {
-      "1": 55,
-      "2": 12,
-      "3": 0
+    "score":2000,
+    "password":"tester",
+    "paths":{
+      "1":[1.0,1.0,1.0,1.0,1.0,1.0,11.0,1.0,11.0,1.0]
     },
-    "inventory":["", "", "", "", ""],
-    "paths": {
-      "1": [1.0,1.0,1.0,1.0,1.0,1.0,11.0,1.0,11.0,1.0]
+    "id":"test",
+    "avatar":"location.png",
+    "type":1,
+    "levels":{
+      "1":55,
+      "2":12,
+      "3":0
+    }
+  },
+  "nl163":{
+    "birthday":{
+      "month":12,
+      "year":1999,
+      "day":15
+    },
+    "score":2000,
+    "password":"nicole",
+    "paths":{
+      "1":[1.0,1.0,1.0,1.0,1.0,1.0,11.0,1.0,11.0,1.0]
+    },
+    "id":"nl163",
+    "avatar":"location.png",
+    "type":1,
+    "levels":{
+      "1":55,
+      "2":12,
+      "3":0
+    }
+  },
+  "NewUser":{
+    "birthday":{
+      "month":7,
+      "year":1998,
+      "day":27
+    },
+    "score":0,
+    "password":"tester",
+    "paths":{
+      "1":[0.0,0.0]
+    },
+    "id":"NewUser",
+    "avatar":"location.png",
+    "type":1,
+    "levels":{
+      "1":0
     }
   }
 }

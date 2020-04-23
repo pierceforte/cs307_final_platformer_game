@@ -2,6 +2,7 @@ package engine.leveldirectory.gamesequence;
 
 import builder.*;
 import engine.gameobject.GameObject;
+import engine.gameobject.MovingGameObject;
 import engine.gameobject.player.Player;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
@@ -15,6 +16,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import java.util.List;
 
 
 public abstract class GameSeqController {
-    public static final int FRAME_DURATION = 500;
+    public static final int FRAME_DURATION = 20;
     private LevelContainer levelContainer;
     private Timeline timeline;
     private GraphicsEngine graphicsEngine;
@@ -34,7 +36,7 @@ public abstract class GameSeqController {
     private double width;
 
     private Scene myScene;
-    private Pane myPane;
+    private BorderPane myPane;
 
     private Runnable nextPlayScene;
 
@@ -45,7 +47,7 @@ public abstract class GameSeqController {
         return nextPlayScene;
     }
 
-    public GameSeqController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, Pane root, double height, double width) {
+    public GameSeqController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, BorderPane root, double height, double width) {
         this.levelContainer = levelContainer;
         this.graphicsEngine = graphicsEngine;
         this.game = game;
@@ -65,14 +67,10 @@ public abstract class GameSeqController {
         int currentLevel = 0;
         myPane.getChildren().clear();
         for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
-            GameObjectView gameObjectView = new GameObjectView(g.getImgPath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
-            gameObjectView.convertAttributesToGridBased(width/30, height/20);
+            GameObjectView gameObjectView = createGameObjectView(g);
             myPane.getChildren().add(gameObjectView);
         }
-        simplePlayerView = new GameObjectView(simplePlayer.get(currentLevel).getImgPath(), simplePlayer.get(currentLevel).getX(),
-                simplePlayer.get(currentLevel).getY(), simplePlayer.get(currentLevel).getWidth(),
-                simplePlayer.get(currentLevel).getHeight(), 20);
-        simplePlayerView.convertAttributesToGridBased(width/30, height/20);
+        simplePlayerView = createGameObjectView(simplePlayer.get(currentLevel));
         myPane.getChildren().add(simplePlayerView);
         myPane.setVisible(true);
         // TODO: display score board
@@ -96,8 +94,8 @@ public abstract class GameSeqController {
 
     public Scene getMyScene() { return myScene; }
     public void setMyScene(Scene scene) { this.myScene = scene; }
-    public Pane getRoot() { return myPane; }
-    public void setRoot(Pane root) { this.myPane = root; }
+    public BorderPane getRoot() { return myPane; }
+    public void setRoot(BorderPane root) { this.myPane = root; }
     public double getHeight() { return this.height; }
     public double getWidth() { return width; }
     public SimplePlayer getSimplePlayer() {
@@ -128,8 +126,21 @@ public abstract class GameSeqController {
         return timeline;
     }
 
-    //TODO: eliminate duplicate code here
-    private Image makeImage(String imgPath) {
-        return new Image(this.getClass().getClassLoader().getResource(imgPath).toExternalForm());
+    public GameObjectView createGameObjectView(GameObject gameObject) {
+        GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(),
+                gameObject.getY(), gameObject.getWidth(), gameObject.getHeight(), gameObject.getXDirection());
+        gameObjectView.convertAttributesToGridBased(width/30, height/20);
+        return gameObjectView;
+    }
+
+    public List<GameObjectView> createGameObjectViews(List<GameObject> gameObjects) {
+        List<GameObjectView> gameObjectViews = new ArrayList<>();
+        for (GameObject gameObject : gameObjects) {
+            GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(),
+                    gameObject.getY(), gameObject.getWidth(), gameObject.getHeight(), gameObject.getXDirection());
+            gameObjectView.convertAttributesToGridBased(width/30, height/20);
+            gameObjectViews.add(gameObjectView);
+        }
+        return gameObjectViews;
     }
 }

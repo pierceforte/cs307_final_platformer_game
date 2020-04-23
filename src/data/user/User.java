@@ -15,22 +15,19 @@ import java.util.*;
  */
 public class User {
 
-    private static final String filePath = "resources/data/messaround.json";
-    private static final int InventorySize = 5;
+    private static final String filePath = "resources/data/users.json";
 
-    private boolean unlocked = false;
     private boolean warned = false;
 
     private JSONObject json;
     private SaveUser save = new SaveUser();
     private UserHolder original;
-
+    private Integer type;
     private String id;
     private String password;
     private String avatarImg;
     private List<Integer> birthday = new ArrayList<>();
     private int score;
-    private List<String> inventory = new ArrayList<>();
     private Map<Integer, Integer> levelScores = new HashMap<>();
     private Map<Integer, List<Double>> levelPaths = new HashMap<>();
 
@@ -100,7 +97,6 @@ public class User {
         this.avatarImg = avatarImg;
         birthday.addAll(Arrays.asList(month, day, year));
         score = 0;
-        unlocked = true;
         json = new JSONObject();
         json.put("id", id);
         json.put("password", password);
@@ -120,24 +116,16 @@ public class User {
      */
     private void assignDefaults() throws ReadSaveException {
         json.put("score", 0);
-
-        while (inventory.size() < InventorySize) {
-            inventory.add("");
-        }
-        JSONArray inventoryJSON = new JSONArray();
-        inventoryJSON.addAll(inventory);
-        json.put("inventory", inventoryJSON);
-
+        json.put("type", 1);
         levelScores.put(1, 0);
         JSONObject levelsJSON = new JSONObject();
         levelsJSON.put("1", 0);
         json.put("levels", levelsJSON);
-
         JSONObject pathsJSON = new JSONObject();
         pathsJSON.put("1", new ArrayList<>(Arrays.asList(0.0, 0.0)));
         json.put("paths", pathsJSON);
         levelPaths.put(1, new ArrayList<>(Arrays.asList(0.0, 0.0)));
-        original = new UserHolder(json, id, password, avatarImg, birthday, score, inventory, levelScores, levelPaths);
+        original = new UserHolder(json, id, password, avatarImg, birthday, score, levelScores, levelPaths);
         saveHelper();
     }
 
@@ -146,7 +134,6 @@ public class User {
      * @param data - a JSONObject containing all of the infomation on the account from the file
      */
     private void unlockUser(JSONObject data) {
-        unlocked = true;
         json = data;
         JSONObject birthdate = (JSONObject) data.get("birthday");
         birthday = new ArrayList<>(Arrays.asList(Optional.of(Math.toIntExact((Long) birthdate.get("month"))).orElse(0),
@@ -154,15 +141,12 @@ public class User {
                 Optional.of(Math.toIntExact((Long) birthdate.get("year"))).orElse(0)));
         avatarImg = Optional.of((String)data.get("avatar")).orElse("");
         score = Optional.of(Math.toIntExact((Long)data.get("score"))).orElse(0);
-        JSONArray inventoryJSON = (JSONArray) data.get("inventory");
-        for (Object owned : inventoryJSON) {
-            inventory.add(Optional.of((String)owned).orElse(""));
-        }
         JSONObject levelScoresJSON = (JSONObject) data.get("levels");
         for (Object keyObj : levelScoresJSON.keySet()) {
             levelScores.put(Optional.of(Integer.parseInt((String) keyObj)).orElse(0),
                     Optional.of(Math.toIntExact((Long)levelScoresJSON.get(keyObj))).orElse(0));
         }
+        type = Math.toIntExact((Long)json.get("type"));
         JSONObject pathsJSON = (JSONObject) data.get("paths");
         for (Object keyObj : pathsJSON.keySet()) {
             List<Double> path = new ArrayList<>();
@@ -172,7 +156,7 @@ public class User {
             }
             levelPaths.put(Optional.of(Integer.parseInt((String) keyObj)).orElse(0), path);
         }
-        original = new UserHolder(json, id, password, avatarImg, birthday, score, inventory, levelScores, levelPaths);
+        original = new UserHolder(json, id, password, avatarImg, birthday, score, levelScores, levelPaths);
     }
 
     /**
@@ -253,66 +237,6 @@ public class User {
     }
 
     /**
-     * Adds a new String to the inventory at a specified index and removes a specific string
-     * @param remove - the string to be removed
-     * @param add - the string to be added
-     * @param index - the index of the string to be added
-     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
-     */
-    public void updateInventory(String remove, String add, int index) throws ReadSaveException {
-        inventory.remove(remove);
-        inventory.add(index, add);
-        JSONArray inventoryJSON = (JSONArray) json.get("inventory");
-        inventoryJSON.remove(remove);
-        inventoryJSON.add(index, add);
-        saveHelper();
-    }
-
-    /**
-     * Removes a string from the inventory and dds another in the same index to the inventory
-     * @param remove - the string to be removed
-     * @param add - the string to be added
-     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
-     */
-    public void updateInventory(String remove, String add) throws ReadSaveException {
-        updateInventory(remove, add, inventory.indexOf(remove));
-    }
-
-    /**
-     * Adds a string to the inventory at a specific index and removes the first string
-     * @param add - the string to be added
-     * @param index - the string to be removed
-     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
-     */
-    public void updateInventory(String add, int index) throws ReadSaveException {
-        updateInventory(inventory.get(0), add, index);
-    }
-
-    /**
-     * Adds a string to the front of the inventory and removes the old string in that place
-     * @param add - the string to be added
-     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
-     */
-    public void updateInventory(String add) throws ReadSaveException {
-        updateInventory(add, 0);
-    }
-
-    /**
-     * Replaces the entire inventory with a new list of items
-     * @param newItems - the list of the new inventory
-     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
-     */
-    public void replaceInventory(List<String> newItems) throws ReadSaveException {
-        inventory.clear();
-        JSONArray inventoryJSON = (JSONArray) json.get("inventory");
-        inventoryJSON.clear();
-        if (newItems == null) return;
-        inventory.addAll(newItems);
-        inventoryJSON.addAll(newItems);
-        saveHelper();
-    }
-
-    /**
      * Adds a new path at a specific level for replay later - probably the high score path
      * @param level - the level the path occured at
      * @param path - the list of points indicating the path the player took
@@ -333,30 +257,14 @@ public class User {
         saveHelper();
     }
 
-    /**
-     * Changes the length of the inventory - if the new length is shorter it will remove strings from the end, if its
-     * more it will add empty strings to the end
-     * @param length - the new length of the inventory
-     * @throws ReadSaveException - thrown if there is a problem saving or reading from the user file
-     */
-    public void changeInventoryLength(int length) throws ReadSaveException {
-        int size = inventory.size();
-        if (length < 0 || length == size) return;
-        if (length > size) {
-            for (int count = 0; count < length - size; count ++) {
-                inventory.add("");
-                JSONArray jsonInv = (JSONArray) json.get("inventory");
-                jsonInv.add("");
-            }
+    public void setType(Integer newType) {
+        if (newType == 0 || newType == 1) {
+            type = newType;
         }
-        if (length < size) {
-            for (int count = 0; count < size - length; count ++) {
-                inventory.remove(count);
-                JSONArray jsonInv = (JSONArray) json.get("inventory");
-                jsonInv.remove(count);
-            }
-        }
-        saveHelper();
+    }
+
+    public Integer getType() {
+        return type;
     }
 
     /**
@@ -432,13 +340,6 @@ public class User {
     }
 
     /**
-     * @return - an immutable list of the player's inventory
-     */
-    public List<String> getInventory() {
-        return ImmutableList.copyOf(inventory);
-    }
-
-    /**
      * @return - an immutable map of the player's best paths on each level
      */
     public Map<Integer, List<Double>> getPaths() {
@@ -474,7 +375,6 @@ public class User {
         id = original.getID();
         password = original.getPassword();
         avatarImg = original.getAvatar();
-        inventory = original.getInventory();
         birthday = original.getBirthday();
         levelPaths = original.getLevelPaths();
         levelScores = original.getLevelScores();
