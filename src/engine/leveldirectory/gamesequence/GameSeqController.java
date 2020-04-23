@@ -67,11 +67,20 @@ public abstract class GameSeqController {
         myPane.getChildren().clear();
         for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
             GameObjectView gameObjectView = createGameObjectView(g);
+
+            if (g.getImgPath().equals("images/avatars/raccoon.png")) {
+                System.out.println("X:" + g.getX());
+                System.out.println("Y: " + g.getY());
+                System.out.println("Height" + g.getHeight());
+                g.setX(10.);
+                g.setY(5.);
+            }
             myPane.getChildren().add(gameObjectView);
         }
         simplePlayerView = createGameObjectView(simplePlayer.get(currentLevel));
         myPane.getChildren().add(simplePlayerView);
-        myPane.setVisible(true);
+        System.out.println(myPane.getChildren().size());
+        //myPane.setVisible(true);
         // TODO: display score board
     }
 

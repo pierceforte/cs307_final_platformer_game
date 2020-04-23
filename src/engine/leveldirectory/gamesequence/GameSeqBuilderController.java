@@ -33,7 +33,6 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
                                     Scene scene, BorderPane root, double height, double width) {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
         myPane = root;
-        System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size() + "size 1");
         setNextScene();
         setupTimeline();
         initialize(scene, root);
@@ -42,10 +41,14 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
 
     @Override
     public void setNextScene() {
+        System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size());
         super.setNextPlayScene(()->{
+            //getLevelContainer().getCurrentLevel().addGameObject(builderStage.getGameObjects());
             pause();
+            System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size());
             GameSeqLevelController playTemp = new GameSeqLevelController(getLevelContainer(), getGraphicsEngine(),
                     getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
+            System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size());
             playTemp.play();
         });
     }
@@ -55,7 +58,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         setMyScene(scene);
         setRoot(root);
 
-        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",1d,1d,1., 1., 10.);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",2d,2d,1., 1., 10.);
         Mongoose mongoose = new Mongoose("images/avatars/mongoose.png",1d,1d, 1., 1., 10.);
         BankItem one = new BankItem(new Raccoon(raccoon),  30, 30, 10);
         BankItem two = new BankItem(new Mongoose(mongoose), 30, 30, 20);

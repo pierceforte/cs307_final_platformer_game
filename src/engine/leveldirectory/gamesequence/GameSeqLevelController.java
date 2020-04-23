@@ -21,14 +21,13 @@ import static javafx.application.Platform.exit;
 public class GameSeqLevelController extends GameSeqController implements SceneChanger {
 
     public static double GRAVITY = 0.01;
-    private KeyInput keyInput;
 
     public GameSeqLevelController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, BorderPane root, double height, double width) {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
         setNextScene();
         setupTimeline();
         setUpListeners();
-        // TODO: remove player test later
+        // TODO: remove player test later and load from memory
         playerTest();
     }
 
@@ -37,8 +36,6 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
         setSimplePlayer(s);
         getSimplePlayer().setXSpeed(0);
         getSimplePlayer().setYSpeed(0);
-        System.out.println("X:" + getSimplePlayer().getXSpeed());
-        System.out.println("Y:" +  getSimplePlayer().getYSpeed());
         GameObjectView g = new GameObjectView(getSimplePlayer().getImgPath(), getSimplePlayer().getX(),
                 getSimplePlayer().getY(), getSimplePlayer().getWidth(),
                 getSimplePlayer().getHeight(), 0);
@@ -71,12 +68,9 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     }
 
     public void step() {
-        System.out.println(getSimplePlayer().getYSpeed());
-        System.out.println(getSimplePlayer().getXSpeed());
         move(getSimplePlayer(), getSimplePlayer().getXSpeed(), getSimplePlayer().getYSpeed());
         boolean flag = playerObjectCollisions();
         if (!flag) {
-            System.out.println("GGGGGGGGGGG");
             gravity(getSimplePlayer());
         }
         super.display();
