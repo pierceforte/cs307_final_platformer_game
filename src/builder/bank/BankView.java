@@ -5,10 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -16,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BankView extends Pane {
+public class BankView extends ViewPane {
 
     public static final String PATH_TO_RIGHT_ARROW = "images/builder/bank/right_bank_icon.png";
     public static final String PATH_TO_LEFT_ARROW = "images/builder/bank/left_bank_icon.png";
-    public static final double WIDTH = 200;
-    public static final double HEIGHT = 260;
+    public static final double DEFAULT_WIDTH = 200;
+    public static final double DEFAULT_HEIGHT = 260;
 
     private Rectangle background;
     private ImageView itemIconDisplay;
@@ -38,10 +35,9 @@ public class BankView extends Pane {
     private boolean hasPurchaseRequest;
     private boolean hasEmptyBank;
 
-    public BankView() {
-        setWidth(WIDTH);
-        setHeight(HEIGHT);
-        resources = ResourceBundle.getBundle("builder.builderResources");
+    public BankView(double width, double height) {
+        super(width, height);
+        resources = ResourceBundle.getBundle("text.builderResources");
         hasPurchaseRequest = false;
         createBackground();
         nonEmptyBankDisplays = new ArrayList<>();
@@ -119,12 +115,6 @@ public class BankView extends Pane {
         //itemTitleDisplay
     }
 
-    private Text createText(String text, String id) {
-        Text display = new Text(text);
-        display.setId(id);
-        return display;
-    }
-
     private void createPurchaseButton() {
         purchaseButton = new Button(resources.getString("Purchase"));
         purchaseButton.setId("purchaseButton");
@@ -184,8 +174,4 @@ public class BankView extends Pane {
                 nextButton, emptyBankDisplay, background);
     }
 
-    //TODO: eliminate this duplicate code
-    private Image makeImage(String imgPath) {
-        return new Image(this.getClass().getClassLoader().getResource(imgPath).toExternalForm());
-    }
 }

@@ -1,11 +1,14 @@
 package data.user;
 
+import data.PrettyPrint;
 import data.ReadSaveException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Save User helps with saving and deleting User profiles
@@ -13,7 +16,7 @@ import java.io.IOException;
  */
 public class SaveUser {
 
-    private static final String fileLoc = "data/messaround.json";
+    private static final String fileLoc = "resources/data/users.json";
     JSONObject users;
 
     /**
@@ -64,7 +67,8 @@ public class SaveUser {
      */
     private void write() throws ReadSaveException {
         try (FileWriter file = new FileWriter(fileLoc)) {
-            file.write(users.toJSONString());
+            PrettyPrint pretty = new PrettyPrint(users.toString());
+            file.write(pretty.getString());
             file.flush();
         } catch (IOException e) {
             throw new ReadSaveException("Save", fileLoc);

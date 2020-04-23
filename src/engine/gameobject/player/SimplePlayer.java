@@ -1,34 +1,32 @@
 package engine.gameobject.player;
 
-import engine.gameobject.GameObject;
+import engine.gameobject.MovingGameObject;
 import javafx.scene.input.KeyCode;
-
-import java.security.Key;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class SimplePlayer extends GameObject implements Player{
-
-    public static final String EX_IMG_PATH = "images/avatars/example_player.png"; //TODO: make this more flexible
+public class SimplePlayer extends MovingGameObject implements Player{
     public static final Double DEFAULT_X_SPEED = 2d; // for key press
     public static final Double DEFAULT_Y_SPEED = -2d; // for jumping
     public static final int LEFT = -1;
     public static final int RIGHT = 1;
+    public static final int DOWN = -1;
 
     private Map<KeyCode, Runnable> inputMap;
-    private boolean hasWon;
-    private boolean hasLost;
+    private boolean hasWon = false;
+    private boolean hasLost = false;
 
-    public SimplePlayer(String imgPath, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
-        super(imgPath, xPos, yPos, xSpeed, ySpeed);
+    public SimplePlayer(String imgPath, Double width, Double height, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
+        super(imgPath, width, height, xPos, yPos, xSpeed, ySpeed);
         assignInputs();
     }
 
     public SimplePlayer(SimplePlayer copy) {
-        this(copy.getImgPath(), copy.getX(), copy.getY(), copy.getXSpeed(), copy.getYSpeed());
+        this(copy.getImgPath(), copy.getWidth(), copy.getHeight(), copy.getX(),
+                copy.getY(), copy.getXSpeed(), copy.getYSpeed());
     }
 
     public void setWinner() {
@@ -40,13 +38,12 @@ public class SimplePlayer extends GameObject implements Player{
     }
 
     @Override
-    public List<Object> getParameters() {
-        return Arrays.asList(getImgPath(), getX(), getY(), getXSpeed(), getYSpeed());
-    }
-
-    @Override
     public boolean isPlayer() {
         return true;
+    }
+
+    public boolean isOpponent() {
+        return false;
     }
 
     public boolean hasWon() {
@@ -62,6 +59,7 @@ public class SimplePlayer extends GameObject implements Player{
         {{
             put(KeyCode.A, () -> move(LEFT));
             put(KeyCode.D, () -> move(RIGHT));
+            put(KeyCode.S, () -> down());
             put(KeyCode.W, () -> jump());
         }};
     }
@@ -78,11 +76,13 @@ public class SimplePlayer extends GameObject implements Player{
         }
     }
 
-    public void move(int direction) {
+    private void move(int direction) {
         updateXPos(direction * DEFAULT_X_SPEED);
     }
 
-    public void jump() {
+    private void down() { updateYPos(-1 * DEFAULT_Y_SPEED); }
+
+    private void jump() {
         updateYPos(DEFAULT_Y_SPEED);
     }
 }

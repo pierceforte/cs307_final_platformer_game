@@ -11,42 +11,48 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import static javafx.application.Platform.exit;
 
-public class GameSeqLevelController extends GameSeqController {
+public class GameSeqLevelController extends GameSeqController implements SceneChanger {
 
-
-    private KeyInput keyInput;
+    public static double GRAVITY = 0.01;
 
     public GameSeqLevelController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, BorderPane root, double height, double width) {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
-        setUpRunnable();
+        setNextScene();
         setupTimeline();
         setUpListeners();
-
-        // TODO: remove player test later
+        // TODO: remove player test later and load from memory
         playerTest();
     }
-    private void playerTest() {
-        SimplePlayer s = new SimplePlayer("babysnake.png", 10., 5., 200.,200.);
-        setSimplePlayer(s);
 
+    private void playerTest() {
+        SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, 10., 5., 0.,0.);
+        setSimplePlayer(s);
+        getSimplePlayer().setXSpeed(0);
+        getSimplePlayer().setYSpeed(0);
         GameObjectView g = new GameObjectView(getSimplePlayer().getImgPath(), getSimplePlayer().getX(),
                 getSimplePlayer().getY(), getSimplePlayer().getWidth(),
-                getSimplePlayer().getHeight(), 20);
+                getSimplePlayer().getHeight(), 0);
         setSimplePlayerView(g);
     }
 
-    private void setUpRunnable() {
-        // TODO: check if this isn't the last level
+    /**
+     * Sets the builder stage that follows this level;
+     * if this is the last level, the game exits after it ends
+     */
+    @Override
+    public void setNextScene() {
+        if (getLevelContainer().getLevelNum() == getLevelContainer().getTotalNumLevels())
+            exit();
         super.setNextPlayScene(()->{
             pause();
-            super.getLevelContainer().incrementLevel();
+            getLevelContainer().incrementLevel();
             GameSeqBuilderController builderTemp = new GameSeqBuilderController(getLevelContainer(), getGraphicsEngine(),
                     getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
             builderTemp.play();
@@ -62,36 +68,37 @@ public class GameSeqLevelController extends GameSeqController {
     }
 
     public void step() {
+        move(getSimplePlayer(), getSimplePlayer().getXSpeed(), getSimplePlayer().getYSpeed());
         boolean flag = playerObjectCollisions();
-        if (!flag)
-            playerGravity();
+        if (!flag) {
+            gravity(getSimplePlayer());
+        }
         super.display();
     }
 
     private void setUpListeners() {
         getMyScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if (key.getCode() == KeyCode.N)
+                endPhase();
             getSimplePlayer().handleInput(key.getCode());
         });
-
-    }
-
-    // if the player isn't intersecting with anything, move it down
-    private void playerGravity() {
-        getSimplePlayer().setY(getSimplePlayer().getY() - getSimplePlayer().getHeight() / 4);
     }
 
     // implements player-gameobject collisions
     // if the player is intersecting with an enemy, move it backwards in the x direction in the direction it came from
     private boolean playerObjectCollisions() {
         for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
-            if (intersect(getSimplePlayer(), g)) ; // checks if the player is intersecting with the current object
-            { // TODO: check if g is an enemy
+            if (intersect(getSimplePlayer(), g)) // checks if the player is intersecting with the current object
+            {
+                getSimplePlayer().setYSpeed(0);
+                getSimplePlayer().setXSpeed(0);
+                // TODO: check if g is an enemy
                 if (getSimplePlayer().getXDirection() > 0)
                     getSimplePlayerView().setX(getSimplePlayer().getX() - getSimplePlayer().getWidth());
                 else
                     getSimplePlayerView().setX(getSimplePlayer().getX() + getSimplePlayer().getWidth());
                 if (true) // TODO: check if g is an enemy
-                    getGame().getScoreDisplay().loseLife();
+                    getGame().getHUDController().lowerLife();
                 return true;
             }
         }
@@ -112,7 +119,6 @@ public class GameSeqLevelController extends GameSeqController {
             return false;
     }
 
-    // creates a GameObjectView when given a GameObject
     private GameObjectView createGOView(GameObject g) {
         GameObjectView gameObjectView = new GameObjectView(g.getImgPath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
         gameObjectView.setX(gameObjectView.getX() * getWidth()/30);
@@ -122,12 +128,19 @@ public class GameSeqLevelController extends GameSeqController {
         return gameObjectView;
     }
 
+    public void gravity(GameObject gameObject) {
+        gameObject.setYSpeed(gameObject.getYSpeed() + (GRAVITY));
+    }
 
+    private void move(GameObject gameObject, double xDelta, double yDelta) {
+        gameObject.setX(gameObject.getX() + xDelta);
+        gameObject.setY(gameObject.getY() + yDelta);
+    }
 
     public void endPhase() {
-        if (getGame().getScoreDisplay().getLives() <= 0)
+        if (getGame().getHUDController().getLives() <= 0)
             exit();
         // TODO: if (win)
-            getNextPlayScene().run();
+        getNextPlayScene().run();
     }
 }

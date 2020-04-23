@@ -2,6 +2,7 @@ package engine.leveldirectory.gamesequence;
 
 import builder.*;
 import engine.gameobject.GameObject;
+import engine.gameobject.MovingGameObject;
 import engine.gameobject.player.Player;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
@@ -55,7 +56,6 @@ public abstract class GameSeqController {
         this.myScene = scene;
         this.myPane = root;
         setPlayer();
-
     }
 
     public void setTimeline(Timeline t) {
@@ -66,16 +66,21 @@ public abstract class GameSeqController {
         int currentLevel = 0;
         myPane.getChildren().clear();
         for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
-            GameObjectView gameObjectView = new GameObjectView(g.getImgPath(), g.getX(), g.getY(), g.getWidth(), g.getHeight(), g.getXDirection());
-            gameObjectView.convertAttributesToGridBased(width/30, height/20);
+            GameObjectView gameObjectView = createGameObjectView(g);
+
+            if (g.getImgPath().equals("images/avatars/raccoon.png")) {
+                System.out.println("X:" + g.getX());
+                System.out.println("Y: " + g.getY());
+                System.out.println("Height" + g.getHeight());
+                g.setX(10.);
+                g.setY(5.);
+            }
             myPane.getChildren().add(gameObjectView);
         }
-        simplePlayerView = new GameObjectView(simplePlayer.get(currentLevel).getImgPath(), simplePlayer.get(currentLevel).getX(),
-                simplePlayer.get(currentLevel).getY(), simplePlayer.get(currentLevel).getWidth(),
-                simplePlayer.get(currentLevel).getHeight(), 20);
-        simplePlayerView.convertAttributesToGridBased(width/30, height/20);
+        simplePlayerView = createGameObjectView(simplePlayer.get(currentLevel));
         myPane.getChildren().add(simplePlayerView);
-        myPane.setVisible(true);
+        System.out.println(myPane.getChildren().size());
+        //myPane.setVisible(true);
         // TODO: display score board
     }
 
@@ -95,6 +100,24 @@ public abstract class GameSeqController {
             }
     }
 
+    public GameObjectView createGameObjectView(GameObject gameObject) {
+        GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(),
+                gameObject.getY(), gameObject.getWidth(), gameObject.getHeight(), gameObject.getXDirection());
+        gameObjectView.convertAttributesToGridBased(width/30, height/20);
+        return gameObjectView;
+    }
+
+    public List<GameObjectView> createGameObjectViews(List<GameObject> gameObjects) {
+        List<GameObjectView> gameObjectViews = new ArrayList<>();
+        for (GameObject gameObject : gameObjects) {
+            GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(),
+                    gameObject.getY(), gameObject.getWidth(), gameObject.getHeight(), gameObject.getXDirection());
+            gameObjectView.convertAttributesToGridBased(width/30, height/20);
+            gameObjectViews.add(gameObjectView);
+        }
+        return gameObjectViews;
+    }
+
     public Scene getMyScene() { return myScene; }
     public void setMyScene(Scene scene) { this.myScene = scene; }
     public BorderPane getRoot() { return myPane; }
@@ -102,26 +125,16 @@ public abstract class GameSeqController {
     public double getHeight() { return this.height; }
     public double getWidth() { return width; }
     public SimplePlayer getSimplePlayer() {
-        int i = levelContainer.getLevelNum()-1;
+        int i = levelContainer.getLevelNum();
         return simplePlayer.get(i);
     }
     public GameObjectView getSimplePlayerView() {  return simplePlayerView; }
     public void setSimplePlayerView(GameObjectView g) { simplePlayerView = g; }
-
     public void setSimplePlayer(SimplePlayer simplePlayer) {
         this.simplePlayer.add(simplePlayer);
     }
-
     public GraphicsEngine getGraphicsEngine() { return graphicsEngine; }
     public Game getGame() { return game; }
-
-    public void pause() {
-        timeline.pause();
-    }
-    public void play() {
-        timeline.play();
-    }
-
     public LevelContainer getLevelContainer() {
         return levelContainer;
     }
@@ -129,8 +142,10 @@ public abstract class GameSeqController {
         return timeline;
     }
 
-    //TODO: eliminate duplicate code here
-    private Image makeImage(String imgPath) {
-        return new Image(this.getClass().getClassLoader().getResource(imgPath).toExternalForm());
+    public void pause() {
+        timeline.pause();
+    }
+    public void play() {
+        timeline.play();
     }
 }

@@ -1,19 +1,15 @@
 package engine.general;
 
 import data.ReadSaveException;
-import data.levels.LevelData;
-import engine.gameobject.GameObject;
 import engine.leveldirectory.gamesequence.*;
+import engine.leveldirectory.hud.HUDController;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
-import engine.leveldirectory.level.Level;
 import engine.leveldirectory.level.LevelContainer;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,15 +18,12 @@ import java.util.List;
  * @author Jerry Huang
  */
 public class Game {
-    // fields for the UI
     private Stage stage;
     private BorderPane root;
     private Scene scene;
 
     private LevelContainer levelContainer;
-    private List<Runnable> buildRunnables;
-    private List<Runnable> playRunnables;
-    private ScoreDisplay scoreDisplay;
+    private HUDController hudController;
     private GraphicsEngine graphicsEngine;
 
     private double height;
@@ -45,28 +38,23 @@ public class Game {
 
         levelContainer = new LevelContainer(this);
         levelContainer.loadLevels();
-        scoreDisplay = new ScoreDisplay(this);
+        // TODO: read in num of player lives
+        hudController = new HUDController(5, 0, getLevelContainer().getLevelNum());
         graphicsEngine = null;
         this.height = height;
         this.width = width;
-
         startLevelPhase(scene, root, height, width);
     }
 
 
     public void startLevelPhase(Scene scene, BorderPane root, double height, double width) {
-        /*
-        GameSeqLevelController gameSeqLevelController = new GameSeqLevelController(levelContainer, graphicsEngine,
-                this, scene, root, height, width);
-        gameSeqLevelController.play();
-         */
         GameSeqBuilderController gameSeqBuilderController = new GameSeqBuilderController(levelContainer, graphicsEngine,
                 this, scene, root, height, width);
     }
 
     public LevelContainer getLevelContainer() { return levelContainer; }
 
-    public ScoreDisplay getScoreDisplay() {
-        return scoreDisplay;
+    public HUDController getHUDController() {
+        return hudController;
     }
 }

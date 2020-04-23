@@ -5,8 +5,8 @@ import engine.gameobject.player.SimplePlayer;
 
 public class StationaryHazardPlatform extends StationaryPlatform {
 
-    public StationaryHazardPlatform(String imgPath, Double xPos, Double yPos) {
-        super(imgPath, xPos, yPos);
+    public StationaryHazardPlatform(String imgPath, Double width, Double height, Double xPos, Double yPos) {
+        super(imgPath, width, height, xPos, yPos);
     }
 
     public StationaryHazardPlatform(StationaryPlatform copy) {
