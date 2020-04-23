@@ -27,7 +27,7 @@ public class BuilderTest extends DukeApplicationTest {
 
     @Override
     public void start(Stage stage) {
-        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png", 1d, 1d, 10d);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",1d,1d, 1d, 1d, 10d);
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
         root = new BorderPane();
         BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);

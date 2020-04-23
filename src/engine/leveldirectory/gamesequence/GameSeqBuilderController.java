@@ -55,8 +55,8 @@ public class GameSeqBuilderController extends GameSeqController {
         setMyScene(scene);
         setRoot(root);
 
-        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png", 1., 1., 10.);
-        Mongoose mongoose = new Mongoose("images/avatars/mongoose.png", 1., 1., 10.);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",1d,1d,1., 1., 10.);
+        Mongoose mongoose = new Mongoose("images/avatars/mongoose.png",1d,1d, 1., 1., 10.);
         BankItem one = new BankItem(new Raccoon(raccoon),  30, 30, 10);
         BankItem two = new BankItem(new Mongoose(mongoose), 30, 30, 20);
         BankItem three = new BankItem(new Mongoose(mongoose), 30, 30, 30);

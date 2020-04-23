@@ -10,7 +10,6 @@ public class SaveDeleteUserTest {
         SaveUser save= new SaveUser();
         save.delete("SaveTest");
         User user = new User("SaveTest", "test", "test,img", 12, 10, 2010);
-
         User userCopy = new User("SaveTest", "test");
 
     }

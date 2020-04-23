@@ -2,13 +2,14 @@
   "1": {
     "engine.gameobject.platform.HorizontalSlidingPlatform" : {
       "ctor": [
-        ["java.lang.String", "resources/example_platform.png"],
-        ["java.lang.Double", "-1"],
-        ["java.lang.Double", "-1"],
-        ["java.lang.Double", "1"],
+        ["java.lang.String", "resources/images/objects/movingplatform.png"],
+        ["java.lang.Double", "30"],
         ["java.lang.Double", "10"],
-        ["java.lang.Double", "100"],
-        ["java.lang.Integer", "100"]
+        ["java.lang.Double", "50"],
+        ["java.lang.Double", "50"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Integer", "15"],
+        ["java.lang.Double", "1"]
       ],
       "cost": 1000,
       "height": 10,

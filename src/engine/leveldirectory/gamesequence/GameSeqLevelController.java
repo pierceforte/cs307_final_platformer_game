@@ -32,7 +32,7 @@ public class GameSeqLevelController extends GameSeqController {
         playerTest();
     }
     private void playerTest() {
-        SimplePlayer s = new SimplePlayer("babysnake.png", 10., 5., 200.,200.);
+        SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, 10., 5., 200.,200.);
         setSimplePlayer(s);
 
         GameObjectView g = new GameObjectView(getSimplePlayer().getImgPath(), getSimplePlayer().getX(),

@@ -14,13 +14,12 @@ public class UserHolder {
     private String id;
     private String password;
     private String avatarImg;
-    private List<Integer> birthday = new ArrayList<>();
+    private List<Integer> birthday;
     private int score;
-    private List<String> inventory = new ArrayList<>();
-    private Map<Integer, Integer> levelScores = new HashMap<>();
-    private Map<Integer, List<Double>> levelPaths = new HashMap<>();
+    private Map<Integer, Integer> levelScores;
+    private Map<Integer, List<Double>> levelPaths;
 
-    public UserHolder(JSONObject json, String id, String password, String avatarImg, List<Integer> birthday, int score, List<String> inventory,
+    public UserHolder(JSONObject json, String id, String password, String avatarImg, List<Integer> birthday, int score,
                       Map<Integer, Integer> levelScores, Map<Integer, List<Double>> levelPaths) {
         this.json = (JSONObject) json.clone();
         this.id = id;
@@ -29,15 +28,11 @@ public class UserHolder {
         this.birthday = List.copyOf(birthday);
         this.score = score;
         this.levelScores = Map.copyOf(levelScores);
-        this.inventory = List.copyOf(inventory);
         this.levelPaths = Map.copyOf(levelPaths);
         editJSON();
     }
 
     private void editJSON() {
-        JSONArray jsonInv = new JSONArray();
-        jsonInv.addAll(inventory);
-        json.replace("inventory", jsonInv);
         JSONObject jsonBD = new JSONObject();
         jsonBD.put("month", birthday.get(0));
         jsonBD.put("day", birthday.get(1));
@@ -76,10 +71,6 @@ public class UserHolder {
 
     public int getScore() {
         return score;
-    }
-
-    public List<String> getInventory() {
-        return inventory;
     }
 
     public Map<Integer, Integer> getLevelScores() {

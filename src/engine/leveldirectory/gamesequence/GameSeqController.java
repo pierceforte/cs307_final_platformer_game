@@ -2,6 +2,7 @@ package engine.leveldirectory.gamesequence;
 
 import builder.*;
 import engine.gameobject.GameObject;
+import engine.gameobject.MovingGameObject;
 import engine.gameobject.player.Player;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;

@@ -1,6 +1,7 @@
 package data.levels;
 
 import builder.bank.BankItem;
+import data.PrettyPrint;
 import data.ReadSaveException;
 import engine.gameobject.GameObject;
 import org.json.simple.JSONArray;
@@ -47,6 +48,14 @@ public class LevelData {
                     Math.toIntExact((Long) type.get("cost"))));
         }
         return bankItems;
+    }
+
+    public Integer levelNumber() {
+        Integer count = 0;
+        for (Object keyObj : levels.keySet()) {
+            if (!keyObj.equals("temp")) count++;
+        }
+        return count;
     }
 
     public void saveTemp(List<GameObject> list) throws ReadSaveException {
@@ -106,7 +115,7 @@ public class LevelData {
     private List<GameObject> loadHelper(String target) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         List<GameObject> levelObjects = new ArrayList<>();
         if (!levels.containsKey(target)) throw new ReadSaveException("read", levelLoc);
-        JSONObject temp = (JSONObject) levels.get("1");
+        JSONObject temp = (JSONObject) levels.get("0");
         for (Object key : temp.keySet()) {
             String className = (String) key;
             Class objClass = Class.forName(className);
@@ -136,7 +145,12 @@ public class LevelData {
                 params[index] = parse(thisClass, (String) param.get(1));
             }
         }
-        return (GameObject) objClass.getDeclaredConstructor(classes).newInstance(params);
+        try {
+            return (GameObject) objClass.getDeclaredConstructor(classes).newInstance(params);
+        }catch (NoSuchMethodException e) {
+            throw new NoSuchMethodException();
+        }
+
     }
 
     private static <T> T parse(Class<T> type, String value) {
@@ -154,7 +168,8 @@ public class LevelData {
      */
     private void write(String fileLoc) throws ReadSaveException {
         try (FileWriter file = new FileWriter(fileLoc)) {
-            file.write(levels.toJSONString());
+            PrettyPrint pretty = new PrettyPrint(levels.toString());
+            file.write(pretty.getString());
             file.flush();
         } catch (IOException e) {
             throw new ReadSaveException("save", fileLoc);
