@@ -18,14 +18,11 @@ import java.util.List;
  * @author Jerry Huang
  */
 public class Game {
-    // fields for the UI
     private Stage stage;
     private BorderPane root;
     private Scene scene;
 
     private LevelContainer levelContainer;
-    private List<Runnable> buildRunnables;
-    private List<Runnable> playRunnables;
     private HUDController hudController;
     private GraphicsEngine graphicsEngine;
 
@@ -46,17 +43,11 @@ public class Game {
         graphicsEngine = null;
         this.height = height;
         this.width = width;
-
         startLevelPhase(scene, root, height, width);
     }
 
 
     public void startLevelPhase(Scene scene, BorderPane root, double height, double width) {
-        /*
-        GameSeqLevelController gameSeqLevelController = new GameSeqLevelController(levelContainer, graphicsEngine,
-                this, scene, root, height, width);
-        gameSeqLevelController.play();
-         */
         GameSeqBuilderController gameSeqBuilderController = new GameSeqBuilderController(levelContainer, graphicsEngine,
                 this, scene, root, height, width);
     }

@@ -23,7 +23,7 @@ import javafx.util.Duration;
 
 import java.util.List;
 
-public class GameSeqBuilderController extends GameSeqController {
+public class GameSeqBuilderController extends GameSeqController implements SceneChanger{
     private BorderPane myPane;
     private Pane leftPane;
     private BankController bankController;
@@ -34,18 +34,18 @@ public class GameSeqBuilderController extends GameSeqController {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
         myPane = root;
         System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size() + "size 1");
-        setUpRunnable();
+        setNextScene();
         setupTimeline();
         initialize(scene, root);
         getTimeline().play();
     }
 
-    private void setUpRunnable() {
+    @Override
+    public void setNextScene() {
         super.setNextPlayScene(()->{
             pause();
             GameSeqLevelController playTemp = new GameSeqLevelController(getLevelContainer(), getGraphicsEngine(),
                     getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
-            System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size() + "size 2");
             playTemp.play();
         });
     }

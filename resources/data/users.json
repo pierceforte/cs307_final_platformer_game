@@ -57,6 +57,24 @@
       "3":0
     }
   },
+  "asfads":{
+    "birthday":{
+      "month":1,
+      "year":1,
+      "day":1
+    },
+    "score":0,
+    "password":"asfadf",
+    "paths":{
+      "1":[0.0,0.0]
+    },
+    "id":"asfads",
+    "avatar":null,
+    "type":1,
+    "levels":{
+      "1":0
+    }
+  },
   "nl163":{
     "birthday":{
       "month":12,

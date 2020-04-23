@@ -56,7 +56,6 @@ public abstract class GameSeqController {
         this.myScene = scene;
         this.myPane = root;
         setPlayer();
-
     }
 
     public void setTimeline(Timeline t) {
@@ -92,40 +91,6 @@ public abstract class GameSeqController {
             }
     }
 
-    public Scene getMyScene() { return myScene; }
-    public void setMyScene(Scene scene) { this.myScene = scene; }
-    public BorderPane getRoot() { return myPane; }
-    public void setRoot(BorderPane root) { this.myPane = root; }
-    public double getHeight() { return this.height; }
-    public double getWidth() { return width; }
-    public SimplePlayer getSimplePlayer() {
-        int i = levelContainer.getLevelNum()-1;
-        return simplePlayer.get(i);
-    }
-    public GameObjectView getSimplePlayerView() {  return simplePlayerView; }
-    public void setSimplePlayerView(GameObjectView g) { simplePlayerView = g; }
-
-    public void setSimplePlayer(SimplePlayer simplePlayer) {
-        this.simplePlayer.add(simplePlayer);
-    }
-
-    public GraphicsEngine getGraphicsEngine() { return graphicsEngine; }
-    public Game getGame() { return game; }
-
-    public void pause() {
-        timeline.pause();
-    }
-    public void play() {
-        timeline.play();
-    }
-
-    public LevelContainer getLevelContainer() {
-        return levelContainer;
-    }
-    public Timeline getTimeline() {
-        return timeline;
-    }
-
     public GameObjectView createGameObjectView(GameObject gameObject) {
         GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(),
                 gameObject.getY(), gameObject.getWidth(), gameObject.getHeight(), gameObject.getXDirection());
@@ -142,5 +107,36 @@ public abstract class GameSeqController {
             gameObjectViews.add(gameObjectView);
         }
         return gameObjectViews;
+    }
+
+    public Scene getMyScene() { return myScene; }
+    public void setMyScene(Scene scene) { this.myScene = scene; }
+    public BorderPane getRoot() { return myPane; }
+    public void setRoot(BorderPane root) { this.myPane = root; }
+    public double getHeight() { return this.height; }
+    public double getWidth() { return width; }
+    public SimplePlayer getSimplePlayer() {
+        int i = levelContainer.getLevelNum();
+        return simplePlayer.get(i);
+    }
+    public GameObjectView getSimplePlayerView() {  return simplePlayerView; }
+    public void setSimplePlayerView(GameObjectView g) { simplePlayerView = g; }
+    public void setSimplePlayer(SimplePlayer simplePlayer) {
+        this.simplePlayer.add(simplePlayer);
+    }
+    public GraphicsEngine getGraphicsEngine() { return graphicsEngine; }
+    public Game getGame() { return game; }
+    public LevelContainer getLevelContainer() {
+        return levelContainer;
+    }
+    public Timeline getTimeline() {
+        return timeline;
+    }
+
+    public void pause() {
+        timeline.pause();
+    }
+    public void play() {
+        timeline.play();
     }
 }

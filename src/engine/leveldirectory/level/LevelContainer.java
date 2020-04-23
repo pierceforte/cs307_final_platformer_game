@@ -17,6 +17,7 @@ import java.util.List;
 public class LevelContainer {
     private List<Level> levels;
     private int currentLevel;
+    private int totalNumLevels;
     private final Game game;
     private HUDModel scoreBoardController;
 
@@ -33,9 +34,9 @@ public class LevelContainer {
             InstantiationException, IllegalAccessException, InvocationTargetException {
         LevelData levelData = new LevelData();
         // TODO: int numLevels = levelData.getNumLevels()
-        int numLevels = levelData.getNumLevels();
+        totalNumLevels = levelData.getNumLevels();
         List<Level> levels = new ArrayList<>();
-        for (int i = 0; i < numLevels; i++) {
+        for (int i = 0; i < totalNumLevels; i++) {
             Level levelTemp = new Level(levelData.getSavedLevel(i));
             levels.add(levelTemp);
         }
@@ -62,6 +63,7 @@ public class LevelContainer {
         return this.game;
     }
 
+    public int getTotalNumLevels() { return totalNumLevels; }
 }
 
 

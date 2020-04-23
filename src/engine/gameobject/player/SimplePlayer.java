@@ -9,11 +9,11 @@ import java.util.Map;
 
 
 public class SimplePlayer extends MovingGameObject implements Player{
-
     public static final Double DEFAULT_X_SPEED = 2d; // for key press
     public static final Double DEFAULT_Y_SPEED = -2d; // for jumping
     public static final int LEFT = -1;
     public static final int RIGHT = 1;
+    public static final int DOWN = -1;
 
     private Map<KeyCode, Runnable> inputMap;
     private boolean hasWon = false;
@@ -59,6 +59,7 @@ public class SimplePlayer extends MovingGameObject implements Player{
         {{
             put(KeyCode.A, () -> move(LEFT));
             put(KeyCode.D, () -> move(RIGHT));
+            put(KeyCode.S, () -> down());
             put(KeyCode.W, () -> jump());
         }};
     }
@@ -75,11 +76,13 @@ public class SimplePlayer extends MovingGameObject implements Player{
         }
     }
 
-    public void move(int direction) {
+    private void move(int direction) {
         updateXPos(direction * DEFAULT_X_SPEED);
     }
 
-    public void jump() {
+    private void down() { updateYPos(-1 * DEFAULT_Y_SPEED); }
+
+    private void jump() {
         updateYPos(DEFAULT_Y_SPEED);
     }
 }
