@@ -35,7 +35,7 @@ public class LevelContainer {
         // TODO: int numLevels = levelData.getNumLevels()
         int numLevels = levelData.getNumLevels();
         List<Level> levels = new ArrayList<>();
-        for (int i = 1; i <= numLevels; i++) {
+        for (int i = 0; i < numLevels; i++) {
             Level levelTemp = new Level(levelData.getSavedLevel(i));
             levels.add(levelTemp);
         }

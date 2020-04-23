@@ -115,7 +115,7 @@ public class LevelData {
     private List<GameObject> loadHelper(String target) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         List<GameObject> levelObjects = new ArrayList<>();
         if (!levels.containsKey(target)) throw new ReadSaveException("read", levelLoc);
-        JSONObject temp = (JSONObject) levels.get("0");
+        JSONObject temp = (JSONObject) levels.get(target);
         for (Object key : temp.keySet()) {
             String className = (String) key;
             Class objClass = Class.forName(className);
