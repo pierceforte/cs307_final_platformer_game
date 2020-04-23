@@ -129,17 +129,15 @@ public abstract class GameSeqController {
     public GameObjectView createGameObjectView(GameObject gameObject) {
         GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(),
                 gameObject.getY(), gameObject.getWidth(), gameObject.getHeight(), gameObject.getXDirection());
-        gameObjectView.convertAttributesToGridBased(width/30, height/20);
+        gameObjectView.convertAttributesToGridBased(width/GridStage.TILE_WIDTH_FACTOR,
+                height/GridStage.TILE_HEIGHT_FACTOR);
         return gameObjectView;
     }
 
     public List<GameObjectView> createGameObjectViews(List<GameObject> gameObjects) {
         List<GameObjectView> gameObjectViews = new ArrayList<>();
         for (GameObject gameObject : gameObjects) {
-            GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(),
-                    gameObject.getY(), gameObject.getWidth(), gameObject.getHeight(), gameObject.getXDirection());
-            gameObjectView.convertAttributesToGridBased(width/30, height/20);
-            gameObjectViews.add(gameObjectView);
+            gameObjectViews.add(createGameObjectView(gameObject));
         }
         return gameObjectViews;
     }
