@@ -5,12 +5,13 @@ import builder.bank.BankItem;
 import engine.gameobject.GameObject;
 import engine.view.GameObjectView;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Effect;
+import javafx.scene.effect.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +47,6 @@ public class BuilderStage extends DraggableGridStage {
         handleOverlappingObjects();
         addItemsBackToBank();
         attemptToMakeGridDraggable();
-        snap(dimensions.getMinX() * getTileWidth(), dimensions.getMaxX() * getTileWidth(),
-                dimensions.getMinY() * getTileHeight(), dimensions.getMaxY() * getTileHeight());
     }
 
     public boolean isDone() {
@@ -87,20 +86,41 @@ public class BuilderStage extends DraggableGridStage {
     }
 
     private void handleOverlappingObjects() {
-        /*for (BuilderObjectView object : myObjects) {
+        for (BuilderObjectView object : myObjects) {
+            boolean isNewlyOverlapped = false;
             for (GameObjectView gameObjectView : levelGameObjectViews) {
-                if (object.intersects(gameObjectView.getBoundsInParent())) {
-                    System.out.println("overlap");
-                    object.setEffect(new ColorAdjust(3,3,3,3));
+                if (overlap(object, gameObjectView)) {
+                    isNewlyOverlapped = true;
+                    break;
                 }
                 else {
                     object.setEffect(null);
                 }
             }
-        }*/
+            if (!isNewlyOverlapped) {
+                for (BuilderObjectView otherObject : myObjects) {
+                    if (object.equals(otherObject)) {
+                        continue;
+                    }
+                    if (overlap(object, otherObject)) {
+                        isNewlyOverlapped = true;
+                    }
+                    else {
+                        object.setEffect(null);
+                    }
+                }
+            }
+            if (isNewlyOverlapped) {
+                handleOverlappedObject(object);
+            }
+            else {
+                handleNonOverlappedObject(object);
+            }
+        }
     }
 
     private void addActionItemsForObject(BuilderObjectView object) {
+        System.out.println("here");
         ImageView leftIcon = object.getLeftIcon();
         ImageView rightIcon = object.getRightIcon();
         double y = object.getY() + object.getFitHeight();
@@ -108,7 +128,10 @@ public class BuilderStage extends DraggableGridStage {
         rightIcon.setX(object.getX() + object.getFitWidth()/2 - leftIcon.getFitWidth()/2 + 0.2*getTileWidth());
         leftIcon.setY(y);
         rightIcon.setY(y);
-        this.getChildren().addAll(leftIcon, rightIcon);
+        this.getChildren().add(leftIcon);
+        if (!object.isOverlapped()) {
+            this.getChildren().add(rightIcon);
+        }
     }
 
     private void attemptToMakeGridDraggable() {
@@ -195,6 +218,34 @@ public class BuilderStage extends DraggableGridStage {
         dialog.setContentText(resources.getString("InvalidLeave"));
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         Platform.runLater(() -> dialog.showAndWait());
+    }
+
+    private boolean overlap(ImageView a, ImageView b) {
+        return  a.getX() < b.getX() + b.getFitWidth() &&
+                a.getX() + a.getFitWidth() > b.getX() &&
+                a.getY() < b.getY() +b.getFitHeight() &&
+                a.getY() + a.getFitHeight() >b.getY();
+    }
+
+    private void handleOverlappedObject(BuilderObjectView object) {
+        if (object.isDraggable()) {
+            if (!object.isOverlapped()) {
+                object.setHasNewActionItems(true);
+            }
+            object.setIsOverlapped(true);
+            ColorAdjust monochrome = new ColorAdjust();
+            monochrome.setSaturation(-1);
+            Blend invalidPlacementBlend = new Blend(BlendMode.MULTIPLY, monochrome,
+                    new ColorInput(object.getX(), object.getY(), object.getFitWidth(), object.getFitHeight(), Color.RED));
+            object.setEffect(invalidPlacementBlend);
+        }
+    }
+
+    private void handleNonOverlappedObject(BuilderObjectView object) {
+        if (object.isOverlapped()) {
+            object.setHasNewActionItems(true);
+        }
+        object.setIsOverlapped(false);
     }
 
 }

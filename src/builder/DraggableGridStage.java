@@ -15,31 +15,10 @@ public abstract class DraggableGridStage extends GridStage {
         nodeDragger = new NodeDragger() {
             @Override
             public void handleDraggableMouseDrag(MouseEvent mouseEvent, Node node) {
-                double newX = mouseEvent.getX() + getDeltaX();
-                double newY = mouseEvent.getY() + getDeltaY();
-
-                if (newX >= dimensions.getMinX()) {
-                    newX = dimensions.getMinX();
-                }
-                else if (newX <= dimensions.getScreenWidth() - width) {
-                    newX = dimensions.getScreenWidth() - width;
-                    if (width < dimensions.getScreenWidth()) {
-                        newX = dimensions.getMinX();
-                    }
-                }
-
-                if (newY >= dimensions.getMinY()) {
-                    newY = dimensions.getMinY();
-                }
-                else if (newY <= dimensions.getScreenHeight() - height) {
-                    newY = dimensions.getScreenHeight() - height;
-                    if (height < dimensions.getScreenHeight()) {
-                        newY = dimensions.getMinY();
-                    }
-                }
-
-                node.setTranslateX(newX);
-                node.setTranslateY(newY);
+                double dragPosX = mouseEvent.getX() + getDeltaX();
+                double dragPosY = mouseEvent.getY() + getDeltaY();
+                node.setTranslateX(getNewXOnDrag(dragPosX, dimensions, width));
+                node.setTranslateY(getNewYOnDrag(dragPosY, dimensions, height));
             }
         };
     }
@@ -60,20 +39,31 @@ public abstract class DraggableGridStage extends GridStage {
         }
     }
 
-    protected void snap(double minX, double maxX, double minY, double maxY) {
-        if (getTranslateX() >= minX) {
-            //setTranslateX(minX);
+    protected double getNewXOnDrag(double dragPosX, GridDimensions dimensions, double width) {
+        double newX = dragPosX;
+        if (newX >= dimensions.getMinX()) {
+            newX = dimensions.getMinX();
         }
-        else if (getTranslateX() <= maxX - getWidth()) {
-            //setTranslateX(maxX - getWidth());
+        else if (newX <= dimensions.getScreenWidth() - width) {
+            newX = dimensions.getScreenWidth() - width;
+            if (width < dimensions.getScreenWidth()) {
+                newX = dimensions.getMinX();
+            }
         }
+        return newX;
+    }
 
-        if (getTranslateY() >= minY) {
-            //setTranslateY(minY);
+    protected double getNewYOnDrag(double dragPosY, GridDimensions dimensions, double height) {
+        double newY = dragPosY;
+        if (newY >= dimensions.getMinY()) {
+            newY = dimensions.getMinY();
         }
-        else if (getTranslateY() <= maxY - getHeight()) {
-            //setTranslateY(maxY - getHeight());
+        else if (newY <= dimensions.getScreenHeight() - height) {
+            newY = dimensions.getScreenHeight() - height;
+            if (height < dimensions.getScreenHeight()) {
+                newY = dimensions.getMinY();
+            }
         }
-
+        return newY;
     }
 }

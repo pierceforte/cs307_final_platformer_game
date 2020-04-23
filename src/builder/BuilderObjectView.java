@@ -29,6 +29,7 @@ public class BuilderObjectView extends GameObjectView {
     public static final int RIGHT = 1;
 
     private NodeDragger nodeDragger;
+    private boolean isOverlapped;
     private boolean isSnapped;
     private boolean isReadyForSnap;
     private boolean isDraggable;
@@ -74,6 +75,14 @@ public class BuilderObjectView extends GameObjectView {
 
     public ImageView getRightIcon() {
         return rightIcon;
+    }
+
+    public boolean isOverlapped() {
+        return isOverlapped;
+    }
+
+    public void setIsOverlapped(boolean isOverlapped) {
+        this.isOverlapped = isOverlapped;
     }
 
     public boolean areActionIconsActive() {
