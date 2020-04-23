@@ -59,6 +59,7 @@ public class GameObjectView extends ImageView {
     }
 
     protected Image makeImage(String imgPath) {
+        System.out.println(imgPath);
         return new Image(this.getClass().getClassLoader().getResource(imgPath).toExternalForm());
     }
 
