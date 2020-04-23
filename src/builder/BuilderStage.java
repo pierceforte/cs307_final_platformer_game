@@ -8,6 +8,8 @@ import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class BuilderStage extends DraggableGridStage {
     private GridDimensions dimensions;
     private BankController bankController;
     private List<BuilderObjectView> myObjects;
+    private List<GameObjectView> levelGameObjectViews;
     private List<GameObject> gameObjects;
     private boolean isDone;
     private ResourceBundle resources;
@@ -40,6 +43,7 @@ public class BuilderStage extends DraggableGridStage {
         bankController.update();
         handlePurchasedItem();
         snapItems();
+        handleOverlappingObjects();
         addItemsBackToBank();
         attemptToMakeGridDraggable();
         snap(dimensions.getMinX() * getTileWidth(), dimensions.getMaxX() * getTileWidth(),
@@ -60,6 +64,7 @@ public class BuilderStage extends DraggableGridStage {
 
     private void addGameObjectViews(List<GameObjectView> gameObjectViews) {
         this.getChildren().addAll(gameObjectViews);
+        levelGameObjectViews = gameObjectViews;
     }
 
     private void snapItems() {
@@ -79,6 +84,20 @@ public class BuilderStage extends DraggableGridStage {
                 object.setHasNewActionItems(false);
             }
         }
+    }
+
+    private void handleOverlappingObjects() {
+        /*for (BuilderObjectView object : myObjects) {
+            for (GameObjectView gameObjectView : levelGameObjectViews) {
+                if (object.intersects(gameObjectView.getBoundsInParent())) {
+                    System.out.println("overlap");
+                    object.setEffect(new ColorAdjust(3,3,3,3));
+                }
+                else {
+                    object.setEffect(null);
+                }
+            }
+        }*/
     }
 
     private void addActionItemsForObject(BuilderObjectView object) {
