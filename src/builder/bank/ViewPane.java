@@ -18,9 +18,4 @@ public class ViewPane extends Pane {
         display.setId(id);
         return display;
     }
-
-    //TODO: eliminate this duplicate code
-    protected Image makeImage(String imgPath) {
-        return new Image(this.getClass().getClassLoader().getResource(imgPath).toExternalForm());
-    }
 }

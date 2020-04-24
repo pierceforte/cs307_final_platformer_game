@@ -1,9 +1,9 @@
 package builder;
 
+import builder.stage.BuilderObjectView;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 
 /**
  * The code used for this class was inspired from StackOverflow at

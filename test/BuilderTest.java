@@ -1,20 +1,22 @@
-import builder.*;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.BankModel;
 import builder.bank.BankView;
+import builder.stage.BuilderObjectView;
+import builder.stage.BuilderStage;
+import builder.stage.GridDimensions;
 import engine.gameobject.opponent.Raccoon;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BuilderTest extends DukeApplicationTest {
@@ -33,7 +35,7 @@ public class BuilderTest extends DukeApplicationTest {
         BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
         bankController = new BankController(List.of(one), 10000, bankView);
         bankModel = bankController.getBankModel();
-        builderStage = new BuilderStage(bankController, 1000, 1000);
+        builderStage = new BuilderStage(new GridDimensions(1000, 1000, null), bankController, new ArrayList<>());
         javafxRun(() -> {
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -177,8 +179,10 @@ public class BuilderTest extends DukeApplicationTest {
     public void testBuilderObjectViewSnap() {
         purchaseFirstItemFromBank();
         // set position of builderObjectView such that it will need to be snapped
-        double initXPos = builderStage.getTileWidth()+builderStage.getTileWidth()/2;
-        double initYPos = builderStage.getTileHeight()+builderStage.getTileHeight()/2;
+        double tileWidth = builderStage.getDimensions().getTileWidth();
+        double tileHeight = builderStage.getDimensions().getTileHeight();
+        double initXPos = tileWidth + tileWidth/2;
+        double initYPos = tileHeight + tileHeight/2;
         builderObjectView.setX(initXPos);
         builderObjectView.setY(initYPos);
         builderObjectView.setIsSnapped(false);

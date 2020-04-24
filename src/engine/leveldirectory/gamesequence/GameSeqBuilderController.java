@@ -1,18 +1,16 @@
 package engine.leveldirectory.gamesequence;
 
-import builder.BuilderStage;
+import builder.stage.BuilderStage;
+import builder.stage.GridDimensions;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.BankView;
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
-import engine.gameobject.platform.StationaryPlatform;
-import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import engine.leveldirectory.level.LevelContainer;
-import input.KeyInput;
 import engine.view.GameObjectView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -28,10 +26,11 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     private Pane leftPane;
     private BankController bankController;
     private BuilderStage builderStage;
+    private List<GameObjectView> levelGameObjectViews;
 
     public GameSeqBuilderController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game,
                                     Scene scene, BorderPane root, double height, double width) {
-        super(levelContainer, graphicsEngine, game, scene, root, height, width);
+        super(levelContainer, graphicsEngine, game, scene, root, height, width - 200);
         myPane = root;
         setNextScene();
         setupTimeline();
@@ -54,19 +53,22 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         // TODO: initialize from stored info
         setMyScene(scene);
         setRoot(root);
+        // TODO: remove hardcoding here
+        levelGameObjectViews = getLevelGameObjects(0);
 
-        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",2d,2d,1., 1., 10.);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",1d,1d,1., 1., 10.);
         Mongoose mongoose = new Mongoose("images/avatars/mongoose.png",1d,1d, 1., 1., 10.);
-        BankItem one = new BankItem(new Raccoon(raccoon),  30, 30, 10);
-        BankItem two = new BankItem(new Mongoose(mongoose), 30, 30, 20);
-        BankItem three = new BankItem(new Mongoose(mongoose), 30, 30, 30);
-        BankItem four = new BankItem(new Raccoon(raccoon), 30, 30, 40);
+        BankItem one = new BankItem(new Raccoon(raccoon),  2, 2, 10);
+        BankItem two = new BankItem(new Mongoose(mongoose), 1, 1, 20);
+        BankItem three = new BankItem(new Mongoose(mongoose), 1, 1, 30);
+        BankItem four = new BankItem(new Raccoon(raccoon), 1, 1, 40);
         BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
 
         bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
-        builderStage = new BuilderStage(bankController, getWidth(), getHeight());
-        // TODO: remove hardcoding here
-        addGameObjectsToBuilderStage(0);
+        GridDimensions builderStageDimensions = new GridDimensions(getWidth(), getHeight(),
+                0, 34, 0, 20);
+        builderStage = new BuilderStage(builderStageDimensions, bankController, levelGameObjectViews);
+
         // TODO: handle this stuff within BuilderStage
         setUpView();
     }
@@ -98,10 +100,9 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         getNextPlayScene().run();
     }
 
-    private void addGameObjectsToBuilderStage(int level) {
+    private List<GameObjectView> getLevelGameObjects(int level) {
         List<GameObject> gameObjects = getLevelContainer().getLevels().get(level).getAllGameObjects();
-        List<GameObjectView> gameObjectViews = createGameObjectViews(gameObjects);
-        builderStage.addGameObjectViews(gameObjectViews);
+        return createGameObjectViews(gameObjects);
     }
 
     private void setUpView() {
