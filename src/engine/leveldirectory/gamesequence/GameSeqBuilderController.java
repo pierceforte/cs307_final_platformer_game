@@ -88,7 +88,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         if (builderStage.isDone()) {
             List<GameObject> temp = builderStage.getGameObjects();
             getLevelContainer().getCurrentLevel().addGameObject(temp);
-            getRoot().getChildren().remove(builderStage);
+            myPane.getChildren().remove(builderStage);
             bankController.getBankView().removeFromRoot();
             endPhase();
         }

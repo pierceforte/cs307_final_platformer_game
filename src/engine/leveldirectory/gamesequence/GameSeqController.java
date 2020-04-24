@@ -11,6 +11,7 @@ import engine.view.GameObjectView;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ public abstract class GameSeqController {
     private List<SimplePlayer> simplePlayer;
     private GameObjectView simplePlayerView;
     private Game game;
+    private Pane gamePlayPane;
+    private Pane leftPane;
 
     private double height;
     private double width;
@@ -48,6 +51,7 @@ public abstract class GameSeqController {
         this.width = width;
         this.myScene = scene;
         this.myPane = root;
+
         setPlayer();
     }
 

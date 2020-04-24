@@ -43,7 +43,7 @@ public class Game {
         graphicsEngine = null;
         this.height = height;
         this.width = width;
-        startLevelPhase(scene, root, height, width);
+        //startLevelPhase(scene, this.root, height, width);
     }
 
 

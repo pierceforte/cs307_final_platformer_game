@@ -42,7 +42,7 @@ public class LevelOne extends Page {
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
-        STYLESHEET = "menu/css/light.css";
+        STYLESHEET = "css/light.css";
         light = true;
         myScene = this.buildSpecialScene((int) myFactory.getScreenHeight(), (int) myFactory.getScreenWidth());
         myStage.setScene(myScene);
@@ -53,7 +53,6 @@ public class LevelOne extends Page {
     BorderPane init_Root(int height, int width) {
         BorderPane myRoot = new BorderPane();
         myRoot.setPrefSize(width, height);
-
 
         Button lightbutton = new Button();
         lightbutton.setId("LightButton");
@@ -86,16 +85,11 @@ public class LevelOne extends Page {
             InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         BorderPane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
-        /*
-        GameSeqBuilderController gameSeqBuilderController = new GameSeqBuilderController(
-                new LevelContainer(null, null, null),
-                new GraphicsEngine(null, null, null),
-                null, myScene, myRoot, screenheight, screenwidth);
-        gameSeqBuilderController.play();
-        */
+
         Game game = new Game(myScene, myRoot, height, width);
         game.startLevelPhase(myScene, myRoot, height, width);
-        myScene.getStylesheets().add(STYLESHEET);
+
+        myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
         return myScene;
     }
 }
