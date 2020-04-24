@@ -1,10 +1,7 @@
 package builder.stage;
 
-import engine.view.GameObjectView;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
-
-import java.util.List;
 
 /**
  *
@@ -31,15 +28,6 @@ public class PaneDimensions {
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
-        setScreenSize();
-        setTileSize();
-    }
-
-    public PaneDimensions(List<GameObjectView> gameObjectViews) {
-        this.minX = getMinXInLevel(gameObjectViews);
-        this.maxX = getMaxXInLevel(gameObjectViews);
-        this.minY = getMinYInLevel(gameObjectViews);
-        this.maxY = getMaxYInLevel(gameObjectViews);
         setScreenSize();
         setTileSize();
     }
@@ -74,38 +62,6 @@ public class PaneDimensions {
 
     public double getTileHeight() {
         return tileHeight;
-    }
-
-    private double getMinXInLevel(List<GameObjectView> gameObjectViews) {
-        double minX = Double.MAX_VALUE;
-        for (GameObjectView gameObjectView : gameObjectViews) {
-            minX = gameObjectView.getX() < minX ? gameObjectView.getX() : minX;
-        }
-        return minX;
-    }
-
-    private double getMaxXInLevel(List<GameObjectView> gameObjectViews) {
-        double maxX = Double.MIN_VALUE;
-        for (GameObjectView gameObjectView : gameObjectViews) {
-            maxX = gameObjectView.getX() > maxX ? gameObjectView.getX() : maxX;
-        }
-        return maxX;
-    }
-
-    private double getMinYInLevel(List<GameObjectView> gameObjectViews) {
-        double minY = Double.MAX_VALUE;
-        for (GameObjectView gameObjectView : gameObjectViews) {
-            minY = gameObjectView.getY() < minY ? gameObjectView.getY() : minY;
-        }
-        return minY;
-    }
-
-    private double getMaxYInLevel(List<GameObjectView> gameObjectViews) {
-        double maxY = Double.MIN_VALUE;
-        for (GameObjectView gameObjectView : gameObjectViews) {
-            maxY = gameObjectView.getY() > maxY ? gameObjectView.getY() : maxY;
-        }
-        return maxY;
     }
 
     private void setScreenSize() {
