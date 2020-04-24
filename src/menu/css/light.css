@@ -79,9 +79,8 @@
     -fx-translate-x: 0;
     -fx-translate-y: 0;
 }
-#leftPane{
+#builderLeftPane{
     -fx-background-color: black;
-    -fx-background-size: stretch;
     -fx-background-position: center, center;
 }
 #purchaseButton{
@@ -144,4 +143,35 @@
     -fx-pref-width: 140;
     -fx-font-size: 20pt;
     -fx-opacity: 1;
+}
+#hudView{
+    -fx-background-color: black;
+    -fx-pref-width: 200;
+    -fx-pref-height: 260;
+    -fx-background-position: center, center;
+}
+#levelDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+    -fx-translate-x: 50;
+    -fx-translate-y: 30;
+    -fx-text-alignment: center;
+    -fx-fill: maroon;
+}
+#scoreDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+    -fx-translate-x: 50;
+    -fx-translate-y: 100;
+    -fx-fill: maroon;
+}
+#livesDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+    -fx-translate-x: 50;
+    -fx-translate-y: 170;
+    -fx-fill: maroon;
 }

@@ -4,12 +4,12 @@ import builder.NodeDragger;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 
-public abstract class DraggableGridStage extends GridStage {
+public abstract class DraggableTilePane extends TilePane {
 
     private NodeDragger nodeDragger;
     private boolean isDraggable;
 
-    public DraggableGridStage(GridDimensions dimensions) {
+    public DraggableTilePane(PaneDimensions dimensions) {
         super(dimensions);
         double width = getWidth();
         double height = getHeight();

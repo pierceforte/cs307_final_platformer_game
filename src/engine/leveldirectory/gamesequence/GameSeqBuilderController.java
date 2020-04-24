@@ -1,7 +1,7 @@
 package engine.leveldirectory.gamesequence;
 
 import builder.stage.BuilderStage;
-import builder.stage.GridDimensions;
+import builder.stage.PaneDimensions;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.BankView;
@@ -40,14 +40,11 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
 
     @Override
     public void setNextScene() {
-        System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size());
         super.setNextPlayScene(()->{
             //getLevelContainer().getCurrentLevel().addGameObject(builderStage.getGameObjects());
             pause();
-            System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size());
             GameSeqLevelController playTemp = new GameSeqLevelController(getLevelContainer(), getGraphicsEngine(),
                     getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
-            System.out.println(getLevelContainer().getCurrentLevel().getAllGameObjects().size());
             playTemp.play();
         });
     }
@@ -68,8 +65,11 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
 
         bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
-        GridDimensions builderStageDimensions = new GridDimensions(getWidth(), getHeight(),
-                0, 34, 0, 20);
+
+        //TODO: read in minX, maxX, minY, and maxY
+        PaneDimensions builderStageDimensions = new PaneDimensions(getWidth(), getHeight(),
+                PaneDimensions.DEFAULT_MIN_X, 34, PaneDimensions.DEFAULT_MIN_Y, 20);
+
         builderStage = new BuilderStage(builderStageDimensions, bankController, levelGameObjectViews);
 
         // TODO: handle this stuff within BuilderStage
@@ -110,7 +110,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
 
     private void setUpView() {
         leftPane = new Pane();
-        leftPane.setId("leftPane");
+        leftPane.setId("builderLeftPane");
         leftPane.getChildren().add(bankController.getBankView());
         myPane.setCenter(builderStage);
         myPane.setLeft(leftPane);

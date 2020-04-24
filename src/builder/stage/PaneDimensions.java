@@ -4,8 +4,10 @@ import engine.view.GameObjectView;
 
 import java.util.List;
 
-public class GridDimensions {
+public class PaneDimensions {
 
+    public static final double DEFAULT_MIN_X = 0;
+    public static final double DEFAULT_MIN_Y = 0;
     public static final double TILE_WIDTH_FACTOR = 30;
     public static final double TILE_HEIGHT_FACTOR = 25;
 
@@ -18,7 +20,7 @@ public class GridDimensions {
     private double tileWidth;
     private double tileHeight;
 
-    public GridDimensions(double screenWidth, double screenHeight, double minX, double maxX, double minY, double maxY) {
+    public PaneDimensions(double screenWidth, double screenHeight, double minX, double maxX, double minY, double maxY) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.minX = minX;
@@ -28,7 +30,7 @@ public class GridDimensions {
         setTileSize();
     }
 
-    public GridDimensions(double screenWidth, double screenHeight, List<GameObjectView> gameObjectViews) {
+    public PaneDimensions(double screenWidth, double screenHeight, List<GameObjectView> gameObjectViews) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.minX = getMinXInLevel(gameObjectViews);

@@ -4,7 +4,7 @@ import builder.bank.BankModel;
 import builder.bank.BankView;
 import builder.stage.BuilderObjectView;
 import builder.stage.BuilderStage;
-import builder.stage.GridDimensions;
+import builder.stage.PaneDimensions;
 import engine.gameobject.opponent.Raccoon;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -35,7 +35,7 @@ public class BuilderTest extends DukeApplicationTest {
         BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
         bankController = new BankController(List.of(one), 10000, bankView);
         bankModel = bankController.getBankModel();
-        builderStage = new BuilderStage(new GridDimensions(1000, 1000, null), bankController, new ArrayList<>());
+        builderStage = new BuilderStage(new PaneDimensions(1000, 1000, null), bankController, new ArrayList<>());
         javafxRun(() -> {
             Scene scene = new Scene(root);
             stage.setScene(scene);

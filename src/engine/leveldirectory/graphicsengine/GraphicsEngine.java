@@ -27,7 +27,7 @@ public class GraphicsEngine {
         gameObjects = new ArrayList<>();
         nodes = new ArrayList<>();
         //TODO: read in player lives
-        scoreBoardController = new HUDController(5, 0, game.getLevelContainer().getLevelNum());
+        scoreBoardController = new HUDController(game.getLevelContainer().getLevelNum(), 0, 5);
         this.resourceBundle = resourceBundle;
 
     }

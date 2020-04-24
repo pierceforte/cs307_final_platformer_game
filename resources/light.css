@@ -79,7 +79,7 @@
     -fx-translate-x: 0;
     -fx-translate-y: 0;
 }
-#leftPane{
+#builderLeftPane{
     -fx-background-color: black;
     -fx-background-size: stretch;
     -fx-background-position: center, center;
@@ -144,4 +144,9 @@
     -fx-pref-width: 140;
     -fx-font-size: 20pt;
     -fx-opacity: 1;
+}
+#gamePlayLeftPane{
+    -fx-background-color: black;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
 }

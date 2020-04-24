@@ -1,6 +1,7 @@
 package builder.exitHandler;
 
 import builder.stage.BuilderObjectView;
+import builder.stage.PaneDimensions;
 import engine.gameobject.GameObject;
 import javafx.application.Platform;
 import javafx.scene.control.ButtonType;
@@ -29,8 +30,8 @@ public class BuilderStageExitHandler implements StageExitHandler {
                 return false;
             }
             GameObject gameObject = builderObjectView.getGameObject();
-            gameObject.setX(builderObjectView.getX());
-            gameObject.setY(builderObjectView.getY());
+            gameObject.setX(builderObjectView.getX()/ PaneDimensions.TILE_WIDTH_FACTOR);
+            gameObject.setY(builderObjectView.getY()/ PaneDimensions.TILE_HEIGHT_FACTOR);
             gameObjects.add(gameObject);
         }
         return true;

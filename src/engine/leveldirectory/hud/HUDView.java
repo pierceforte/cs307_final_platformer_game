@@ -4,6 +4,7 @@ import builder.bank.BankView;
 import builder.bank.ViewPane;
 import javafx.scene.text.Text;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class HUDView extends ViewPane {
@@ -20,8 +21,10 @@ public class HUDView extends ViewPane {
 
     public HUDView(double width, double height, int level, int score, int lives) {
         super(width, height);
+        setId("hudView");
         resources = ResourceBundle.getBundle("text.HUD");
         createDisplays(level, score, lives);
+        this.getChildren().addAll(levelDisplay, scoreDisplay, livesDisplay);
     }
 
     public void setLevel(int level) {
