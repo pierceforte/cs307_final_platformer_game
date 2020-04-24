@@ -23,8 +23,6 @@ public class BankView extends ViewPane {
 
     private Rectangle background;
     private ImageView itemIconDisplay;
-    private Text itemTitleDisplay;
-    private Text itemQuantityDisplay;
     private Text itemCostDisplay;
     private Text moneyAvailableDisplay;
     private Text emptyBankDisplay;
@@ -90,7 +88,6 @@ public class BankView extends ViewPane {
     }
 
     public void rejectPurchase() {
-        // tell user that they don't have enough money
         hasPurchaseRequest = false;
         Dialog dialog = new Dialog();
         dialog.initOwner(getScene().getWindow());
@@ -112,8 +109,6 @@ public class BankView extends ViewPane {
         nextButton = createChangeItemButton(PATH_TO_RIGHT_ARROW, () -> bank.handleNextRequest(), "nextButton");
         prevButton = createChangeItemButton(PATH_TO_LEFT_ARROW, () -> bank.handlePrevRequest(), "prevButton");
         setItemIcon(item);
-        //itemQuantityDisplay
-        //itemTitleDisplay
     }
 
     private void createPurchaseButton() {
@@ -166,8 +161,6 @@ public class BankView extends ViewPane {
         nonEmptyBankDisplays.add(moneyAvailableDisplay);
         nonEmptyBankDisplays.add(purchaseButton);
         nonEmptyBankDisplays.add(itemIconDisplay);
-        //nonEmptyBankDisplays.add(itemTitleDisplay);
-        //nonEmptyBankDisplays.add(itemQuantityDisplay);
     }
 
     public void removeFromRoot() {
