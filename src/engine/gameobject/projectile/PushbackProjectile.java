@@ -6,6 +6,11 @@ import engine.gameobject.platform.Platform;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This is an implementation of a projectile that pushes the player back upon contact.
+ *
+ * @author Pierce Forte, Benjamin Burnett
+ */
 public class PushbackProjectile extends MovingGameObject implements Projectile {
     public static final double DEFAULT_X_SPEED = 10;
     public static final double DEFAULT_Y_SPEED = 0;

@@ -13,48 +13,48 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
- * The Game class runs the entire game
+ * The Game class runs the actual game itself; it includes things such as the individual
+ * levels and builder/play stages.
  *
  * @author Jerry Huang
  */
 public class Game {
-    private Stage stage;
-    private BorderPane root;
-    private Scene scene;
-
     private LevelContainer levelContainer;
-    private HUDController hudController;
-    private GraphicsEngine graphicsEngine;
 
+    private Scene scene;
+    private BorderPane root;
     private double height;
     private double width;
 
-    // default constructor
-    public Game(Scene scene, BorderPane root, double height, double width) throws NoSuchMethodException,
-            ReadSaveException, InstantiationException,
-            IllegalAccessException, InvocationTargetException, ClassNotFoundException {
-        this.scene = scene;
-        this.root = root;
-
+    /**
+     * Constructor to create a game
+     * @param scene: scene to be modified
+     * @param root: contains which objects are added/removed; determines what is displayed on the screen
+     * @param height: height of the screen
+     * @param width: width of the screen
+     */
+    public Game(Scene scene, BorderPane root, double height, double width) throws NoSuchMethodException, ReadSaveException,
+            InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         levelContainer = new LevelContainer(this);
         levelContainer.loadLevels();
         // TODO: read in num of player lives
-        hudController = new HUDController(5, 0, getLevelContainer().getLevelNum());
-        graphicsEngine = null;
+        this.scene = scene;
+        this.root = root;
         this.height = height;
         this.width = width;
-        startLevelPhase(scene, root, height, width);
+        startLevelPhase();
     }
 
-
-    public void startLevelPhase(Scene scene, BorderPane root, double height, double width) {
-        GameSeqBuilderController gameSeqBuilderController = new GameSeqBuilderController(levelContainer, graphicsEngine,
+    /**
+     * Starts the builder stage of the first level
+     */
+    public void startLevelPhase() {
+        GameSeqBuilderController gameSeqBuilderController = new GameSeqBuilderController(levelContainer,
                 this, scene, root, height, width);
     }
 
+    /*
+    standard get method
+     */
     public LevelContainer getLevelContainer() { return levelContainer; }
-
-    public HUDController getHUDController() {
-        return hudController;
-    }
 }

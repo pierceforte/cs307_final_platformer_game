@@ -1,7 +1,7 @@
-package builder.placementHandler;
+package builder.stage.placementHandler;
 
 import builder.stage.BuilderObjectView;
-import builder.stage.GridDimensions;
+import builder.stage.PaneDimensions;
 import engine.view.GameObjectView;
 import javafx.scene.effect.Blend;
 import javafx.scene.effect.BlendMode;
@@ -13,15 +13,19 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public class BuilderPlacementHandler implements PlacementHandler {
     public static final Color INVALID_PLACEMENT_COLOR = Color.RED;
     public static final int INVALID_PLACEMENT_SATURATION = -1;
 
-    private GridDimensions dimensions;
+    private PaneDimensions dimensions;
     private List<GameObjectView> immovableObjects;
     private List<BuilderObjectView> objectsToCheck;
 
-    public BuilderPlacementHandler(GridDimensions dimensions, List<GameObjectView> immovableObjects) {
+    public BuilderPlacementHandler(PaneDimensions dimensions, List<GameObjectView> immovableObjects) {
         this.dimensions = dimensions;
         this.immovableObjects = immovableObjects;
         objectsToCheck = new ArrayList<>();

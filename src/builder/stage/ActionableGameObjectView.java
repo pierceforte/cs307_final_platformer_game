@@ -7,6 +7,10 @@ import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public class ActionableGameObjectView extends DraggableGameObjectView {
 
     private boolean areActionIconsActive;

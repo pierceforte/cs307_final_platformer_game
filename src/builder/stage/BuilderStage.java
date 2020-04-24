@@ -1,9 +1,9 @@
 package builder.stage;
 
-import builder.placementHandler.BuilderPlacementHandler;
+import builder.stage.placementHandler.BuilderPlacementHandler;
 import builder.bank.BankController;
-import builder.exitHandler.BuilderStageExitHandler;
-import builder.purchaseHandler.BuilderPurchaseHandler;
+import builder.stage.exitHandler.BuilderStageExitHandler;
+import builder.stage.purchaseHandler.BuilderPurchaseHandler;
 import engine.gameobject.GameObject;
 import engine.view.GameObjectView;
 import javafx.scene.control.Button;
@@ -13,11 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BuilderStage extends DraggableGridStage {
+/**
+ *
+ * @author Pierce Forte
+ */
+public class BuilderStage extends DraggableTilePane {
 
     public static final double ACTION_ICON_DISTANCE_FACTOR = 0.2;
 
-    private GridDimensions dimensions;
+    private PaneDimensions dimensions;
     private BankController bankController;
     private List<BuilderObjectView> myObjects;
     private BuilderPlacementHandler placementHandler;
@@ -27,8 +31,9 @@ public class BuilderStage extends DraggableGridStage {
     private Button playButton;
     private boolean isDone;
 
-    public BuilderStage(GridDimensions dimensions, BankController bankController, List<GameObjectView> gameObjectViews) {
+    public BuilderStage(PaneDimensions dimensions, BankController bankController, List<GameObjectView> gameObjectViews) {
         super(dimensions);
+        addGrid();
         this.dimensions = dimensions;
         this.bankController = bankController;
         this.getChildren().addAll(gameObjectViews);
@@ -63,7 +68,7 @@ public class BuilderStage extends DraggableGridStage {
         return playButton;
     }
 
-    public GridDimensions getDimensions() {
+    public PaneDimensions getDimensions() {
         return dimensions;
     }
 

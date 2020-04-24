@@ -30,6 +30,9 @@ public class LevelContainer {
         currentLevel = 0;
     }
 
+    /**
+     * Loads in the level layouts from the Resource folder
+     */
     public void loadLevels() throws ReadSaveException, ClassNotFoundException, NoSuchMethodException,
             InstantiationException, IllegalAccessException, InvocationTargetException {
         LevelData levelData = new LevelData();
@@ -47,13 +50,17 @@ public class LevelContainer {
         levels.add(level);
     }
 
-    public int getLevelNum() { return currentLevel; }
+    public int getLevelNum() {
+        return currentLevel;
+    }
 
     public Level getCurrentLevel() {
         return levels.get(currentLevel);
     }
 
-    public List<Level> getLevels() { return levels; }
+    public List<Level> getLevels() {
+        return levels;
+    }
 
     public void incrementLevel() {
         currentLevel++;
@@ -63,7 +70,9 @@ public class LevelContainer {
         return this.game;
     }
 
-    public int getTotalNumLevels() { return totalNumLevels; }
+    public int getTotalNumLevels() {
+        return totalNumLevels;
+    }
 }
 
 

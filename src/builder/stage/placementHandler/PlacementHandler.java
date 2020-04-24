@@ -1,7 +1,11 @@
-package builder.placementHandler;
+package builder.stage.placementHandler;
 
 import javafx.scene.image.ImageView;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public interface PlacementHandler {
 
     /**
@@ -15,6 +19,4 @@ public interface PlacementHandler {
      * @return Whether object is out of bounds
      */
     boolean isImageViewOutOfBounds(ImageView object);
-
-
 }

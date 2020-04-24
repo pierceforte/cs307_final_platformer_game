@@ -3,11 +3,6 @@ package builder.stage;
 import builder.bank.BankItem;
 import engine.gameobject.GameObject;
 import engine.view.GameObjectView;
-import javafx.scene.Node;
-import javafx.scene.image.ImageView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is used to create the frontend for build phase objects. These objects are GameObjectViews

@@ -1,5 +1,6 @@
 package menu;
 
+import builder.stage.PaneDimensions;
 import data.user.User;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -55,10 +56,10 @@ public class PageBuilder {
     }
 
     public double getTileWsize() {
-        return getScreenWidth()/30;
+        return getScreenWidth()/ PaneDimensions.TILE_WIDTH_FACTOR;
     }
     public double getTileHsize() {
-        return getScreenHeight()/25;
+        return getScreenHeight()/PaneDimensions.TILE_HEIGHT_FACTOR;
     }
 
     public void addMainMenuButtons(Page.MenuBox myBox) {
