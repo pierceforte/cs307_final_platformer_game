@@ -11,5 +11,4 @@ public interface SceneChanger {
      * This method sets the next level/scene that will run next
      */
     void setNextScene();
-
 }

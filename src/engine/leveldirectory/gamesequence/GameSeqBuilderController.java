@@ -24,7 +24,12 @@ import javafx.util.Duration;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class GameSeqBuilderController extends GameSeqController implements SceneChanger{
+/**
+ * This class controls the flow of the builder stage.
+ *
+ * @author Jerry Huang, Pierce Forte
+ */
+public class GameSeqBuilderController extends GameSeqController implements SceneChanger {
     private BorderPane myPane;
     private Pane leftPane;
     private BankController bankController;
@@ -32,9 +37,18 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     private List<BankItem> levelBankItems;
     private List<GameObjectView> levelGameObjectViews;
 
-    public GameSeqBuilderController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game,
-                                    Scene scene, BorderPane root, double height, double width) {
-        super(levelContainer, graphicsEngine, game, scene, root, height, width - 200);
+    /**
+     * Standard constructor
+     * @param levelContainer: contains all levels in the game
+     * @param game: contains the game the controller is running in
+     * @param scene: scene to be modified
+     * @param root: root to add/remove objects
+     * @param height: height of the screen
+     * @param width: width of the screen
+     */
+    public GameSeqBuilderController(LevelContainer levelContainer, Game game, Scene scene, BorderPane root, double height,
+                                    double width) {
+        super(levelContainer, game, scene, root, height, width - 200);
         myPane = root;
         setNextScene();
         setupTimeline();
@@ -42,18 +56,21 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         getTimeline().play();
     }
 
+    /**
+     * Sets the next stage to be run
+     * Assumes that a builder stage is always followed by its corresponding play stage
+     */
     @Override
     public void setNextScene() {
         super.setNextPlayScene(()->{
-            //getLevelContainer().getCurrentLevel().addGameObject(builderStage.getGameObjects());
             pause();
-            GameSeqLevelController playTemp = new GameSeqLevelController(getLevelContainer(), getGraphicsEngine(),
+            GameSeqLevelController playTemp = new GameSeqLevelController(getLevelContainer(),
                     getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
             playTemp.play();
         });
     }
 
-    public void initialize(Scene scene, BorderPane root) {
+    private void initialize(Scene scene, BorderPane root) {
         // TODO: initialize from stored info
         setMyScene(scene);
         setRoot(root);
@@ -105,7 +122,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         setTimeline(temp);
     }
 
-    public void step() {
+    private void step() {
         if (builderStage.isDone()) {
             List<GameObject> temp = builderStage.getGameObjects();
             getLevelContainer().getCurrentLevel().addGameObject(temp);
@@ -118,7 +135,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         }
     }
 
-    public void endPhase() {
+    private void endPhase() {
         this.getTimeline().stop();
         myPane.getChildren().remove(leftPane);
         getNextPlayScene().run();

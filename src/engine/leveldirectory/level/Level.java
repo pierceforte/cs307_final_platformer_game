@@ -13,8 +13,10 @@ import java.util.List;
  */
 public class Level implements LevelInterface {
 
-    // holds all the objects in the level
-    private List<GameObject> gameObjects; // needs to be updated to the type of the parent object
+    /**
+     * holds all the objects in the level
+     */
+    private List<GameObject> gameObjects;
 
     public Level(List<GameObject> objects) {
         gameObjects = objects;
@@ -38,7 +40,9 @@ public class Level implements LevelInterface {
         gameObjects.addAll(listOfObjects);
     }
 
-    public void setGameObjects(List<GameObject> gameObjects) { this.gameObjects = gameObjects; }
+    public void setGameObjects(List<GameObject> gameObjects) {
+        this.gameObjects = gameObjects;
+    }
 
     /**
      * corresponding remove methods

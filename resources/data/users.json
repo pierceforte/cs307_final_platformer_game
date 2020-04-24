@@ -17,6 +17,24 @@
       "1":0
     }
   },
+  "qwerwe":{
+    "birthday":{
+      "month":1,
+      "year":2,
+      "day":2
+    },
+    "score":0,
+    "password":"qwerq",
+    "paths":{
+      "1":[0.0,0.0]
+    },
+    "id":"qwerwe",
+    "avatar":null,
+    "type":1,
+    "levels":{
+      "1":0
+    }
+  },
   "bcb44":{
     "birthday":{
       "month":7,
