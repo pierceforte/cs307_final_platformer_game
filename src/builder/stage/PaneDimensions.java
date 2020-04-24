@@ -1,6 +1,8 @@
 package builder.stage;
 
 import engine.view.GameObjectView;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 
 import java.util.List;
 
@@ -15,41 +17,31 @@ public class PaneDimensions {
     public static final double TILE_WIDTH_FACTOR = 30;
     public static final double TILE_HEIGHT_FACTOR = 25;
 
-    private double screenWidth;
-    private double screenHeight;
     private double minX;
     private double maxX;
     private double minY;
     private double maxY;
+    private double screenWidth;
+    private double screenHeight;
     private double tileWidth;
     private double tileHeight;
 
-    public PaneDimensions(double screenWidth, double screenHeight, double minX, double maxX, double minY, double maxY) {
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
+    public PaneDimensions(double minX, double maxX, double minY, double maxY) {
         this.minX = minX;
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
+        setScreenSize();
         setTileSize();
     }
 
-    public PaneDimensions(double screenWidth, double screenHeight, List<GameObjectView> gameObjectViews) {
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
+    public PaneDimensions(List<GameObjectView> gameObjectViews) {
         this.minX = getMinXInLevel(gameObjectViews);
         this.maxX = getMaxXInLevel(gameObjectViews);
         this.minY = getMinYInLevel(gameObjectViews);
         this.maxY = getMaxYInLevel(gameObjectViews);
+        setScreenSize();
         setTileSize();
-    }
-
-    public double getScreenWidth() {
-        return screenWidth;
-    }
-
-    public double getScreenHeight() {
-        return screenHeight;
     }
 
     public double getMinX() {
@@ -66,6 +58,14 @@ public class PaneDimensions {
 
     public double getMaxY() {
         return maxY;
+    }
+
+    public double getScreenWidth() {
+        return screenWidth;
+    }
+
+    public double getScreenHeight() {
+        return screenHeight;
     }
 
     public double getTileWidth() {
@@ -106,6 +106,12 @@ public class PaneDimensions {
             maxY = gameObjectView.getY() > maxY ? gameObjectView.getY() : maxY;
         }
         return maxY;
+    }
+
+    private void setScreenSize() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        screenWidth = primaryScreenBounds.getWidth();
+        screenHeight = primaryScreenBounds.getHeight();
     }
 
     private void setTileSize() {

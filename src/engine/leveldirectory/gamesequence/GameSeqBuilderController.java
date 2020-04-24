@@ -5,6 +5,8 @@ import builder.stage.PaneDimensions;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.view.BankView;
+import data.ReadSaveException;
+import data.levels.LevelData;
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
@@ -19,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class GameSeqBuilderController extends GameSeqController implements SceneChanger{
@@ -26,6 +29,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     private Pane leftPane;
     private BankController bankController;
     private BuilderStage builderStage;
+    private List<BankItem> levelBankItems;
     private List<GameObjectView> levelGameObjectViews;
 
     public GameSeqBuilderController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game,
@@ -53,8 +57,25 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         // TODO: initialize from stored info
         setMyScene(scene);
         setRoot(root);
-        // TODO: remove hardcoding here
-        levelGameObjectViews = getLevelGameObjects(0);
+
+        // TODO: handle exceptions @Ben
+        /*
+        LevelData levelData = new LevelData();
+        try {
+            levelBankItems = levelData.getBank(getLevelContainer().getLevelNum());
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }*/
+        levelGameObjectViews = getLevelGameObjects(getLevelContainer().getLevelNum());
+
 
         Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",1d,1d,1., 1., 10.);
         Mongoose mongoose = new Mongoose("images/avatars/mongoose.png",1d,1d, 1., 1., 10.);
@@ -67,7 +88,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         bankController = new BankController(List.of(one, two, three, four), 100, bankView);
 
         //TODO: read in minX, maxX, minY, and maxY
-        PaneDimensions builderStageDimensions = new PaneDimensions(getWidth(), getHeight(),
+        PaneDimensions builderStageDimensions = new PaneDimensions(
                 PaneDimensions.DEFAULT_MIN_X, 34, PaneDimensions.DEFAULT_MIN_Y, 20);
 
         builderStage = new BuilderStage(builderStageDimensions, bankController, levelGameObjectViews);

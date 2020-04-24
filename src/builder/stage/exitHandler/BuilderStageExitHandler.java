@@ -1,4 +1,4 @@
-package builder.exitHandler;
+package builder.stage.exitHandler;
 
 import builder.stage.BuilderObjectView;
 import builder.stage.PaneDimensions;
@@ -34,8 +34,11 @@ public class BuilderStageExitHandler implements StageExitHandler {
                 return false;
             }
             GameObject gameObject = builderObjectView.getGameObject();
+            //TODO: correct these calculations
             gameObject.setX(builderObjectView.getX()/PaneDimensions.TILE_WIDTH_FACTOR);
             gameObject.setY(builderObjectView.getY()/PaneDimensions.TILE_HEIGHT_FACTOR);
+            gameObject.setWidth(builderObjectView.getFitWidth()/PaneDimensions.TILE_WIDTH_FACTOR);
+            gameObject.setHeight(builderObjectView.getFitHeight()/PaneDimensions.TILE_HEIGHT_FACTOR);
             gameObjects.add(gameObject);
         }
         return true;

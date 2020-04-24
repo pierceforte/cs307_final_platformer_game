@@ -1,4 +1,4 @@
-package builder.purchaseHandler;
+package builder.stage.purchaseHandler;
 
 import builder.stage.BuilderObjectView;
 import builder.stage.PaneDimensions;

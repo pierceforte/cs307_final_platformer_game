@@ -1,9 +1,9 @@
 package builder.stage;
 
-import builder.placementHandler.BuilderPlacementHandler;
+import builder.stage.placementHandler.BuilderPlacementHandler;
 import builder.bank.BankController;
-import builder.exitHandler.BuilderStageExitHandler;
-import builder.purchaseHandler.BuilderPurchaseHandler;
+import builder.stage.exitHandler.BuilderStageExitHandler;
+import builder.stage.purchaseHandler.BuilderPurchaseHandler;
 import engine.gameobject.GameObject;
 import engine.view.GameObjectView;
 import javafx.scene.control.Button;

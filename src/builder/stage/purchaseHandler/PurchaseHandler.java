@@ -1,4 +1,4 @@
-package builder.purchaseHandler;
+package builder.stage.purchaseHandler;
 
 /**
  *

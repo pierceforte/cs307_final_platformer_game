@@ -71,8 +71,8 @@ public abstract class GameSeqController {
                 System.out.println("X:" + g.getX());
                 System.out.println("Y: " + g.getY());
                 System.out.println("Height" + g.getHeight());
-                g.setX(10.);
-                g.setY(5.);
+                //g.setX(10.);
+                //g.setY(5.);
             }
             gamePlayPane.getChildren().add(gameObjectView);
         }
@@ -155,7 +155,7 @@ public abstract class GameSeqController {
 
     private void setUpView() {
         //TODO: read in minX, maxX, minY, and maxY
-        PaneDimensions gamePlayDimensions = new PaneDimensions(getWidth(), getHeight(),
+        PaneDimensions gamePlayDimensions = new PaneDimensions(
                 PaneDimensions.DEFAULT_MIN_X, 34, PaneDimensions.DEFAULT_MIN_Y, 20);
         gamePlayPane = new GamePlayPane(gamePlayDimensions);
         hudController = new HUDController(getLevelContainer().getLevelNum(), 0, 5);
