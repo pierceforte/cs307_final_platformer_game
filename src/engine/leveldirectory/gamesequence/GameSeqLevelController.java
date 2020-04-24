@@ -48,12 +48,14 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
      */
     @Override
     public void setNextScene() {
-        //if (getLevelContainer().getLevelNum() == getLevelContainer().getTotalNumLevels())
-            //exit();
         super.setNextPlayScene(()->{
             pause();
             getRoot().getChildren().clear();
             getLevelContainer().incrementLevel();
+            if (getLevelContainer().getLevelNum() == getLevelContainer().getTotalNumLevels()) {
+                System.out.println("Congrats you won!");
+                System.exit(0);
+            }
             //myPane.getChildren().removeAll(leftPane, gamePlayPane);
             GameSeqBuilderController builderTemp = new GameSeqBuilderController(getLevelContainer(), getGraphicsEngine(),
                     getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
@@ -75,16 +77,6 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
         if (!flag) {
             gravity(getSimplePlayer());
         }
-        /*
-        if (end) {
-            pause();
-            getRoot().getChildren().clear();
-            getLevelContainer().incrementLevel();
-            GameSeqBuilderController builderTemp = new GameSeqBuilderController(getLevelContainer(), getGraphicsEngine(),
-                    getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
-            //builderTemp.play();
-        }
-         */
         super.display();
     }
 
