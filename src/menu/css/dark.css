@@ -139,3 +139,28 @@
     -fx-font-size: 20pt;
     -fx-opacity: 1;
 }
+#ChooseSnake{
+    -fx-background-image: url("../../../../resources/images/backgrounds/choosesnakes.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 256;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+    -fx-translate-x: 400;
+    -fx-translate-y: 300;
+}
+#ChooseSnail{
+    -fx-background-image: url("../../../../resources/images/backgrounds/choosesnail.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 256;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+    -fx-translate-x: 800;
+    -fx-translate-y: 300;
+}#ViewText{
+     -fx-background-color: black;
+     -fx-text-fill: white;
+     -fx-font-size: 16;
+     -fx-pref-width: 750;
+     -fx-pref-height: 150;
+     -fx-opacity: .8;
+ }
