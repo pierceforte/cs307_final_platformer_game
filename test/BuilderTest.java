@@ -1,8 +1,10 @@
-import builder.*;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.BankModel;
 import builder.bank.BankView;
+import builder.stage.BuilderObjectView;
+import builder.stage.BuilderStage;
+import builder.stage.GridDimensions;
 import engine.gameobject.opponent.Raccoon;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -177,8 +179,10 @@ public class BuilderTest extends DukeApplicationTest {
     public void testBuilderObjectViewSnap() {
         purchaseFirstItemFromBank();
         // set position of builderObjectView such that it will need to be snapped
-        double initXPos = builderStage.getTileWidth()+builderStage.getTileWidth()/2;
-        double initYPos = builderStage.getTileHeight()+builderStage.getTileHeight()/2;
+        double tileWidth = builderStage.getDimensions().getTileWidth();
+        double tileHeight = builderStage.getDimensions().getTileHeight();
+        double initXPos = tileWidth + tileWidth/2;
+        double initYPos = tileHeight + tileHeight/2;
         builderObjectView.setX(initXPos);
         builderObjectView.setY(initYPos);
         builderObjectView.setIsSnapped(false);

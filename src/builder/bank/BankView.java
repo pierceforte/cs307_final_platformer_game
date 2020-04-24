@@ -1,5 +1,6 @@
 package builder.bank;
 
+import engine.view.ImageCreator;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -66,7 +67,7 @@ public class BankView extends ViewPane {
         BankItem item = bank.getCurItem();
         moneyAvailableDisplay.setText(resources.getString("Money") + ":\n" + bank.getMoneyAvailable());
         itemCostDisplay.setText(resources.getString("Cost") + ": " + item.getCost());
-        itemIconDisplay.setImage(makeImage(item.getImgPath()));
+        itemIconDisplay.setImage(ImageCreator.makeImage(item.getImgPath()));
         //updateItemQuantityDisplay();
         //updateItemTitleDisplay();
         attemptToAddChangeItemButton(bank.hasPrevItem(), prevButton);
@@ -125,7 +126,7 @@ public class BankView extends ViewPane {
 
     private ImageView createChangeItemButton(String imgPath, Runnable eventOnClick, String id) {
         ImageView imgView = new ImageView();
-        imgView.setImage(makeImage(imgPath));
+        imgView.setImage(ImageCreator.makeImage(imgPath));
         imgView.setFitWidth(25);
         imgView.setFitHeight(12.5);
         imgView.setOnMouseClicked(event -> eventOnClick.run());
@@ -134,7 +135,7 @@ public class BankView extends ViewPane {
     }
 
     private void setItemIcon(BankItem item) {
-        itemIconDisplay = new ImageView(makeImage(item.getImgPath()));
+        itemIconDisplay = new ImageView(ImageCreator.makeImage(item.getImgPath()));
         itemIconDisplay.setFitWidth(100);
         itemIconDisplay.setFitHeight(100);
         itemIconDisplay.setId("itemIcon");

@@ -1,23 +1,16 @@
 package engine.leveldirectory.gamesequence;
 
-import builder.*;
+import builder.stage.GridDimensions;
 import engine.gameobject.GameObject;
-import engine.gameobject.MovingGameObject;
-import engine.gameobject.player.Player;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
-import engine.leveldirectory.graphicsengine.NodeFactory;
 import engine.leveldirectory.level.Level;
 import engine.leveldirectory.level.LevelContainer;
 import engine.view.GameObjectView;
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,8 +96,8 @@ public abstract class GameSeqController {
     public GameObjectView createGameObjectView(GameObject gameObject) {
         GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(),
                 gameObject.getY(), gameObject.getWidth(), gameObject.getHeight(), gameObject.getXDirection());
-        gameObjectView.convertAttributesToGridBased(width/GridStage.TILE_WIDTH_FACTOR,
-                height/GridStage.TILE_HEIGHT_FACTOR);
+        gameObjectView.convertAttributesToGridBased(width/ GridDimensions.TILE_WIDTH_FACTOR,
+                height/GridDimensions.TILE_HEIGHT_FACTOR);
         return gameObjectView;
     }
 

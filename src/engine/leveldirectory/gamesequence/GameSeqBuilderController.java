@@ -1,7 +1,7 @@
 package engine.leveldirectory.gamesequence;
 
-import builder.BuilderStage;
-import builder.GridDimensions;
+import builder.stage.BuilderStage;
+import builder.stage.GridDimensions;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.BankView;

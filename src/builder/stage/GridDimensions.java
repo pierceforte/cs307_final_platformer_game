@@ -1,4 +1,4 @@
-package builder;
+package builder.stage;
 
 import engine.view.GameObjectView;
 
@@ -6,12 +6,17 @@ import java.util.List;
 
 public class GridDimensions {
 
+    public static final double TILE_WIDTH_FACTOR = 30;
+    public static final double TILE_HEIGHT_FACTOR = 25;
+
     private double screenWidth;
     private double screenHeight;
     private double minX;
     private double maxX;
     private double minY;
     private double maxY;
+    private double tileWidth;
+    private double tileHeight;
 
     public GridDimensions(double screenWidth, double screenHeight, double minX, double maxX, double minY, double maxY) {
         this.screenWidth = screenWidth;
@@ -20,6 +25,7 @@ public class GridDimensions {
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
+        setTileSize();
     }
 
     public GridDimensions(double screenWidth, double screenHeight, List<GameObjectView> gameObjectViews) {
@@ -29,6 +35,7 @@ public class GridDimensions {
         this.maxX = getMaxXInLevel(gameObjectViews);
         this.minY = getMinYInLevel(gameObjectViews);
         this.maxY = getMaxYInLevel(gameObjectViews);
+        setTileSize();
     }
 
     public double getScreenWidth() {
@@ -53,6 +60,14 @@ public class GridDimensions {
 
     public double getMaxY() {
         return maxY;
+    }
+
+    public double getTileWidth() {
+        return tileWidth;
+    }
+
+    public double getTileHeight() {
+        return tileHeight;
     }
 
     private double getMinXInLevel(List<GameObjectView> gameObjectViews) {
@@ -85,5 +100,10 @@ public class GridDimensions {
             maxY = gameObjectView.getY() > maxY ? gameObjectView.getY() : maxY;
         }
         return maxY;
+    }
+
+    private void setTileSize() {
+        tileWidth = screenWidth/TILE_WIDTH_FACTOR;
+        tileHeight = screenHeight/TILE_HEIGHT_FACTOR;
     }
 }
