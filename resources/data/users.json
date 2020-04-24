@@ -93,6 +93,24 @@
       "1":0
     }
   },
+  "qw":{
+    "birthday":{
+      "month":2,
+      "year":2,
+      "day":2
+    },
+    "score":0,
+    "password":"qwwq",
+    "paths":{
+      "1":[0.0,0.0]
+    },
+    "id":"qw",
+    "avatar":null,
+    "type":1,
+    "levels":{
+      "1":0
+    }
+  },
   "pierce":{
     "birthday":{
       "month":4,
@@ -106,6 +124,24 @@
     },
     "id":"pierce",
     "avatar":"images\/avatars\/basicsnake.png",
+    "type":1,
+    "levels":{
+      "1":0
+    }
+  },
+  "2 ":{
+    "birthday":{
+      "month":2,
+      "year":2,
+      "day":2
+    },
+    "score":0,
+    "password":"",
+    "paths":{
+      "1":[0.0,0.0]
+    },
+    "id":"2 ",
+    "avatar":null,
     "type":1,
     "levels":{
       "1":0

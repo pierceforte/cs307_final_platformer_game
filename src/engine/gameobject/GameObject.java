@@ -78,6 +78,10 @@ public abstract class GameObject {
         return xPos;
     }
 
+    public void setX(double x) {
+        this.xPos = x;
+    }
+
     public Integer getXDirection() {
         return 1;
     }
@@ -88,6 +92,10 @@ public abstract class GameObject {
      */
     public Double getY() {
         return yPos;
+    }
+
+    public void setY(double y) {
+        this.yPos = y;
     }
 
     public void setWidth(Double width) {

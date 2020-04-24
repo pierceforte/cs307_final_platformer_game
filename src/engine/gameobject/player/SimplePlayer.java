@@ -17,9 +17,11 @@ public class SimplePlayer extends MovingGameObject implements Player{
     private Map<KeyCode, Runnable> inputMap;
     private boolean hasWon = false;
     private boolean hasLost = false;
+    private boolean direction; // Left is FALSE, Right is TRUE
 
     public SimplePlayer(String imgPath, Double width, Double height, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
         super(imgPath, width, height, xPos, yPos, xSpeed, ySpeed);
+        direction = true;
         assignInputs();
     }
 
@@ -77,11 +79,30 @@ public class SimplePlayer extends MovingGameObject implements Player{
 
     private void move(int direction) {
         updateXPos(direction * DEFAULT_X_SPEED);
+        if (direction == LEFT)
+            this.direction = false;
+        else
+            this.direction = true;
+
     }
 
     private void down() { updateYPos(-1 * DEFAULT_Y_SPEED); }
 
     private void jump() {
         updateYPos(DEFAULT_Y_SPEED);
+    }
+
+    public boolean getDirection() {
+        return direction;
+    }
+
+    public void setDirection(boolean direction) {
+        this.direction = direction;
+    }
+
+    public void respawn(double x, double y) {
+        this.setX(x);
+        this.setY(y);
+        this.direction = true;
     }
 }

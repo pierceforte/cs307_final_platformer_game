@@ -1,7 +1,9 @@
 package engine.leveldirectory.gamesequence;
 
 import engine.gameobject.GameObject;
+import engine.gameobject.opponent.Enemy;
 import engine.gameobject.opponent.Opponent;
+import engine.gameobject.player.Player;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
 import engine.leveldirectory.level.LevelContainer;
@@ -75,6 +77,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
         boolean flag = playerObjectCollisions();
         if (!flag)
             gravity(getSimplePlayer());
+        updateEnemyPositions();
         super.display();
     }
 
@@ -151,12 +154,35 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
 
     // lose life + knock back if hit on salt
     private void isDangerousPlatform(GameObject gameObject) {
-        if (gameObject.getImgPath().equals("salt.png")) {
+        if (gameObject.getImgPath().equals("images/objects/salt.png")) {
             getHUDController().lowerLife();
             getSimplePlayer().handleInput(KeyCode.A);
+            return;
         }
     }
 
+    private void updateEnemyPositions() {
+        for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects())
+            if (g instanceof Enemy) {
+                if (g.getY() > 23d) {
+                    ((Enemy) g).respawn();
+                } else if (!checkAttached((Enemy) g)) {
+                    g.setY(g.getY()+0.1d);
+                } else
+                    ((Enemy) g).updateLogic(getSimplePlayer());
+            }
+    }
+
+    // checks if the enemy is attached to something that's not a player or enemy
+    private boolean checkAttached(Enemy enemy) {
+        for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
+            if (intersect(g, enemy) && g != enemy && !(g instanceof Enemy) && !(g instanceof Player))
+                return true;
+        }
+        return false;
+    }
+
+    // ends the play stage
     private void endPhase() {
         this.getTimeline().stop();
         if (getHUDController().getLives() <= 0)
