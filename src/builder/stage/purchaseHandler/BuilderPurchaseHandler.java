@@ -1,19 +1,23 @@
-package builder.purchaseHandler;
+package builder.stage.purchaseHandler;
 
 import builder.stage.BuilderObjectView;
-import builder.stage.GridDimensions;
+import builder.stage.PaneDimensions;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public class BuilderPurchaseHandler implements PurchaseHandler {
 
-    private GridDimensions dimensions;
+    private PaneDimensions dimensions;
     private BankController bankController;
 
-    public BuilderPurchaseHandler(GridDimensions dimensions, BankController bankController) {
+    public BuilderPurchaseHandler(PaneDimensions dimensions, BankController bankController) {
         this.dimensions = dimensions;
         this.bankController = bankController;
     }

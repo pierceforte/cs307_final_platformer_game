@@ -5,9 +5,17 @@ public class HUDController {
     private HUDModel hudModel;
     private HUDView hudView;
 
-    public HUDController(int lives, int score, int level) {
+    public HUDController(int level, int score, int lives) {
         hudModel = new HUDModel(lives);
-        hudView = new HUDView(HUDView.WIDTH, HUDView.HEIGHT, lives, score, level);
+        hudView = new HUDView(HUDView.WIDTH, HUDView.HEIGHT, level, score, lives);
+    }
+
+    public HUDModel getModel() {
+        return hudModel;
+    }
+
+    public HUDView getView() {
+        return hudView;
     }
 
     public void updateScore(int score) {

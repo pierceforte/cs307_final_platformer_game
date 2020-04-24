@@ -93,6 +93,24 @@
       "1":0
     }
   },
+  "pierce":{
+    "birthday":{
+      "month":4,
+      "year":2000,
+      "day":12
+    },
+    "score":0,
+    "password":"phf7",
+    "paths":{
+      "1":[0.0,0.0]
+    },
+    "id":"pierce",
+    "avatar":"images\/avatars\/basicsnake.png",
+    "type":1,
+    "levels":{
+      "1":0
+    }
+  },
   "nl163":{
     "birthday":{
       "month":12,

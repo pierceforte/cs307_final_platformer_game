@@ -10,7 +10,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.NonInvertibleTransformException;
 
-public abstract class GridStage extends Pane {
+/**
+ *
+ * @author Pierce Forte, Nicole Lindbergh
+ */
+public abstract class TilePane extends Pane {
 
     public static final Color CANVAS_COLOR = Color.DARKCYAN;
     public static final Color CELL_COLOR = Color.WHITE;
@@ -20,22 +24,29 @@ public abstract class GridStage extends Pane {
     private Affine myGrid;
     private double tilesWide;
     private double tilesHigh;
-    private GridDimensions dimensions;
+    private PaneDimensions dimensions;
 
-    public GridStage(GridDimensions dimensions) {
+    public TilePane(PaneDimensions dimensions) {
         this.dimensions = dimensions;
         this.tilesWide = dimensions.getMaxX() - dimensions.getMinX();
         this.tilesHigh = dimensions.getMaxY() - dimensions.getMinY();
         setWidth(tilesWide * dimensions.getTileWidth());
         setHeight(tilesHigh * dimensions.getTileHeight());
         this.canvas = new Canvas(getWidth(), getHeight());
-        this.myGrid = new Affine();
-        myGrid.appendScale(dimensions.getTileWidth(), dimensions.getTileHeight());
-        styleGrid();
         this.getChildren().add(canvas);
     }
 
     public abstract void update();
+
+    public void addGrid() {
+        this.myGrid = new Affine();
+        myGrid.appendScale(dimensions.getTileWidth(), dimensions.getTileHeight());
+        styleGrid();
+    }
+
+    public void removeGrid() {
+        canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
 
     protected Coordinates convertToGridCoords(double clickX, double clickY) throws NonInvertibleTransformException{
         Point2D myClick = myGrid.inverseTransform(clickX,clickY);

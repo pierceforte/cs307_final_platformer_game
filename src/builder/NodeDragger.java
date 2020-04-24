@@ -1,13 +1,17 @@
 package builder;
 
-import builder.stage.BuilderObjectView;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
 
 /**
  * The code used for this class was inspired from StackOverflow at
- * https://stackoverflow.com/questions/17312734/how-to-make-a-draggable-node-in-javafx-2-0/46696687
+ * https://stackoverflow.com/questions/17312734/how-to-make-a-draggable-node-in-javafx-2-0/46696687.
+ * I modified this code and improved it significantly by creating this class, which can be used to provide
+ * a draggable interface for any node. Further, methods can be overridden by classes that use a NodeDragger
+ * through composition, which makes this code significantly more flexible.
  *
  * @author Pierce Forte
  */
@@ -15,7 +19,6 @@ public class NodeDragger {
 
     static class Delta { double x, y; }
     private Delta dragDelta;
-
 
     public NodeDragger() {
         dragDelta = new Delta();
@@ -47,11 +50,10 @@ public class NodeDragger {
     }
 
     public void handleDraggableMousePress(MouseEvent mouseEvent, Node node) {
-        // record a delta distance for the drag and drop operation.
-        // TODO: fix this
-        if (node instanceof BuilderObjectView) {
-            dragDelta.x = ((BuilderObjectView) node).getX() - mouseEvent.getX();
-            dragDelta.y = ((BuilderObjectView) node).getY() - mouseEvent.getY();
+        // our Game handles ImageView positions with absolute X, not translate X (as is used for panes and such)
+        if (node instanceof ImageView) {
+            dragDelta.x = ((ImageView) node).getX() - mouseEvent.getX();
+            dragDelta.y = ((ImageView) node).getY() - mouseEvent.getY();
         }
         else {
             dragDelta.x = node.getTranslateX() - mouseEvent.getX();
@@ -67,10 +69,10 @@ public class NodeDragger {
     public void handleDraggableMouseDrag(MouseEvent mouseEvent, Node node) {
         double newX = mouseEvent.getX() + dragDelta.x;
         double newY = mouseEvent.getY() + dragDelta.y;
-        // TODO: fix this
-        if (node instanceof BuilderObjectView) {
-            ((BuilderObjectView) node).setX(newX);
-            ((BuilderObjectView) node).setY(newY);
+        // our Game handles ImageView positions with absolute X, not translate X (as is used for panes and such)
+        if (node instanceof ImageView) {
+            ((ImageView) node).setX(newX);
+            ((ImageView) node).setY(newY);
         }
         else {
             node.setTranslateX(newX);

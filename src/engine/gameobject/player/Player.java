@@ -5,6 +5,8 @@ import javafx.scene.input.KeyCode;
 import java.util.List;
 /**
  * This interface defines how a specific game's user-operated player will operate
+ *
+ * @author Pierce Forte
  */
 
 public interface Player {

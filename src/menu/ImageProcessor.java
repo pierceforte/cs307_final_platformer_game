@@ -1,5 +1,6 @@
 package menu;
 
+import builder.stage.PaneDimensions;
 import engine.gameobject.GameObject;
 import engine.view.GameObjectView;
 
@@ -19,10 +20,9 @@ public class ImageProcessor {
         TILE_WIDTH = 100;
     }
 
-    public void adjustScreenSize(double height, double width) {
-        TILE_HEIGHT = height/25;
-        TILE_WIDTH = width/30;
-
+    public void adjustScreenSize(double width, double height) {
+        TILE_WIDTH = width/ PaneDimensions.TILE_WIDTH_FACTOR;
+        TILE_HEIGHT = height/ PaneDimensions.TILE_HEIGHT_FACTOR;
     }
     public void addGameObject(GameObject obj) {
         myObjects.add(obj);
