@@ -1,6 +1,7 @@
 package data.levels;
 
 import builder.bank.BankItem;
+import builder.stage.PaneDimensions;
 import data.PrettyPrint;
 import data.ReadSaveException;
 import engine.gameobject.GameObject;
@@ -16,14 +17,17 @@ import java.util.*;
 
 public class LevelData {
     JSONObject levels;
-    JSONObject bank;
+    JSONObject banks;
+    JSONObject dimensions;
 
     private static final String levelLoc = "resources/data/levels.json";
-    private static final String bankLoc = "resources/data/bank.json";
+    private static final String bankLoc = "resources/data/banks.json";
+    private static final String dimensionsLoc = "resources/data/dimensions.json";
 
     public LevelData() throws ReadSaveException {
         levels = jsonMaker(levelLoc);
-        bank = jsonMaker(bankLoc);
+        banks = jsonMaker(bankLoc);
+        dimensions = jsonMaker(dimensionsLoc);
     }
 
     private JSONObject jsonMaker(String fileLoc) throws ReadSaveException {
@@ -37,8 +41,8 @@ public class LevelData {
     }
 
     public List<BankItem> getBank(int level) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        if (!containsKey(bank, Integer.toString(level))) throw new ReadSaveException("read", bankLoc);
-        JSONObject levelBank = (JSONObject) bank.get(Integer.toString(level));
+        if (!containsKey(banks, Integer.toString(level))) throw new ReadSaveException("read", bankLoc);
+        JSONObject levelBank = (JSONObject) banks.get(Integer.toString(level));
         List<BankItem> bankItems = new ArrayList<>();
         for (Object keyObj : levelBank.keySet()) {
             Class objClass = Class.forName((String) keyObj);
@@ -48,6 +52,20 @@ public class LevelData {
                     Math.toIntExact((Long) type.get("cost"))));
         }
         return bankItems;
+    }
+
+    public PaneDimensions getDimensions(int level) throws ReadSaveException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        if (!containsKey(dimensions, Integer.toString(level))) throw new ReadSaveException("read", levelLoc);
+        JSONObject levelDimensions = (JSONObject) dimensions.get(Integer.toString(level));
+        String [] params = new String [] {"minX", "maxX", "minY", "maxY"};
+        Class [] classes = new Class [params.length];
+        Integer [] paramVals = new Integer [params.length];
+        for (int index = 0; index < params.length; index++) {
+            paramVals[index] = Math.toIntExact((Long) levelDimensions.get(params[index]));
+            classes[index] = java.lang.Integer.class;
+        }
+        PaneDimensions dimensionsObject = PaneDimensions.class.getDeclaredConstructor(classes).newInstance(paramVals);
+        return dimensionsObject;
     }
 
     public Integer levelNumber() {

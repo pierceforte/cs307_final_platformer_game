@@ -89,7 +89,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     // implements player-gameobject collisions
     // if the player is intersecting with an enemy, move it backwards in the x direction in the direction it came from
     private boolean playerObjectCollisions() {
-        for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
+        for (GameObject g : getLevelContainer().getCurrentLevel().getGameObjects()) {
             if (intersect(getSimplePlayer(), g)) {
                 getSimplePlayer().setYSpeed(0);
                 getSimplePlayer().setXSpeed(0);

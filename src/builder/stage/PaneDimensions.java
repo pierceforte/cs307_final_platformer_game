@@ -1,7 +1,10 @@
 package builder.stage;
 
+import engine.gameobject.GameObject;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
+
+import java.util.List;
 
 /**
  *
@@ -14,16 +17,16 @@ public class PaneDimensions {
     public static final double TILE_WIDTH_FACTOR = 30;
     public static final double TILE_HEIGHT_FACTOR = 25;
 
-    private double minX;
-    private double maxX;
-    private double minY;
-    private double maxY;
+    private int minX;
+    private int maxX;
+    private int minY;
+    private int maxY;
     private double screenWidth;
     private double screenHeight;
     private double tileWidth;
     private double tileHeight;
 
-    public PaneDimensions(double minX, double maxX, double minY, double maxY) {
+    public PaneDimensions(Integer minX, Integer maxX, Integer minY, Integer maxY) {
         this.minX = minX;
         this.maxX = maxX;
         this.minY = minY;
@@ -32,19 +35,28 @@ public class PaneDimensions {
         setTileSize();
     }
 
-    public double getMinX() {
+    public PaneDimensions(List<GameObject> gameObjects) {
+        this.minX = getMinXInLevel(gameObjects);
+        this.maxX = getMaxXInLevel(gameObjects);
+        this.minY = getMinYInLevel(gameObjects);
+        this.maxY = getMaxYInLevel(gameObjects);
+        setScreenSize();
+        setTileSize();
+    }
+
+    public int getMinX() {
         return minX;
     }
 
-    public double getMaxX() {
+    public int getMaxX() {
         return maxX;
     }
 
-    public double getMinY() {
+    public int getMinY() {
         return minY;
     }
 
-    public double getMaxY() {
+    public int getMaxY() {
         return maxY;
     }
 
@@ -62,6 +74,38 @@ public class PaneDimensions {
 
     public double getTileHeight() {
         return tileHeight;
+    }
+
+    private int getMinXInLevel(List<GameObject> gameObjects) {
+        int minX = Integer.MAX_VALUE;
+        for (GameObject gameObject : gameObjects) {
+            minX = (int) (gameObject.getX() < minX ? gameObject.getX() : minX);
+        }
+        return minX;
+    }
+
+    private int getMaxXInLevel(List<GameObject> gameObjects) {
+        int maxX = Integer.MIN_VALUE;
+        for (GameObject gameObject : gameObjects) {
+            maxX = (int) (gameObject.getX() > maxX ? gameObject.getX() : maxX);
+        }
+        return maxX;
+    }
+
+    private int getMinYInLevel(List<GameObject> gameObjects) {
+        int minY = Integer.MAX_VALUE;
+        for (GameObject gameObject : gameObjects) {
+            minY = (int) (gameObject.getY() < minY ? gameObject.getY() : minY);
+        }
+        return minY;
+    }
+
+    private int getMaxYInLevel(List<GameObject> gameObjects) {
+        int maxY = Integer.MIN_VALUE;
+        for (GameObject gameObject : gameObjects) {
+            maxY = (int) (gameObject.getY() > maxY ? gameObject.getY() : maxY);
+        }
+        return maxY;
     }
 
     private void setScreenSize() {

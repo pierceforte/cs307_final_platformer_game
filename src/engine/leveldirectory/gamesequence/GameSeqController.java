@@ -4,7 +4,6 @@ import builder.stage.PaneDimensions;
 import engine.gameobject.GameObject;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
-import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import engine.leveldirectory.hud.HUDController;
 import engine.leveldirectory.level.Level;
 import engine.leveldirectory.level.LevelContainer;
@@ -12,7 +11,6 @@ import engine.view.GameObjectView;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +31,7 @@ public abstract class GameSeqController {
     private BorderPane myPane;
     private GamePlayPane gamePlayPane;
     private HUDController hudController;
+    private PaneDimensions dimensions;
 
     private double height;
     private double width;
@@ -52,7 +51,7 @@ public abstract class GameSeqController {
 
     public void display() {
         gamePlayPane.getChildren().clear();
-        for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
+        for (GameObject g : levelContainer.getCurrentLevel().getGameObjects()) {
             GameObjectView gameObjectView = createGameObjectView(g);
             gamePlayPane.getChildren().add(gameObjectView);
         }
@@ -62,7 +61,7 @@ public abstract class GameSeqController {
 
     private void setPlayer() {
         for (Level l : levelContainer.getLevels())
-            for (GameObject g : l.getAllGameObjects())
+            for (GameObject g : l.getGameObjects())
                 if (g.isPlayer()) {
                     simplePlayer = (SimplePlayer) g;
                     l.removeObject(g);
@@ -89,10 +88,8 @@ public abstract class GameSeqController {
     }
 
     private void setUpView() {
-        //TODO: read in minX, maxX, minY, and maxY
-        PaneDimensions gamePlayDimensions = new PaneDimensions(
-                PaneDimensions.DEFAULT_MIN_X, 34, PaneDimensions.DEFAULT_MIN_Y, 20);
-        gamePlayPane = new GamePlayPane(gamePlayDimensions);
+        dimensions = getLevelContainer().getCurrentLevel().getDimensions();
+        gamePlayPane = new GamePlayPane(dimensions);
         hudController = new HUDController(getLevelContainer().getLevelNum(), 0, 5);
         //leftPane.getChildren().add(HUDView);
         myPane.setCenter(gamePlayPane);
@@ -169,5 +166,10 @@ public abstract class GameSeqController {
     }
     public Runnable getNextPlayScene() {
         return nextPlayScene;
+    }
+
+    protected List<GameObject> getLevelGameObjects(int level) {
+        List<GameObject> gameObjects = getLevelContainer().getLevels().get(level).getGameObjects();
+        return gameObjects;
     }
 }
