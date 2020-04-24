@@ -2,7 +2,6 @@ package engine.gameobject.player;
 
 import engine.gameobject.MovingGameObject;
 import javafx.scene.input.KeyCode;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

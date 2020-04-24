@@ -3,6 +3,8 @@ package data;
 import data.levels.LevelData;
 import data.user.InvalidLoginException;
 import engine.gameobject.GameObject;
+import engine.gameobject.opponent.Enemy;
+import engine.gameobject.platform.CheckPoint;
 import engine.gameobject.platform.Goal;
 import engine.gameobject.platform.StationaryHazardPlatform;
 import engine.gameobject.platform.StationaryPlatform;
@@ -14,29 +16,45 @@ import java.util.List;
 
 public class Tester {
     public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Long meep = 9l;
-        LevelData save = new LevelData();
-        List<GameObject> game = new ArrayList<>();
-        for (Double count  = 0.0; count <= 32.0; count = count + 1.0) {
-            game.add(new StationaryHazardPlatform("resources/images/objects/watertile.png", 10.0, 10.0, count, 12.0));
+        LevelData ld = new LevelData();
+        List<GameObject> go = new ArrayList<>();
+        go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 3d,2d));
+        go.add(new CheckPoint("resources/images/objects/checkpoint.png", 1d, 2d, 27d,3d));
+        for (Double i = 25d; i < 30; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i,4d));
         }
-        game.add(new SimplePlayer("resources/images/avatars/basicsnake.png", 10d, 10d, 9.0, 11.0, 1.0, 1.0));
-        game.add(new Goal("resources/images/avatar.png", 10.0, 10.0, 11.0, 9.0));
-        for (Double count = 10.0; count < 16; count = count + 1.0) {
-            game.add(new StationaryPlatform("resources/images/objects/grasstile.png", 10.0, 10.0, count, 10.0));
+        for (Double i = 18d; i < 21; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i,6d));
         }
-        for (Double count = 22.0; count < 25; count = count + 1.0) {
-          game.add(new StationaryPlatform("resources/images/objects/grasstile.png", 10.0, 10.0, count, 13.0));
+        for (Double i = 7d; i < 25; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/siderock.png", 1d, 1d, 18d,i));
         }
-        for (Double count = 24.0; count < 27.0; count = count + 1.0) {
-          game.add(new StationaryPlatform("resources/images/objects/grasstile.png", 10.0, 10.0, count, 14.0));
+        for (Double i = 7d; i < 25; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/innerblock.png", 1d, 1d, 19d,i));
         }
-        for (Double count = 10.0; count < 16; count = count + 1.0) {
-          game.add(new StationaryPlatform("resources/images/objects/innerblock.png", 10.0, 10.0, count, 11.0));
+        for (Double i = 7d; i < 25; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/siderock.png", 1d, 1d, 20d,i));
         }
-        save.saveLevel(game, 1);
+        go.add(new Enemy("dontusethis.png", 1d, 1d, 11d, 12d, 1d, 1d));
+        for (Double i = 11d; i < 15; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 12d,i));
+        }
+        go.add(new CheckPoint("resources/images/objects/checkpoint.png", 1d, 1d, 3d, 16d));
+        for (Double i = 1d; i < 6; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i, 17d));
+        }
+        go.add(new Enemy("dontusethis.png", 1d, 1d, 15d, 22d, 1d, 1d));
+        for (Double i = 13d; i < 18; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i, 23d));
+        }
+        for (Double i = 13d; i < 18; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/innerblocks.png", 1d, 1d, i, 24d));
+        }
+        for (Double i = 1d; i < 31; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i,25d));
+        }
+        ld.saveLevel(go, 0);
 
-        List<GameObject> games = save.getSavedLevel(0);
 //        List<Class> me = new ArrayList<>();
 //        List<Object> obj = new ArrayList<>();
 //        System.out.println(me.getClass().toString());

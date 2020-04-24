@@ -42,6 +42,10 @@ public abstract class GameObject {
         return imgPath;
     }
 
+    public void setImgPath(String newPath) {
+        imgPath = newPath;
+    }
+
     /**
      * Set x position of the object
      * @param xPosition new x position of the object
