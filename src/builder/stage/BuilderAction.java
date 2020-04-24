@@ -35,17 +35,17 @@ public enum BuilderAction {
         return "";
     }
 
-    public Runnable getButtonAction(BuilderObjectView builderObjectView) {
+    public Runnable getButtonAction(ActionableGameObjectView actionableGameObjectView) {
         switch(key) {
             case "place":
-                return () -> builderObjectView.disableDrag();
+                return () -> actionableGameObjectView.disableDrag();
             case "move":
                 return () -> {
-                    builderObjectView.enableDrag();
-                    builderObjectView.askUserToPlaceMe();
+                    actionableGameObjectView.enableDrag();
+                    actionableGameObjectView.askUserToPlaceMe();
                 };
             case "sell":
-                return () -> builderObjectView.setIsActive(false);
+                return () -> actionableGameObjectView.setIsActive(false);
         }
         return () -> { };
     }

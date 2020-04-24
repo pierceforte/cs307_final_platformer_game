@@ -100,6 +100,7 @@ public abstract class GameSeqController {
     public GameObjectView createGameObjectView(GameObject gameObject) {
         GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(),
                 gameObject.getY(), gameObject.getWidth(), gameObject.getHeight(), gameObject.getXDirection());
+
         gameObjectView.convertAttributesToGridBased(width/ GridDimensions.TILE_WIDTH_FACTOR,
                 height/GridDimensions.TILE_HEIGHT_FACTOR);
         return gameObjectView;
