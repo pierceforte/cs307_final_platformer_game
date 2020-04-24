@@ -1,5 +1,9 @@
 package builder.exitHandler;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public interface StageExitHandler {
 
     /**

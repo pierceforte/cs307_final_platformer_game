@@ -5,6 +5,10 @@ import builder.NotEnoughMoneyException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public class BankModel {
 
     private int curIndex;
@@ -64,7 +68,6 @@ public class BankModel {
             purchasedItem = getCurItem();
             removeBankItem(curBankItem);
         }
-
     }
 
     public int size() {
@@ -82,15 +85,4 @@ public class BankModel {
     public BankItem getCurItem() {
         return bankItems.get(curIndex);
     }
-
-    private int getItemQuantity(BankItem curBankItem) {
-        int quantity = 0;
-        for (BankItem bankItem : bankItems) {
-            if (bankItem.equals(curBankItem)) {
-                quantity++;
-            }
-        }
-        return quantity;
-    }
-
 }

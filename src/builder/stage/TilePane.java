@@ -10,6 +10,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.NonInvertibleTransformException;
 
+/**
+ *
+ * @author Pierce Forte, Nicole Lindbergh
+ */
 public abstract class TilePane extends Pane {
 
     public static final Color CANVAS_COLOR = Color.DARKCYAN;
@@ -39,6 +43,7 @@ public abstract class TilePane extends Pane {
         myGrid.appendScale(dimensions.getTileWidth(), dimensions.getTileHeight());
         styleGrid();
     }
+
     public void removeGrid() {
         canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }

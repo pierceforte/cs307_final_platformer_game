@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public class BuilderStageExitHandler implements StageExitHandler {
 
     private Window window;
@@ -30,8 +34,8 @@ public class BuilderStageExitHandler implements StageExitHandler {
                 return false;
             }
             GameObject gameObject = builderObjectView.getGameObject();
-            gameObject.setX(builderObjectView.getX()/ PaneDimensions.TILE_WIDTH_FACTOR);
-            gameObject.setY(builderObjectView.getY()/ PaneDimensions.TILE_HEIGHT_FACTOR);
+            gameObject.setX(builderObjectView.getX()/PaneDimensions.TILE_WIDTH_FACTOR);
+            gameObject.setY(builderObjectView.getY()/PaneDimensions.TILE_HEIGHT_FACTOR);
             gameObjects.add(gameObject);
         }
         return true;

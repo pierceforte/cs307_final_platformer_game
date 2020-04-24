@@ -1,6 +1,5 @@
 package engine.leveldirectory.gamesequence;
 
-import builder.NodeDragger;
 import builder.stage.DraggableTilePane;
 import builder.stage.PaneDimensions;
 

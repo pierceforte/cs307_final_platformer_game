@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public class BuilderStage extends DraggableTilePane {
 
     public static final double ACTION_ICON_DISTANCE_FACTOR = 0.2;

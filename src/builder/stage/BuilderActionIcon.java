@@ -4,6 +4,10 @@ import engine.view.ImageCreator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public class BuilderActionIcon extends ImageView {
 
     private ActionableGameObjectView actionableGameObjectView;
@@ -12,10 +16,10 @@ public class BuilderActionIcon extends ImageView {
     public BuilderActionIcon(BuilderAction builderAction, ActionableGameObjectView builderObjectView) {
         this.actionableGameObjectView = builderObjectView;
         this.builderAction = builderAction;
-        createActionIcon();
+        initialize();
     }
 
-    private void createActionIcon() {
+    private void initialize() {
         Image img = ImageCreator.makeImage(builderAction.getImgPath());
         setImage(img);
         setFitWidth(BuilderAction.SIZE);

@@ -4,7 +4,7 @@ import builder.stage.BuilderStage;
 import builder.stage.PaneDimensions;
 import builder.bank.BankController;
 import builder.bank.BankItem;
-import builder.bank.BankView;
+import builder.bank.view.BankView;
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
@@ -64,7 +64,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         BankItem four = new BankItem(new Raccoon(raccoon), 1, 1, 40);
         BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
 
-        bankController = new BankController(List.of(one, two, three, four), 10000, bankView);
+        bankController = new BankController(List.of(one, two, three, four), 100, bankView);
 
         //TODO: read in minX, maxX, minY, and maxY
         PaneDimensions builderStageDimensions = new PaneDimensions(getWidth(), getHeight(),

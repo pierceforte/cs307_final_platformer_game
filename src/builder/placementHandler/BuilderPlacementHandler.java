@@ -13,6 +13,10 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public class BuilderPlacementHandler implements PlacementHandler {
     public static final Color INVALID_PLACEMENT_COLOR = Color.RED;
     public static final int INVALID_PLACEMENT_SATURATION = -1;

@@ -4,6 +4,10 @@ import engine.view.GameObjectView;
 
 import java.util.List;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public class PaneDimensions {
 
     public static final double DEFAULT_MIN_X = 0;

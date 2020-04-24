@@ -4,6 +4,10 @@ import builder.NodeDragger;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public abstract class DraggableTilePane extends TilePane {
 
     private NodeDragger nodeDragger;

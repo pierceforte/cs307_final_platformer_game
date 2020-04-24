@@ -4,6 +4,11 @@ import engine.gameobject.GameObject;
 
 import java.util.Objects;
 
+/**
+ *
+ *
+ * @author Pierce Forte
+ */
 public class BankItem {
 
     private String imgPath;

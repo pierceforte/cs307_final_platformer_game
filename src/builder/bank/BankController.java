@@ -1,9 +1,15 @@
 package builder.bank;
 
 import builder.NotEnoughMoneyException;
+import builder.bank.view.BankView;
 
 import java.util.List;
 
+/**
+ *
+ *
+ * @author Pierce Forte
+ */
 public class BankController {
 
     private BankModel bankModel;
@@ -31,13 +37,7 @@ public class BankController {
         if (bankView.hasPurchaseRequest()) {
             handlePurchaseRequest();
         }
-
-        if (bankModel.isEmpty()) {
-            bankView.createEmptyBank();
-        }
-        else {
-            bankView.update(bankModel);
-        }
+        bankView.update(bankModel);
     }
 
     /**

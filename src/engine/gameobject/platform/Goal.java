@@ -4,11 +4,12 @@ import engine.gameobject.GameObject;
 import engine.gameobject.StationaryGameObject;
 import engine.gameobject.player.SimplePlayer;
 
-import java.util.Arrays;
-import java.util.List;
-
+/**
+ *
+ *
+ * @author Pierce Forte
+ */
 public class Goal extends StationaryGameObject implements Platform{
-
 
     public Goal(String imgPath, Double width, Double height, Double xPos, Double yPos) {
         super(imgPath, width, height, xPos, yPos);

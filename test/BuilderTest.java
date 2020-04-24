@@ -1,7 +1,7 @@
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.BankModel;
-import builder.bank.BankView;
+import builder.bank.view.BankView;
 import builder.stage.BuilderObjectView;
 import builder.stage.BuilderStage;
 import builder.stage.PaneDimensions;

@@ -8,6 +8,10 @@ import builder.bank.BankItem;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public class BuilderPurchaseHandler implements PurchaseHandler {
 
     private PaneDimensions dimensions;
