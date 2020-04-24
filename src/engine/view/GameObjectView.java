@@ -47,5 +47,4 @@ public class GameObjectView extends ImageView {
         setFitWidth(tileWidth);
         setFitHeight(tileHeight);
     }
-
 }

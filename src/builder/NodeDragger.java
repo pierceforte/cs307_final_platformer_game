@@ -16,7 +16,6 @@ public class NodeDragger {
     static class Delta { double x, y; }
     private Delta dragDelta;
 
-
     public NodeDragger() {
         dragDelta = new Delta();
     }

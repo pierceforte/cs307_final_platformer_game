@@ -6,11 +6,11 @@ import javafx.scene.image.ImageView;
 
 public class BuilderActionIcon extends ImageView {
 
-    private BuilderObjectView builderObjectView;
+    private ActionableGameObjectView actionableGameObjectView;
     private BuilderAction builderAction;
 
-    public BuilderActionIcon(BuilderAction builderAction, BuilderObjectView builderObjectView) {
-        this.builderObjectView = builderObjectView;
+    public BuilderActionIcon(BuilderAction builderAction, ActionableGameObjectView builderObjectView) {
+        this.actionableGameObjectView = builderObjectView;
         this.builderAction = builderAction;
         createActionIcon();
     }
@@ -22,6 +22,6 @@ public class BuilderActionIcon extends ImageView {
         setFitHeight(BuilderAction.SIZE);
         setPickOnBounds(true);
         setId(builderAction.getId());
-        setOnMouseClicked(mouseEvent -> builderAction.getButtonAction(builderObjectView).run());
+        setOnMouseClicked(mouseEvent -> builderAction.getButtonAction(actionableGameObjectView).run());
     }
 }
