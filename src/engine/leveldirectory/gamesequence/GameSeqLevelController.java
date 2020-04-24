@@ -4,7 +4,6 @@ import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Opponent;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
-import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import engine.leveldirectory.level.LevelContainer;
 import engine.view.GameObjectView;
 import javafx.animation.KeyFrame;
@@ -22,16 +21,16 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
 
     public static final double GRAVITY = 0.01;
 
-    public GameSeqLevelController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, BorderPane root, double height, double width) {
-        super(levelContainer, graphicsEngine, game, scene, root, height, width);
+    public GameSeqLevelController(LevelContainer levelContainer, Game game, Scene scene, BorderPane root, double height, double width) {
+        super(levelContainer, game, scene, root, height, width);
         setNextScene();
         setupTimeline();
         setUpListeners();
         // TODO: remove player test later and load from memory
-        playerTest();
+        initializeSimplePlayer();
     }
 
-    private void playerTest() {
+    private void initializeSimplePlayer() {
         SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, 8., 5., 0.,0.);
         setSimplePlayer(s);
         getSimplePlayer().setXSpeed(0);
@@ -57,7 +56,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
                 System.exit(0);
             }
             //myPane.getChildren().removeAll(leftPane, gamePlayPane);
-            GameSeqBuilderController builderTemp = new GameSeqBuilderController(getLevelContainer(), getGraphicsEngine(),
+            GameSeqBuilderController builderTemp = new GameSeqBuilderController(getLevelContainer(),
                     getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
             builderTemp.play();
         });
@@ -71,12 +70,11 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
         setTimeline(temp);
     }
 
-    public void step() {
+    private void step() {
         move(getSimplePlayer(), getSimplePlayer().getXSpeed(), getSimplePlayer().getYSpeed());
         boolean flag = playerObjectCollisions();
-        if (!flag) {
+        if (!flag)
             gravity(getSimplePlayer());
-        }
         super.display();
     }
 
@@ -127,7 +125,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
         return gameObjectView;
     }
 
-    public void gravity(GameObject gameObject) {
+    private void gravity(GameObject gameObject) {
         gameObject.setYSpeed(gameObject.getYSpeed() + (GRAVITY));
     }
 
@@ -159,7 +157,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
         }
     }
 
-    public void endPhase() {
+    private void endPhase() {
         this.getTimeline().stop();
         if (getHUDController().getLives() <= 0)
             exit();
