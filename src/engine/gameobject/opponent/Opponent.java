@@ -31,10 +31,4 @@ public abstract class Opponent extends MovingGameObject {
     protected Double getInitialX() {
         return initXSpeed;
     }
-
-    /**
-     * Assigns how the enemy moves; eg. how do they attack the player?
-     * @param target the target is located
-     */
-    public abstract void updateLogic(GameObject target);
 }

@@ -69,7 +69,6 @@ public class SideBar extends Pane {
         lightbutton.setId("LightButton");
         lightbutton.setOnMouseClicked(event -> switchStyle());
         this.getChildren().add(lightbutton);
-
     }
 
     private void switchStyle() {
@@ -102,7 +101,6 @@ public class SideBar extends Pane {
 
     private TextFlow displayUserStats() {
         TextFlow textFlow = new TextFlow();
-
         User myU = pageController.getUser();
 
         Text userDisplay = new Text(myResource.getString("User") + myU.getId());

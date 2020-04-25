@@ -10,16 +10,18 @@ import java.util.Map;
 public class SimplePlayer extends MovingGameObject implements Player{
     public static final Double DEFAULT_X_SPEED = 2d; // for key press
     public static final Double DEFAULT_Y_SPEED = -2d; // for jumping
-    public static final int LEFT = -1;
-    public static final int RIGHT = 1;
-    public static final int DOWN = -1;
+    public static final double LEFT = -1*0.5;
+    public static final double RIGHT = 1*0.5;
+    public static final double DOWN = -1;
 
     private Map<KeyCode, Runnable> inputMap;
     private boolean hasWon = false;
     private boolean hasLost = false;
+    private boolean direction; // Left is FALSE, Right is TRUE
 
     public SimplePlayer(String imgPath, Double width, Double height, Double xPos, Double yPos, Double xSpeed, Double ySpeed) {
         super(imgPath, width, height, xPos, yPos, xSpeed, ySpeed);
+        direction = true;
         assignInputs();
     }
 
@@ -75,13 +77,32 @@ public class SimplePlayer extends MovingGameObject implements Player{
         }
     }
 
-    private void move(int direction) {
+    private void move(double direction) {
         updateXPos(direction * DEFAULT_X_SPEED);
+        if (direction == LEFT)
+            this.direction = false;
+        else
+            this.direction = true;
+
     }
 
     private void down() { updateYPos(-1 * DEFAULT_Y_SPEED); }
 
     private void jump() {
         updateYPos(DEFAULT_Y_SPEED);
+    }
+
+    public boolean getDirection() {
+        return direction;
+    }
+
+    public void setDirection(boolean direction) {
+        this.direction = direction;
+    }
+
+    public void respawn(double x, double y) {
+        this.setX(x);
+        this.setY(y);
+        this.direction = true;
     }
 }

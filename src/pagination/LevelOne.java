@@ -56,7 +56,7 @@ public class LevelOne extends Page {
         BorderPane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
 
-        Game game = new Game(myPC, myScene, myRoot, height, width);
+        Game game = new Game(myScene, myRoot, myPC, height, width);
         myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
 
         game.startLevelPhase();

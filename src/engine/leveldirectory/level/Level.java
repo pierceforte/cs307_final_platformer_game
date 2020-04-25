@@ -57,6 +57,10 @@ public class Level implements LevelInterface {
         gameObjects.addAll(listOfObjects);
     }
 
+    public List<GameObject> getAllGameObjects() {
+        return gameObjects;
+    }
+
     public void setGameObjects(List<GameObject> gameObjects) {
         this.gameObjects = gameObjects;
     }

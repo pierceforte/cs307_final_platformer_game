@@ -1,7 +1,11 @@
 package engine.leveldirectory.gamesequence;
 
+import engine.UserController;
 import engine.gameobject.GameObject;
+import engine.gameobject.opponent.Enemy;
 import engine.gameobject.opponent.Opponent;
+import engine.gameobject.platform.Start;
+import engine.gameobject.player.Player;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
 import engine.leveldirectory.level.LevelContainer;
@@ -14,15 +18,23 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
+import pagination.PageController;
+
+import java.sql.SQLOutput;
 
 import static javafx.application.Platform.exit;
 
 public class GameSeqLevelController extends GameSeqController implements SceneChanger {
 
     public static final double GRAVITY = 0.01;
+    public  double maxScreenDepth;
+    private double initialX;
+    private double initialY;
+    private boolean lifeLost = false;
 
     public GameSeqLevelController(LevelContainer levelContainer, Game game, Scene scene, BorderPane root, double height, double width) {
         super(levelContainer, game, scene, root, height, width);
+        maxScreenDepth = getDimensions().getMaxY();
         setNextScene();
         setupTimeline();
         setUpListeners();
@@ -31,7 +43,13 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     }
 
     private void initializeSimplePlayer() {
-        SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, 8., 5., 0.,0.);
+        PageController temp = getGame().getPageController();
+        Start temp2 = null;
+        for (GameObject g1 : getLevelContainer().getCurrentLevel().getAllGameObjects())
+            if (g1 instanceof Start)
+                temp2 = (Start) g1;
+        UserController userController = new UserController(temp.getUser(), temp2);
+        SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, temp2.getX(), temp2.getY(), 0.,0.);
         setSimplePlayer(s);
         getSimplePlayer().setXSpeed(0);
         getSimplePlayer().setYSpeed(0);
@@ -39,6 +57,8 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
                 getSimplePlayer().getY(), getSimplePlayer().getWidth(),
                 getSimplePlayer().getHeight(), 0);
         setSimplePlayerView(g);
+        initialX = temp2.getX();
+        initialY = temp2.getY();
     }
 
     /**
@@ -71,18 +91,30 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     }
 
     private void step() {
+        lifeLost = false;
         move(getSimplePlayer(), getSimplePlayer().getXSpeed(), getSimplePlayer().getYSpeed());
-        boolean flag = playerObjectCollisions();
-        if (!flag)
-            gravity(getSimplePlayer());
+        if (getSimplePlayer().getY() > maxScreenDepth) {
+            getHUDController().lowerLife();
+            System.out.println("fell down! life lost!");
+            lifeLost = true;
+            respawn();
+        }
+        if (!lifeLost) {
+            boolean flag = playerObjectCollisions();
+            if (!flag)
+                gravity(getSimplePlayer());
+        }
+        updateEnemyPositions();
         super.display();
+        isLose();
     }
 
     private void setUpListeners() {
         getMyScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             if (key.getCode() == KeyCode.N)
                 endPhase();
-            getSimplePlayer().handleInput(key.getCode());
+            else
+                getSimplePlayer().handleInput(key.getCode());
         });
     }
 
@@ -138,7 +170,8 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     private void isEnemy(GameObject gameObject) {
         if (gameObject instanceof Opponent) {
             getHUDController().lowerLife();
-            getSimplePlayer().handleInput(KeyCode.A);
+            System.out.println("enemy collision! -1 life");
+            respawn();
         }
     }
 
@@ -149,14 +182,51 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
         }
     }
 
-    // lose life + knock back if hit on salt
-    private void isDangerousPlatform(GameObject gameObject) {
-        if (gameObject.getImgPath().equals("salt.png")) {
-            getHUDController().lowerLife();
-            getSimplePlayer().handleInput(KeyCode.A);
+    private void isLose() {
+        if (getHUDController().getLives() == 0) {
+            System.out.println("Game Over");
+            System.exit(0);
         }
     }
 
+    // lose life + knock back if hit on salt
+    private void isDangerousPlatform(GameObject gameObject) {
+        if (gameObject.getImgPath().equals("images/objects/salt.png")) {
+            getHUDController().lowerLife();
+            System.out.println("salt damage! life lost!");
+            respawn();
+            return;
+        }
+    }
+
+    private void updateEnemyPositions() {
+        for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects())
+            if (g instanceof Enemy) {
+                if (g.getY() > maxScreenDepth) {
+                    ((Enemy) g).respawn();
+                } else if (!checkAttached((Enemy) g)) {
+                    g.setY(g.getY()+0.1d);
+                } else
+                    ((Enemy) g).updateLogic(getSimplePlayer());
+            }
+    }
+
+    // checks if the enemy is attached to something that's not a player or enemy
+    private boolean checkAttached(Enemy enemy) {
+        for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
+            if (intersect(g, enemy) && g != enemy && !(g instanceof Enemy) && !(g instanceof Player))
+                return true;
+        }
+        return false;
+    }
+
+    // after the player loses a life, he is sent back to the starting location
+    private void respawn() {
+        getSimplePlayer().setX(initialX);
+        getSimplePlayer().setY(initialY);
+    }
+
+    // ends the play stage
     private void endPhase() {
         this.getTimeline().stop();
         if (getHUDController().getLives() <= 0)
