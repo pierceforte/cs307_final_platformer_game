@@ -1,10 +1,9 @@
 package engine.leveldirectory.gamesequence;
 
-<<<<<<< Updated upstream
 import engine.UserController;
-=======
+
 import data.ReadSaveException;
->>>>>>> Stashed changes
+
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Enemy;
 import engine.gameobject.opponent.Opponent;
@@ -22,13 +21,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
-<<<<<<< Updated upstream
+
+import pagination.LossView;
 import pagination.PageController;
 
 import java.sql.SQLOutput;
-=======
+
 import pagination.WinView;
->>>>>>> Stashed changes
 
 import static javafx.application.Platform.exit;
 
@@ -196,8 +195,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
 
     private void isLose() {
         if (getHUDController().getLives() == 0) {
-            System.out.println("Game Over");
-            System.exit(0);
+            getRoot().getChildren().add(new LossView(getGame().getPC(), this));
         }
     }
 
