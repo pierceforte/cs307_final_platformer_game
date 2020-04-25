@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
  */
 public class StockedBankView extends ViewPane {
 
+    public static final String ID = "stockedBankView";
     public static final double ITEM_ICON_SIZE = 100;
 
     private ImageView itemIconDisplay;
@@ -34,6 +35,7 @@ public class StockedBankView extends ViewPane {
         this.resources = resources;
         hasPurchaseRequest = false;
         createPurchaseButton();
+        setId(ID);
     }
 
     public void update(BankModel bank) {

@@ -42,7 +42,6 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
         setNextScene();
         setupTimeline();
         setUpListeners();
-        // TODO: remove player test later and load from memory
         initializeSimplePlayer();
     }
 

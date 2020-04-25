@@ -41,7 +41,6 @@ public class Game {
         levelContainer = new LevelContainer(this);
         levelContainer.loadLevels();
         this.pageController = pageController;
-        // TODO: read in num of player lives
         this.scene = scene;
         this.root = root;
         this.height = height;

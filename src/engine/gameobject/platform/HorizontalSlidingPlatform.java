@@ -47,7 +47,6 @@ public class HorizontalSlidingPlatform extends MovingPlatform implements Platfor
         MovingGameObject mover = (MovingGameObject) entity;
         mover.reverseXDirection();
         mover.reverseYDirection();
-        //TODO: needs to handle interaction with
     }
 
     @Override

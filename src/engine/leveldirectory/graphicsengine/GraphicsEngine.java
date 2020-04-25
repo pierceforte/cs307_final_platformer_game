@@ -26,7 +26,6 @@ public class GraphicsEngine {
     public GraphicsEngine(Game game, ResourceBundle resourceBundle, AbstractPlayer abstractPlayer) {
         gameObjects = new ArrayList<>();
         nodes = new ArrayList<>();
-        //TODO: read in player lives
         scoreBoardController = new HUDController(game.getLevelContainer().getLevelNum(), 0, 5);
         this.resourceBundle = resourceBundle;
 
@@ -54,13 +53,8 @@ public class GraphicsEngine {
         NodeFactory nodeFactory = new NodeFactory();
         for (GameObject g : gameObjects) {
             ImageView temp = nodeFactory.generateImage(g);
-
-            // TODO: add ImageView to display
-
             nodes.add(temp);
             borderPane.getChildren().add(temp);
-
-            // TODO: sort which object is on top?
         }
     }
 }

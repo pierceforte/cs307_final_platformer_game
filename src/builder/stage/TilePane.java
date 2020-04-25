@@ -1,5 +1,6 @@
 package builder.stage;
 
+import data.ErrorLogger;
 import engine.gameobject.Coordinates;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
@@ -63,7 +64,7 @@ public abstract class TilePane extends Pane {
             x = getSnappedPos(coords.getX(), dimensions.getTileWidth(), getTranslateX(), dimensions.getScreenWidth());
             y = getSnappedPos(coords.getY(), dimensions.getTileHeight(), getTranslateY(), dimensions.getScreenHeight());
         } catch (NonInvertibleTransformException e) {
-            e.printStackTrace();
+            ErrorLogger.log(e);
         }
         object.setX(x);
         object.setY(y);

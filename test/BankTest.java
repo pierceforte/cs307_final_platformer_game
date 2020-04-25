@@ -2,7 +2,10 @@ import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.BankModel;
 import builder.bank.view.BankView;
+import builder.bank.view.EmptyBankView;
+import builder.bank.view.StockedBankView;
 import engine.gameobject.opponent.Raccoon;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -119,16 +122,25 @@ public class BankTest extends DukeApplicationTest {
         // create a bank of items that are all affordable
         Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",1d,1d, 1d, 1d, 10d);
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
+        bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
         bankController = new BankController(List.of(one), 10000, bankView);
+        bankController.update();
         // purchase all items
         for (int i = 0; i < bankModel.size(); i++) {
             // assert empty bank display is not present
-            assertNull(bankView.lookup("#noItemsLeft"));
-            Button purchaseButton = (Button) bankView.lookup("#purchaseButton");
+            assertNull(bankView.lookup("#" + EmptyBankView.ID));
+            // assert stocked bank display is present
+            assertNotNull(bankView.lookup("#" + StockedBankView.ID));
+            StockedBankView stockedBankView = (StockedBankView) bankView.lookup("#" + StockedBankView.ID);
+            // assert purchase button is, as a result, present and then make a purchase
+            assertNotNull(stockedBankView.lookup("#purchaseButton"));
+            Button purchaseButton = (Button) stockedBankView.lookup("#purchaseButton");
             fireButtonEvent(purchaseButton);
         }
         bankController.update();
         // assert empty bank display is now present
-        assertNotNull(bankView.lookup("#noItemsLeft"));
+        assertNotNull(bankView.lookup("#" + EmptyBankView.ID));
+        // assert stocked bank display is no longer present
+        assertNull(bankView.lookup("#" + StockedBankView.ID));
     }
 }

@@ -33,12 +33,7 @@ public class BuilderStageExitHandler implements StageExitHandler {
                 gameObjects.clear();
                 return false;
             }
-            GameObject gameObject = builderObjectView.getGameObject();
-            //TODO: correct these calculations
-            gameObject.setX(builderObjectView.getX()/dimensions.getTileWidth());
-            gameObject.setY(builderObjectView.getY()/dimensions.getTileHeight());
-            gameObject.setWidth(builderObjectView.getFitWidth()/dimensions.getTileWidth());
-            gameObject.setHeight(builderObjectView.getFitHeight()/dimensions.getTileHeight());
+            GameObject gameObject = createGameObject(builderObjectView, dimensions);
             gameObjects.add(gameObject);
         }
         return true;
@@ -62,5 +57,14 @@ public class BuilderStageExitHandler implements StageExitHandler {
 
     public List<GameObject> getGameObjects() {
         return gameObjects;
+    }
+
+    private GameObject createGameObject(BuilderObjectView builderObjectView, PaneDimensions dimensions) {
+        GameObject gameObject = builderObjectView.getGameObject();
+        gameObject.setX(builderObjectView.getX()/dimensions.getTileWidth());
+        gameObject.setY(builderObjectView.getY()/dimensions.getTileHeight());
+        gameObject.setWidth(builderObjectView.getFitWidth()/dimensions.getTileWidth());
+        gameObject.setHeight(builderObjectView.getFitHeight()/dimensions.getTileHeight());
+        return gameObject;
     }
 }
