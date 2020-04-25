@@ -1,5 +1,6 @@
 package engine.leveldirectory.gamesequence;
 
+import engine.UserController;
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Enemy;
 import engine.gameobject.opponent.Opponent;
@@ -22,6 +23,9 @@ import static javafx.application.Platform.exit;
 public class GameSeqLevelController extends GameSeqController implements SceneChanger {
 
     public static final double GRAVITY = 0.01;
+    public static final double MAX_SCREEN_DEPTH = 23d;
+    private double initialX;
+    private double initialY;
 
     public GameSeqLevelController(LevelContainer levelContainer, Game game, Scene scene, BorderPane root, double height, double width) {
         super(levelContainer, game, scene, root, height, width);
@@ -33,6 +37,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     }
 
     private void initializeSimplePlayer() {
+        UserController userController = new UserController()
         SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, 8., 5., 0.,0.);
         setSimplePlayer(s);
         getSimplePlayer().setXSpeed(0);
@@ -41,6 +46,8 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
                 getSimplePlayer().getY(), getSimplePlayer().getWidth(),
                 getSimplePlayer().getHeight(), 0);
         setSimplePlayerView(g);
+        initialX = 8.;
+        initialY = 5.;
     }
 
     /**
@@ -74,6 +81,10 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
 
     private void step() {
         move(getSimplePlayer(), getSimplePlayer().getXSpeed(), getSimplePlayer().getYSpeed());
+        if (getSimplePlayer().getY() > MAX_SCREEN_DEPTH) {
+            getHUDController().lowerLife();
+            respawn();
+        }
         boolean flag = playerObjectCollisions();
         if (!flag)
             gravity(getSimplePlayer());
@@ -141,7 +152,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     private void isEnemy(GameObject gameObject) {
         if (gameObject instanceof Opponent) {
             getHUDController().lowerLife();
-            getSimplePlayer().handleInput(KeyCode.A);
+            respawn();
         }
     }
 
@@ -156,7 +167,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     private void isDangerousPlatform(GameObject gameObject) {
         if (gameObject.getImgPath().equals("images/objects/salt.png")) {
             getHUDController().lowerLife();
-            getSimplePlayer().handleInput(KeyCode.A);
+            respawn();
             return;
         }
     }
@@ -164,7 +175,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     private void updateEnemyPositions() {
         for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects())
             if (g instanceof Enemy) {
-                if (g.getY() > 23d) {
+                if (g.getY() > MAX_SCREEN_DEPTH) {
                     ((Enemy) g).respawn();
                 } else if (!checkAttached((Enemy) g)) {
                     g.setY(g.getY()+0.1d);
@@ -180,6 +191,12 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
                 return true;
         }
         return false;
+    }
+
+    // after the player loses a life, he is sent back to the starting location
+    private void respawn() {
+        getSimplePlayer().setX(initialX);
+        getSimplePlayer().setY(initialY);
     }
 
     // ends the play stage
