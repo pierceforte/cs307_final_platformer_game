@@ -1,4 +1,4 @@
-package builder.placementHandler;
+package builder.stage.placementHandler;
 
 import javafx.scene.image.ImageView;
 

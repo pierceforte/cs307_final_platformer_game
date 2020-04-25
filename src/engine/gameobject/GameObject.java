@@ -42,6 +42,10 @@ public abstract class GameObject {
         return imgPath;
     }
 
+    public void setImgPath(String newPath) {
+        imgPath = newPath;
+    }
+
     /**
      * Set x position of the object
      * @param xPosition new x position of the object
@@ -86,6 +90,14 @@ public abstract class GameObject {
         return yPos;
     }
 
+    public void setWidth(Double width) {
+        this.width = width;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
     public Double getWidth() {
         return width;
     }
@@ -116,8 +128,19 @@ public abstract class GameObject {
 
     public abstract boolean isStationary();
 
-    public double getXSpeed() { return xSpeed; }
-    public void setXSpeed(double s) { xSpeed = s; }
-    public double getYSpeed() { return ySpeed; }
-    public void setYSpeed(double s) { ySpeed = s; }
+    public double getXSpeed() {
+        return xSpeed;
+    }
+
+    public void setXSpeed(double s) {
+        xSpeed = s;
+    }
+
+    public double getYSpeed() {
+        return ySpeed;
+    }
+
+    public void setYSpeed(double s) {
+        ySpeed = s;
+    }
 }

@@ -35,7 +35,7 @@ public class BuilderTest extends DukeApplicationTest {
         BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
         bankController = new BankController(List.of(one), 10000, bankView);
         bankModel = bankController.getBankModel();
-        builderStage = new BuilderStage(new PaneDimensions(1000, 1000, null), bankController, new ArrayList<>());
+        builderStage = new BuilderStage(new PaneDimensions(0, 35, 0, 35), bankController, new ArrayList<>());
         javafxRun(() -> {
             Scene scene = new Scene(root);
             stage.setScene(scene);

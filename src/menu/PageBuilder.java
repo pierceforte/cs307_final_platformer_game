@@ -1,5 +1,6 @@
 package menu;
 
+import builder.stage.PaneDimensions;
 import data.user.User;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -53,6 +54,12 @@ public class PageBuilder {
         return primaryScreenBounds.getHeight();
     }
 
+    public double getTileWsize() {
+        return getScreenWidth()/ PaneDimensions.TILE_WIDTH_FACTOR;
+    }
+    public double getTileHsize() {
+        return getScreenHeight()/PaneDimensions.TILE_HEIGHT_FACTOR;
+    }
 
     public void addMainMenuButtons(Page.MenuBox myBox) {
         Button play = new Button (myResource.getString("Cont"));

@@ -3,6 +3,8 @@ package data;
 import data.levels.LevelData;
 import data.user.InvalidLoginException;
 import engine.gameobject.GameObject;
+import engine.gameobject.opponent.Enemy;
+import engine.gameobject.platform.CheckPoint;
 import engine.gameobject.platform.Goal;
 import engine.gameobject.platform.StationaryHazardPlatform;
 import engine.gameobject.platform.StationaryPlatform;
@@ -14,6 +16,7 @@ import java.util.List;
 
 public class Tester {
     public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+<<<<<<< HEAD
 
         LevelData ld = new LevelData();
 
@@ -23,6 +26,47 @@ public class Tester {
 
 
 
+=======
+        LevelData ld = new LevelData();
+        List<GameObject> go = new ArrayList<>();
+        go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 3d,2d));
+        go.add(new CheckPoint("resources/images/objects/checkpoint.png", 1d, 2d, 27d,3d));
+        for (Double i = 25d; i < 30; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i,4d));
+        }
+        for (Double i = 18d; i < 21; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i,6d));
+        }
+        for (Double i = 7d; i < 25; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/siderock.png", 1d, 1d, 18d,i));
+        }
+        for (Double i = 7d; i < 25; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/innerblock.png", 1d, 1d, 19d,i));
+        }
+        for (Double i = 7d; i < 25; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/siderock.png", 1d, 1d, 20d,i));
+        }
+        go.add(new Enemy("dontusethis.png", 1d, 1d, 11d, 12d, 1d, 1d));
+        for (Double i = 11d; i < 15; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 12d,i));
+        }
+        go.add(new CheckPoint("resources/images/objects/checkpoint.png", 1d, 1d, 3d, 16d));
+        for (Double i = 1d; i < 6; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i, 17d));
+        }
+        go.add(new Enemy("dontusethis.png", 1d, 1d, 15d, 22d, 1d, 1d));
+        for (Double i = 13d; i < 18; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i, 23d));
+        }
+        for (Double i = 13d; i < 18; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/innerblocks.png", 1d, 1d, i, 24d));
+        }
+        for (Double i = 1d; i < 31; i++) {
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i,25d));
+        }
+        ld.saveLevel(go, 0);
+
+>>>>>>> 8680a0450b1d3f12d23d4e6d4fd9826d15892b35
 //        List<Class> me = new ArrayList<>();
 //        List<Object> obj = new ArrayList<>();
 //        System.out.println(me.getClass().toString());

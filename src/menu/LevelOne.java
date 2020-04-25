@@ -67,9 +67,10 @@ public class LevelOne extends Page {
         myScene = new Scene(myRoot);
 
         Game game = new Game(myScene, myRoot, height, width);
-        game.startLevelPhase(myScene, myRoot, height, width);
-
         myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
+
+        game.startLevelPhase();
+
         return myScene;
     }
 }

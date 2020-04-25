@@ -195,7 +195,7 @@
 #Deet{
     -fx-font-size: 16;
     -fx-text-fill: white;
-}#ScoreDisplay{
+}#scoreDisplay{
     -fx-translate-x: 800;
     -fx-translate-y: 100;
     -fx-fill: goldenrod;

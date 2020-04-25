@@ -1,4 +1,4 @@
-package builder.placementHandler;
+package builder.stage.placementHandler;
 
 import builder.stage.BuilderObjectView;
 import builder.stage.PaneDimensions;
