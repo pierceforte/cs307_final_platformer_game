@@ -52,8 +52,7 @@ public abstract class TilePane extends Pane {
         Point2D myClick = myGrid.inverseTransform(clickX,clickY);
         int x = (int) myClick.getX();
         int y = (int) myClick.getY();
-        Coordinates coords = new Coordinates(x, y);
-        return coords;
+        return new Coordinates(x, y);
     }
 
     protected void snapItem(ImageView object) {

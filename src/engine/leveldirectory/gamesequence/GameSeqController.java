@@ -1,5 +1,6 @@
 package engine.leveldirectory.gamesequence;
 
+import builder.bank.view.BankView;
 import builder.stage.PaneDimensions;
 import engine.gameobject.GameObject;
 import engine.gameobject.player.SimplePlayer;
@@ -34,7 +35,6 @@ public abstract class GameSeqController {
     private Pane gamePlayPane;
 
     private BorderPane myPane;
-    private GamePlayPane gamePlayPane2;
     private HUDController hudController;
     private PaneDimensions dimensions;
 
@@ -47,10 +47,9 @@ public abstract class GameSeqController {
         this.levelContainer = levelContainer;
         this.game = game;
         this.height = height;
-        this.width = width;
+        this.width = width - BankView.DEFAULT_WIDTH;
         this.myScene = scene;
         this.myPane = root;
-
         setPlayer();
         setUpView();
     }
@@ -80,8 +79,8 @@ public abstract class GameSeqController {
     private GameObjectView createGameObjectView(GameObject gameObject) {
         GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(), gameObject.getY(),
                 gameObject.getWidth(), gameObject.getHeight(), gameObject.getXDirection());
-        gameObjectView.convertAttributesToGridBased(width/ PaneDimensions.TILE_WIDTH_FACTOR,
-                height/ PaneDimensions.TILE_HEIGHT_FACTOR);
+        gameObjectView.convertAttributesToGridBased(dimensions.getTileWidth(),
+                dimensions.getTileHeight());
         return gameObjectView;
     }
 

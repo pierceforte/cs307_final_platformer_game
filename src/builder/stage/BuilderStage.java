@@ -135,7 +135,7 @@ public class BuilderStage extends DraggableTilePane {
 
     private void handleExitStageRequest() {
         stageExitHandler.setWindow(this.getScene().getWindow());
-        if (stageExitHandler.isExitRequestValid(myObjects)) {
+        if (stageExitHandler.isExitRequestValid(myObjects, dimensions)) {
             isDone = true;
             return;
         }
