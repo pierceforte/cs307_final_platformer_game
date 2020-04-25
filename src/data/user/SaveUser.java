@@ -1,5 +1,6 @@
 package data.user;
 
+import data.ErrorLogger;
 import data.PrettyPrint;
 import data.ReadSaveException;
 import org.json.simple.JSONObject;
@@ -7,8 +8,6 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Save User helps with saving and deleting User profiles
@@ -23,13 +22,13 @@ public class SaveUser {
      * Constructor opens and reads the User file
      * @throws ReadSaveException - thrown if there is a problem reading from the user file
      */
-    public SaveUser() throws ReadSaveException {
+    public SaveUser() {
         JSONParser jsonParser = new JSONParser();
         try {
             FileReader reader = new FileReader(fileLoc);
             users = (JSONObject) jsonParser.parse(reader);
         } catch (Exception e) {
-            throw new ReadSaveException("save", fileLoc);
+            ErrorLogger.log(e);
         }
     }
 
@@ -38,7 +37,7 @@ public class SaveUser {
      * @param id - the id of the account you want to delete
      * @throws ReadSaveException - thrown if there is a problem writing to the user file
      */
-    public void delete(String id) throws ReadSaveException {
+    public void delete(String id) {
         if (!users.containsKey(id)) return;
         users.remove(id);
         write();
@@ -47,9 +46,8 @@ public class SaveUser {
     /**
      * Saves a User profile
      * @param user - the JSONObject of the user you're trying to save
-     * @throws ReadSaveException - thrown if there is a problem writing to the user file
      */
-    public void save(JSONObject user) throws ReadSaveException {
+    public void save(JSONObject user) {
         String id = (String) user.get("id");
         if (users.keySet().contains(id)) {
             JSONObject stored = (JSONObject) users.get(id);
@@ -65,13 +63,13 @@ public class SaveUser {
      * Makes the users object into a string and then saves the string
      * @throws ReadSaveException - thrown if there is a problem writing to the user file
      */
-    private void write() throws ReadSaveException {
+    private void write() {
         try (FileWriter file = new FileWriter(fileLoc)) {
             PrettyPrint pretty = new PrettyPrint(users.toString());
             file.write(pretty.getString());
             file.flush();
         } catch (IOException e) {
-            throw new ReadSaveException("Save", fileLoc);
+            ErrorLogger.log(new ReadSaveException("Save", fileLoc));
         }
     }
 }

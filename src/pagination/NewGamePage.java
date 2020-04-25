@@ -148,7 +148,7 @@ public class NewGamePage extends Page {
         LevelDirectory ll = new LevelDirectory(myStage, Pages.LevelDirectory, myPC);
     }
 
-    private User saveInformation() throws ReadSaveException, DuplicateUsernameException {
+    private User saveInformation() {
         String imagePath = processSelections();
         User u = null;
         try {
@@ -156,7 +156,6 @@ public class NewGamePage extends Page {
             u.setType(side);
             u.changeAvatar(sideURL);
             u.replaceScore(FREE_COINS);
-        } catch (ReadSaveException e) {
         } catch (DuplicateUsernameException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(myResource.getString("Whoops"));
