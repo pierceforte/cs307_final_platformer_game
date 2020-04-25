@@ -1,6 +1,5 @@
 package engine.leveldirectory.gamesequence;
 
-import input.KeyInput;
 import engine.gameobject.GameObject;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
@@ -20,7 +19,7 @@ import static javafx.application.Platform.exit;
 
 public class GameSeqLevelController extends GameSeqController implements SceneChanger {
 
-    public static double GRAVITY = 0.01;
+    public static final double GRAVITY = 0.01;
 
     public GameSeqLevelController(LevelContainer levelContainer, GraphicsEngine graphicsEngine, Game game, Scene scene, BorderPane root, double height, double width) {
         super(levelContainer, graphicsEngine, game, scene, root, height, width);
@@ -53,6 +52,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
         super.setNextPlayScene(()->{
             pause();
             getLevelContainer().incrementLevel();
+            //myPane.getChildren().removeAll(leftPane, gamePlayPane);
             GameSeqBuilderController builderTemp = new GameSeqBuilderController(getLevelContainer(), getGraphicsEngine(),
                     getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
             builderTemp.play();
@@ -98,7 +98,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
                 else
                     getSimplePlayerView().setX(getSimplePlayer().getX() + getSimplePlayer().getWidth());
                 if (true) // TODO: check if g is an enemy
-                    getGame().getHUDController().lowerLife();
+                    //getHUDController().lowerLife();
                 return true;
             }
         }
@@ -138,9 +138,10 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     }
 
     public void endPhase() {
-        if (getGame().getHUDController().getLives() <= 0)
+        if (getHUDController().getLives() <= 0)
             exit();
         // TODO: if (win)
         getNextPlayScene().run();
     }
+
 }

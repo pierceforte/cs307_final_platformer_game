@@ -82,19 +82,6 @@ public class DebugEnvironment extends Page {
 
     @Override
     Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
-        try {
-            return getScene(name);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return getScene(name);
     }
 }

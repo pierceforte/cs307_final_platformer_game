@@ -1,10 +1,11 @@
 package engine.leveldirectory.gamesequence;
 
-import builder.stage.GridDimensions;
+import builder.stage.PaneDimensions;
 import engine.gameobject.GameObject;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
 import engine.leveldirectory.graphicsengine.GraphicsEngine;
+import engine.leveldirectory.hud.HUDController;
 import engine.leveldirectory.level.Level;
 import engine.leveldirectory.level.LevelContainer;
 import engine.view.GameObjectView;
@@ -25,14 +26,18 @@ public abstract class GameSeqController {
     private List<SimplePlayer> simplePlayer;
     private GameObjectView simplePlayerView;
     private Game game;
+
     private Pane gamePlayPane;
     private Pane leftPane;
+    private BorderPane myPane;
+    private GamePlayPane gamePlayPane2;
+    private HUDController hudController;
+
 
     private double height;
     private double width;
 
     private Scene myScene;
-    private BorderPane myPane;
 
     private Runnable nextPlayScene;
 
@@ -53,6 +58,7 @@ public abstract class GameSeqController {
         this.myPane = root;
 
         setPlayer();
+        setUpView();
     }
 
     public void setTimeline(Timeline t) {
@@ -61,7 +67,7 @@ public abstract class GameSeqController {
 
     public void display() {
         int currentLevel = 0;
-        myPane.getChildren().clear();
+        gamePlayPane.getChildren().clear();
         for (GameObject g : levelContainer.getCurrentLevel().getAllGameObjects()) {
             GameObjectView gameObjectView = createGameObjectView(g);
 
@@ -72,11 +78,11 @@ public abstract class GameSeqController {
                 g.setX(10.);
                 g.setY(5.);
             }
-            myPane.getChildren().add(gameObjectView);
+            gamePlayPane.getChildren().add(gameObjectView);
         }
         simplePlayerView = createGameObjectView(simplePlayer.get(currentLevel));
-        myPane.getChildren().add(simplePlayerView);
-        System.out.println(myPane.getChildren().size());
+        gamePlayPane.getChildren().add(simplePlayerView);
+        System.out.println(gamePlayPane.getChildren().size());
         //myPane.setVisible(true);
         // TODO: display score board
     }
@@ -101,8 +107,8 @@ public abstract class GameSeqController {
         GameObjectView gameObjectView = new GameObjectView(gameObject.getImgPath(), gameObject.getX(),
                 gameObject.getY(), gameObject.getWidth(), gameObject.getHeight(), gameObject.getXDirection());
 
-        gameObjectView.convertAttributesToGridBased(width/ GridDimensions.TILE_WIDTH_FACTOR,
-                height/GridDimensions.TILE_HEIGHT_FACTOR);
+        gameObjectView.convertAttributesToGridBased(width/ PaneDimensions.TILE_WIDTH_FACTOR,
+                height/ PaneDimensions.TILE_HEIGHT_FACTOR);
         return gameObjectView;
     }
 
@@ -143,5 +149,22 @@ public abstract class GameSeqController {
     }
     public void play() {
         timeline.play();
+    }
+
+
+
+    public HUDController getHUDController() {
+        return hudController;
+    }
+
+    private void setUpView() {
+        //TODO: read in minX, maxX, minY, and maxY
+        PaneDimensions gamePlayDimensions = new PaneDimensions(getWidth(), getHeight(),
+                PaneDimensions.DEFAULT_MIN_X, 34, PaneDimensions.DEFAULT_MIN_Y, 20);
+        gamePlayPane = new GamePlayPane(gamePlayDimensions);
+        hudController = new HUDController(getLevelContainer().getLevelNum(), 0, 5);
+        //leftPane.getChildren().add(HUDView);
+        myPane.setCenter(gamePlayPane);
+        myPane.setLeft(hudController.getView());
     }
 }

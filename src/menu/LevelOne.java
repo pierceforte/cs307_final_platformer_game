@@ -24,7 +24,7 @@ public class LevelOne extends Page {
     private Stage myStage;
     private Scene myScene;
     private PageBuilder myFactory;
-    private boolean light;
+    private PageController myPC;
 
     private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
     private String STYLESHEET;
@@ -36,14 +36,14 @@ public class LevelOne extends Page {
      * @param page
      * @return Page
      */
-    public LevelOne(Stage primaryStage, Pages page) throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    public LevelOne(Stage primaryStage, Pages page, PageController PC) throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         super(primaryStage, page);
         myStage = primaryStage;
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
+        myPC = PC;
         STYLESHEET = "css/light.css";
-        light = true;
         myScene = this.buildSpecialScene((int) myFactory.getScreenHeight(), (int) myFactory.getScreenWidth());
         myStage.setScene(myScene);
 
@@ -53,32 +53,12 @@ public class LevelOne extends Page {
     BorderPane init_Root(int height, int width) {
         BorderPane myRoot = new BorderPane();
         myRoot.setPrefSize(width, height);
-
-        Button lightbutton = new Button();
-        lightbutton.setId("LightButton");
-        lightbutton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (light) {
-                    STYLESHEET = "css/dark.css";
-                    myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
-                    light = false;
-                }
-                else {
-                    STYLESHEET = "css/light.css";
-                    myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
-                    light = true;
-                }
-            }
-        });
-
-        myRoot.getChildren().addAll(lightbutton);
         return myRoot;
     }
 
     @Override
     Scene gotoScene(String name) throws IOException {
-        return null;
+        return getScene(name);
     }
 
     Scene buildSpecialScene(int height, int width) throws NoSuchMethodException, ReadSaveException,

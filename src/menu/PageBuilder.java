@@ -23,7 +23,6 @@ import static javafx.geometry.Pos.CENTER;
  */
 public class PageBuilder {
     private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
-    private static final String STYLESHEET = "main.css";
     private Stage myStage;
 
     public PageBuilder(Stage primaryStage) {
@@ -54,12 +53,6 @@ public class PageBuilder {
         return primaryScreenBounds.getHeight();
     }
 
-    public double getTileWsize() {
-        return getScreenWidth()/30;
-    }
-    public double getTileHsize() {
-        return getScreenHeight()/25;
-    }
 
     public void addMainMenuButtons(Page.MenuBox myBox) {
         Button play = new Button (myResource.getString("Cont"));
@@ -97,7 +90,8 @@ public class PageBuilder {
                     String[] g = result.get();
                     try {
                         User user = new User(title.getText(), saveloc.getText());
-                        LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory, null);
+                        PageController pageControl = new PageController(user, myStage);
+                        LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory, pageControl);
                     } catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle(myResource.getString("InvalidFile"));

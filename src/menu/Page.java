@@ -28,6 +28,8 @@ public abstract class Page {
     private Pages myPage;
     private Scene myScene;
 
+    private final String basicStyle = "css/main.css";
+
     /**
      * Constructs a basic Page. All animated Pages are extended from this class.
      *
@@ -52,7 +54,7 @@ public abstract class Page {
     Scene buildScene(int height, int width) throws IOException {
         Pane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
-        myScene.getStylesheets().addAll(this.getClass().getResource("css/main.css").toExternalForm());
+        myScene.getStylesheets().addAll(this.getClass().getResource(basicStyle).toExternalForm());
         return myScene;
     }
 
@@ -178,20 +180,11 @@ public abstract class Page {
      * @return    Scene
      */
 
-    public Scene getScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public Scene getScene(String name) throws IOException {
         Scene myScene = null;
 
-        if (name.equals("Continue")) {
-            LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory, null);
-        }
         if (name.equals("Debug")) {
             DebugEnvironment de = new DebugEnvironment(myStage, Pages.Debug);
-        }
-        if (name.equals("Level 1")) {
-            LevelOne ll = new LevelOne(myStage, Pages.BluePrintStage);
-        }
-        if (name.equals("Customize Player")) {
-            CustomMenu cm = new CustomMenu(myStage, Pages.CustomizePlayerMenu, new User("test", "tester", "basicsnake.png", new String[]{"05", "21", "1999"}));
         }
         if (name.equals("New Game")) {
             NewGamePage ng = new NewGamePage(myStage, Pages.FirstTimeCutScene);

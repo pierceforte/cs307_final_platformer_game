@@ -1,5 +1,9 @@
 package builder.stage;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public enum BuilderAction {
     PLACE("place"), MOVE("move"), SELL( "sell");
 

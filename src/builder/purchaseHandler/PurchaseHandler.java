@@ -1,5 +1,9 @@
 package builder.purchaseHandler;
 
+/**
+ *
+ * @author Pierce Forte
+ */
 public interface PurchaseHandler {
 
     /**

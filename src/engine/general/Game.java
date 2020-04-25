@@ -23,7 +23,6 @@ public class Game {
     private Scene scene;
 
     private LevelContainer levelContainer;
-    private HUDController hudController;
     private GraphicsEngine graphicsEngine;
 
     private double height;
@@ -39,7 +38,6 @@ public class Game {
         levelContainer = new LevelContainer(this);
         levelContainer.loadLevels();
         // TODO: read in num of player lives
-        hudController = new HUDController(5, 0, getLevelContainer().getLevelNum());
         graphicsEngine = null;
         this.height = height;
         this.width = width;
@@ -54,7 +52,4 @@ public class Game {
 
     public LevelContainer getLevelContainer() { return levelContainer; }
 
-    public HUDController getHUDController() {
-        return hudController;
-    }
 }

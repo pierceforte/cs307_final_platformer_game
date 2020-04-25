@@ -1,10 +1,14 @@
-package builder.bank;
+package builder.bank.view;
 
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+
+/**
+ *
+ * @author Pierce Forte
+ */
 public class ViewPane extends Pane {
 
     public ViewPane(double width, double height) {

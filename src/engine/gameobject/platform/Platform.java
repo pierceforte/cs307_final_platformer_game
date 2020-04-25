@@ -7,6 +7,8 @@ import engine.gameobject.player.SimplePlayer;
 
 /**
  * This interface defines how a platform will operate
+ *
+ * @author Pierce Forte
  */
 public interface Platform {
 

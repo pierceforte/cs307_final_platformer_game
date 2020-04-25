@@ -11,6 +11,14 @@
     -fx-translate-x: 300;
     -fx-translate-y: 200;
 }
+#LightButton{
+    -fx-background-image: url("../../../../resources/images/objects/lighticon.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-translate-y: 400;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
 #MainTitle {
     -fx-font-family: "Times New Roman";
     -fx-font-size: 60pt;
@@ -163,4 +171,28 @@
      -fx-pref-width: 750;
      -fx-pref-height: 150;
      -fx-opacity: .8;
- }
+ }#hudView{
+      -fx-background-color: black;
+      -fx-pref-width: 200;
+      -fx-pref-height: 260;
+      -fx-background-position: center, center;
+  }#builderLeftPane{
+       -fx-background-color: black;
+       -fx-background-position: center, center;
+   }
+#userDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 22pt;
+    -fx-translate-x: 0;
+    -fx-translate-y: 100;
+    -fx-fill: maroon;
+}
+#scoreSBDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+    -fx-translate-x: 0;
+    -fx-translate-y: 50;
+    -fx-fill: maroon;
+}
