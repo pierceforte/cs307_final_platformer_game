@@ -14,19 +14,19 @@
     },
     "engine.gameobject.platform.VerticalSlidingPlatform" : {
       "ctor": [
-          ["java.lang.String", "images/objects/broomstick.png"],
-          ["java.lang.Double", "1"],
-          ["java.lang.Double", "1"],
-          ["java.lang.Double", "-1"],
-          ["java.lang.Double", "-1"],
-          ["java.lang.Double", "1"],
-          ["java.lang.Double", "4"],
-          ["java.lang.Double", "0"]
+        ["java.lang.String", "images/objects/broomstick.png"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "4"],
+        ["java.lang.Double", "0"]
       ],
       "cost": 50,
       "height" : 1,
       "width" : 1
-      },
+    },
     "engine.gameobject.platform.HorizontalSlidingPlatform" : {
       "ctor": [
         ["java.lang.String", "images/objects/grasstile.png"],

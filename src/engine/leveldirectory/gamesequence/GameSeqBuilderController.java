@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * This class controls the flow of the builder stage.
  *
- * @author Jerry Huang
+ * @author Jerry Huang, Pierce Forte
  */
 public class GameSeqBuilderController extends GameSeqController implements SceneChanger {
     private BorderPane myPane;
@@ -89,9 +89,10 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     private void step() {
         if (builderPane.isDone()) {
             endPhase();
-            return;
         }
-        builderPane.update();
+        else {
+            builderPane.update();
+        }
     }
 
     private void endPhase() {

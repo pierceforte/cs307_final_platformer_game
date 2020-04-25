@@ -6,6 +6,7 @@ import builder.stage.exitHandler.BuilderStageExitHandler;
 import builder.stage.purchaseHandler.BuilderPurchaseHandler;
 import engine.gameobject.GameObject;
 import engine.view.GameObjectView;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 

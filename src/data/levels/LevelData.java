@@ -1,6 +1,8 @@
 package data.levels;
 
+import builder.bank.BankController;
 import builder.bank.BankItem;
+import builder.bank.view.BankView;
 import builder.stage.PaneDimensions;
 import data.PrettyPrint;
 import data.ReadSaveException;
@@ -40,7 +42,7 @@ public class LevelData {
         }
     }
 
-    public List<BankItem> getBank(int level) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<BankItem> getBankItems(int level) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         if (!containsKey(banks, Integer.toString(level))) throw new ReadSaveException("read", bankLoc);
         JSONObject levelBank = (JSONObject) banks.get(Integer.toString(level));
         List<BankItem> bankItems = new ArrayList<>();
@@ -53,6 +55,7 @@ public class LevelData {
         }
         return bankItems;
     }
+
 
     public PaneDimensions getDimensions(int level) throws ReadSaveException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         if (!containsKey(dimensions, Integer.toString(level))) throw new ReadSaveException("read", levelLoc);

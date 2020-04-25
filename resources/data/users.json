@@ -371,13 +371,13 @@
       "year":2000,
       "day":12
     },
-    "score":300,
+    "score":200,
     "password":"phf7",
     "paths":{
       "1":[0.0,0.0]
     },
     "id":"pierce",
-    "avatar":"images\/avatars\/gardensnake.png",
+    "avatar":"images\/avatars\/sneaksnake.png",
     "type":1,
     "levels":{
       "1":0
