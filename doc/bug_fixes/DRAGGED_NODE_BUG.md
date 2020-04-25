@@ -8,7 +8,7 @@ The behavior of items when dragged during the builder stage is not as expected.
 I would expect that when an item is dragged during the builder stage it would be given the highest priority, ensuring that it always remains reachable for the user.
 
 ## Current Behavior
-When a node is dragged and then dropped during the builder stage, it is being placed behind nodes that were placed more recently.
+When a node is dragged and then dropped during the builder stage, it is being placed behind nodes that were purchased more recently.
 
 ## Steps to Reproduce
  1. Run the game and proceed to the builder stage.
