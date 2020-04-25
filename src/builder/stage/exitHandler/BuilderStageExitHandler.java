@@ -27,7 +27,7 @@ public class BuilderStageExitHandler implements StageExitHandler {
         gameObjects = new ArrayList<>();
     }
 
-    public boolean isExitRequestValid(List<BuilderObjectView> builderObjectViews) {
+    public boolean isExitRequestValid(List<BuilderObjectView> builderObjectViews, PaneDimensions dimensions) {
         for (BuilderObjectView builderObjectView : builderObjectViews) {
             if (builderObjectView.areActionIconsActive()) {
                 gameObjects.clear();
@@ -35,10 +35,10 @@ public class BuilderStageExitHandler implements StageExitHandler {
             }
             GameObject gameObject = builderObjectView.getGameObject();
             //TODO: correct these calculations
-            gameObject.setX(builderObjectView.getX()/PaneDimensions.TILE_WIDTH_FACTOR);
-            gameObject.setY(builderObjectView.getY()/PaneDimensions.TILE_HEIGHT_FACTOR);
-            gameObject.setWidth(builderObjectView.getFitWidth()/PaneDimensions.TILE_WIDTH_FACTOR);
-            gameObject.setHeight(builderObjectView.getFitHeight()/PaneDimensions.TILE_HEIGHT_FACTOR);
+            gameObject.setX(builderObjectView.getX()/dimensions.getTileWidth());
+            gameObject.setY(builderObjectView.getY()/dimensions.getTileHeight());
+            gameObject.setWidth(builderObjectView.getFitWidth()/dimensions.getTileWidth());
+            gameObject.setHeight(builderObjectView.getFitHeight()/dimensions.getTileHeight());
             gameObjects.add(gameObject);
         }
         return true;

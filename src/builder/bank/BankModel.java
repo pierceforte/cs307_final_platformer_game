@@ -11,16 +11,16 @@ import java.util.List;
  */
 public class BankModel {
 
+    public static final int DEFAULT_MONEY_AVAILABLE = 100;
+
     private int curIndex;
     private int moneyAvailable;
     private List<BankItem> bankItems;
-    private boolean hasPurchasedItem;
     private BankItem purchasedItem;
 
     public BankModel(List<BankItem> bankItems, int moneyAvailable) {
         this.bankItems = new ArrayList<>(bankItems);
         this.moneyAvailable = moneyAvailable;
-        hasPurchasedItem = false;
     }
 
     public int getMoneyAvailable() {
@@ -40,7 +40,6 @@ public class BankModel {
     }
 
     public BankItem getPurchasedItem() {
-        hasPurchasedItem = false;
         return purchasedItem;
     }
 
@@ -64,7 +63,6 @@ public class BankModel {
         }
         else {
             moneyAvailable -= curBankItem.getCost();
-            hasPurchasedItem = true;
             purchasedItem = getCurItem();
             removeBankItem(curBankItem);
         }
