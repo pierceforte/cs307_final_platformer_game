@@ -1,7 +1,5 @@
 package engine.leveldirectory.level;
 
-import builder.bank.BankItem;
-import builder.stage.PaneDimensions;
 import data.ReadSaveException;
 import data.levels.LevelData;
 import engine.general.Game;

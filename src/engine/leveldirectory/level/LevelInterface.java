@@ -20,14 +20,14 @@ public interface LevelInterface {
     Collection<GameObject> getGameObjects();
 
     /**
-     * used for saving & transferring data
-     * @return all objects in a level
+     * used for retrieving builder stage bank items
+     * @return bank items
      */
     Collection<BankItem> getBankItems();
 
     /**
-     * used for saving & transferring data
-     * @return all objects in a level
+     * used for retrieving a level's dimensions
+     * @return dimensions
      */
     PaneDimensions getDimensions();
 

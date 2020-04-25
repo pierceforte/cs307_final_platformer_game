@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
  *
  * @author Pierce Forte
  */
-public class BuilderStage extends DraggableTilePane {
+public class BuilderPane extends DraggableTilePane {
 
     public static final double ACTION_ICON_DISTANCE_FACTOR = 0.2;
 
@@ -31,7 +31,7 @@ public class BuilderStage extends DraggableTilePane {
     private Button playButton;
     private boolean isDone;
 
-    public BuilderStage(PaneDimensions dimensions, BankController bankController, List<GameObjectView> gameObjectViews) {
+    public BuilderPane(PaneDimensions dimensions, BankController bankController, List<GameObjectView> gameObjectViews) {
         super(dimensions);
         addGrid();
         this.dimensions = dimensions;

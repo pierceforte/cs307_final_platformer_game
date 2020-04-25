@@ -1,7 +1,7 @@
 package engine.leveldirectory.gamesequence;
 
 import builder.bank.BankModel;
-import builder.stage.BuilderStage;
+import builder.stage.BuilderPane;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.view.BankView;
@@ -22,13 +22,13 @@ import java.util.List;
 /**
  * This class controls the flow of the builder stage.
  *
- * @author Jerry Huang, Pierce Forte
+ * @author Jerry Huang
  */
 public class GameSeqBuilderController extends GameSeqController implements SceneChanger {
     private BorderPane myPane;
     private Pane leftPane;
     private BankController bankController;
-    private BuilderStage builderStage;
+    private BuilderPane builderPane;
     private List<BankItem> levelBankItems;
     private List<GameObject> levelGameObjects;
     private List<GameObjectView> levelGameObjectViews;
@@ -74,7 +74,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         levelBankItems = getLevelContainer().getCurrentLevel().getBankItems();
         BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
         bankController = new BankController(levelBankItems, BankModel.DEFAULT_MONEY_AVAILABLE, bankView);
-        builderStage = new BuilderStage(getDimensions(), bankController, levelGameObjectViews);
+        builderPane = new BuilderPane(getDimensions(), bankController, levelGameObjectViews);
         setUpView();
     }
 
@@ -87,18 +87,17 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     }
 
     private void step() {
-        if (builderStage.isDone()) {
+        if (builderPane.isDone()) {
             endPhase();
+            return;
         }
-        else {
-            builderStage.update();
-        }
+        builderPane.update();
     }
 
     private void endPhase() {
-        List<GameObject> newGameObjects = builderStage.getGameObjects();
+        List<GameObject> newGameObjects = builderPane.getGameObjects();
         getLevelContainer().getCurrentLevel().addGameObject(newGameObjects);
-        myPane.getChildren().removeAll(leftPane, builderStage);
+        myPane.getChildren().removeAll(leftPane, builderPane);
         this.getTimeline().stop();
         getNextPlayScene().run();
     }
@@ -107,8 +106,8 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         leftPane = new Pane();
         leftPane.setId("builderLeftPane");
         leftPane.getChildren().add(new SideBar(getMyScene(), game.getPC(), bankController.getBankView()));
-        myPane.setCenter(builderStage);
+        myPane.setCenter(builderPane);
         myPane.setLeft(leftPane);
-        leftPane.getChildren().add(builderStage.getPlayButton());
+        leftPane.getChildren().add(builderPane.getPlayButton());
     }
 }
