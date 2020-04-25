@@ -27,7 +27,7 @@ http://agilemodeling.com/artifacts/systemUseCase.htm
         - The player will make a choice about how to continue.
     - Basic course of action
         - A sound and animation are played to indicate the player’s death
-        - A menu pops up presenting the user options for how to continue
+        - A pagination pops up presenting the user options for how to continue
         - If they have enough money, they can continue
         - Else they have the option to restart
         - If they reached a checkpoint, they can restart from there
@@ -168,7 +168,7 @@ http://agilemodeling.com/artifacts/systemUseCase.htm
         - The user deposits the object in a tile space. The Engine will read the location of the object (represented in a Javafx affine) and tell the Data package to update the .json file associated with the saved level configurations of the map for the player to play later.
         - When the user presses play level, they will see this object represented in the level.
 
-3. User opens the customizable menu.
+3. User opens the customizable pagination.
     - Description
         - The user wants to see their lifetime game stats (victories; level progress; high scores; coin count) and maybe change their character.
     - Preconditions
@@ -177,7 +177,7 @@ http://agilemodeling.com/artifacts/systemUseCase.htm
         - The engine.gameobject.player.Player’s information will update accordingly
     - Basic course of action
         - User presses an icon associated with the engine.gameobject.player.Player’s description.
-        - User is taken to a player info menu
+        - User is taken to a player info pagination
         - Menu displays number of levels beaten with their high scores and time completed stats. They can also see how many coins they have.
         - In the bottom of the screen they can see other snizards they can unlock. If they have the coins, they can purchase a new snizard to play. If they have already unlocked a snizard and paid for it, they can switch characters anytime. Information on the abilities of their snizards is on the bottom of the screen.
         - There is also a trophy room of other snizards describing their abilities.The player CANNOT unlock rival snizards no matter how many coins they get.

@@ -172,6 +172,31 @@
      -fx-pref-height: 150;
      -fx-opacity: .8;
  }
+#levelDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+    -fx-translate-x: 50;
+    -fx-translate-y: 30;
+    -fx-text-alignment: center;
+    -fx-fill: goldenrod;
+}
+#scoreDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+    -fx-translate-x: 50;
+    -fx-translate-y: 100;
+    -fx-fill:goldenrod;
+}
+#livesDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+    -fx-translate-x: 50;
+    -fx-translate-y: 170;
+    -fx-fill:goldenrod;
+}
 #hudView{
     -fx-background-color: black;
     -fx-pref-width: 200;
@@ -200,6 +225,13 @@
     -fx-font-weight: bold;
     -fx-font-size: 15pt;
     -fx-translate-x: 0;
-    -fx-translate-y: 150;
+    -fx-translate-y: 200;
     -fx-fill: goldenrod;
-}
+}#back{
+     -fx-translate-y: 800;
+ }#miniScoreDisplay{
+       -fx-background-color: black;
+       -fx-pref-width: 200;
+       -fx-pref-height: 260;
+       -fx-background-position: center, center;
+   }

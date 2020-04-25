@@ -1,6 +1,8 @@
-package menu;
+package pagination;
 
+import builder.bank.view.BankView;
 import data.user.User;
+import engine.leveldirectory.hud.HUDView;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
@@ -39,6 +41,29 @@ public class SideBar extends Pane {
         this.getChildren().add(img);
     }
 
+    public SideBar(Scene scene, PageController pc, HUDView myView) {
+        this.setId("hudView");
+        myScene = scene;
+        STYLESHEET = Light;
+        pageController = pc;
+        buildLightButton();
+        buildBackButton();
+        this.getChildren().add(displayUserStats());
+        this.getChildren().add(myView);
+    }
+
+    public SideBar(Scene scene, PageController pc, BankView bankView) {
+        this.setId("hudView");
+        myScene = scene;
+        STYLESHEET = Light;
+        pageController = pc;
+        buildLightButton();
+        buildBackButton();
+        this.getChildren().add(displayUserStats());
+        this.getChildren().add(bankView);
+
+    }
+
     private void buildLightButton() {
         lightbutton = new Button();
         lightbutton.setId("LightButton");
@@ -57,6 +82,7 @@ public class SideBar extends Pane {
 
     private void buildBackButton() {
         back = new Button("Back to Menu");
+        back.setId("back");
         back.setOnMouseClicked(this::handle);
         this.getChildren().add(back);
     }

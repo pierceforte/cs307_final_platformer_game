@@ -8,7 +8,8 @@ import engine.leveldirectory.level.LevelContainer;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import menu.PageController;
+import pagination.PageController;
+
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Game {
     private BorderPane root;
     private double height;
     private double width;
+    private PageController myPC;
 
     /**
      * Constructor to create a game
@@ -44,12 +46,16 @@ public class Game {
         this.root = root;
         this.height = height;
         this.width = width;
+        myPC = pageController;
         //startLevelPhase(scene, this.root, height, width);
 
         startLevelPhase();
 
     }
 
+    public PageController getPC() {
+        return myPC;
+    }
     /**
      * Starts the builder stage of the first level
      */

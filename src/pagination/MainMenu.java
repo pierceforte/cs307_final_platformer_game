@@ -1,4 +1,4 @@
-package menu;
+package pagination;
 
 import data.ReadSaveException;
 import data.user.DuplicateUsernameException;
@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 public class MainMenu extends Page {

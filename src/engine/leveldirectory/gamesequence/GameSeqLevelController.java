@@ -18,19 +18,23 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
-import menu.PageController;
+import pagination.PageController;
+
+import java.sql.SQLOutput;
 
 import static javafx.application.Platform.exit;
 
 public class GameSeqLevelController extends GameSeqController implements SceneChanger {
 
     public static final double GRAVITY = 0.01;
-    public static final double MAX_SCREEN_DEPTH = 23d;
+    public  double maxScreenDepth;
     private double initialX;
     private double initialY;
+    private boolean lifeLost = false;
 
     public GameSeqLevelController(LevelContainer levelContainer, Game game, Scene scene, BorderPane root, double height, double width) {
         super(levelContainer, game, scene, root, height, width);
+        maxScreenDepth = getDimensions().getMaxY();
         setNextScene();
         setupTimeline();
         setUpListeners();
@@ -87,17 +91,22 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     }
 
     private void step() {
-        isLose();
+        lifeLost = false;
         move(getSimplePlayer(), getSimplePlayer().getXSpeed(), getSimplePlayer().getYSpeed());
-        if (getSimplePlayer().getY() > MAX_SCREEN_DEPTH) {
+        if (getSimplePlayer().getY() > maxScreenDepth) {
             getHUDController().lowerLife();
+            System.out.println("fell down! life lost!");
+            lifeLost = true;
             respawn();
         }
-        boolean flag = playerObjectCollisions();
-        if (!flag)
-            gravity(getSimplePlayer());
+        if (!lifeLost) {
+            boolean flag = playerObjectCollisions();
+            if (!flag)
+                gravity(getSimplePlayer());
+        }
         updateEnemyPositions();
         super.display();
+        isLose();
     }
 
     private void setUpListeners() {
@@ -161,6 +170,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     private void isEnemy(GameObject gameObject) {
         if (gameObject instanceof Opponent) {
             getHUDController().lowerLife();
+            System.out.println("enemy collision! -1 life");
             respawn();
         }
     }
@@ -173,14 +183,17 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     }
 
     private void isLose() {
-        if (getHUDController().getLives() <= 0)
+        if (getHUDController().getLives() == 0) {
+            System.out.println("Game Over");
             System.exit(0);
+        }
     }
 
     // lose life + knock back if hit on salt
     private void isDangerousPlatform(GameObject gameObject) {
         if (gameObject.getImgPath().equals("images/objects/salt.png")) {
             getHUDController().lowerLife();
+            System.out.println("salt damage! life lost!");
             respawn();
             return;
         }
@@ -189,7 +202,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     private void updateEnemyPositions() {
         for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects())
             if (g instanceof Enemy) {
-                if (g.getY() > MAX_SCREEN_DEPTH) {
+                if (g.getY() > maxScreenDepth) {
                     ((Enemy) g).respawn();
                 } else if (!checkAttached((Enemy) g)) {
                     g.setY(g.getY()+0.1d);

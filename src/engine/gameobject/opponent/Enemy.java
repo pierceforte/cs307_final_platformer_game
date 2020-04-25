@@ -5,6 +5,7 @@ import engine.gameobject.GameObject;
 public class Enemy extends Opponent{
 
     public static final Double DEFAULT_X_SPEED = 0.01d;
+    private final Double MIN_DIST = 8d;
     private double initialX;
     private double initialY;
 
@@ -19,10 +20,10 @@ public class Enemy extends Opponent{
      * @param target the target is located
      */
     public void updateLogic(GameObject target) {
-        if (target.getX() > this.getX() && Math.abs(target.getX() - this.getX()) <= 5d) {
+        if (target.getX() > this.getX() && Math.abs(target.getX() - this.getX()) <= MIN_DIST) {
             this.setX(this.getX() + DEFAULT_X_SPEED);
         }
-        if (target.getX() < this.getX()) {
+        if (target.getX() < this.getX() && Math.abs(target.getX() - this.getX()) <= MIN_DIST) {
             this.setX(this.getX() - DEFAULT_X_SPEED);
         }
     }

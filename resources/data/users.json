@@ -48,7 +48,7 @@
     },
     "id":"SnailUser",
     "avatar":"images\/avatars\/crystalsnail.png",
-    "type":1,
+    "type":0,
     "levels":{
       "1":0
     }
@@ -59,14 +59,14 @@
       "year":2019,
       "day":25
     },
-    "score":0,
+    "score":500,
     "password":"sniz",
     "paths":{
       "1":[0.0,0.0]
     },
     "id":"rach",
     "avatar":"images\/avatars\/slowsnail.png",
-    "type":1,
+    "type":0,
     "levels":{
       "1":0
     }

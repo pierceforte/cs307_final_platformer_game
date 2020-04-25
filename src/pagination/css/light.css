@@ -197,6 +197,13 @@
     -fx-font-weight: bold;
     -fx-font-size: 15pt;
     -fx-translate-x: 0;
-    -fx-translate-y: 150;
+    -fx-translate-y: 200;
     -fx-fill: white;
-}
+}#back{
+    -fx-translate-y: 800;
+ }#miniScoreDisplay{
+      -fx-background-color: black;
+      -fx-pref-width: 200;
+      -fx-pref-height: 260;
+      -fx-background-position: center, center;
+  }

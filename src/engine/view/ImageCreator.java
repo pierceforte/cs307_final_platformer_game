@@ -13,7 +13,6 @@ public class ImageCreator {
     private static Map<String, Image> imageMap = new HashMap<>();
 
     public static Image makeImage(String imgPath) {
-        System.out.println(imgPath);
         if (!imageMap.containsKey(imgPath)) {
             Image image = new Image(ImageCreator.class.getClassLoader().getResource(imgPath).toExternalForm());
             imageMap.put(imgPath, image);

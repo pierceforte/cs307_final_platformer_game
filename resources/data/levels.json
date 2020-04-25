@@ -797,9 +797,9 @@
     ],
     "engine.gameobject.platform.Start": [
       [
-        ["java.lang.String","images\/objects\/checkpoint.png"],
+        ["java.lang.String","images\/objects\/objective.png"],
         ["java.lang.Double","1.0"],
-        ["java.lang.Double","1.0"],
+        ["java.lang.Double","2.0"],
         ["java.lang.Double","16.0"],
         ["java.lang.Double","3.0"]
       ]
@@ -1072,7 +1072,7 @@
     ],
     "engine.gameobject.platform.Goal":[
       [
-        ["java.lang.String","images\/avatar.png"],
+        ["java.lang.String","images\/avatar\/checkpoint.png"],
         ["java.lang.Double","10.0"],
         ["java.lang.Double","10.0"],
         ["java.lang.Double","9.0"],

@@ -5,13 +5,8 @@ import builder.stage.PaneDimensions;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.view.BankView;
-import data.ReadSaveException;
-import data.levels.LevelData;
 import engine.gameobject.GameObject;
-import engine.gameobject.opponent.Mongoose;
-import engine.gameobject.opponent.Raccoon;
 import engine.general.Game;
-import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import engine.leveldirectory.level.LevelContainer;
 import engine.view.GameObjectView;
 import javafx.animation.KeyFrame;
@@ -20,9 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import menu.SideBar;
+import pagination.SideBar;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -40,6 +34,8 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     private List<GameObjectView> levelGameObjectViews;
     private PaneDimensions levelDimensions;
 
+    private Game game;
+
     /**
      * Standard constructor
      * @param levelContainer: contains all levels in the game
@@ -52,6 +48,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     public GameSeqBuilderController(LevelContainer levelContainer, Game game, Scene scene, BorderPane root, double height,
                                     double width) {
         super(levelContainer, game, scene, root, height, width - 200);
+        this.game = game;
         myPane = root;
         setNextScene();
         setupTimeline();
@@ -136,8 +133,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     private void setUpView() {
         leftPane = new Pane();
         leftPane.setId("builderLeftPane");
-        leftPane.getChildren().add(bankController.getBankView());
-        //leftPane.getChildren().add(new SideBar(getMyScene()));
+        leftPane.getChildren().add(new SideBar(getMyScene(), game.getPC(), bankController.getBankView()));
         myPane.setCenter(builderStage);
         myPane.setLeft(leftPane);
         leftPane.getChildren().add(builderStage.getPlayButton());

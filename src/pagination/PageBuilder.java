@@ -1,9 +1,8 @@
-package menu;
+package pagination;
 
 import builder.stage.PaneDimensions;
 import data.user.User;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.effect.InnerShadow;
@@ -16,8 +15,6 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import static javafx.geometry.Pos.CENTER;
 
 /*
  * Builds items for any Page to add.

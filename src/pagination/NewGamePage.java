@@ -1,9 +1,8 @@
-package menu;
+package pagination;
 
 import data.ReadSaveException;
 import data.user.DuplicateUsernameException;
 import data.user.User;
-import engine.leveldirectory.level.Level;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -15,7 +14,6 @@ import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 public class NewGamePage extends Page {

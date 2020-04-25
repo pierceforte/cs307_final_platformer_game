@@ -24,7 +24,7 @@ public class HUDController {
 
     public void lowerLife() {
         hudModel.lowerLife();
-        hudView.setLives(hudModel.getLives() - 1);
+        hudView.setLives(hudModel.getLives());
     }
 
     public int getLives() {

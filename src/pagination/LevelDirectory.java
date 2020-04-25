@@ -1,4 +1,4 @@
-package menu;
+package pagination;
 
 import data.ReadSaveException;
 import data.user.DuplicateUsernameException;
