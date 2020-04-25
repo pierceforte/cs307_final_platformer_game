@@ -1,7 +1,7 @@
 package engine.leveldirectory.gamesequence;
 
+import builder.bank.BankModel;
 import builder.stage.BuilderStage;
-import builder.stage.PaneDimensions;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.view.BankView;
@@ -32,8 +32,6 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     private List<BankItem> levelBankItems;
     private List<GameObject> levelGameObjects;
     private List<GameObjectView> levelGameObjectViews;
-    private PaneDimensions levelDimensions;
-
     private Game game;
 
     /**
@@ -47,12 +45,12 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
      */
     public GameSeqBuilderController(LevelContainer levelContainer, Game game, Scene scene, BorderPane root, double height,
                                     double width) {
-        super(levelContainer, game, scene, root, height, width - 200);
+        super(levelContainer, game, scene, root, height, width);
         this.game = game;
         myPane = root;
         setNextScene();
         setupTimeline();
-        initialize(scene, root);
+        initialize();
         getTimeline().play();
     }
 
@@ -70,36 +68,13 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         });
     }
 
-    private void initialize(Scene scene, BorderPane root) {
-        // TODO: initialize from stored info
-        setMyScene(scene);
-        setRoot(root);
-
-        // TODO: handle exceptions @Ben
-        /*
-        LevelData levelData = new LevelData();
-        try {
-            levelBankItems = levelData.getBank(getLevelContainer().getLevelNum());
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
+    private void initialize() {
         levelGameObjects = getLevelGameObjects(getLevelContainer().getLevelNum());
         levelGameObjectViews = createGameObjectViews(levelGameObjects);
         levelBankItems = getLevelContainer().getCurrentLevel().getBankItems();
-        levelDimensions = getLevelContainer().getCurrentLevel().getDimensions();
         BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
-        bankController = new BankController(levelBankItems, 100, bankView);
-        builderStage = new BuilderStage(levelDimensions, bankController, levelGameObjectViews);
-
-        // TODO: handle this stuff within BuilderStage
+        bankController = new BankController(levelBankItems, BankModel.DEFAULT_MONEY_AVAILABLE, bankView);
+        builderStage = new BuilderStage(getDimensions(), bankController, levelGameObjectViews);
         setUpView();
     }
 
@@ -113,10 +88,6 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
 
     private void step() {
         if (builderStage.isDone()) {
-            List<GameObject> temp = builderStage.getGameObjects();
-            getLevelContainer().getCurrentLevel().addGameObject(temp);
-            myPane.getChildren().remove(builderStage);
-            bankController.getBankView().removeFromRoot();
             endPhase();
         }
         else {
@@ -125,8 +96,10 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     }
 
     private void endPhase() {
+        List<GameObject> newGameObjects = builderStage.getGameObjects();
+        getLevelContainer().getCurrentLevel().addGameObject(newGameObjects);
+        myPane.getChildren().removeAll(leftPane, builderStage);
         this.getTimeline().stop();
-        myPane.getChildren().remove(leftPane);
         getNextPlayScene().run();
     }
 
