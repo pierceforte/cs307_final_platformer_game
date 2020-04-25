@@ -1,5 +1,6 @@
 package engine.leveldirectory.level;
 
+import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.stage.PaneDimensions;
 import engine.gameobject.GameObject;
@@ -20,14 +21,14 @@ public interface LevelInterface {
     Collection<GameObject> getGameObjects();
 
     /**
-     * used for saving & transferring data
-     * @return all objects in a level
+     * used for handling user purchases during builder stage
+     * @return bank item for the level
      */
-    Collection<BankItem> getBankItems();
+    BankController getBankController();
 
     /**
-     * used for saving & transferring data
-     * @return all objects in a level
+     * defines how to set dimensions
+     * @return dimensions for a level
      */
     PaneDimensions getDimensions();
 

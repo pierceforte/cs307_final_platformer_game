@@ -6,6 +6,7 @@ import builder.stage.exitHandler.BuilderStageExitHandler;
 import builder.stage.purchaseHandler.BuilderPurchaseHandler;
 import engine.gameobject.GameObject;
 import engine.view.GameObjectView;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
  *
  * @author Pierce Forte
  */
-public class BuilderStage extends DraggableTilePane {
+public class BuilderPane extends DraggableTilePane {
 
     public static final double ACTION_ICON_DISTANCE_FACTOR = 0.2;
 
@@ -31,7 +32,7 @@ public class BuilderStage extends DraggableTilePane {
     private Button playButton;
     private boolean isDone;
 
-    public BuilderStage(PaneDimensions dimensions, BankController bankController, List<GameObjectView> gameObjectViews) {
+    public BuilderPane(PaneDimensions dimensions, BankController bankController, List<GameObjectView> gameObjectViews) {
         super(dimensions);
         addGrid();
         this.dimensions = dimensions;
@@ -47,6 +48,15 @@ public class BuilderStage extends DraggableTilePane {
 
     @Override
     public void update() {
+        for (Node node : this.getChildren()) {
+            if (node instanceof BuilderObjectView) {
+                System.out.println(((BuilderObjectView) node).getBankItem().getImgPath());
+                System.out.println(((BuilderObjectView) node).getBankItem().getWidth());
+                System.out.println(((BuilderObjectView) node).getBankItem().getHeight());
+                System.out.println(((BuilderObjectView) node).getX());
+                System.out.println(((BuilderObjectView) node).getY());
+            }
+        }
         bankController.update();
         handlePurchasedItem();
         snapItems();

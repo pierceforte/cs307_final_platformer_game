@@ -1,17 +1,11 @@
 package engine.leveldirectory.gamesequence;
 
-import builder.stage.BuilderStage;
+import builder.stage.BuilderPane;
 import builder.stage.PaneDimensions;
 import builder.bank.BankController;
-import builder.bank.BankItem;
 import builder.bank.view.BankView;
-import data.ReadSaveException;
-import data.levels.LevelData;
 import engine.gameobject.GameObject;
-import engine.gameobject.opponent.Mongoose;
-import engine.gameobject.opponent.Raccoon;
 import engine.general.Game;
-import engine.leveldirectory.graphicsengine.GraphicsEngine;
 import engine.leveldirectory.level.LevelContainer;
 import engine.view.GameObjectView;
 import javafx.animation.KeyFrame;
@@ -21,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -30,14 +23,12 @@ import java.util.List;
  * @author Jerry Huang, Pierce Forte
  */
 public class GameSeqBuilderController extends GameSeqController implements SceneChanger {
-    private BorderPane myPane;
+
+    public static final String LEFT_PANE_ID = "builderLeftPane";
+
     private Pane leftPane;
+    private BuilderPane builderPane;
     private BankController bankController;
-    private BuilderStage builderStage;
-    private List<BankItem> levelBankItems;
-    private List<GameObject> levelGameObjects;
-    private List<GameObjectView> levelGameObjectViews;
-    private PaneDimensions levelDimensions;
 
     /**
      * Standard constructor
@@ -48,13 +39,12 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
      * @param height: height of the screen
      * @param width: width of the screen
      */
-    public GameSeqBuilderController(LevelContainer levelContainer, Game game, Scene scene, BorderPane root, double height,
-                                    double width) {
-        super(levelContainer, game, scene, root, height, width - 200);
-        myPane = root;
+    public GameSeqBuilderController(LevelContainer levelContainer, Game game, Scene scene,
+                                    BorderPane root, double height, double width) {
+        super(levelContainer, game, scene, root, height, width - BankView.DEFAULT_WIDTH);
+        initialize();
         setNextScene();
         setupTimeline();
-        initialize(scene, root);
         getTimeline().play();
     }
 
@@ -72,36 +62,12 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         });
     }
 
-    private void initialize(Scene scene, BorderPane root) {
-        // TODO: initialize from stored info
-        setMyScene(scene);
-        setRoot(root);
-
-        // TODO: handle exceptions @Ben
-        /*
-        LevelData levelData = new LevelData();
-        try {
-            levelBankItems = levelData.getBank(getLevelContainer().getLevelNum());
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
-        levelGameObjects = getLevelGameObjects(getLevelContainer().getLevelNum());
-        levelGameObjectViews = createGameObjectViews(levelGameObjects);
-        levelBankItems = getLevelContainer().getCurrentLevel().getBankItems();
-        levelDimensions = getLevelContainer().getCurrentLevel().getDimensions();
-        BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
-        bankController = new BankController(levelBankItems, 100, bankView);
-        builderStage = new BuilderStage(levelDimensions, bankController, levelGameObjectViews);
-
-        // TODO: handle this stuff within BuilderStage
+    private void initialize() {
+        List<GameObject> gameObjects = getLevelGameObjects(getLevelContainer().getLevelNum());
+        List<GameObjectView> gameObjectViews = createGameObjectViews(gameObjects);
+        PaneDimensions dimensions = getLevelContainer().getCurrentLevel().getDimensions();
+        bankController = getLevelContainer().getCurrentLevel().getBankController();
+        builderPane = new BuilderPane(dimensions, bankController, gameObjectViews);
         setUpView();
     }
 
@@ -114,30 +80,26 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     }
 
     private void step() {
-        if (builderStage.isDone()) {
-            List<GameObject> temp = builderStage.getGameObjects();
-            getLevelContainer().getCurrentLevel().addGameObject(temp);
-            getRoot().getChildren().remove(builderStage);
-            bankController.getBankView().removeFromRoot();
+        if (builderPane.isDone()) {
             endPhase();
+            return;
         }
-        else {
-            builderStage.update();
-        }
+        builderPane.update();
     }
 
     private void endPhase() {
+        List<GameObject> newGameObjects = builderPane.getGameObjects();
+        getLevelContainer().getCurrentLevel().addGameObject(newGameObjects);
+        getRoot().getChildren().removeAll(builderPane, leftPane);
         this.getTimeline().stop();
-        myPane.getChildren().remove(leftPane);
         getNextPlayScene().run();
     }
 
     private void setUpView() {
         leftPane = new Pane();
-        leftPane.setId("builderLeftPane");
-        leftPane.getChildren().add(bankController.getBankView());
-        myPane.setCenter(builderStage);
-        myPane.setLeft(leftPane);
-        leftPane.getChildren().add(builderStage.getPlayButton());
+        leftPane.setId(LEFT_PANE_ID);
+        leftPane.getChildren().addAll(bankController.getBankView(), builderPane.getPlayButton());
+        getRoot().setCenter(builderPane);
+        getRoot().setLeft(leftPane);
     }
 }
