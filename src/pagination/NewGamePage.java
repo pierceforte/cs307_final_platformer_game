@@ -1,5 +1,6 @@
 package pagination;
 
+import data.ErrorLogger;
 import data.ReadSaveException;
 import data.user.DuplicateUsernameException;
 import data.user.User;
@@ -14,6 +15,7 @@ import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class NewGamePage extends Page {
@@ -33,8 +35,23 @@ public class NewGamePage extends Page {
 
     private String sideURL;
     private static final int FREE_COINS = 500;
+
+
+    private int ResizableCenter;
+    private int yLowerBound;
+    private int xMiddle;
+    private int yMiddle;
+
+
+    private final static String Snail1URL = "images/avatars/wilbur.png";
+    private final static String Snake1URL = "images/avatars/basicsnake.png";
+    private final static String Snailkey = "Snail1";
+    private final static String Snakekey = "Snake1";
+    private final static int spacing = 50;
+
     private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
     private final String STYLESHEET = "css/dark.css";
+
 
     /**
      * Constructs a basic Page. All animated Pages are extended from this class.
@@ -54,39 +71,28 @@ public class NewGamePage extends Page {
         myStage.setScene(myScene);
     }
 
+    private void findRelativePositions() {
+        ResizableCenter = (int) myFactory.getScreenWidth()/2;
+        yLowerBound = (int) myFactory.getScreenHeight()*3/4;
+        yMiddle = (int) myFactory.getScreenHeight()/2;
+        xMiddle = (int) myFactory.getScreenWidth()/2;
+    }
+
     @Override
     Pane init_Root(int height, int width) {
         myRoot = new Pane();
         myRoot.setPrefSize(width, height);
+        findRelativePositions();
 
         Text dialogue = myFactory.buildTitleText(myResource.getString("NGTitle"));
 
         Text prompt = new Text(myResource.getString("NGPrompt"));
         prompt.setFill(Color.WHITESMOKE);
-        prompt.setTranslateX(myFactory.getScreenWidth()/2 -450);
-        prompt.setTranslateY(myFactory.getScreenHeight()*3/4);
+        prompt.setTranslateX(ResizableCenter - spacing*9);
+        prompt.setTranslateY(yLowerBound);
 
-        title = new TextField();
-        title.setPromptText(myResource.getString("NGUsername"));
-        title.setTranslateY(myFactory.getScreenHeight()*3/4 -50);
-        title.setTranslateX(myFactory.getScreenWidth()/2 - 50);
-
-        saveloc = new TextField();
-        saveloc.setPromptText(myResource.getString("NGPassword"));
-        saveloc.setTranslateX(myFactory.getScreenWidth()/2 - 50);
-        saveloc.setTranslateY(myFactory.getScreenHeight()*3/4);
-
-        birthday = new TextField();
-        birthday.setPromptText(myResource.getString("Bday"));
-        birthday.setTranslateX(myFactory.getScreenWidth()/2 - 50);
-        birthday.setTranslateY(myFactory.getScreenHeight()*3/4-100);
-
-        snail = new ToggleButton();
-        snail.setId("ChooseSnail");
-        snail.setOnMouseClicked(event -> pickSide());
-        snake = new ToggleButton();
-        snake.setId("ChooseSnake");
-        snake.setOnMouseClicked(event -> pickSide());
+        setTextFields();
+        buildSnizButtons();
 
         Button save = new Button(myResource.getString("Cont"));
         save.setId("LaunchButton");
@@ -97,11 +103,38 @@ public class NewGamePage extends Page {
         });
 
         Pane backstory = buildTextDisplay();
-        backstory.setTranslateX(myFactory.getScreenWidth()/2 - 450);
-        backstory.setTranslateY(myFactory.getScreenHeight()/2);
+        backstory.setTranslateX(ResizableCenter - spacing*9);
+        backstory.setTranslateY(yMiddle - spacing);
 
         myRoot.getChildren().addAll(dialogue, prompt, title, saveloc, save, backstory, birthday, snake, snail);
         return myRoot;
+    }
+
+    private void buildSnizButtons() {
+        snail = new ToggleButton();
+        snail.setId("ChooseSnail");
+        snail.setOnMouseClicked(event -> pickSide());
+        snake = new ToggleButton();
+        snake.setId("ChooseSnake");
+        snake.setOnMouseClicked(event -> pickSide());
+    }
+
+    private void setTextFields() {
+
+        title = new TextField();
+        title.setPromptText(myResource.getString("NGUsername"));
+        title.setTranslateY(yLowerBound - spacing);
+        title.setTranslateX(ResizableCenter- spacing);
+
+        saveloc = new TextField();
+        saveloc.setPromptText(myResource.getString("NGPassword"));
+        saveloc.setTranslateX(ResizableCenter - spacing);
+        saveloc.setTranslateY(yLowerBound);
+
+        birthday = new TextField();
+        birthday.setPromptText(myResource.getString("Bday"));
+        birthday.setTranslateX(ResizableCenter - spacing);
+        birthday.setTranslateY(yLowerBound -spacing*2);
     }
 
     private Pane buildTextDisplay() {
@@ -134,11 +167,11 @@ public class NewGamePage extends Page {
     private void pickSide() {
         if (snail.isSelected()) {
             side = 0;
-            sideURL = "images/avatars/wilbur.png";
+            sideURL = Snail1URL;
         }
         if (snake.isSelected()) {
             side = 1;
-            sideURL = "images/avatars/basicsnake.png";
+            sideURL = Snake1URL;
         }
     }
 
@@ -156,6 +189,7 @@ public class NewGamePage extends Page {
             u.setType(side);
             u.changeAvatar(sideURL);
             u.replaceScore(FREE_COINS);
+            ErrorLogger.clear();
         } catch (ReadSaveException e) {
         } catch (DuplicateUsernameException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -169,10 +203,10 @@ public class NewGamePage extends Page {
     private String processSelections() {
         String imagePath = null;
         if (side == 0) {
-            imagePath = Avatars.valueOf("Snail1").getimgpath();
+            imagePath = Avatars.valueOf(Snailkey).getimgpath();
         }
         else if (side == 1) {
-            imagePath = Avatars.valueOf("Snake1").getimgpath();
+            imagePath = Avatars.valueOf(Snakekey).getimgpath();
         }
         else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
