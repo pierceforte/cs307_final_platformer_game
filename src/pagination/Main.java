@@ -13,7 +13,6 @@ import java.io.IOException;
  * @author Jerry Huang
  */
 public class Main extends Application {
-
     @Override
     public void start(Stage stage) throws IOException, ReadSaveException, DuplicateUsernameException {
         MainMenu m = new MainMenu(stage);

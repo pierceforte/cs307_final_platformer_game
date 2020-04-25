@@ -177,4 +177,8 @@ public abstract class GameSeqController {
         List<GameObject> gameObjects = getLevelContainer().getLevels().get(level).getGameObjects();
         return gameObjects;
     }
+
+    public PaneDimensions getDimensions() {
+        return dimensions;
+    }
 }
