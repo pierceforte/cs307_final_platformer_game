@@ -17,9 +17,10 @@ import java.util.List;
 
 public class Tester {
     public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        LevelData ld = new LevelData();
-        BankController bc = ld.getBank(0);
-        bc.getBankModel();
+        ErrorLogger.clear();
+//        LevelData ld = new LevelData();
+//        BankController bc = ld.getBank(0);
+//        bc.getBankModel();
 //        List<GameObject> go = new ArrayList<>();
 //        go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 3d,2d));
 //        go.add(new CheckPoint("resources/images/objects/checkpoint.png", 1d, 2d, 27d,3d));
