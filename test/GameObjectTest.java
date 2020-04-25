@@ -1,81 +1,83 @@
+import builder.bank.BankController;
+import builder.bank.BankItem;
+import builder.bank.view.BankView;
+import builder.stage.BuilderPane;
+import builder.stage.PaneDimensions;
+import engine.gameobject.opponent.Enemy;
 import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
 import engine.gameobject.player.SimplePlayer;
+import input.KeyInput;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameObjectTest extends DukeApplicationTest {
 
+    private Scene scene;
+    private KeyInput keyInput;
+
+    @Override
+    public void start(Stage stage) {
+        Pane root = new Pane();
+        scene = new Scene(root);
+        keyInput = new KeyInput(scene);
+    }
+
     /**
      * Test player moves on key press.
      */
     @Test
-    public void testPlayerMovement() {
+    public void testSimplePlayerMovement() {
         double xPos = 0; double yPos = 0;
-        double xSpeed = SimplePlayer.DEFAULT_X_SPEED;
+        double xSpeed = 1;
         double ySpeed = SimplePlayer.DEFAULT_Y_SPEED;
         SimplePlayer myPlayer = new SimplePlayer("", 1d,1d,xPos, yPos, xSpeed, ySpeed);
-        press(KeyCode.RIGHT);
+
+        press(scene, KeyCode.D);
+        myPlayer.handleInputs(keyInput.getPressedKeys());
         assertEquals(xPos + xSpeed, myPlayer.getX());
-        press(KeyCode.LEFT);
-        assertEquals(xPos, myPlayer.getX());
-        press(KeyCode.SPACE);
+        keyInput.releaseKeys();
+
+        press(scene, KeyCode.A);
+        myPlayer.handleInputs(keyInput.getPressedKeys());
+        assertEquals(xPos + xSpeed - xSpeed, myPlayer.getX());
+        keyInput.releaseKeys();
+
+        press(scene, KeyCode.W);
+        myPlayer.handleInputs(keyInput.getPressedKeys());
         assertEquals(yPos + ySpeed, myPlayer.getY());
+        keyInput.releaseKeys();
+
+        press(scene, KeyCode.S);
+        myPlayer.handleInputs(keyInput.getPressedKeys());
+        assertEquals(yPos + ySpeed - ySpeed, myPlayer.getY());
+        keyInput.releaseKeys();
     }
 
     /**
-     * Test mongoose movement.
+     * Test enemy moves toward player within a given range.
      */
     @Test
-    public void testMongooseMovement() {
-        double xPos = 50; double yPos = 0;
-        double xSpeed = Mongoose.DEFAULT_X_SPEED;
-        Mongoose mongoose = new Mongoose("",1d,1d, xPos, yPos, xSpeed);
+    public void testBasicEnemyMovement() {
+        double initEnemyXPos = 10;
+        SimplePlayer myPlayer = new SimplePlayer("", 1d,1d, 0d, 0d, 0d, 0d);
+        Enemy myEnemy = new Enemy("", 1d, 1d, initEnemyXPos, 10d, 1d, 0d);
 
-        double playerXPos = 0; double playerYPos = 0;
-        double playerXSpeed = SimplePlayer.DEFAULT_X_SPEED;
-        double playerYSpeed = SimplePlayer.DEFAULT_Y_SPEED;
-        SimplePlayer myPlayer = new SimplePlayer("", 1d,1d,playerXPos, playerYPos, playerXSpeed, playerYSpeed);
+        myEnemy.updateLogic(myPlayer);
+        assertNotEquals(initEnemyXPos - Enemy.DEFAULT_X_SPEED, myEnemy.getX());
 
-        /*
-        step();
-        */
-
-        assertEquals(xPos - xSpeed, mongoose.getX()); //assert mongoose has moved toward player
+        myPlayer.setX(6);
+        myEnemy.updateLogic(myPlayer);
+        assertEquals(initEnemyXPos - Enemy.DEFAULT_X_SPEED, myEnemy.getX());
     }
-
-    /**
-     * Test raccoon movement.
-     */
-    @Test
-    public void testRaccoonMovement() {
-        double xPos = 50; double yPos = 0;
-        double xSpeed = Mongoose.DEFAULT_X_SPEED;
-        Raccoon raccoon = new Raccoon("", 1d,1d,xPos, yPos, xSpeed);
-
-        double playerXPos = 0; double playerYPos = 0;
-        double playerXSpeed = SimplePlayer.DEFAULT_X_SPEED;
-        double playerYSpeed = SimplePlayer.DEFAULT_Y_SPEED;
-        SimplePlayer myPlayer = new SimplePlayer("", 1d,1d,playerXPos, playerYPos, playerXSpeed, playerYSpeed);
-
-        myPlayer.updateXPos(10); //make player move right (and face toward from enemy)
-
-        /*
-        step();
-        */
-
-        assertEquals(xPos, raccoon.getX()); //assert raccoon has not moved toward player
-
-        myPlayer.updateXPos(-10); //make player move left (and face away from enemy)
-
-        /*
-        step();
-        */
-
-        assertEquals(xPos - xSpeed, raccoon.getX()); //assert raccoon has moved toward player
-    }
-
 
 }

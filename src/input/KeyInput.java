@@ -18,15 +18,19 @@ public class KeyInput {
         myScene.setOnKeyReleased(k -> handleReleasedKeyInput(k.getCode()));
     }
 
+    public List<KeyCode> getPressedKeys() {
+        return new ArrayList<>(pressedKeys);
+    }
+
+    public void releaseKeys() {
+        pressedKeys.clear();
+    }
+
     private void handleReleasedKeyInput(KeyCode code) {
         pressedKeys.remove(code);
     }
 
     private void handlePressedKeyInput(KeyCode key) {
         pressedKeys.add(key);
-    }
-
-    public List<KeyCode> getPressedKeys() {
-        return new ArrayList<>(pressedKeys);
     }
 }
