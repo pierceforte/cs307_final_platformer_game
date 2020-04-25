@@ -16,6 +16,7 @@ public class SavedGame extends Page {
     private Scene myScene;
     private PageBuilder myFactory;
     private PageController myPC;
+    private Game myGame;
 
     private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
     private String STYLESHEET;
@@ -27,13 +28,16 @@ public class SavedGame extends Page {
      * @param page
      * @return Page
      */
-    public SavedGame(Stage primaryStage, Pages page, PageController PC) throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    public SavedGame(Stage primaryStage, Pages page, PageController PC, Game game) throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         super(primaryStage, page);
         myStage = primaryStage;
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
+
         myStage.setTitle(myResource.getString("MainTitle"));
         myPC = PC;
+        myGame = game;
+
         STYLESHEET = "css/light.css";
         myScene = this.buildSpecialScene((int) myFactory.getScreenHeight(), (int) myFactory.getScreenWidth());
         myStage.setScene(myScene);
@@ -57,11 +61,9 @@ public class SavedGame extends Page {
         BorderPane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
 
-        Game game = new Game(myScene, myRoot, myPC, height, width);
-        game.getLevelContainer().getCurrentLevel();
         myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
 
-        game.startLevelPhase();
+        myGame.startLevelPhase();
 
         return myScene;
     }

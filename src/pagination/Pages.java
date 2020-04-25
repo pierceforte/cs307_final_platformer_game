@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 
 public enum Pages {
     MainMenu("MainMenu"), LevelDirectory("LevelDirectory"),
-    LogIn("LogIn"), LocalSignIn("LocalSignIn"), FirstTimeCutScene("FirstTimeCutScene"),
+    LogIn("LogIn"), FirstTimeCutScene("FirstTimeCutScene"),
     ChooseLevel("ChooseLevel"), CustomizePlayerMenu("PlayerMenu"), BluePrintStage("BuildStage"),
     PreView("Preview"),PlayLevel("PlayStage"),Replay("Replay"),NextLevelScreen("NextLevel"),
     Debug("Debug");

@@ -36,10 +36,12 @@ public class Game {
      * @param height: height of the screen
      * @param width: width of the screen
      */
-    public Game(Scene scene, BorderPane root, PageController pageController, double height, double width) throws NoSuchMethodException, ReadSaveException,
+    public Game(int num, Scene scene, BorderPane root, PageController pageController, double height, double width) throws NoSuchMethodException, ReadSaveException,
             InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+
         levelContainer = new LevelContainer(this);
         levelContainer.loadLevels();
+        levelContainer.setCurrentLevel(num);
         this.pageController = pageController;
         this.scene = scene;
         this.root = root;

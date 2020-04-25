@@ -16,15 +16,18 @@ public class PageController {
     public PageController(User user, Stage stage) {
         this.myStage = stage;
         this.user = user;
+        lastLevel = -1;
     }
 
     public User getUser() {
         return user;
     }
 
+    public int getLastLevel() {
+        return lastLevel;
+    }
     public void setLastLevel(int lastLevel) {
         this.lastLevel = lastLevel;
-
     }
     public Stage getMyStage() {return myStage;}
 
