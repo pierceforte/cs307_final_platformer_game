@@ -242,4 +242,7 @@
        -fx-pref-width: 200;
        -fx-pref-height: 260;
        -fx-background-position: center, center;
-   }
+   }#next{
+        -fx-translate-x: 600;
+        -fx-translate-y: 600;
+    }

@@ -223,4 +223,7 @@
     -fx-translate-x: 600;
     -fx-translate-y: 700;
     -fx-fill: goldenrod;
-}
+}#next{
+    -fx-translate-x: 600;
+    -fx-translate-y: 600;
+ }
