@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BankTest extends DukeApplicationTest {
 
-    private BorderPane root;
     private BankController bankController;
     private BankModel bankModel;
     private BankView bankView;
@@ -27,12 +26,11 @@ public class BankTest extends DukeApplicationTest {
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
         BankItem two = new BankItem(new Raccoon(raccoon), 30, 30, 20);
         BankItem three = new BankItem(new Raccoon(raccoon), 30, 30, 40000);
-        root = new BorderPane();
         bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
         bankController = new BankController(List.of(one, two, three), 10000, bankView);
         bankModel = bankController.getBankModel();
         javafxRun(() -> {
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(bankView);
             stage.setScene(scene);
         });
     }
@@ -44,8 +42,8 @@ public class BankTest extends DukeApplicationTest {
     public void testValidPurchase() {
         bankController.update();
         // assert purchase button is present
-        assertNotNull(root.lookup("#purchaseButton"));
-        Button purchaseButton = (Button) root.lookup("#purchaseButton");
+        assertNotNull(bankView.lookup("#purchaseButton"));
+        Button purchaseButton = (Button) bankView.lookup("#purchaseButton");
         BankModel bankModel = bankController.getBankModel();
         int initMoneyAvailable = bankModel.getMoneyAvailable();
         int initBankSize = bankModel.size();
@@ -66,12 +64,12 @@ public class BankTest extends DukeApplicationTest {
         bankController.update();
         // get to the item that is too expensive
         for (int i = 0; i < bankModel.size() - 1; i++) {
-            ImageView nextButton = (ImageView) root.lookup("#nextButton");
+            ImageView nextButton = (ImageView) bankView.lookup("#nextButton");
             fireMouseClick(nextButton);
         }
         // assert purchase button is present
-        assertNotNull(root.lookup("#purchaseButton"));
-        Button purchaseButton = (Button) root.lookup("#purchaseButton");
+        assertNotNull(bankView.lookup("#purchaseButton"));
+        Button purchaseButton = (Button) bankView.lookup("#purchaseButton");
         int initMoneyAvailable = bankModel.getMoneyAvailable();
         int initBankSize = bankModel.size();
         // try to make a purchase
@@ -89,36 +87,35 @@ public class BankTest extends DukeApplicationTest {
     public void testItemChanges() {
         bankController.update();
         // assert prev button is NOT present
-        assertNull(root.lookup("#prevButton"));
+        assertNull(bankView.lookup("#prevButton"));
         // assert next button is present
-        assertNotNull(root.lookup("#nextButton"));
-        ImageView nextButton = (ImageView) root.lookup("#nextButton");
+        assertNotNull(bankView.lookup("#nextButton"));
+        ImageView nextButton = (ImageView) bankView.lookup("#nextButton");
         BankModel bankModel = bankController.getBankModel();
         BankItem itemBeforeItemSwitch = bankModel.getCurItem();
         // go to next item
         fireMouseClick(nextButton);
         bankController.update();
         // assert prev button is now present and item has been changed
-        assertNotNull(root.lookup("#prevButton"));
-        ImageView prevButton = (ImageView) root.lookup("#prevButton");
+        assertNotNull(bankView.lookup("#prevButton"));
+        ImageView prevButton = (ImageView) bankView.lookup("#prevButton");
         assertNotEquals(bankModel.getCurItem(), itemBeforeItemSwitch);
         // go to next item
         fireMouseClick(nextButton);
         bankController.update();
         // assert next button is no longer present
-        assertNull(root.lookup("#nextButton"));
+        assertNull(bankView.lookup("#nextButton"));
         itemBeforeItemSwitch = bankModel.getCurItem();
         // go to prev item
         fireMouseClick(prevButton);
         bankController.update();
         // assert next button is now present and item has been changed
-        assertNotNull(root.lookup("#nextButton"));
+        assertNotNull(bankView.lookup("#nextButton"));
         assertNotEquals(bankModel.getCurItem(), itemBeforeItemSwitch);
     }
 
     @Test
     public void testEmptyBankCreation() {
-        bankController.update();
         // create a bank of items that are all affordable
         Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",1d,1d, 1d, 1d, 10d);
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
@@ -126,12 +123,12 @@ public class BankTest extends DukeApplicationTest {
         // purchase all items
         for (int i = 0; i < bankModel.size(); i++) {
             // assert empty bank display is not present
-            assertNull(root.lookup("#noItemsLeft"));
-            Button purchaseButton = (Button) root.lookup("#purchaseButton");
+            assertNull(bankView.lookup("#noItemsLeft"));
+            Button purchaseButton = (Button) bankView.lookup("#purchaseButton");
             fireButtonEvent(purchaseButton);
         }
         bankController.update();
         // assert empty bank display is now present
-        assertNotNull(root.lookup("#noItemsLeft"));
+        assertNotNull(bankView.lookup("#noItemsLeft"));
     }
 }

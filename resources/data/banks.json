@@ -1,69 +1,90 @@
 {
   "0": {
-    "width": 200,
-    "height" : 260,
-    "moneyAvailable": 75,
-    "items": {
-      "engine.gameobject.platform.StationaryPlatform" : [
-        {
-          "ctor": [
-            ["java.lang.String", "images/objects/grasstile.png"],
-            ["java.lang.Double", "1"],
-            ["java.lang.Double", "1"],
-            ["java.lang.Double", "-1"],
-            ["java.lang.Double", "-1"]
-          ],
-          "cost": 20,
-          "height": 1,
-          "width": 1
-        },
-        {
-          "ctor": [
-            ["java.lang.String", "images/objects/grasstile.png"],
-            ["java.lang.Double", "1"],
-            ["java.lang.Double", "1"],
-            ["java.lang.Double", "-1"],
-            ["java.lang.Double", "-1"]
-          ],
-          "cost": 20,
-          "height": 1,
-          "width": 1
-        }
+    "engine.gameobject.platform.StationaryPlatform" : {
+      "ctor": [
+        ["java.lang.String", "images/objects/grasstile.png"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "-1"]
       ],
-      "engine.gameobject.platform.VerticalSlidingPlatform" : [
-        {
-          "ctor": [
-            ["java.lang.String", "images/objects/broomstick.png"],
-            ["java.lang.Double", "1"],
-            ["java.lang.Double", "1"],
-            ["java.lang.Double", "-1"],
-            ["java.lang.Double", "-1"],
-            ["java.lang.Double", "1"],
-            ["java.lang.Double", "4"],
-            ["java.lang.Double", "0"]
-          ],
-          "cost": 50,
-          "height" : 1,
-          "width" : 1
-        }
+      "cost": 20,
+      "height": 1,
+      "width": 1
+    },
+    "engine.gameobject.platform.VerticalSlidingPlatform" : {
+      "ctor": [
+        ["java.lang.String", "images/objects/broomstick.png"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "4"],
+        ["java.lang.Double", "0"]
       ],
-      "engine.gameobject.platform.HorizontalSlidingPlatform" : [
-        {
-          "ctor": [
-            ["java.lang.String", "images/objects/grasstile.png"],
-            ["java.lang.Double", "1"],
-            ["java.lang.Double", "1"],
-            ["java.lang.Double", "-1"],
-            ["java.lang.Double", "-1"],
-            ["java.lang.Double", "1"],
-            ["java.lang.Double", "4"],
-            ["java.lang.Double", "0"]
-          ],
-          "cost": 25,
-          "height" : 1,
-          "width" : 1
-        }
-      ]
+      "cost": 50,
+      "height" : 1,
+      "width" : 1
+    },
+    "engine.gameobject.platform.HorizontalSlidingPlatform" : {
+      "ctor": [
+        ["java.lang.String", "images/objects/grasstile.png"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "4"],
+        ["java.lang.Double", "0"]
+      ],
+      "cost": 25,
+      "height" : 1,
+      "width" : 1
+    }
+  },
+  "1": {
+    "engine.gameobject.platform.StationaryPlatform" : {
+      "ctor": [
+        ["java.lang.String", "images/objects/grasstile.png"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "-1"]
+      ],
+      "cost": 20,
+      "height": 1,
+      "width": 1
+    },
+    "engine.gameobject.platform.VerticalSlidingPlatform" : {
+      "ctor": [
+        ["java.lang.String", "images/objects/broomstick.png"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "4"],
+        ["java.lang.Double", "0"]
+      ],
+      "cost": 50,
+      "height" : 1,
+      "width" : 1
+    },
+    "engine.gameobject.platform.HorizontalSlidingPlatform" : {
+      "ctor": [
+        ["java.lang.String", "images/objects/grasstile.png"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "-1"],
+        ["java.lang.Double", "1"],
+        ["java.lang.Double", "4"],
+        ["java.lang.Double", "0"]
+      ],
+      "cost": 25,
+      "height" : 1,
+      "width" : 1
     }
   }
 }

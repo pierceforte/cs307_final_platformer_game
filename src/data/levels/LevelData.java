@@ -44,25 +44,16 @@ public class LevelData {
         }
     }
 
-    public BankController getBank(int level) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<BankItem> getBankItems(int level) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         if (!containsKey(banks, Integer.toString(level))) throw new ReadSaveException("read", bankLoc);
         JSONObject levelBank = (JSONObject) banks.get(Integer.toString(level));
-        int moneyAvailable = Math.toIntExact((Long) levelBank.get("moneyAvailable"));
-        return new BankController(getBankItems(levelBank), moneyAvailable, getBankView(levelBank));
-    }
-
-    private List<BankItem> getBankItems(JSONObject levelBank) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        JSONObject levelBankItems = (JSONObject) levelBank.get("items");
         List<BankItem> bankItems = new ArrayList<>();
-        for (Object keyObj : levelBankItems.keySet()) {
+        for (Object keyObj : levelBank.keySet()) {
             Class objClass = Class.forName((String) keyObj);
-            JSONArray instances = (JSONArray) levelBankItems.get(keyObj);
-            for (Object obj : instances) {
-                JSONObject type = (JSONObject) obj;
-                GameObject gameObj = makeObject(objClass, (JSONArray) type.get("ctor"));
-                bankItems.add(new BankItem(gameObj, Math.toIntExact((Long) type.get("width")), Math.toIntExact((Long) type.get("height")),
-                        Math.toIntExact((Long) type.get("cost"))));
-            }
+            JSONObject type = (JSONObject) levelBank.get((String) keyObj);
+            GameObject gameObj = makeObject(objClass, (JSONArray) type.get("ctor"));
+            bankItems.add(new BankItem(gameObj, Math.toIntExact((Long) type.get("width")), Math.toIntExact((Long) type.get("height")),
+                    Math.toIntExact((Long) type.get("cost"))));
         }
         return bankItems;
     }
@@ -233,11 +224,5 @@ public class LevelData {
             if (keyObj.equals(target)) return true;
         }
         return false;
-    }
-
-    private BankView getBankView(JSONObject levelBank) {
-        double width = Math.toIntExact((Long) levelBank.get("width"));
-        double height = Math.toIntExact((Long) levelBank.get("height"));
-        return new BankView(width, height);
     }
 }

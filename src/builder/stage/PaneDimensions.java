@@ -12,8 +12,6 @@ import java.util.List;
  */
 public class PaneDimensions {
 
-    public static final double DEFAULT_MIN_X = 0;
-    public static final double DEFAULT_MIN_Y = 0;
     public static final double TILE_WIDTH_FACTOR = 35;
     public static final double TILE_HEIGHT_FACTOR = 25;
 

@@ -21,12 +21,12 @@ public class Level implements LevelInterface {
      * holds all the objects in the level
      */
     private List<GameObject> gameObjects;
-    private BankController bankController;
+    private List<BankItem> bankItems;
     private PaneDimensions dimensions;
 
-    public Level(List<GameObject> gameObjects, BankController bankController, PaneDimensions dimensions) {
+    public Level(List<GameObject> gameObjects, List<BankItem> bankItems, PaneDimensions dimensions) {
         this.gameObjects = gameObjects;
-        this.bankController = bankController;
+        this.bankItems = bankItems;
         this.dimensions = dimensions;
     }
 
@@ -36,8 +36,8 @@ public class Level implements LevelInterface {
     }
 
     @Override
-    public BankController getBankController() {
-        return bankController;
+    public List<BankItem> getBankItems() {
+        return bankItems;
     }
 
     @Override

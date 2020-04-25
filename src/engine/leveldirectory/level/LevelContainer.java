@@ -1,7 +1,5 @@
 package engine.leveldirectory.level;
 
-import builder.bank.BankItem;
-import builder.stage.PaneDimensions;
 import data.ReadSaveException;
 import data.levels.LevelData;
 import engine.general.Game;
@@ -42,7 +40,7 @@ public class LevelContainer {
         totalNumLevels = levelData.getNumLevels();
         List<Level> levels = new ArrayList<>();
         for (int i = 0; i < totalNumLevels; i++) {
-            Level levelTemp = new Level(levelData.getSavedLevel(i), levelData.getBank(i), levelData.getDimensions(i));
+            Level levelTemp = new Level(levelData.getSavedLevel(i), levelData.getBankItems(i), levelData.getDimensions(i));
             levels.add(levelTemp);
         }
         this.levels = levels;

@@ -48,15 +48,6 @@ public class BuilderPane extends DraggableTilePane {
 
     @Override
     public void update() {
-        for (Node node : this.getChildren()) {
-            if (node instanceof BuilderObjectView) {
-                System.out.println(((BuilderObjectView) node).getBankItem().getImgPath());
-                System.out.println(((BuilderObjectView) node).getBankItem().getWidth());
-                System.out.println(((BuilderObjectView) node).getBankItem().getHeight());
-                System.out.println(((BuilderObjectView) node).getX());
-                System.out.println(((BuilderObjectView) node).getY());
-            }
-        }
         bankController.update();
         handlePurchasedItem();
         snapItems();
