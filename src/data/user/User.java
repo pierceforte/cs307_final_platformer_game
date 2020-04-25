@@ -264,7 +264,9 @@ public class User {
     }
 
     public Integer getType() {
-        return type;
+        if (type == 0) return 0;
+        if (type == 1) return 1;
+        return 0;
     }
 
     /**

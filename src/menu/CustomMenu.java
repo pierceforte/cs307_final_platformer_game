@@ -226,7 +226,7 @@ public class CustomMenu extends Page {
         int userScore = myUser.getScore();
 
         if (Avatars.valueOf(x).getPrice() <= userScore) {
-            myUser.updateScore(-userScore);
+            myUser.updateScore(-Avatars.valueOf(x).getPrice());
             myUser.changeAvatar(Avatars.valueOf(x).getimgpath());
             updateMoneyDisplay();
         }

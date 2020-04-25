@@ -52,8 +52,6 @@ public class NewGamePage extends Page {
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
-
-        side = 0;
         myScene = this.buildSpecialScene((int) myFactory.getScreenHeight(), (int) myFactory.getScreenWidth());
         myStage.setScene(myScene);
     }
@@ -172,13 +170,13 @@ public class NewGamePage extends Page {
 
     private String processSelections() {
         String imagePath = null;
-        if (side == 1) {
+        if (side == 0) {
             imagePath = Avatars.valueOf("Snail1").getimgpath();
         }
-        if (side == 2) {
+        else if (side == 1) {
             imagePath = Avatars.valueOf("Snake1").getimgpath();
         }
-        if (side == 0) {
+        else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(myResource.getString("Whoops"));
             alert.setHeaderText(myResource.getString("Whoops"));
