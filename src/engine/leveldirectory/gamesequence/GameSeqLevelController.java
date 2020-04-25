@@ -56,7 +56,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
             if (g1 instanceof Start)
                 temp2 = (Start) g1;
         UserController userController = new UserController(temp.getUser(), temp2);
-        SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, temp2.getX(), temp2.getY(), 0.,0.);
+        SimplePlayer s = new SimplePlayer(getGame().getPC().getUser().getAvatar(), 1d,1d, temp2.getX(), temp2.getY(), 0.,0.);
         setSimplePlayer(s);
         getSimplePlayer().setXSpeed(0);
         getSimplePlayer().setYSpeed(0);

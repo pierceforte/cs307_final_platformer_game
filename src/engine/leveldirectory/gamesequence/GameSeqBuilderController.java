@@ -133,7 +133,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     private void setUpView() {
         leftPane = new Pane();
         leftPane.setId("builderLeftPane");
-        leftPane.getChildren().add(new SideBar(getMyScene(), game.getPC(), bankController.getBankView()));
+        leftPane.getChildren().add(new SideBar(getMyScene(), game.getPC(), bankController.getBankView(), game));
         myPane.setCenter(builderStage);
         myPane.setLeft(leftPane);
         leftPane.getChildren().add(builderStage.getPlayButton());

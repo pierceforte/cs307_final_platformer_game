@@ -89,7 +89,15 @@ public class LevelDirectory extends Page {
             myBox.addButtons(LevelButton);
         }
 
+        Button ResumeSave = new Button(myResource.getString("Resume"));
+        ResumeSave.setOnMouseClicked(event -> buildSavedGame());
+        myBox.addButtons(ResumeSave);
+
         return myBox;
+    }
+
+    private void buildSavedGame() {
+
     }
 
     private void goLX(int k) throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
@@ -102,8 +110,8 @@ public class LevelDirectory extends Page {
         LevelOne levelOne = new LevelOne(myStage, Pages.PlayLevel, myPC);
     }
 
-    private void goL2() {
-
+    private void goL2() throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+        LevelTwo levelTwo = new LevelTwo(myStage, Pages.PlayLevel, myPC);
     }
 
     private void goL3() {

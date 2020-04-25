@@ -2,6 +2,7 @@ package pagination;
 
 import builder.bank.view.BankView;
 import data.user.User;
+import engine.general.Game;
 import engine.leveldirectory.hud.HUDView;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,43 +24,58 @@ public class SideBar extends Pane {
     private Button back;
     private PageController pageController;
 
+    private Game game;
+
     private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
     private final static String Light = "css/light.css";
     private final static String Dark = "css/dark.css";
 
     public SideBar(Scene scene, PageController pc) {
         this.setId("hudView");
-        myScene = scene;
-        STYLESHEET = Light;
-        pageController = pc;
-        buildLightButton();
-        buildBackButton();
-        this.getChildren().add(displayUserStats());
+
+        this.game = game;
+        setDefaultDisplay(scene, pc);
 
         ImageView img = new ImageView(pc.getUser().getAvatar());
         img.setId("center");
         this.getChildren().add(img);
     }
 
-    public SideBar(Scene scene, PageController pc, HUDView myView) {
+    public SideBar(Scene scene, PageController pc, Game game) {
         this.setId("hudView");
+
+        this.game = game;
+        setDefaultDisplay(scene, pc);
+
+        ImageView img = new ImageView(pc.getUser().getAvatar());
+        img.setId("center");
+        this.getChildren().add(img);
+    }
+
+    private void setDefaultDisplay(Scene scene, PageController pc) {
         myScene = scene;
         STYLESHEET = Light;
         pageController = pc;
+
         buildLightButton();
         buildBackButton();
+
         this.getChildren().add(displayUserStats());
+    }
+
+    public SideBar(Scene scene, PageController pc, HUDView myView, Game game) {
+        this.setId("hudView");
+        this.game = game;
+
+        setDefaultDisplay(scene, pc);
         this.getChildren().add(myView);
     }
 
-    public SideBar(Scene scene, PageController pc, BankView bankView) {
+    public SideBar(Scene scene, PageController pc, BankView bankView, Game game) {
         this.setId("hudView");
-        myScene = scene;
-        STYLESHEET = Light;
-        pageController = pc;
-        buildLightButton();
-        buildBackButton();
-        this.getChildren().add(displayUserStats());
+
+        this.game = game;
+        setDefaultDisplay(scene, pc);
         this.getChildren().add(bankView);
 
     }
@@ -72,7 +88,6 @@ public class SideBar extends Pane {
     }
 
     private void switchStyle() {
-        System.out.println("click");
         myScene.getStylesheets().removeAll(this.getClass().getResource(STYLESHEET).toExternalForm());
         if (STYLESHEET.equals(Light)) { STYLESHEET = Dark; }
         else { STYLESHEET = Light; }
@@ -81,14 +96,16 @@ public class SideBar extends Pane {
     }
 
     private void buildBackButton() {
-        back = new Button("Back to Menu");
+        back = new Button(myResource.getString("Back"));
         back.setId("back");
         back.setOnMouseClicked(this::handle);
         this.getChildren().add(back);
     }
 
     private void goBack() throws IOException {
+        pageController.setLastLevel(game.getLevelContainer().getLevelNum());
         LevelDirectory ld = new LevelDirectory(pageController.getMyStage(), Pages.LevelDirectory, pageController);
+
     }
 
     private void handle(MouseEvent event) {
