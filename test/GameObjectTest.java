@@ -1,22 +1,11 @@
-import builder.bank.BankController;
-import builder.bank.BankItem;
-import builder.bank.view.BankView;
-import builder.stage.BuilderPane;
-import builder.stage.PaneDimensions;
 import engine.gameobject.opponent.Enemy;
-import engine.gameobject.opponent.Mongoose;
-import engine.gameobject.opponent.Raccoon;
 import engine.gameobject.player.SimplePlayer;
 import input.KeyInput;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

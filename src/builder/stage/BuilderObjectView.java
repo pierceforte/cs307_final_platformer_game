@@ -25,7 +25,7 @@ public class BuilderObjectView extends ActionableGameObjectView {
         this.gameObject = gameObject;
         this.bankItem = bankItem;
         setPickOnBounds(true);
-        setId(ID);
+        setId(ID + bankItem.getImgPath().split("\\.")[0]); // tests would not recognize node ids with a "."
     }
 
     public GameObject getGameObject() {

@@ -371,32 +371,13 @@
       "year":2000,
       "day":12
     },
-    "score":400,
+    "score":1200,
     "password":"phf7",
     "paths":{
       "1":[0.0,0.0]
     },
     "id":"pierce",
     "avatar":"images\/avatars\/sneaksnake.png",
-    "type":1,
-    "levels":{
-      "1":0
-    }
-  },
-  "SaveTest":{
-    "birthday":{
-      "month":12,
-      "year":2010,
-      "day":10
-    },
-    "score":0,
-    "password":"test",
-    "paths":{
-      "1":[0.0,0.0]
-    },
-    "id":"SaveTest",
-    "avatar":"test,
-    \n    \n    \n    img",
     "type":1,
     "levels":{
       "1":0
@@ -415,6 +396,25 @@
     },
     "id":"NewUser",
     "avatar":"location.png",
+    "type":1,
+    "levels":{
+      "1":0
+    }
+  },
+  "SaveTest":{
+    "birthday":{
+      "month":12,
+      "year":2010,
+      "day":10
+    },
+    "score":0,
+    "password":"test",
+    "paths":{
+      "1":[0.0,0.0]
+    },
+    "id":"SaveTest",
+    "avatar":"test,
+    img",
     "type":1,
     "levels":{
       "1":0

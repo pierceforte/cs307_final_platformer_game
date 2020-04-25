@@ -48,6 +48,7 @@ public class BuilderPane extends DraggableTilePane {
 
     @Override
     public void update() {
+        System.out.println(getChildren().size());
         bankController.update();
         handlePurchasedItem();
         snapItems();

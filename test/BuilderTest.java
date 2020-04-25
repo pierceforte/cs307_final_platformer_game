@@ -8,11 +8,16 @@ import builder.stage.BuilderObjectView;
 import builder.stage.BuilderPane;
 import builder.stage.PaneDimensions;
 import engine.gameobject.GameObject;
+import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.PickResult;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -32,18 +37,21 @@ public class BuilderTest extends DukeApplicationTest {
     private static final int maxX = 35;
     private static final int minY = 0;
     private static final int maxY = 35;
+    private static final String raccoonPath = "images/avatars/raccoon";
+    private static final String mongoosePath = "images/avatars/mongoose";
+    private static final String imgExtension = ".png";
 
     private BorderPane root;
     private Pane leftPane;
     private BankController bankController;
     private BankModel bankModel;
-    BankView bankView;
+    private BankView bankView;
     private BuilderPane builderPane;
     private BuilderObjectView builderObjectView;
 
     @Override
     public void start(Stage stage) {
-        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",30d,30d, -1d, -1d, 1d);
+        Raccoon raccoon = new Raccoon(raccoonPath + imgExtension,30d,30d, -1d, -1d, 1d);
         BankItem one = new BankItem(new Raccoon(raccoon), bankItemSize, bankItemSize, bankItemCost);
         root = new BorderPane();
         leftPane = new Pane();
@@ -64,12 +72,12 @@ public class BuilderTest extends DukeApplicationTest {
     public void testPurchase() {
         builderPane.update();
         // assert that builder stage does not contain a builderObjectView
-        assertNull(builderPane.lookup("#" + BuilderObjectView.ID));
+        assertNull(builderPane.lookup("#" + BuilderObjectView.ID + raccoonPath));
         Button purchaseButton = (Button) bankView.lookup("#purchaseButton");
         fireButtonEvent(purchaseButton);
         builderPane.update();
         // assert that builder stage now contains a builderObjectView
-        assertNotNull(builderPane.lookup("#" + BuilderObjectView.ID));
+        assertNotNull(builderPane.lookup("#" + BuilderObjectView.ID + raccoonPath));
     }
 
     @Test
@@ -82,7 +90,7 @@ public class BuilderTest extends DukeApplicationTest {
         fireButtonEvent(purchaseButton);
         builderPane.update();
         // assert builderObjectView is present
-        assertNotNull(builderPane.lookup("#" + BuilderObjectView.ID));
+        assertNotNull(builderPane.lookup("#" + BuilderObjectView.ID + raccoonPath));
         assertNotNull((Button) leftPane.lookup("#playButton"));
         // attempt to leave builder stage and play level
         makePlayRequest();
@@ -100,8 +108,8 @@ public class BuilderTest extends DukeApplicationTest {
         fireButtonEvent(purchaseButton);
         builderPane.update();
         // assert builderObjectView is present
-        assertNotNull(builderPane.lookup("#" + BuilderObjectView.ID));
-        builderObjectView = (BuilderObjectView) builderPane.lookup("#" + BuilderObjectView.ID);
+        assertNotNull(builderPane.lookup("#" + BuilderObjectView.ID + raccoonPath));
+        builderObjectView = (BuilderObjectView) builderPane.lookup("#" + BuilderObjectView.ID + raccoonPath);
         // assert check button is present
         assertNotNull(builderPane.lookup("#" + BuilderAction.PLACE.getId()));
         ImageView checkMark = (ImageView) builderPane.lookup("#" + BuilderAction.PLACE.getId());
@@ -118,7 +126,7 @@ public class BuilderTest extends DukeApplicationTest {
     public void testItemPlacement() {
         purchaseFirstItemFromBank();
         // assert that builder stage contains a builderObjectView
-        assertNotNull(builderPane.lookup("#" + BuilderObjectView.ID));
+        assertNotNull(builderPane.lookup("#" + BuilderObjectView.ID + raccoonPath));
         // assert that builder stage contains a checkIcon and a sellIcon for builderObjectView
         assertNotNull(builderPane.lookup("#" + BuilderAction.PLACE.getId()));
         assertNotNull(builderPane.lookup("#" + BuilderAction.SELL.getId()));
@@ -142,14 +150,14 @@ public class BuilderTest extends DukeApplicationTest {
         int initBankMoney = bankModel.getMoneyAvailable();
         int initBankSize = bankModel.size();
         // assert that builder stage contains a builderObjectView
-        assertNotNull(builderPane.lookup("#" + BuilderObjectView.ID));
-        builderObjectView = (BuilderObjectView) builderPane.lookup("#" + BuilderObjectView.ID);
+        assertNotNull(builderPane.lookup("#builderObjectViewimages/avatars/raccoon"));
+        builderObjectView = (BuilderObjectView) builderPane.lookup("#" + BuilderObjectView.ID + raccoonPath);
         // press the sellIcon
         ImageView sellIcon = (ImageView) builderPane.lookup("#" + BuilderAction.SELL.getId());
         fireMouseClick(sellIcon);
         builderPane.update();
         // assert that the builderObjectView is no longer on the stage
-        assertNull(builderPane.lookup("#" + BuilderObjectView.ID));
+        assertNull(builderPane.lookup("#" + BuilderObjectView.ID + raccoonPath));
         // assert the bank has been updated accordingly
         assertEquals(initBankMoney + itemCost, bankModel.getMoneyAvailable());
         assertEquals(initBankSize + 1, bankModel.size());
@@ -234,6 +242,37 @@ public class BuilderTest extends DukeApplicationTest {
                 gameObject.getY().intValue());
     }
 
+    /*
+    *
+    * TEST FOR BUG – EXPECTED TO FAIL
+    *
+    */
+    @Test
+    public void testDraggedItemGoesOnTop() {
+        createBankWithDifferentItems();
+
+        purchaseFirstItemFromBank();
+        BuilderObjectView raccoonView = (BuilderObjectView) builderPane.lookup("#" + BuilderObjectView.ID + raccoonPath);
+        purchaseFirstItemFromBank();
+        BuilderObjectView mongooseView = (BuilderObjectView) builderPane.lookup("#" + BuilderObjectView.ID + mongoosePath);
+
+        int raccoonPriority = getNodePriorityInPane(raccoonView, builderPane);
+        int mongoosePriority = getNodePriorityInPane(mongooseView, builderPane);
+
+        // check that initially, the newer item (the mongoose) is on top
+        assertTrue(raccoonPriority < mongoosePriority);
+
+        // now drag the older item
+        fireMouseEvent(raccoonView, MouseDragEvent.MOUSE_DRAGGED);
+
+        raccoonPriority = getNodePriorityInPane(raccoonView, builderPane);
+        mongoosePriority = getNodePriorityInPane(mongooseView, builderPane);
+
+        // assert that now that the older item has been dragged, it is now on top
+        assertTrue(mongoosePriority < raccoonPriority);
+    }
+
+
     private void placeFirstItemFromBank() {
         purchaseFirstItemFromBank();
         // press the checkIcon
@@ -252,7 +291,7 @@ public class BuilderTest extends DukeApplicationTest {
         Button purchaseButton = (Button) stockedBankView.lookup("#purchaseButton");
         fireButtonEvent(purchaseButton);
         builderPane.update();
-        builderObjectView = (BuilderObjectView) builderPane.lookup("#" + BuilderObjectView.ID);
+        builderObjectView = (BuilderObjectView) builderPane.lookup("#" + BuilderObjectView.ID + raccoonPath);
     }
 
     private void buyEverythingAndExitBuilderStage() {
@@ -267,5 +306,25 @@ public class BuilderTest extends DukeApplicationTest {
         builderPane.update();
         fireButtonEvent((Button) leftPane.lookup("#playButton"));
         builderPane.update();
+    }
+
+    private void createBankWithDifferentItems() {
+        Raccoon raccoon = new Raccoon(raccoonPath + imgExtension,30d,30d, -1d, -1d, 1d);
+        BankItem one = new BankItem(new Raccoon(raccoon), bankItemSize, bankItemSize, bankItemCost);
+        Mongoose mongoose = new Mongoose(mongoosePath + imgExtension,30d,30d, -1d, -1d, 1d);
+        BankItem two = new BankItem(new Mongoose(mongoose), bankItemSize, bankItemSize, bankItemCost);
+        bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
+        bankController = new BankController(List.of(one, two), bankMoneyAvailable, bankView);
+        builderPane = new BuilderPane(new PaneDimensions(minX, maxX, minY, maxY), bankController, new ArrayList<>());
+    }
+
+    private int getNodePriorityInPane(Node node, Pane pane) {
+        for (int i = 0; i < pane.getChildren().size(); i++) {
+            Node curNode = pane.getChildren().get(i);
+            if (curNode.equals(node)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
