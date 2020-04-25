@@ -6,7 +6,6 @@ import engine.leveldirectory.hud.HUDController;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import pagination.loadandplay.AbstractPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class GraphicsEngine {
     private HUDController scoreBoardController;
     private BorderPane borderPane;
 
-    public GraphicsEngine(Game game, ResourceBundle resourceBundle, AbstractPlayer abstractPlayer) {
+    public GraphicsEngine(Game game, ResourceBundle resourceBundle) {
         gameObjects = new ArrayList<>();
         nodes = new ArrayList<>();
         scoreBoardController = new HUDController(game.getLevelContainer().getLevelNum(), 0, 5);

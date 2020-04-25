@@ -7,8 +7,8 @@ import builder.stage.BuilderAction;
 import builder.stage.BuilderObjectView;
 import builder.stage.BuilderPane;
 import builder.stage.PaneDimensions;
+import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Raccoon;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -25,6 +25,14 @@ import java.util.List;
 
 public class BuilderTest extends DukeApplicationTest {
 
+    private static final int bankItemSize = 30;
+    private static final int bankItemCost = 10;
+    private static final int bankMoneyAvailable = 1000;
+    private static final int minX = 0;
+    private static final int maxX = 35;
+    private static final int minY = 0;
+    private static final int maxY = 35;
+
     private BorderPane root;
     private Pane leftPane;
     private BankController bankController;
@@ -35,14 +43,14 @@ public class BuilderTest extends DukeApplicationTest {
 
     @Override
     public void start(Stage stage) {
-        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",1d,1d, 1d, 1d, 10d);
-        BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
+        Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",30d,30d, -1d, -1d, 1d);
+        BankItem one = new BankItem(new Raccoon(raccoon), bankItemSize, bankItemSize, bankItemCost);
         root = new BorderPane();
         leftPane = new Pane();
         bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
-        bankController = new BankController(List.of(one), 10000, bankView);
+        bankController = new BankController(List.of(one), bankMoneyAvailable, bankView);
         bankModel = bankController.getBankModel();
-        builderPane = new BuilderPane(new PaneDimensions(0, 35, 0, 35), bankController, new ArrayList<>());
+        builderPane = new BuilderPane(new PaneDimensions(minX, maxX, minY, maxY), bankController, new ArrayList<>());
         javafxRun(() -> {
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -75,11 +83,9 @@ public class BuilderTest extends DukeApplicationTest {
         builderPane.update();
         // assert builderObjectView is present
         assertNotNull(builderPane.lookup("#" + BuilderObjectView.ID));
-        Button playButton = (Button) leftPane.lookup("#playButton");
-        assertNotNull(playButton);
+        assertNotNull((Button) leftPane.lookup("#playButton"));
         // attempt to leave builder stage and play level
-        fireButtonEvent(playButton);
-        builderPane.update();
+        makePlayRequest();
         // assert builderStage is still active and we have NOT been allowed to begin playing
         assertFalse(builderPane.isDone());
     }
@@ -103,9 +109,7 @@ public class BuilderTest extends DukeApplicationTest {
         fireMouseClick(checkMark);
         builderPane.update();
         // attempt to leave builder stage and play level
-        Button playButton = (Button) leftPane.lookup("#playButton");
-        fireButtonEvent(playButton);
-        builderPane.update();
+        makePlayRequest();
         // assert builderStage is over and we have been allowed to begin playing
         assertTrue(builderPane.isDone());
     }
@@ -204,6 +208,32 @@ public class BuilderTest extends DukeApplicationTest {
         assertNotEquals(initYPos, builderObjectView.getY());
     }
 
+    @Test
+    public void testBuilderStageExitOutput() {
+        int initBankModelSize = bankModel.size();
+        buyEverythingAndExitBuilderStage();
+        assertTrue(builderPane.isDone());
+        List<GameObject> gameObjects = builderPane.getGameObjects();
+        assertEquals(initBankModelSize, gameObjects.size());
+    }
+
+    @Test
+    public void testBuilderStageGameObjectCreation() {
+        BankItem item = bankModel.getCurItem();
+        placeFirstItemFromBank();
+        makePlayRequest();
+        GameObject gameObject = builderPane.getGameObjects().get(0);
+
+        assertEquals(item.getWidth(), gameObject.getWidth());
+        assertEquals(item.getHeight(), gameObject.getHeight());
+        assertEquals(item.getImgPath(), gameObject.getImgPath());
+
+        assertEquals((int) ((builderPane.getDimensions().getScreenWidth())/(2*builderPane.getDimensions().getTileWidth())),
+                gameObject.getX().intValue());
+        assertEquals((int) ((builderPane.getDimensions().getScreenHeight())/(2*builderPane.getDimensions().getTileHeight())),
+                gameObject.getY().intValue());
+    }
+
     private void placeFirstItemFromBank() {
         purchaseFirstItemFromBank();
         // press the checkIcon
@@ -223,5 +253,19 @@ public class BuilderTest extends DukeApplicationTest {
         fireButtonEvent(purchaseButton);
         builderPane.update();
         builderObjectView = (BuilderObjectView) builderPane.lookup("#" + BuilderObjectView.ID);
+    }
+
+    private void buyEverythingAndExitBuilderStage() {
+        for (int i = 0; i < bankModel.size(); i++) {
+            placeFirstItemFromBank();
+        }
+        makePlayRequest();
+        builderPane.update();
+    }
+
+    private void makePlayRequest() {
+        builderPane.update();
+        fireButtonEvent((Button) leftPane.lookup("#playButton"));
+        builderPane.update();
     }
 }
