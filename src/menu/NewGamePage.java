@@ -24,7 +24,6 @@ public class NewGamePage extends Page {
     private Scene myScene;
     private PageBuilder myFactory;
 
-
     private Pane myRoot;
 
     private TextField title;
@@ -34,6 +33,8 @@ public class NewGamePage extends Page {
     private ToggleButton snake;
     private int side;
 
+    private String sideURL;
+    private static final int FREE_COINS = 500;
     private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
     private final String STYLESHEET = "css/dark.css";
 
@@ -51,8 +52,6 @@ public class NewGamePage extends Page {
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
-
-        side = 0;
         myScene = this.buildSpecialScene((int) myFactory.getScreenHeight(), (int) myFactory.getScreenWidth());
         myStage.setScene(myScene);
     }
@@ -136,16 +135,19 @@ public class NewGamePage extends Page {
 
     private void pickSide() {
         if (snail.isSelected()) {
-            side = 1;
+            side = 0;
+            sideURL = "images/avatars/wilbur.png";
         }
         if (snake.isSelected()) {
-            side = 2;
+            side = 1;
+            sideURL = "images/avatars/basicsnake.png";
         }
     }
 
     private void switchLevelDirectory() throws ReadSaveException, DuplicateUsernameException, IOException {
         User u = saveInformation();
-        LevelDirectory ll = new LevelDirectory(myStage, Pages.LevelDirectory, u);
+        PageController myPC = new PageController(u, myStage);
+        LevelDirectory ll = new LevelDirectory(myStage, Pages.LevelDirectory, myPC);
     }
 
     private User saveInformation() throws ReadSaveException, DuplicateUsernameException {
@@ -153,6 +155,9 @@ public class NewGamePage extends Page {
         User u = null;
         try {
             u = new User(title.getText(), saveloc.getText(), imagePath, birthday.getText().split(" "));
+            u.setType(side);
+            u.changeAvatar(sideURL);
+            u.replaceScore(FREE_COINS);
         } catch (ReadSaveException e) {
         } catch (DuplicateUsernameException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -165,13 +170,13 @@ public class NewGamePage extends Page {
 
     private String processSelections() {
         String imagePath = null;
-        if (side == 1) {
+        if (side == 0) {
             imagePath = Avatars.valueOf("Snail1").getimgpath();
         }
-        if (side == 2) {
+        else if (side == 1) {
             imagePath = Avatars.valueOf("Snake1").getimgpath();
         }
-        if (side == 0) {
+        else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(myResource.getString("Whoops"));
             alert.setHeaderText(myResource.getString("Whoops"));
@@ -180,21 +185,8 @@ public class NewGamePage extends Page {
         return imagePath;
     }
     @Override
-    Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
-        try {
-            return getScene(name);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
+    Scene gotoScene(String name) throws IOException, ReadSaveException {
+        return getScene(name);
     }
 
     Scene buildSpecialScene(int height, int width) {

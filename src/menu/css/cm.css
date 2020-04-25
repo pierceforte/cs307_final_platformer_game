@@ -195,4 +195,11 @@
 #Deet{
     -fx-font-size: 16;
     -fx-text-fill: white;
-}
+}#scoreDisplay{
+    -fx-translate-x: 900;
+    -fx-translate-y: 100;
+    -fx-fill: goldenrod;
+     -fx-font-family: "Times New Roman";
+     -fx-font-weight: bold;
+     -fx-font-size: 22pt;
+ }

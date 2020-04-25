@@ -8,6 +8,7 @@
     -fx-background-image: url("../../../../resources/images/objects/lighticon.png");
     -fx-pref-height: 128;
     -fx-pref-width: 128;
+    -fx-translate-y: 400;
     -fx-background-size: stretch;
     -fx-background-position: center, center;
 }
@@ -22,7 +23,7 @@
     -fx-font-family: "Times New Roman";
     -fx-font-size: 60pt;
     -fx-translate-y: 250;
-    -fx-translate-x: 125;
+    -fx-translate-x: 500;
     -fx-text-fill: white;
 }
 #choiceBox{
@@ -82,6 +83,7 @@
 #builderLeftPane{
     -fx-background-color: black;
     -fx-background-position: center, center;
+
 }
 #purchaseButton{
     -fx-background-color: goldenrod;
@@ -145,9 +147,9 @@
     -fx-opacity: 1;
 }
 #hudView{
-    -fx-background-color: black;
+    -fx-background-color: darkslategrey;
     -fx-pref-width: 200;
-    -fx-pref-height: 260;
+    -fx-pref-height: 1300;
     -fx-background-position: center, center;
 }
 #levelDisplay{
@@ -174,4 +176,27 @@
     -fx-translate-x: 50;
     -fx-translate-y: 170;
     -fx-fill: maroon;
+}
+#center{
+    -fx-height: 128;
+    -fx-width: 128;
+    -fx-translate-y: 600;
+    -fx-translate-x: 0;
+    -fx-alignment: center;
+}
+#userDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 22pt;
+    -fx-translate-x: 0;
+    -fx-translate-y: 75;
+    -fx-fill: white;
+}
+#scoreSBDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+    -fx-translate-x: 0;
+    -fx-translate-y: 150;
+    -fx-fill: white;
 }

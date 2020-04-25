@@ -1,5 +1,7 @@
 package engine.leveldirectory.level;
 
+import builder.bank.BankItem;
+import builder.stage.PaneDimensions;
 import engine.gameobject.GameObject;
 
 import java.util.Collection;
@@ -7,7 +9,7 @@ import java.util.Collection;
 /**
  * general interface for all levels in the game
  *
- * @author Jerry Huang
+ * @author Jerry Huang, Pierce Forte
  */
 public interface LevelInterface {
 
@@ -15,7 +17,19 @@ public interface LevelInterface {
      * used for saving & transferring data
      * @return all objects in a level
      */
-    Collection<GameObject> getAllGameObjects();
+    Collection<GameObject> getGameObjects();
+
+    /**
+     * used for saving & transferring data
+     * @return all objects in a level
+     */
+    Collection<BankItem> getBankItems();
+
+    /**
+     * used for saving & transferring data
+     * @return all objects in a level
+     */
+    PaneDimensions getDimensions();
 
     /**
      * adds a GameObject to the level object

@@ -4,6 +4,7 @@ import engine.UserController;
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Enemy;
 import engine.gameobject.opponent.Opponent;
+import engine.gameobject.platform.Start;
 import engine.gameobject.player.Player;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
@@ -17,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
+import menu.PageController;
 
 import static javafx.application.Platform.exit;
 
@@ -37,8 +39,13 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     }
 
     private void initializeSimplePlayer() {
-        UserController userController = new UserController()
-        SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, 8., 5., 0.,0.);
+        PageController temp = getGame().getPageController();
+        Start temp2 = null;
+        for (GameObject g1 : getLevelContainer().getCurrentLevel().getAllGameObjects())
+            if (g1 instanceof Start)
+                temp2 = (Start) g1;
+        UserController userController = new UserController(temp.getUser(), temp2);
+        SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, temp2.getX(), temp2.getY(), 0.,0.);
         setSimplePlayer(s);
         getSimplePlayer().setXSpeed(0);
         getSimplePlayer().setYSpeed(0);
@@ -46,8 +53,8 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
                 getSimplePlayer().getY(), getSimplePlayer().getWidth(),
                 getSimplePlayer().getHeight(), 0);
         setSimplePlayerView(g);
-        initialX = 8.;
-        initialY = 5.;
+        initialX = temp2.getX();
+        initialY = temp2.getY();
     }
 
     /**
@@ -80,6 +87,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     }
 
     private void step() {
+        isLose();
         move(getSimplePlayer(), getSimplePlayer().getXSpeed(), getSimplePlayer().getYSpeed());
         if (getSimplePlayer().getY() > MAX_SCREEN_DEPTH) {
             getHUDController().lowerLife();
@@ -96,14 +104,15 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
         getMyScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             if (key.getCode() == KeyCode.N)
                 endPhase();
-            getSimplePlayer().handleInput(key.getCode());
+            else
+                getSimplePlayer().handleInput(key.getCode());
         });
     }
 
     // implements player-gameobject collisions
     // if the player is intersecting with an enemy, move it backwards in the x direction in the direction it came from
     private boolean playerObjectCollisions() {
-        for (GameObject g : getLevelContainer().getCurrentLevel().getAllGameObjects()) {
+        for (GameObject g : getLevelContainer().getCurrentLevel().getGameObjects()) {
             if (intersect(getSimplePlayer(), g)) {
                 getSimplePlayer().setYSpeed(0);
                 getSimplePlayer().setXSpeed(0);
@@ -161,6 +170,11 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
         if (gameObject.getImgPath().equals("images/objects/checkpoint.png")) {
             endPhase();
         }
+    }
+
+    private void isLose() {
+        if (getHUDController().getLives() <= 0)
+            System.exit(0);
     }
 
     // lose life + knock back if hit on salt

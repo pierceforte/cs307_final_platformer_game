@@ -24,6 +24,7 @@ public class BuilderObjectView extends ActionableGameObjectView {
         super(gameObject.getImgPath(), xPos, yPos, bankItem.getWidth(), bankItem.getHeight(), GameObjectView.RIGHT);
         this.gameObject = gameObject;
         this.bankItem = bankItem;
+        setPickOnBounds(true);
         setId(ID);
     }
 

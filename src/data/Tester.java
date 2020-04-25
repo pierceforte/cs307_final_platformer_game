@@ -16,6 +16,7 @@ import java.util.List;
 
 public class Tester {
     public static void main(String[] args) throws InvalidLoginException, ReadSaveException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+
         LevelData ld = new LevelData();
         List<GameObject> go = new ArrayList<>();
         go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 3d,2d));

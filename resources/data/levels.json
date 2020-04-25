@@ -795,6 +795,15 @@
         ["java.lang.Double","27.0"]
       ]
     ],
+    "engine.gameobject.platform.Start": [
+      [
+        ["java.lang.String","images\/objects\/checkpoint.png"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","1.0"],
+        ["java.lang.Double","16.0"],
+        ["java.lang.Double","3.0"]
+      ]
+    ],
     "engine.gameobject.opponent.Enemy":[
       [
         ["java.lang.String","images\/avatars\/mongoose.png"],

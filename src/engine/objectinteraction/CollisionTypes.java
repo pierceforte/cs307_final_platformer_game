@@ -10,7 +10,6 @@ public enum CollisionTypes {
     TEMP_COLLISION(new int[][]{{0},
             {0}});
 
-
     private final int[][] temp;
 
     CollisionTypes(int[][] temp) {

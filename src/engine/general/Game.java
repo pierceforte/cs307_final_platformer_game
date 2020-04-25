@@ -8,6 +8,7 @@ import engine.leveldirectory.level.LevelContainer;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import menu.PageController;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class Game {
     private LevelContainer levelContainer;
-
+    private PageController pageController;
     private Scene scene;
     private BorderPane root;
     private double height;
@@ -33,16 +34,20 @@ public class Game {
      * @param height: height of the screen
      * @param width: width of the screen
      */
-    public Game(Scene scene, BorderPane root, double height, double width) throws NoSuchMethodException, ReadSaveException,
+    public Game(Scene scene, BorderPane root, PageController pageController, double height, double width) throws NoSuchMethodException, ReadSaveException,
             InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         levelContainer = new LevelContainer(this);
         levelContainer.loadLevels();
+        this.pageController = pageController;
         // TODO: read in num of player lives
         this.scene = scene;
         this.root = root;
         this.height = height;
         this.width = width;
+        //startLevelPhase(scene, this.root, height, width);
+
         startLevelPhase();
+
     }
 
     /**
@@ -57,4 +62,8 @@ public class Game {
     standard get method
      */
     public LevelContainer getLevelContainer() { return levelContainer; }
+
+    public PageController getPageController() {
+        return pageController;
+    }
 }

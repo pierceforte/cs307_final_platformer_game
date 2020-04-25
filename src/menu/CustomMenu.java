@@ -10,6 +10,7 @@ import javafx.scene.control.ToggleButton;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -27,6 +28,7 @@ public class CustomMenu extends Page {
     private ToggleButton[] myOptions;
     private ToggleButton[] myOpponents;
     private int selected;
+    private PageController myPC;
 
     private Map<String, ImageView> avatars;
 
@@ -53,41 +55,35 @@ public class CustomMenu extends Page {
      * @param page
      * @return Page
      */
-    public CustomMenu(Stage primaryStage, Pages page, User user) {
+    public CustomMenu(Stage primaryStage, Pages page, PageController myPC) {
         super(primaryStage, page);
+
         myStage = primaryStage;
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
 
-        myUser = user;
+        this.myPC = myPC;
+        myUser = myPC.getUser();
         selected = 0;
         avatars = new HashMap<>();
 
-        //read from data whether they are snails or snakes
-        //find and display avatar
-
-        /* DISCOVER
-         * -Snails or Snakes
-         * -Score
-         *  - purchase item from Pierce
-         * -their current avatar
-         *
-         * PASS BACK
-         * -new avatar
-         * -new score (if applicable)
-         *
-         */
-        //plus scorebar and haspurchaseitem
-
-        //Hardcode:
-
-        Snails = false;
-        Snakes = true;
-
+        setTeam();
 
         myScene = this.buildSpecialScene((int) myFactory.getScreenHeight(), (int) myFactory.getScreenWidth());
         myStage.setScene(myScene);
+    }
+
+    private void setTeam() {
+        int mySide = myUser.getType();
+        if (mySide == 0) {
+            Snails = true;
+            Snakes = false;
+        }
+        else {
+            Snails = false;
+            Snakes = true;
+        }
     }
 
     @Override
@@ -117,6 +113,8 @@ public class CustomMenu extends Page {
         myRoot.getChildren().addAll(myOptions);
         myRoot.getChildren().addAll(myOpponents);
         myRoot.getChildren().add(back);
+
+        displayMoney();
         return myRoot;
     }
 
@@ -146,6 +144,16 @@ public class CustomMenu extends Page {
 
         myOpponents[x].setOnMouseClicked(event -> action(key, type));
 
+    }
+
+    private void displayMoney() {
+        Text scoreDisplay = new Text(myResource.getString("Score")+myUser.getScore());
+        scoreDisplay.setId("scoreDisplay");
+        myRoot.getChildren().add(scoreDisplay);
+    }
+    private void updateMoneyDisplay() {
+        myRoot.getChildren().remove(myScene.lookup("#scoreDisplay"));
+        displayMoney();
     }
 
     private void action(String x, String type) {
@@ -218,8 +226,9 @@ public class CustomMenu extends Page {
         int userScore = myUser.getScore();
 
         if (Avatars.valueOf(x).getPrice() <= userScore) {
-            myUser.updateScore(-userScore);
+            myUser.updateScore(-Avatars.valueOf(x).getPrice());
             myUser.changeAvatar(Avatars.valueOf(x).getimgpath());
+            updateMoneyDisplay();
         }
         else {
             myRoot.getChildren().add(new Text(deets.getString("NoMoney")));
@@ -242,14 +251,14 @@ public class CustomMenu extends Page {
         for (int x = 0; x < 6; x++) {
             if (myOptions[x].isSelected()) {
                 selected = x;
-                LevelDirectory ll = new LevelDirectory(myStage, Pages.LevelDirectory, myUser);
+                LevelDirectory ll = new LevelDirectory(myStage, Pages.LevelDirectory, myPC);
             }
         }
     }
 
     @Override
     Scene gotoScene(String name) throws IOException {
-        return null;
+        return getScene(name);
     }
 
     Scene buildSpecialScene(int height, int width) {

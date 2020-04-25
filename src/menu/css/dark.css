@@ -11,11 +11,19 @@
     -fx-translate-x: 300;
     -fx-translate-y: 200;
 }
+#LightButton{
+    -fx-background-image: url("../../../../resources/images/objects/lighticon.png");
+    -fx-pref-height: 128;
+    -fx-pref-width: 128;
+    -fx-translate-y: 400;
+    -fx-background-size: stretch;
+    -fx-background-position: center, center;
+}
 #MainTitle {
     -fx-font-family: "Times New Roman";
     -fx-font-size: 60pt;
     -fx-translate-y: 250;
-    -fx-translate-x: 125;
+    -fx-translate-x: 500;
     -fx-text-fill: white;
 }
 #choiceBox{
@@ -164,3 +172,34 @@
      -fx-pref-height: 150;
      -fx-opacity: .8;
  }
+#hudView{
+    -fx-background-color: black;
+    -fx-pref-width: 200;
+    -fx-pref-height: 1300;
+    -fx-background-position: center, center;
+}#builderLeftPane{
+     -fx-background-color: black;
+     -fx-background-position: center, center;
+ }#center{
+       -fx-height: 128;
+       -fx-width: 128;
+       -fx-translate-y: 600;
+       -fx-translate-x: 0;
+       -fx-alignment: center;
+    }
+#userDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 22pt;
+    -fx-translate-x: 0;
+    -fx-translate-y: 75;
+    -fx-fill: goldenrod;
+}
+#scoreSBDisplay{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+    -fx-translate-x: 0;
+    -fx-translate-y: 150;
+    -fx-fill: goldenrod;
+}

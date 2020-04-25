@@ -22,7 +22,7 @@ public class DebugEnvironment extends Page {
     private PageBuilder myFactory;
 
 
-    private ResourceBundle myResource = ResourceBundle.getBundle("resources.test.MenuButtons");
+    private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
     private String STYLESHEET;
     private boolean light;
 
@@ -40,7 +40,7 @@ public class DebugEnvironment extends Page {
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        STYLESHEET = "menuresources/light.css";
+        STYLESHEET = "css/light.css";
         light = true;
         myStage.setScene(this.buildSpecialScene((int) primaryScreenBounds.getHeight(),(int) primaryScreenBounds.getWidth()));
 
@@ -57,12 +57,12 @@ public class DebugEnvironment extends Page {
             @Override
             public void handle(MouseEvent event) {
                 if (light) {
-                    STYLESHEET = "menuresources/dark.css";
+                    STYLESHEET = "css/dark.css";
                     myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
                     light = false;
                 }
                 else {
-                    STYLESHEET = "menuresources/light.css";
+                    STYLESHEET = "css/light.css";
                     myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
                     light = true;
                 }
@@ -82,19 +82,6 @@ public class DebugEnvironment extends Page {
 
     @Override
     Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
-        try {
-            return getScene(name);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return getScene(name);
     }
 }

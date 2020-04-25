@@ -16,13 +16,8 @@ import java.util.ResourceBundle;
 public class MainMenu extends Page {
 
     private ResourceBundle myResource = ResourceBundle.getBundle("text.MenuButtons");
-    private static final String STYLESHEET = "css/main.css";
-
     private Stage myStage;
-    private Scene myScene;
     private PageBuilder myFactory;
-    private int bheight;
-    private int bwidth;
 
     /**
      * Constructs a basic Page. All animated Pages are extended from this class.
@@ -36,7 +31,7 @@ public class MainMenu extends Page {
         myStage.setFullScreen(true);
         myFactory = new PageBuilder(myStage);
         myStage.setTitle(myResource.getString("MainTitle"));
-        myStage.setScene(this.buildScene(bheight, bwidth));
+        myStage.setScene(this.buildScene((int) myFactory.getScreenHeight(), (int) myFactory.getScreenWidth()));
     }
 
     Pane init_Root(int height, int width) {
@@ -67,19 +62,6 @@ public class MainMenu extends Page {
 
     @Override
     Scene gotoScene(String name) throws IOException, ReadSaveException, DuplicateUsernameException {
-        try {
             return getScene(name);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }
