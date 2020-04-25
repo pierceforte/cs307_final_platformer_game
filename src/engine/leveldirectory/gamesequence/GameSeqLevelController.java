@@ -24,16 +24,13 @@ import javafx.util.Duration;
 
 import pagination.LossView;
 import pagination.PageController;
-
-import java.sql.SQLOutput;
-
 import pagination.WinView;
-
 import static javafx.application.Platform.exit;
 
 public class GameSeqLevelController extends GameSeqController implements SceneChanger {
 
     public static final double GRAVITY = 0.01;
+    private final Double SUPER_JUMP = -8D;
     public  double maxScreenDepth;
     private double initialX;
     private double initialY;
@@ -56,7 +53,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
             if (g1 instanceof Start)
                 temp2 = (Start) g1;
         UserController userController = new UserController(temp.getUser(), temp2);
-        SimplePlayer s = new SimplePlayer("images/avatars/babysnake.png", 1d,1d, temp2.getX(), temp2.getY(), 0.,0.);
+        SimplePlayer s = new SimplePlayer(getGame().getPC().getUser().getAvatar(), 1d,1d, temp2.getX(), temp2.getY(), 0.,0.);
         setSimplePlayer(s);
         getSimplePlayer().setXSpeed(0);
         getSimplePlayer().setYSpeed(0);
@@ -139,6 +136,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
                 isWin(g);
                 isEnemy(g);
                 isDangerousPlatform(g);
+                isBroom(g);
                 return true;
             }
         }
@@ -190,6 +188,12 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     private void isWin(GameObject gameObject) {
         if (gameObject.getImgPath().equals("images/objects/checkpoint.png")) {
             endPhase();
+        }
+    }
+
+    private void isBroom(GameObject gameObject) {
+        if (gameObject.getImgPath().equals("images/objects/broomstick.png")) {
+            getSimplePlayer().setY(getSimplePlayer().getY() + SUPER_JUMP);
         }
     }
 

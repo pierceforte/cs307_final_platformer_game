@@ -97,7 +97,7 @@ public abstract class GameSeqController {
         gamePlayPane = new GamePlayPane(dimensions);
         hudController = new HUDController(getLevelContainer().getLevelNum(), 0, 5);
         myPane.setCenter(gamePlayPane);
-        myPane.setLeft(new SideBar(myScene, game.getPC(), hudController.getView()));
+        myPane.setLeft(new SideBar(myScene, game.getPC(), hudController.getView(), game));
     }
 
     public void setTimeline(Timeline t) {

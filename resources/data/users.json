@@ -223,13 +223,13 @@
       "year":1999,
       "day":15
     },
-    "score":3400,
+    "score":3300,
     "password":"nicole",
     "paths":{
       "1":[1.0,1.0,1.0,1.0,1.0,1.0,11.0,1.0,11.0,1.0]
     },
     "id":"nl163",
-    "avatar":"images\/avatars\/basicsnake.png",
+    "avatar":"images\/avatars\/sneaksnake.png",
     "type":1,
     "levels":{
       "1":55,
@@ -250,6 +250,24 @@
     },
     "id":"qwerwe",
     "avatar":null,
+    "type":1,
+    "levels":{
+      "1":0
+    }
+  },
+  "sd":{
+    "birthday":{
+      "month":2,
+      "year":2019,
+      "day":23
+    },
+    "score":450,
+    "password":"ds",
+    "paths":{
+      "1":[0.0,0.0]
+    },
+    "id":"sd",
+    "avatar":"images\/avatars\/crystalsnail.png",
     "type":1,
     "levels":{
       "1":0
@@ -353,13 +371,13 @@
       "year":2000,
       "day":12
     },
-    "score":0,
+    "score":300,
     "password":"phf7",
     "paths":{
       "1":[0.0,0.0]
     },
     "id":"pierce",
-    "avatar":"images\/avatars\/basicsnake.png",
+    "avatar":"images\/avatars\/gardensnake.png",
     "type":1,
     "levels":{
       "1":0

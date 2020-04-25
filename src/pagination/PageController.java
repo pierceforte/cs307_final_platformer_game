@@ -11,6 +11,7 @@ public class PageController {
     private User user;
     private Stage myStage;
     private PaneDimensions myPane;
+    private int lastLevel;
 
     public PageController(User user, Stage stage) {
         this.myStage = stage;
@@ -19,6 +20,11 @@ public class PageController {
 
     public User getUser() {
         return user;
+    }
+
+    public void setLastLevel(int lastLevel) {
+        this.lastLevel = lastLevel;
+
     }
     public Stage getMyStage() {return myStage;}
 
