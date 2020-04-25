@@ -11,16 +11,23 @@ public class types {
     JSONObject json;
     Map<String, Class> types;
 
-    public types() throws ReadSaveException, ClassNotFoundException {
+    public types() {
         JSONParser parser = new JSONParser();
         try {
             FileReader reader = new FileReader(fileLoc);
-            json =  (JSONObject) parser.parse(reader);
+            json = (JSONObject) parser.parse(reader);
         } catch (Exception e) {
-            throw new ReadSaveException("read", fileLoc);
+            ErrorLogger.log(new ReadSaveException("read", fileLoc));
         }
         for (Object key : json.keySet()) {
-            types.put((String) key, Class.forName((String) json.get(key)));
+            Class thisClass;
+            try {
+                thisClass = Class.forName((String) json.get(key));
+            } catch (ClassNotFoundException e) {
+                ErrorLogger.log(e);
+                continue;
+            }
+            types.put((String) key, thisClass);
         }
     }
 
