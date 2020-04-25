@@ -1,9 +1,8 @@
-package pagination;
-
 import data.ReadSaveException;
 import data.user.DuplicateUsernameException;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import pagination.MainMenu;
 
 import java.io.IOException;
 
