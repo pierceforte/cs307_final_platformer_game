@@ -49,6 +49,22 @@ public class LevelData {
         return new BankController(getBankItems(levelBank), moneyAvailable, getBankView(levelBank));
     }
 
+    private List<BankItem> getBankItems(JSONObject levelBank) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        JSONObject levelBankItems = (JSONObject) levelBank.get("items");
+        List<BankItem> bankItems = new ArrayList<>();
+        for (Object keyObj : levelBankItems.keySet()) {
+            Class objClass = Class.forName((String) keyObj);
+            JSONArray instances = (JSONArray) levelBankItems.get(keyObj);
+            for (Object obj : instances) {
+                JSONObject type = (JSONObject) obj;
+                GameObject gameObj = makeObject(objClass, (JSONArray) type.get("ctor"));
+                bankItems.add(new BankItem(gameObj, Math.toIntExact((Long) type.get("width")), Math.toIntExact((Long) type.get("height")),
+                        Math.toIntExact((Long) type.get("cost"))));
+            }
+        }
+        return bankItems;
+    }
+
     public PaneDimensions getDimensions(int level) throws ReadSaveException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         if (!containsKey(dimensions, Integer.toString(level))) throw new ReadSaveException("read", levelLoc);
         JSONObject levelDimensions = (JSONObject) dimensions.get(Integer.toString(level));
@@ -194,20 +210,6 @@ public class LevelData {
             if (keyObj.equals(target)) return true;
         }
         return false;
-    }
-
-    private List<BankItem> getBankItems(JSONObject levelBank) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        JSONObject levelBankItems = (JSONObject) levelBank.get("items");
-        List<BankItem> bankItems = new ArrayList<>();
-        for (Object keyObj : levelBankItems.keySet()) {
-            System.out.println((String) keyObj);
-            Class objClass = Class.forName((String) keyObj);
-            JSONObject type = (JSONObject) levelBankItems.get((String) keyObj);
-            GameObject gameObj = makeObject(objClass, (JSONArray) type.get("ctor"));
-            bankItems.add(new BankItem(gameObj, Math.toIntExact((Long) type.get("width")), Math.toIntExact((Long) type.get("height")),
-                    Math.toIntExact((Long) type.get("cost"))));
-        }
-        return bankItems;
     }
 
     private BankView getBankView(JSONObject levelBank) {
