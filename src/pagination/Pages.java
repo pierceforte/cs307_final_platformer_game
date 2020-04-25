@@ -1,4 +1,4 @@
-package menu;
+package pagination;
 
 import javafx.scene.Scene;
 

@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 public class HUDView extends ViewPane {
 
-    public static final String ID = "hudView";
+    public static final String ID = "miniScoreDisplay";
     public static final String RESOURCES_PATH = "text.HUD";
     public static final double WIDTH = BankView.DEFAULT_WIDTH;
     public static final double HEIGHT = BankView.DEFAULT_HEIGHT;

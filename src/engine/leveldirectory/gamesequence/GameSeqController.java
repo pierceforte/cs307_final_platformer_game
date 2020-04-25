@@ -12,6 +12,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import pagination.SideBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public abstract class GameSeqController {
     private Game game;
 
     private Pane gamePlayPane;
-    private Pane leftPane;
+
     private BorderPane myPane;
     private GamePlayPane gamePlayPane2;
     private HUDController hudController;
@@ -96,9 +97,8 @@ public abstract class GameSeqController {
         dimensions = getLevelContainer().getCurrentLevel().getDimensions();
         gamePlayPane = new GamePlayPane(dimensions);
         hudController = new HUDController(getLevelContainer().getLevelNum(), 0, 5);
-        //leftPane.getChildren().add(HUDView);
         myPane.setCenter(gamePlayPane);
-        myPane.setLeft(hudController.getView());
+        myPane.setLeft(new SideBar(myScene, game.getPC(), hudController.getView()));
     }
 
     public void setTimeline(Timeline t) {

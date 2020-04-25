@@ -1,19 +1,9 @@
-package menu;
+package pagination;
 
 import data.ReadSaveException;
 import engine.general.Game;
-import engine.leveldirectory.gamesequence.GameSeqBuilderController;
-import engine.leveldirectory.gamesequence.GameSeqController;
-import engine.leveldirectory.graphicsengine.GraphicsEngine;
-import engine.leveldirectory.level.LevelContainer;
-import javafx.event.EventHandler;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -66,7 +56,7 @@ public class LevelOne extends Page {
         BorderPane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
 
-        Game game = new Game(myScene, myRoot, height, width);
+        Game game = new Game(myPC, myScene, myRoot, height, width);
         myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
 
         game.startLevelPhase();

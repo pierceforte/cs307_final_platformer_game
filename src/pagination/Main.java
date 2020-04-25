@@ -1,8 +1,7 @@
-package menu;
+package pagination;
 
 import data.ReadSaveException;
 import data.user.DuplicateUsernameException;
-import data.user.User;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

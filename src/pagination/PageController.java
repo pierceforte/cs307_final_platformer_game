@@ -1,5 +1,6 @@
-package menu;
+package pagination;
 
+import builder.stage.PaneDimensions;
 import data.user.User;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -9,6 +10,7 @@ public class PageController {
 
     private User user;
     private Stage myStage;
+    private PaneDimensions myPane;
 
     public PageController(User user, Stage stage) {
         this.myStage = stage;
@@ -29,5 +31,13 @@ public class PageController {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         return primaryScreenBounds.getHeight();
     }
+    public double getTileWsize() {
+        return myPane.getTileWidth();
+    }
+    public double getTileHsize() {
+        return myPane.getTileHeight();
+    }
+
+
 
 }

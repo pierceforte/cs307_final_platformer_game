@@ -37,7 +37,7 @@ abilities--snail wizards or snake wizards depending on which clan they joined.
 
 ### Gameplay Structure
 
-First, the user is taken to the main menu, where they can login and access any of three different campaigns (allowing 
+First, the user is taken to the main pagination, where they can login and access any of three different campaigns (allowing 
 the player to both play as either snizard or snizard); from there, if this is their first time, they are taken to a 
 cutscene/transition scene explaining the premise, or they can skip to the level directory and choose a level. 
 

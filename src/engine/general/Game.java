@@ -8,6 +8,7 @@ import engine.leveldirectory.level.LevelContainer;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import pagination.PageController;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Game {
     private BorderPane root;
     private double height;
     private double width;
+    private PageController myPC;
 
     /**
      * Constructor to create a game
@@ -33,7 +35,7 @@ public class Game {
      * @param height: height of the screen
      * @param width: width of the screen
      */
-    public Game(Scene scene, BorderPane root, double height, double width) throws NoSuchMethodException, ReadSaveException,
+    public Game(PageController PC, Scene scene, BorderPane root, double height, double width) throws NoSuchMethodException, ReadSaveException,
             InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         levelContainer = new LevelContainer(this);
         levelContainer.loadLevels();
@@ -42,12 +44,16 @@ public class Game {
         this.root = root;
         this.height = height;
         this.width = width;
+        myPC = PC;
         //startLevelPhase(scene, this.root, height, width);
 
         startLevelPhase();
 
     }
 
+    public PageController getPC() {
+        return myPC;
+    }
     /**
      * Starts the builder stage of the first level
      */
