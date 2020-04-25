@@ -33,6 +33,10 @@ public class SideBar extends Pane {
         buildLightButton();
         buildBackButton();
         this.getChildren().add(displayUserStats());
+
+        ImageView img = new ImageView(pc.getUser().getAvatar());
+        img.setId("center");
+        this.getChildren().add(img);
     }
 
     private void buildLightButton() {
@@ -44,6 +48,7 @@ public class SideBar extends Pane {
     }
 
     private void switchStyle() {
+        System.out.println("click");
         myScene.getStylesheets().removeAll(this.getClass().getResource(STYLESHEET).toExternalForm());
         if (STYLESHEET.equals(Light)) { STYLESHEET = Dark; }
         else { STYLESHEET = Light; }
@@ -77,13 +82,10 @@ public class SideBar extends Pane {
         Text userDisplay = new Text(myResource.getString("User") + myU.getId());
         userDisplay.setId("userDisplay");
 
-        ImageView img = new ImageView(myU.getAvatar());
-        img.setId("center");
-
         Text scoreDisplay = new Text(myResource.getString("Score")+myU.getScore());
         scoreDisplay.setId("scoreSBDisplay");
 
-        textFlow.getChildren().addAll(userDisplay, scoreDisplay, img);
+        textFlow.getChildren().addAll(userDisplay, scoreDisplay);
 
         return textFlow;
     }

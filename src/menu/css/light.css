@@ -189,14 +189,14 @@
     -fx-font-weight: bold;
     -fx-font-size: 22pt;
     -fx-translate-x: 0;
-    -fx-translate-y: 100;
-    -fx-fill: maroon;
+    -fx-translate-y: 75;
+    -fx-fill: white;
 }
 #scoreSBDisplay{
     -fx-font-family: "Times New Roman";
     -fx-font-weight: bold;
     -fx-font-size: 15pt;
     -fx-translate-x: 0;
-    -fx-translate-y: 50;
-    -fx-fill: maroon;
+    -fx-translate-y: 150;
+    -fx-fill: white;
 }
