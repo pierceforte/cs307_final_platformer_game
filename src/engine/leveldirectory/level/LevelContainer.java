@@ -70,6 +70,10 @@ public class LevelContainer {
         return this.game;
     }
 
+    public void setCurrentLevel(int i) {
+        currentLevel = i;
+    }
+
     public int getTotalNumLevels() {
         return totalNumLevels;
     }

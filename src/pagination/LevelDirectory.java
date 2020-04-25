@@ -1,11 +1,15 @@
 package pagination;
 
+import data.ErrorLogger;
 import data.ReadSaveException;
 import data.user.DuplicateUsernameException;
 import data.user.User;
 
+import engine.general.Game;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -66,59 +70,66 @@ public class LevelDirectory extends Page {
         MenuBox myBox = new MenuBox();
         myBox.setId("MenuBox");
 
-        for (int k = 1; k <= num_Levels; k++ )  {
-            Button LevelButton = new Button(myResource.getString("L"+k));
-            int finalK = k;
-            LevelButton.setOnMouseClicked(event -> {
+        Button LevelButton = new Button(myResource.getString("StoryMode"));
+        LevelButton.setOnMouseClicked(event -> {
                 try {
-                    goLX(finalK);
+                    playSequentialGame();
                 } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
+                    ErrorLogger.log(e);
                 } catch (ReadSaveException e) {
-                    e.printStackTrace();
+                    ErrorLogger.log(e);
                 } catch (InstantiationException e) {
-                    e.printStackTrace();
+                    ErrorLogger.log(e);
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    ErrorLogger.log(e);
                 } catch (InvocationTargetException e) {
-                    e.printStackTrace();
+                    ErrorLogger.log(e);
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    ErrorLogger.log(e);
                 }
             });
-            myBox.addButtons(LevelButton);
-        }
+        myBox.addButtons(LevelButton);
 
         Button ResumeSave = new Button(myResource.getString("Resume"));
-        ResumeSave.setOnMouseClicked(event -> buildSavedGame());
+        ResumeSave.setOnMouseClicked(event -> {
+            try {
+                buildSavedGame();
+            } catch (NoSuchMethodException e) {
+                ErrorLogger.log(e);
+            } catch (ReadSaveException e) {
+                ErrorLogger.log(e);
+            } catch (InstantiationException e) {
+                ErrorLogger.log(e);
+            } catch (IllegalAccessException e) {
+                ErrorLogger.log(e);
+            } catch (InvocationTargetException e) {
+                ErrorLogger.log(e);
+            } catch (ClassNotFoundException e) {
+                ErrorLogger.log(e);
+            }
+        });
         myBox.addButtons(ResumeSave);
 
         return myBox;
     }
 
-    private void buildSavedGame() {
+    private void buildSavedGame() throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+        int levelPlay = myPC.getLastLevel();
+        if (levelPlay > 0) {
+            Game game = new Game(levelPlay, myScene, new BorderPane(), myPC, myPC.getScreenHeight(), myPC.getScreenWidth());
+            SavedGame sg = new SavedGame(myStage, Pages.PlayLevel, myPC, game);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(myResource.getString("InvalidFile"));
+            alert.setHeaderText(myResource.getString("InvalidFile"));
+            alert.setContentText(myResource.getString("Try"));
+        }
 
     }
 
-    private void goLX(int k) throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
-        if (k == 1) goL1();
-        if (k == 2) goL2();
-        if (k == 3) goL3();
-    }
-
-    private void goL1() throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
-        LevelOne levelOne = new LevelOne(myStage, Pages.PlayLevel, myPC);
-    }
-
-    private void goL2() throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
-        LevelTwo levelTwo = new LevelTwo(myStage, Pages.PlayLevel, myPC);
-    }
-
-    private void goL3() {
-
-    }
-    private void goDebug() throws IOException {
-        DebugEnvironment de = new DebugEnvironment(myStage, Pages.Debug);
+    private void playSequentialGame() throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+        PlayLevel playLevel = new PlayLevel(myStage, Pages.PlayLevel, myPC);
     }
 
 

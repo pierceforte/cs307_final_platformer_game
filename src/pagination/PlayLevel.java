@@ -1,18 +1,16 @@
 package pagination;
 
 import data.ReadSaveException;
-import data.user.DuplicateUsernameException;
 import engine.general.Game;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
-public class LevelTwo extends Page{
+public class PlayLevel extends Page {
     private Stage myStage;
     private Scene myScene;
     private PageBuilder myFactory;
@@ -28,7 +26,7 @@ public class LevelTwo extends Page{
      * @param page
      * @return Page
      */
-    public LevelTwo(Stage primaryStage, Pages page, PageController PC) throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    public PlayLevel(Stage primaryStage, Pages page, PageController PC) throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         super(primaryStage, page);
         myStage = primaryStage;
         myStage.setFullScreen(true);
@@ -58,7 +56,7 @@ public class LevelTwo extends Page{
         BorderPane myRoot = init_Root(height, width);
         myScene = new Scene(myRoot);
 
-        Game game = new Game(myScene, myRoot, myPC, height, width);
+        Game game = new Game(0, myScene, myRoot, myPC, height, width);
         myScene.getStylesheets().addAll(this.getClass().getResource(STYLESHEET).toExternalForm());
 
         game.startLevelPhase();

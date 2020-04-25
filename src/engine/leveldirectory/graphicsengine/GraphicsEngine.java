@@ -6,7 +6,7 @@ import engine.leveldirectory.hud.HUDController;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import player.loadandplay.AbstractPlayer;
+import pagination.loadandplay.AbstractPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
