@@ -1,6 +1,10 @@
 package engine.leveldirectory.gamesequence;
 
+<<<<<<< Updated upstream
 import engine.UserController;
+=======
+import data.ReadSaveException;
+>>>>>>> Stashed changes
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Enemy;
 import engine.gameobject.opponent.Opponent;
@@ -18,9 +22,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
+<<<<<<< Updated upstream
 import pagination.PageController;
 
 import java.sql.SQLOutput;
+=======
+import pagination.WinView;
+>>>>>>> Stashed changes
 
 import static javafx.application.Platform.exit;
 
@@ -69,17 +77,21 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     public void setNextScene() {
         super.setNextPlayScene(()->{
             pause();
-            getRoot().getChildren().clear();
-            getLevelContainer().incrementLevel();
-            if (getLevelContainer().getLevelNum() == getLevelContainer().getTotalNumLevels()) {
-                System.out.println("Congrats you won!");
-                System.exit(0);
+            try {
+                WinView winView = new WinView(getGame().getPC(), (getLevelContainer().getLevelNum() == getLevelContainer().getTotalNumLevels()), this);
+                getRoot().getChildren().add(winView);
+            } catch (ReadSaveException e) {
             }
-            //myPane.getChildren().removeAll(leftPane, gamePlayPane);
-            GameSeqBuilderController builderTemp = new GameSeqBuilderController(getLevelContainer(),
-                    getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
-            builderTemp.play();
         });
+    }
+
+    public void incrementLevel() {
+        getRoot().getChildren().clear();
+        getLevelContainer().incrementLevel();
+        //myPane.getChildren().removeAll(leftPane, gamePlayPane);
+        GameSeqBuilderController builderTemp = new GameSeqBuilderController(getLevelContainer(),
+                getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
+        builderTemp.play();
     }
 
     private void setupTimeline() {

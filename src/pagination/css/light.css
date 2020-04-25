@@ -13,7 +13,7 @@
     -fx-background-position: center, center;
 }
 #Welcome{
-    -fx-font-fill: greenyellow;
+    -fx-fill: greenyellow;
     -fx-font-family: "Times New Roman";
     -fx-font-size: 32pt;
     -fx-translate-x: 300;
@@ -207,3 +207,20 @@
       -fx-pref-height: 260;
       -fx-background-position: center, center;
   }
+#Results{
+    -fx-translate-y: 25;
+    -fx-translate-x: 25;
+    -fx-pref-width: 1300;
+    -fx-pref-height: 1300;
+    -fx-background-color: black;
+    -fx-opacity: .9;
+    -fx-text-fill: white;
+}
+#centeredText{
+    -fx-font-family: "Times New Roman";
+    -fx-font-weight: bold;
+    -fx-font-size: 22pt;
+    -fx-translate-x: 600;
+    -fx-translate-y: 700;
+    -fx-fill: goldenrod;
+}
