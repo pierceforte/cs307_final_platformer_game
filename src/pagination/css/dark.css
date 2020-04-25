@@ -5,7 +5,7 @@
     -fx-font-size: 12pt;
 }
 #Welcome{
-    -fx-font-fill: greenyellow;
+    -fx-fill: greenyellow;
     -fx-font-family: "Times New Roman";
     -fx-font-size: 32pt;
     -fx-translate-x: 300;
@@ -23,7 +23,7 @@
     -fx-font-family: "Times New Roman";
     -fx-font-size: 60pt;
     -fx-translate-y: 250;
-    -fx-translate-x: 500;
+    -fx-translate-x: 300;
     -fx-text-fill: white;
 }
 #choiceBox{

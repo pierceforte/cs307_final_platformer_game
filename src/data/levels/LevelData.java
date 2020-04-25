@@ -4,6 +4,7 @@ import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.view.BankView;
 import builder.stage.PaneDimensions;
+import data.ErrorLogger;
 import data.PrettyPrint;
 import data.ReadSaveException;
 import engine.gameobject.GameObject;
@@ -26,19 +27,20 @@ public class LevelData {
     private static final String bankLoc = "resources/data/banks.json";
     private static final String dimensionsLoc = "resources/data/dimensions.json";
 
-    public LevelData() throws ReadSaveException {
+    public LevelData() {
         levels = jsonMaker(levelLoc);
         banks = jsonMaker(bankLoc);
         dimensions = jsonMaker(dimensionsLoc);
     }
 
-    private JSONObject jsonMaker(String fileLoc) throws ReadSaveException {
+    private JSONObject jsonMaker(String fileLoc) {
         JSONParser parser = new JSONParser();
         try {
             FileReader reader = new FileReader(fileLoc);
             return (JSONObject) parser.parse(reader);
         } catch (Exception e) {
-            throw new ReadSaveException("read", fileLoc);
+            ErrorLogger.log(e);
+            return new JSONObject();
         }
     }
 
@@ -56,9 +58,11 @@ public class LevelData {
         return bankItems;
     }
 
-
-    public PaneDimensions getDimensions(int level) throws ReadSaveException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        if (!containsKey(dimensions, Integer.toString(level))) throw new ReadSaveException("read", levelLoc);
+    public PaneDimensions getDimensions(int level) {
+        if (!containsKey(dimensions, Integer.toString(level))) {
+            ErrorLogger.log(new ReadSaveException("read", levelLoc));
+            return new PaneDimensions(1,1,1,1);
+        }
         JSONObject levelDimensions = (JSONObject) dimensions.get(Integer.toString(level));
         String [] params = new String [] {"minX", "maxX", "minY", "maxY"};
         Class [] classes = new Class [params.length];
@@ -67,7 +71,13 @@ public class LevelData {
             paramVals[index] = Math.toIntExact((Long) levelDimensions.get(params[index]));
             classes[index] = java.lang.Integer.class;
         }
-        PaneDimensions dimensionsObject = PaneDimensions.class.getDeclaredConstructor(classes).newInstance(paramVals);
+        PaneDimensions dimensionsObject;
+        try {
+            dimensionsObject = PaneDimensions.class.getDeclaredConstructor(classes).newInstance(paramVals);
+        } catch (Exception e) {
+            ErrorLogger.log(e);
+            dimensionsObject = new PaneDimensions(1,1,1,1);
+        }
         return dimensionsObject;
     }
 
@@ -79,15 +89,15 @@ public class LevelData {
         return count;
     }
 
-    public void saveTemp(List<GameObject> list) throws ReadSaveException {
+    public void saveTemp(List<GameObject> list) {
         saveHelper(list, "temp");
     }
 
-    public void saveLevel(List<GameObject> list, int level) throws ReadSaveException {
+    public void saveLevel(List<GameObject> list, int level) {
         saveHelper(list, Integer.toString(level));
     }
 
-    private void saveHelper(List<GameObject> list, String target) throws ReadSaveException {
+    private void saveHelper(List<GameObject> list, String target) {
         if (!levels.containsKey(target)) levels.put(target, new JSONObject());
         JSONObject temp = (JSONObject) levels.get(target);
         temp.clear();
@@ -97,7 +107,7 @@ public class LevelData {
         write(levelLoc);
     }
 
-    private void addObj(GameObject object, JSONObject temp) throws ReadSaveException {
+    private void addObj(GameObject object, JSONObject temp) {
         String objClass = classString(object);
         if (!containsKey(temp, objClass)) {
             temp.put(objClass, new JSONArray());
@@ -125,24 +135,36 @@ public class LevelData {
         return count;
     }
 
-    public List<GameObject> getTempSave() throws ReadSaveException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public List<GameObject> getTempSave() {
         return loadHelper("temp");
     }
 
-    public List<GameObject> getSavedLevel(int level) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<GameObject> getSavedLevel(int level) {
         return loadHelper(Integer.toString(level));
     }
 
-    private List<GameObject> loadHelper(String target) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private List<GameObject> loadHelper(String target) {
         List<GameObject> levelObjects = new ArrayList<>();
-        if (!levels.containsKey(target)) throw new ReadSaveException("read", levelLoc);
+        if (!levels.containsKey(target)) {
+            ErrorLogger.log(new ReadSaveException("read", levelLoc));
+        }
         JSONObject temp = (JSONObject) levels.get(target);
         for (Object key : temp.keySet()) {
             String className = (String) key;
-            Class objClass = Class.forName(className);
+            Class objClass;
+            try {
+                objClass = Class.forName(className);
+            } catch (ClassNotFoundException e) {
+                ErrorLogger.log(e);
+                continue;
+            }
             JSONArray listOfType = (JSONArray) temp.get(className);
             for (Object obj : listOfType) {
-                levelObjects.add(makeObject(objClass, (JSONArray) obj));
+                try {
+                    levelObjects.add(makeObject(objClass, (JSONArray) obj));
+                } catch (Exception e) {
+                    ErrorLogger.log(e);
+                }
             }
         }
         return levelObjects;
@@ -187,13 +209,13 @@ public class LevelData {
      * Makes the users object into a string and then saves the string
      * @throws ReadSaveException - thrown if there is a problem writing to the user file
      */
-    private void write(String fileLoc) throws ReadSaveException {
+    private void write(String fileLoc) {
         try (FileWriter file = new FileWriter(fileLoc)) {
             PrettyPrint pretty = new PrettyPrint(levels.toString());
             file.write(pretty.getString());
             file.flush();
         } catch (IOException e) {
-            throw new ReadSaveException("save", fileLoc);
+            ErrorLogger.log(e);
         }
     }
 

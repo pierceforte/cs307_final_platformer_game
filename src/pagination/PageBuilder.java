@@ -1,6 +1,7 @@
 package pagination;
 
 import builder.stage.PaneDimensions;
+import data.ErrorLogger;
 import data.user.User;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
@@ -95,6 +96,7 @@ public class PageBuilder {
                     try {
                         User user = new User(title.getText(), saveloc.getText());
                         PageController pageControl = new PageController(user, myStage);
+                        ErrorLogger.clear();
                         LevelDirectory ls = new LevelDirectory(myStage, Pages.LevelDirectory, pageControl);
                     } catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
