@@ -212,6 +212,14 @@
        -fx-translate-x: 0;
        -fx-alignment: center;
     }
+  #centeredText{
+      -fx-font-family: "Times New Roman";
+      -fx-font-weight: bold;
+      -fx-font-size: 22pt;
+      -fx-translate-x: 600;
+      -fx-translate-y: 700;
+      -fx-fill: goldenrod;
+  }
 #userDisplay{
     -fx-font-family: "Times New Roman";
     -fx-font-weight: bold;
@@ -234,4 +242,7 @@
        -fx-pref-width: 200;
        -fx-pref-height: 260;
        -fx-background-position: center, center;
-   }
+   }#next{
+        -fx-translate-x: 600;
+        -fx-translate-y: 600;
+    }
