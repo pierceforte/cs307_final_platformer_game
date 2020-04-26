@@ -35,14 +35,14 @@ Hours Spent: 100+
 
 Main class: 
 - The main class can be found in src/Main.java
-    - Note that upon running the application, one should opt to create a New Game and then create an account.
+    - Upon running the application, one should opt to create a New Game and then create an account. Upon successive runs, the user can simply choose to continue and then log into their account.
     - They will then be entered into a builder stage, where they can purchase and place items to help them beat the level.
     - They can then choose to play the level.
 
 Data files needed: 
 - All of the files in the resources directory are necessary for the game to run properly. These files include the following:
     - The data directory includes files that contain the information to build each level. There is also an error log in this directory.
-    - The images folder includes all of the art needed for the game, including art used for background and for game elements.
+    - The images directory includes all of the art needed for the game, including art used for game elements and the background.
     - The text directory includes all properties files, which are used to store all user-read text such that it can be modified easily.
 
 Features implemented:
@@ -60,24 +60,24 @@ Features implemented:
 - Game Area Editor
     - The builder stage serves as a game area editor where players can add to existing levels or create their own.
 - Player Profiles
-    - Players have the ability to create an account or sign in. These accounts include a player name, password, birthday, and avatar.
+    - Players have the ability to create an account or sign in. These accounts include a player name, password, birthday, avatar, and score.
     
 ### Notes/Assumptions
 
 Assumptions or Simplifications: 
-    - By going into great detail for our choice of game, we made the assumption that it would be okay focus more on our game as opposed to creating additional different games.
+   - By going into great detail for our choice of game, we made the assumption that it would be okay focus more on our game as opposed to creating additional different games.
 
 Interesting data files: 
-    - Our JSON files were rather challenging to design, but because we used reflection to support them, they are very extensible and flexible. Each is written in JSON and contains a set of information for each level, which includes constructors and variable information.
+   - Our data files were rather challenging to design, but because we used reflection to support them, they are very extensible and flexible. Each is written in JSON and contains a set of information for each level, which includes constructors and variable information.
 
 Known Bugs: 
-    - There are a number of bugs that exist primarily within the game play.
-        - After completing the first level, the game crashes.
-        - Game object interactions are not very clean and can be unexpected at times.
-        - After a player loses all of its lives, the game ends, as opposed to presenting a menu.
+   - There are a number of bugs that exist primarily within the game play.
+       - After completing the first level, the game crashes.
+       - Game object interactions are not very clean and can be unexpected at times.
+       - After a player loses all of its lives, the game ends, as opposed to presenting a menu.
 
 Extra credit:
-    - While we did not add a significant number of additional features, for the features we did add, we went into *great* depth. Our game features a lot of incredible, custom-made art, a very flexible level-designer, and thorough input/output procedures using reflection.
+   - While we did not add a significant number of additional features, for the features we did add, we went into *great* depth. Our game features a lot of incredible, custom-made art, a very flexible level-designer, and thorough input/output procedures using reflection.
 
 
 ### Impressions  
