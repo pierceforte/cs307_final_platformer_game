@@ -30,6 +30,10 @@ public abstract class DraggableTilePane extends TilePane {
 
     public abstract void update();
 
+    public boolean isDraggable() {
+        return isDraggable;
+    }
+
     protected void enableDrag() {
         if (!isDraggable) {
             nodeDragger.enableDrag(this);

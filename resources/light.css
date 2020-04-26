@@ -97,13 +97,19 @@
     -fx-font-family: "Times New Roman";
     -fx-font-size: 15pt;
     -fx-translate-x: 60;
+    -fx-translate-y: 45;
+}
+#itemQuantity{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 15pt;
+    -fx-translate-x: 60;
     -fx-translate-y: 180;
 }
 #moneyAvail{
     -fx-font-family: "Times New Roman";
     -fx-font-size: 12pt;
     -fx-translate-x: 20;
-    -fx-translate-y: 30;
+    -fx-translate-y: 25;
     -fx-text-alignment: center;
 }
 #itemIcon{

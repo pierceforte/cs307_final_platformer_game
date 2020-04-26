@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +31,7 @@ public class BankTest extends DukeApplicationTest {
         BankItem two = new BankItem(new Raccoon(raccoon), 30, 30, 20);
         BankItem three = new BankItem(new Raccoon(raccoon), 30, 30, 40000);
         bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
-        bankController = new BankController(List.of(one, two, three), 10000, bankView);
+        bankController = new BankController(new LinkedHashMap<>() {{put(one, 1);put(two, 1);put(three,1);}}, 10000, bankView);
         bankModel = bankController.getBankModel();
         javafxRun(() -> {
             Scene scene = new Scene(bankView);
@@ -123,7 +124,7 @@ public class BankTest extends DukeApplicationTest {
         Raccoon raccoon = new Raccoon("images/avatars/raccoon.png",1d,1d, 1d, 1d, 10d);
         BankItem one = new BankItem(new Raccoon(raccoon),30, 30, 10);
         bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
-        bankController = new BankController(List.of(one), 10000, bankView);
+        bankController = new BankController(new LinkedHashMap<>() {{put(one, 1);}}, 10000, bankView);
         bankController.update();
         // purchase all items
         for (int i = 0; i < bankModel.size(); i++) {

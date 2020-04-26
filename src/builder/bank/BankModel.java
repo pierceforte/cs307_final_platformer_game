@@ -3,7 +3,9 @@ package builder.bank;
 import builder.NotEnoughMoneyException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -15,11 +17,11 @@ public class BankModel {
 
     private int curIndex;
     private int moneyAvailable;
-    private List<BankItem> bankItems;
+    private LinkedHashMap<BankItem, Integer> bankItems;
     private BankItem purchasedItem;
 
-    public BankModel(List<BankItem> bankItems, int moneyAvailable) {
-        this.bankItems = new ArrayList<>(bankItems);
+    public BankModel(LinkedHashMap<BankItem, Integer> bankItems, int moneyAvailable) {
+        this.bankItems = new LinkedHashMap<>(bankItems);
         this.moneyAvailable = moneyAvailable;
     }
 
@@ -44,12 +46,16 @@ public class BankModel {
     }
 
     public void removeBankItem(BankItem bankItem) {
-        bankItems.remove(bankItem);
-        curIndex = 0;
+        bankItems.put(bankItem, bankItems.get(bankItem)-1);
+        if (bankItems.get(bankItem) == 0) {
+            bankItems.remove(bankItem);
+            curIndex = 0;
+        }
     }
 
     public void addBankItem(BankItem bankItem) {
-        bankItems.add(bankItem);
+        bankItems.putIfAbsent(bankItem, 0);
+        bankItems.put(bankItem, bankItems.get(bankItem)+1);
     }
 
     public void addToMoneyAvailable(int money) {
@@ -81,6 +87,16 @@ public class BankModel {
     }
 
     public BankItem getCurItem() {
-        return bankItems.get(curIndex);
+        List<BankItem> bankItemList = new ArrayList<>(bankItems.keySet());
+        BankItem curItem = bankItemList.get(curIndex);
+        return curItem;
+    }
+
+    public int getCurItemQuantity() {
+        return bankItems.get(getCurItem());
+    }
+
+    public LinkedHashMap<BankItem, Integer> getBankItems() {
+        return bankItems;
     }
 }

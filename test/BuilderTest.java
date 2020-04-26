@@ -7,9 +7,12 @@ import builder.stage.BuilderAction;
 import builder.stage.BuilderObjectView;
 import builder.stage.BuilderPane;
 import builder.stage.PaneDimensions;
+import com.google.firebase.database.core.utilities.Tree;
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Mongoose;
 import engine.gameobject.opponent.Raccoon;
+import engine.view.GameObjectView;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,6 +30,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.concurrent.TimeUnit;
 
 public class BuilderTest extends DukeApplicationTest {
 
@@ -56,7 +61,7 @@ public class BuilderTest extends DukeApplicationTest {
         root = new BorderPane();
         leftPane = new Pane();
         bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
-        bankController = new BankController(List.of(one), bankMoneyAvailable, bankView);
+        bankController = new BankController(new LinkedHashMap<>() {{this.put(one, 1);}}, bankMoneyAvailable, bankView);
         bankModel = bankController.getBankModel();
         builderPane = new BuilderPane(new PaneDimensions(minX, maxX, minY, maxY), bankController, new ArrayList<>());
         javafxRun(() -> {
@@ -242,11 +247,6 @@ public class BuilderTest extends DukeApplicationTest {
                 gameObject.getY().intValue());
     }
 
-    /*
-    *
-    * TEST FOR BUG – EXPECTED TO FAIL
-    *
-    */
     @Test
     public void testDraggedItemGoesOnTop() {
         createBankWithDifferentItems();
@@ -272,6 +272,17 @@ public class BuilderTest extends DukeApplicationTest {
         assertTrue(mongoosePriority < raccoonPriority);
     }
 
+    /*
+    *
+    * THIS TEST SHOULD FAIL.
+    *
+    */
+    @Test
+    public void unplacedItemMakesGridUndraggable() {
+        purchaseFirstItemFromBank();
+        assertFalse(builderPane.isDraggable());
+
+    }
 
     private void placeFirstItemFromBank() {
         purchaseFirstItemFromBank();
@@ -314,7 +325,7 @@ public class BuilderTest extends DukeApplicationTest {
         Mongoose mongoose = new Mongoose(mongoosePath + imgExtension,30d,30d, -1d, -1d, 1d);
         BankItem two = new BankItem(new Mongoose(mongoose), bankItemSize, bankItemSize, bankItemCost);
         bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
-        bankController = new BankController(List.of(one, two), bankMoneyAvailable, bankView);
+        bankController = new BankController(new LinkedHashMap<>() {{put(one, 1);put(two, 1);}}, bankMoneyAvailable, bankView);
         builderPane = new BuilderPane(new PaneDimensions(minX, maxX, minY, maxY), bankController, new ArrayList<>());
     }
 

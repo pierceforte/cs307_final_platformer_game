@@ -1,12 +1,9 @@
 package engine.leveldirectory.level;
 
 import builder.bank.BankController;
-import builder.bank.BankItem;
 import builder.stage.PaneDimensions;
 import engine.gameobject.GameObject;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -21,12 +18,12 @@ public class Level implements LevelInterface {
      * holds all the objects in the level
      */
     private List<GameObject> gameObjects;
-    private List<BankItem> bankItems;
+    private BankController bankController;
     private PaneDimensions dimensions;
 
-    public Level(List<GameObject> gameObjects, List<BankItem> bankItems, PaneDimensions dimensions) {
+    public Level(List<GameObject> gameObjects, BankController bankController, PaneDimensions dimensions) {
         this.gameObjects = gameObjects;
-        this.bankItems = bankItems;
+        this.bankController = bankController;
         this.dimensions = dimensions;
     }
 
@@ -36,8 +33,8 @@ public class Level implements LevelInterface {
     }
 
     @Override
-    public List<BankItem> getBankItems() {
-        return bankItems;
+    public BankController getBankController() {
+        return bankController;
     }
 
     @Override
