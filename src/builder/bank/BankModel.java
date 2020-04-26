@@ -89,7 +89,7 @@ public class BankModel {
     public BankItem getCurItem() {
         List<BankItem> bankItemList = new ArrayList<>(bankItems.keySet());
         BankItem curItem = bankItemList.get(curIndex);
-        return curItem;
+        return new BankItem(curItem);
     }
 
     public int getCurItemQuantity() {

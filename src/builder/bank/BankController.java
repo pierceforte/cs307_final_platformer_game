@@ -32,6 +32,12 @@ public class BankController {
         hasPurchasedItem = false;
     }
 
+    public BankController(BankController bankController) {
+        this(new LinkedHashMap<> (bankController.getBankModel().getBankItems()),
+                bankController.getBankModel().getMoneyAvailable(),
+                new BankView(bankController.getBankView().getWidth(), bankController.getBankView().getHeight()));
+    }
+
     /**
      * Pass information from frontend to backend and vice versa on step.
      */

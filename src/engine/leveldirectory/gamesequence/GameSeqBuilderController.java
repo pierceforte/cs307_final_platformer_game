@@ -69,7 +69,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
         List<GameObject> gameObjects = getLevelGameObjects(getLevelContainer().getLevelNum());
         List<GameObjectView> gameObjectViews = createGameObjectViews(gameObjects);
         PaneDimensions dimensions = getLevelContainer().getCurrentLevel().getDimensions();
-        bankController = getLevelContainer().getCurrentLevel().getBankController();
+        bankController = new BankController(getLevelContainer().getCurrentLevel().getBankController());
         builderPane = new BuilderPane(dimensions, bankController, gameObjectViews);
         setUpView();
     }
