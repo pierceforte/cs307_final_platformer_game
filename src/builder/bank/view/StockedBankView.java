@@ -13,6 +13,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
+ * This class is a Pane that handles all of the frontend elements for the bank feature of the builder stage, along with the
+ * necessary methods to update these frontend elements, when the bank is STOCKED (has items available for purchase).
+ *
+ * This class is a child of the ViewPane class, which provides a method to all of its subclasses that makes it very easy to
+ * create text displays along with an ID for testing.
  *
  * @author Pierce Forte
  */
@@ -31,6 +36,12 @@ public class StockedBankView extends ViewPane {
     private boolean hasPurchaseRequest;
     private ResourceBundle resources;
 
+    /**
+     * The constructor to create a StockedBankView.
+     * @param width the width of the StockedBankView
+     * @param height the height of the StockedBankView
+     * @param resources the resources bundle used for the frontend elements of this Pane
+     */
     public StockedBankView(double width, double height, ResourceBundle resources) {
         super(width, height);
         this.resources = resources;
@@ -39,6 +50,10 @@ public class StockedBankView extends ViewPane {
         setId(ID);
     }
 
+    /**
+     * Updates the bank's frontend elements on each step when the bank is stocked.
+     * @param bank The backend BankModel associated with this frontend StockedBankView
+     */
     public void update(BankModel bank) {
         BankItem item = bank.getCurItem();
         setMoneyAvailableDisplay(bank.getMoneyAvailable());
@@ -51,10 +66,19 @@ public class StockedBankView extends ViewPane {
         addDisplays();
     }
 
+    /**
+     * Returns whether or not the user has performed on action on the UI that signals to the
+     * backend that an item has been requested.
+     * @return whether or not an item has been requested
+     */
     public boolean hasPurchaseRequest() {
         return hasPurchaseRequest;
     }
 
+    /**
+     * Used to remove the purchase request from the StockedBankView, which likely occurs after a purchase
+     * is either approved (and handled) or rejected.
+     */
     public void removePurchaseRequest() {
         hasPurchaseRequest = false;
     }
