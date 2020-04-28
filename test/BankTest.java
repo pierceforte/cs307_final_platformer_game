@@ -18,6 +18,11 @@ import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class is used to test the bank feature of the builder stage.
+ *
+ * @author Pierce Forte
+ */
 public class BankTest extends DukeApplicationTest {
 
     private BankController bankController;

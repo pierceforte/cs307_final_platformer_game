@@ -1,40 +1,41 @@
 package engine.leveldirectory.level;
 
 import builder.bank.BankController;
-import builder.bank.BankItem;
-import builder.stage.PaneDimensions;
+import builder.stage.TilePaneDimensions;
 import engine.gameobject.GameObject;
 
 import java.util.Collection;
 
 /**
- * general interface for all levels in the game
+ * This is a general interface that requires the classes that implement it to define how to access and return
+ * necessary game running elements.
  *
- * @author Jerry Huang, Pierce Forte
+ * @author Jerry Huang
+ * @author Pierce Forte
  */
 public interface LevelInterface {
 
     /**
-     * used for saving & transferring data
+     * Used for saving & transferring data
      * @return all objects in a level
      */
     Collection<GameObject> getGameObjects();
 
     /**
-     * used for retrieving builder stage bank controller
+     * Used for retrieving builder stage bank controller
      * @return bank controller
      */
     BankController getBankController();
 
     /**
-     * used for retrieving a level's dimensions
+     * Used for retrieving a level's dimensions
      * @return dimensions
      */
-    PaneDimensions getDimensions();
+    TilePaneDimensions getDimensions();
 
     /**
-     * adds a GameObject to the level object
-     * @param g: GameObject to be added
+     * Adds a GameObject to the level object
+     * @param g GameObject to be added
      */
     void addGameObject(GameObject g);
 }

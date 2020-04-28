@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class SimplePlayer extends MovingGameObject implements Player{
     public static final Double DEFAULT_X_SPEED = 2d; // for key press
     public static final Double DEFAULT_Y_SPEED = -2d; // for jumping

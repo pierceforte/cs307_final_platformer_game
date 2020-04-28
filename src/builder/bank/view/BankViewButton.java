@@ -20,7 +20,7 @@ public enum BankViewButton {
 
     /**
      * Used to access the associated image path for the button's image.
-     * @return The image path for the button
+     * @return the image path for the button
      */
     public String getImgPath() {
         switch(key) {
@@ -34,7 +34,7 @@ public enum BankViewButton {
 
     /**
      * Used to access the associated id for the button, typically used for testing.
-     * @return The id for the button
+     * @return the id for the button
      */
     public String getId() {
         switch(key) {
@@ -49,7 +49,8 @@ public enum BankViewButton {
     /**
      * Used to access the associated action upon fire for the button, typically used as part of the "setOnAction"
      * or "setOnMouseClicked" method for buttons.
-     * @return The action upon fire for the button, in the form of a Runnable
+     * @param bankModel the associated bank model that must handle actions to the button
+     * @return the action upon fire for the button, in the form of a Runnable
      */
     public Runnable getButtonAction(BankModel bankModel) {
         switch(key) {

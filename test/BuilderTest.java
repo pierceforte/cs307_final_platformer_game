@@ -3,10 +3,7 @@ import builder.bank.BankItem;
 import builder.bank.BankModel;
 import builder.bank.view.BankView;
 import builder.bank.view.StockedBankView;
-import builder.stage.BuilderAction;
-import builder.stage.BuilderObjectView;
-import builder.stage.BuilderPane;
-import builder.stage.PaneDimensions;
+import builder.stage.*;
 import com.google.firebase.database.core.utilities.Tree;
 import engine.gameobject.GameObject;
 import engine.gameobject.opponent.Mongoose;
@@ -33,6 +30,11 @@ import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class is used to test the builder stage.
+ *
+ * @author Pierce Forte
+ */
 public class BuilderTest extends DukeApplicationTest {
 
     private static final int bankItemSize = 30;
@@ -63,7 +65,7 @@ public class BuilderTest extends DukeApplicationTest {
         bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
         bankController = new BankController(new LinkedHashMap<>() {{this.put(one, 1);}}, bankMoneyAvailable, bankView);
         bankModel = bankController.getBankModel();
-        builderPane = new BuilderPane(new PaneDimensions(minX, maxX, minY, maxY), bankController, new ArrayList<>());
+        builderPane = new BuilderPane(new TilePaneDimensions(minX, maxX, minY, maxY), bankController, new ArrayList<>());
         javafxRun(() -> {
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -326,7 +328,7 @@ public class BuilderTest extends DukeApplicationTest {
         BankItem two = new BankItem(new Mongoose(mongoose), bankItemSize, bankItemSize, bankItemCost);
         bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
         bankController = new BankController(new LinkedHashMap<>() {{put(one, 1);put(two, 1);}}, bankMoneyAvailable, bankView);
-        builderPane = new BuilderPane(new PaneDimensions(minX, maxX, minY, maxY), bankController, new ArrayList<>());
+        builderPane = new BuilderPane(new TilePaneDimensions(minX, maxX, minY, maxY), bankController, new ArrayList<>());
     }
 
     private int getNodePriorityInPane(Node node, Pane pane) {

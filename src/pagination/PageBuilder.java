@@ -1,6 +1,7 @@
 package pagination;
 
 import builder.stage.PaneDimensions;
+import builder.stage.TilePaneDimensions;
 import data.ErrorLogger;
 import data.user.User;
 import javafx.event.EventHandler;
@@ -53,10 +54,10 @@ public class PageBuilder {
     }
 
     public double getTileWsize() {
-        return getScreenWidth()/ PaneDimensions.TILE_WIDTH_FACTOR;
+        return getScreenWidth()/ TilePaneDimensions.TILE_WIDTH_FACTOR;
     }
     public double getTileHsize() {
-        return getScreenHeight()/PaneDimensions.TILE_HEIGHT_FACTOR;
+        return getScreenHeight()/TilePaneDimensions.TILE_HEIGHT_FACTOR;
     }
 
     public void addMainMenuButtons(Page.MenuBox myBox) {

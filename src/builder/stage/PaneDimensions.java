@@ -7,13 +7,16 @@ import javafx.stage.Screen;
 import java.util.List;
 
 /**
+ * This class stores and provides access to the dimensions for any Pane. This class can be used to specify the size
+ * of any Pane as well as maintain the size of the screen that the the Pane is presented on.
+ *
+ * This class is dependent on the screen on which it is portrayed, for it must access the sizing information of this screen.
+ *
+ * This class is typically used by Panes that must maintain a certain boundary for their nodes.
  *
  * @author Pierce Forte
  */
 public class PaneDimensions {
-
-    public static final double TILE_WIDTH_FACTOR = 35;
-    public static final double TILE_HEIGHT_FACTOR = 25;
 
     private int minX;
     private int maxX;
@@ -21,57 +24,82 @@ public class PaneDimensions {
     private int maxY;
     private double screenWidth;
     private double screenHeight;
-    private double tileWidth;
-    private double tileHeight;
 
+    /**
+     * The constructor used to create a PaneDimensions object.
+     * @param minX the minimum x position of the Pane
+     * @param maxX the maximum x position of the Pane
+     * @param minY the minimum y position of the Pane
+     * @param maxY the maximum y position of the Pane
+     */
     public PaneDimensions(Integer minX, Integer maxX, Integer minY, Integer maxY) {
         this.minX = minX;
         this.maxX = maxX;
         this.minY = minY;
         this.maxY = maxY;
         setScreenSize();
-        setTileSize();
     }
 
+    /**
+     * The constructor used to create a PaneDimensions object based on a list of GameObjects.
+     * This list of GameObjects, which is typically used to populate a level for a game, can be used
+     * to determine the boundaries for a Pane based on the positioning of these GameObjects.
+     * @param gameObjects a list of GameObjects
+     */
     public PaneDimensions(List<GameObject> gameObjects) {
         this.minX = getMinXInLevel(gameObjects);
         this.maxX = getMaxXInLevel(gameObjects);
         this.minY = getMinYInLevel(gameObjects);
         this.maxY = getMaxYInLevel(gameObjects);
         setScreenSize();
-        setTileSize();
     }
 
+    /**
+     * Get the minimum x position for the Pane.
+     * @return the minimum x position for the Pane
+     */
     public int getMinX() {
         return minX;
     }
 
+    /**
+     * Get the maximum x position for the Pane.
+     * @return the maximum x position for the Pane
+     */
     public int getMaxX() {
         return maxX;
     }
 
+    /**
+     * Get the minimum y position for the Pane.
+     * @return the minimum y position for the Pane
+     */
     public int getMinY() {
         return minY;
     }
 
+    /**
+     * Get the maximum y position for the Pane.
+     * @return the maximum y position for the Pane
+     */
     public int getMaxY() {
         return maxY;
     }
 
+    /**
+     * Get the width of the screen within which the Pane is located.
+     * @return the screen width
+     */
     public double getScreenWidth() {
         return screenWidth;
     }
 
+    /**
+     * Get the height of the screen within which the Pane is located.
+     * @return the screen height
+     */
     public double getScreenHeight() {
         return screenHeight;
-    }
-
-    public double getTileWidth() {
-        return tileWidth;
-    }
-
-    public double getTileHeight() {
-        return tileHeight;
     }
 
     private int getMinXInLevel(List<GameObject> gameObjects) {
@@ -110,10 +138,5 @@ public class PaneDimensions {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         screenWidth = primaryScreenBounds.getWidth();
         screenHeight = primaryScreenBounds.getHeight();
-    }
-
-    private void setTileSize() {
-        tileWidth = screenWidth/TILE_WIDTH_FACTOR;
-        tileHeight = screenHeight/TILE_HEIGHT_FACTOR;
     }
 }

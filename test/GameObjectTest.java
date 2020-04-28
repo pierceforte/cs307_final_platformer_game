@@ -9,6 +9,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class is used to test the backend of game elements.
+ *
+ * @author Pierce Forte
+ */
 public class GameObjectTest extends DukeApplicationTest {
 
     private Scene scene;

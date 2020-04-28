@@ -1,7 +1,7 @@
 package engine.leveldirectory.level;
 
 import builder.bank.BankController;
-import builder.stage.PaneDimensions;
+import builder.stage.TilePaneDimensions;
 import engine.gameobject.GameObject;
 
 import java.util.List;
@@ -19,9 +19,9 @@ public class Level implements LevelInterface {
      */
     private List<GameObject> gameObjects;
     private BankController bankController;
-    private PaneDimensions dimensions;
+    private TilePaneDimensions dimensions;
 
-    public Level(List<GameObject> gameObjects, BankController bankController, PaneDimensions dimensions) {
+    public Level(List<GameObject> gameObjects, BankController bankController, TilePaneDimensions dimensions) {
         this.gameObjects = gameObjects;
         this.bankController = bankController;
         this.dimensions = dimensions;
@@ -38,7 +38,7 @@ public class Level implements LevelInterface {
     }
 
     @Override
-    public PaneDimensions getDimensions() {
+    public TilePaneDimensions getDimensions() {
         return dimensions;
     }
 

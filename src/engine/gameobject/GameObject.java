@@ -3,6 +3,18 @@ package engine.gameobject;
 import java.util.List;
 import engine.general.Game;
 
+/**
+ * This is an abstract class that is used for the backend of all movable objects used in the game.
+ *
+ * This class has common methods like setting directional speed and position.
+ *
+ * The purpose of this class is to reduce duplicate code in all its subclasses and increase flexibility
+ * for creating objects that move.
+ *
+ * @author Pierce Forte
+ * @author Benjamin Burnnet
+ * @author Jerry Huang
+ */
 public abstract class GameObject {
 
     private Game game;
@@ -21,6 +33,14 @@ public abstract class GameObject {
     private double xSpeed;
     private double ySpeed;
 
+    /**
+     * The constructor to create a GameObject.
+     * @param imgPath the image path
+     * @param width the width
+     * @param height the height
+     * @param xPos the x position
+     * @param yPos the y position
+     */
     public GameObject(String imgPath, Double width, Double height, Double yPos, Double xPos) {
         this.xPos = xPos;
         this.yPos = yPos;
@@ -30,6 +50,12 @@ public abstract class GameObject {
         this.imgPath = imgPath;
     }
 
+    /**
+     * The constructor to create a GameObject.
+     * @param imgPath the image path
+     * @param xPos the x position
+     * @param yPos the y position
+     */
     public GameObject(String imgPath, Double xPos, Double yPos) {
         this(imgPath, 0d, 0d, yPos, xPos);
     }
@@ -42,6 +68,10 @@ public abstract class GameObject {
         return imgPath;
     }
 
+    /**
+     * Set the image path associated with this object's frontend.
+     * @param newPath the image path for the image
+     */
     public void setImgPath(String newPath) {
         imgPath = newPath;
     }
@@ -98,6 +128,38 @@ public abstract class GameObject {
         this.yPos = y;
     }
 
+    /**
+     * Get x speed of the moving object
+     * @return x speed of object
+     */
+    public double getXSpeed() {
+        return xSpeed;
+    }
+
+    /**
+     * Set x speed of the moving object
+     * @param xSpeed the x speed to set
+     */
+    public void setXSpeed(double xSpeed) {
+        this.xSpeed = xSpeed;
+    }
+
+    /**
+     * Get y speed of the moving object
+     * @return y speed of object
+     */
+    public double getYSpeed() {
+        return ySpeed;
+    }
+
+    /**
+     * Set y speed of the moving object
+     * @param ySpeed the y speed to set
+     */
+    public void setYSpeed(double ySpeed) {
+        this.ySpeed = ySpeed;
+    }
+
     public void setWidth(Double width) {
         this.width = width;
     }
@@ -135,20 +197,4 @@ public abstract class GameObject {
     public abstract List<Object> getParameters();
 
     public abstract boolean isStationary();
-
-    public double getXSpeed() {
-        return xSpeed;
-    }
-
-    public void setXSpeed(double s) {
-        xSpeed = s;
-    }
-
-    public double getYSpeed() {
-        return ySpeed;
-    }
-
-    public void setYSpeed(double s) {
-        ySpeed = s;
-    }
 }

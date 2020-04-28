@@ -4,6 +4,7 @@ import builder.stage.BuilderPane;
 import builder.stage.PaneDimensions;
 import builder.bank.BankController;
 import builder.bank.view.BankView;
+import builder.stage.TilePaneDimensions;
 import engine.gameobject.GameObject;
 import engine.general.Game;
 import engine.leveldirectory.level.LevelContainer;
@@ -19,9 +20,15 @@ import pagination.SideBar;
 import java.util.List;
 
 /**
- * This class controls the flow of the builder stage.
+ * This class controls the flow of the builder stage. It is a child of the GameSeqController class
+ * and implements the SceneChanger interface, both of which were written by Jerry Huang. He set the necessary
+ * dependencies for this class and understands the inheritance hierarchy.
  *
- * @author Jerry Huang, Pierce Forte
+ * I, Pierce Forte, wrote the code in this class necessary to begin the builder stage, handle its updates, and
+ * end it. These methods are all private but are as follows: initialize, step, endPhase, and setUpView.
+ *
+ * @author Jerry Huang
+ * @author Pierce Forte
  */
 public class GameSeqBuilderController extends GameSeqController implements SceneChanger {
 
@@ -68,7 +75,7 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     private void initialize() {
         List<GameObject> gameObjects = getLevelGameObjects(getLevelContainer().getLevelNum());
         List<GameObjectView> gameObjectViews = createGameObjectViews(gameObjects);
-        PaneDimensions dimensions = getLevelContainer().getCurrentLevel().getDimensions();
+        TilePaneDimensions dimensions = getLevelContainer().getCurrentLevel().getDimensions();
         bankController = new BankController(getLevelContainer().getCurrentLevel().getBankController());
         builderPane = new BuilderPane(dimensions, bankController, gameObjectViews);
         setUpView();

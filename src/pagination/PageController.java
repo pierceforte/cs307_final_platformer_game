@@ -1,6 +1,6 @@
 package pagination;
 
-import builder.stage.PaneDimensions;
+import builder.stage.TilePaneDimensions;
 import data.user.User;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -10,7 +10,7 @@ public class PageController {
 
     private User user;
     private Stage myStage;
-    private PaneDimensions myPane;
+    private TilePaneDimensions myPane;
     private int lastLevel;
 
     public PageController(User user, Stage stage) {

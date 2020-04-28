@@ -20,6 +20,7 @@ public interface Player {
      * True when the player has died.
      */
     boolean hasLost();
+
     /**
      * Assign key inputs to their appropriate actions
      */

@@ -12,8 +12,18 @@ import javafx.scene.transform.Affine;
 import javafx.scene.transform.NonInvertibleTransformException;
 
 /**
+ * This abstract class is part of a hierarchy of classes that allows for a Pane to be made up of tiles. This class, as a
+ * child of the Pane class, adds onto the preexisting attributes of a Pane by maintaining a canvas and affine through composition,
+ * each of which allow for a stylistic tile grid and tile-snapping node placement. Note that this tile grid and snapping can
+ * be enabled and disabled through public methods.
  *
- * @author Pierce Forte, Nicole Lindbergh
+ * This class is most suitably used by nodes that have dimensions in units of the tiles used for this TilePane. If this is the case,
+ * nodes will fit into the tiles properly and can be addressed based on the TilePane's coordinate system.
+ *
+ * This class is dependent on a dimensions object which determines its size and its tiles' size.
+ *
+ * @author Pierce Forte
+ * @author Nicole Lindbergh
  */
 public abstract class TilePane extends Pane {
 
@@ -25,9 +35,13 @@ public abstract class TilePane extends Pane {
     private Affine myGrid;
     private double tilesWide;
     private double tilesHigh;
-    private PaneDimensions dimensions;
+    private TilePaneDimensions dimensions;
 
-    public TilePane(PaneDimensions dimensions) {
+    /**
+     * The constructor to create a TilePane.
+     * @param dimensions the dimensions associated with this TilePane
+     */
+    public TilePane(TilePaneDimensions dimensions) {
         this.dimensions = dimensions;
         this.tilesWide = dimensions.getMaxX() - dimensions.getMinX();
         this.tilesHigh = dimensions.getMaxY() - dimensions.getMinY();
@@ -37,14 +51,26 @@ public abstract class TilePane extends Pane {
         this.getChildren().add(canvas);
     }
 
+    /**
+     * This method requires subclasses of the TilePane class to define how the Pane should be updated. This method
+     * can simply be left empty if the TilePane should not update internally, or it can be used to update the TilePane
+     * as desired as part of a stepping function.
+     */
     public abstract void update();
 
+    /**
+     * This method can be used to enable the tile-based grid system for the TilePane.
+     */
     public void addGrid() {
         this.myGrid = new Affine();
         myGrid.appendScale(dimensions.getTileWidth(), dimensions.getTileHeight());
         styleGrid();
     }
 
+    /**
+     * This method can be used to disable the tile-based grid system for the TilePane. When called, this method, in essence,
+     * removes the added features of the TilePane, and the TilePane object will act as a simple Pane.
+     */
     public void removeGrid() {
         canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }

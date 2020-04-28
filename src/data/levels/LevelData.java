@@ -3,7 +3,7 @@ package data.levels;
 import builder.bank.BankController;
 import builder.bank.BankItem;
 import builder.bank.view.BankView;
-import builder.stage.PaneDimensions;
+import builder.stage.TilePaneDimensions;
 import data.ErrorLogger;
 import data.PrettyPrint;
 import data.ReadSaveException;
@@ -18,6 +18,13 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+/**
+ * This class is used to read in data files for a level. With reflection, it is very flexible and can support reading in
+ * data for many games. Benjamin Burnett is the primary author.
+ *
+ * @author Benjamin Burnett
+ * @author Pierce Forte
+ */
 public class LevelData {
     JSONObject levels;
     JSONObject banks;
@@ -44,6 +51,11 @@ public class LevelData {
         }
     }
 
+    /**
+     * Reads in the bank for a builder stage.
+     * @param level the level number
+     * @return the BankController
+     */
     public BankController getBank(int level) throws ReadSaveException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         if (!containsKey(banks, Integer.toString(level))) throw new ReadSaveException("read", bankLoc);
         JSONObject levelBank = (JSONObject) banks.get(Integer.toString(level));
@@ -51,11 +63,15 @@ public class LevelData {
         return new BankController(getBankItems(levelBank), moneyAvailable, getBankView(levelBank));
     }
 
-
-    public PaneDimensions getDimensions(int level) {
+    /**
+     * Reads in the dimensions for a tile-based level.
+     * @param level the level number
+     * @return the TilePaneDimensions
+     */
+    public TilePaneDimensions getDimensions(int level) {
         if (!containsKey(dimensions, Integer.toString(level))) {
             ErrorLogger.log(new ReadSaveException("read", levelLoc));
-            return new PaneDimensions(1,1,1,1);
+            return new TilePaneDimensions(1,1,1,1);
         }
         JSONObject levelDimensions = (JSONObject) dimensions.get(Integer.toString(level));
         String [] params = new String [] {"minX", "maxX", "minY", "maxY"};
@@ -65,12 +81,12 @@ public class LevelData {
             paramVals[index] = Math.toIntExact((Long) levelDimensions.get(params[index]));
             classes[index] = java.lang.Integer.class;
         }
-        PaneDimensions dimensionsObject;
+        TilePaneDimensions dimensionsObject;
         try {
-            dimensionsObject = PaneDimensions.class.getDeclaredConstructor(classes).newInstance(paramVals);
+            dimensionsObject = TilePaneDimensions.class.getDeclaredConstructor(classes).newInstance(paramVals);
         } catch (Exception e) {
             ErrorLogger.log(e);
-            dimensionsObject = new PaneDimensions(1,1,1,1);
+            dimensionsObject = new TilePaneDimensions(1,1,1,1);
         }
         return dimensionsObject;
     }

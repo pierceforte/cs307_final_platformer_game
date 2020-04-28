@@ -1,7 +1,7 @@
 package engine.leveldirectory.gamesequence;
 
 import builder.bank.view.BankView;
-import builder.stage.PaneDimensions;
+import builder.stage.TilePaneDimensions;
 import engine.gameobject.GameObject;
 import engine.gameobject.player.SimplePlayer;
 import engine.general.Game;
@@ -22,7 +22,7 @@ import java.util.List;
  * Parent class that defines a controller used in the Game. It is
  * extended by the classes GameSeqBuilderController and GameSeqLevelController.
  *
- * @author Jerry Huang, Pierce Forte
+ * @author Jerry Huang
  */
 public abstract class GameSeqController {
     public static final int FRAME_DURATION = 20;
@@ -36,7 +36,7 @@ public abstract class GameSeqController {
 
     private BorderPane myPane;
     private HUDController hudController;
-    private PaneDimensions dimensions;
+    private TilePaneDimensions dimensions;
 
     private double height;
     private double width;
@@ -177,7 +177,7 @@ public abstract class GameSeqController {
         return gameObjects;
     }
 
-    public PaneDimensions getDimensions() {
+    public TilePaneDimensions getDimensions() {
         return dimensions;
     }
 }
