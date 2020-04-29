@@ -83,7 +83,7 @@ public class GameSeqLevelController extends GameSeqController implements SceneCh
     public void incrementLevel() {
         getRoot().getChildren().clear();
         getLevelContainer().incrementLevel();
-        //myPane.getChildren().removeAll(leftPane, gamePlayPane);
+        getHUDController().updateLevel(getLevelContainer().getLevelNum());
         GameSeqBuilderController builderTemp = new GameSeqBuilderController(getLevelContainer(),
                 getGame(), getMyScene(), getRoot(), getHeight(), getWidth());
         builderTemp.play();

@@ -20,8 +20,8 @@ public class HUDController {
      * @param lives the lives of the user in the associated level
      */
     public HUDController(int level, int score, int lives) {
-        hudModel = new HUDModel(lives);
-        hudView = new HUDView(HUDView.WIDTH, HUDView.HEIGHT, level, score, lives);
+        hudModel = new HUDModel(level, score, lives);
+        hudView = new HUDView(HUDView.WIDTH, HUDView.HEIGHT, hudModel);
     }
 
     /**
@@ -41,11 +41,21 @@ public class HUDController {
     }
 
     /**
+     * Updates the level in the HUD.
+     * @param level the new score
+     */
+    public void updateLevel(int level) {
+        hudModel.setLevel(level);
+        hudView.update(hudModel);
+    }
+
+    /**
      * Updates the score in the HUD.
      * @param score the new score
      */
     public void updateScore(int score) {
         hudModel.updateScore(score);
+        hudView.update(hudModel);
     }
 
     /**
@@ -53,7 +63,7 @@ public class HUDController {
      */
     public void lowerLife() {
         hudModel.lowerLife();
-        hudView.setLives(hudModel.getLives());
+        hudView.update(hudModel);
     }
 
     /**

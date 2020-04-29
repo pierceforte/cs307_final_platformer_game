@@ -33,18 +33,24 @@ public class HUDView extends ViewPane {
      * The constructor to create a HUDView.
      * @param width the width of the HUDView
      * @param height the height of the HUDView
-     * @param level the level number of the associated level
-     * @param score the score of the associated level
-     * @param lives the lives of the user in the associated level
+     * @param hudModel the associated HUDModel backend
      */
-    public HUDView(double width, double height, int level, int score, int lives) {
+    public HUDView(double width, double height, HUDModel hudModel) {
         super(width, height);
         setId(ID);
         resources = ResourceBundle.getBundle(RESOURCES_PATH);
-        setLevel(level);
-        setScore(score);
-        setLives(lives);
+        update(hudModel);
         this.getChildren().addAll(levelDisplay, scoreDisplay, livesDisplay);
+    }
+
+    /**
+     * Updates the HUD display.
+     * @param hudModel the associated HUDModel backend
+     */
+    public void update(HUDModel hudModel) {
+        setLevel(hudModel.getLevel());
+        setScore(hudModel.getScore());
+        setLives(hudModel.getLives());
     }
 
     /**
