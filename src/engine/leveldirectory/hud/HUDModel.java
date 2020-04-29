@@ -7,15 +7,25 @@ package engine.leveldirectory.hud;
  */
 public class HUDModel {
 
-    private double score;
+    private int score;
     private int lives;
+    private int level;
 
     /**
      * Default Constructor
      */
-    public HUDModel(int lives) {
-        score = 0;
+    public HUDModel(int level, int score, int lives) {
+        this.level = level;
+        this.score = score;
         this.lives = lives;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public void updateScore(int points) {
@@ -30,7 +40,7 @@ public class HUDModel {
         this.lives = lives;
     }
 
-    public double getScore() {
+    public int getScore() {
         return score;
     }
 
@@ -38,7 +48,7 @@ public class HUDModel {
         lives--;
     }
 
-    public void setScore(double score) {
+    public void setScore(int score) {
         this.score = score;
     }
 }

@@ -1,0 +1,7 @@
+data.user.InvalidLoginException: The username "name" does not exist
+  data.user.User.<init>(User.java:57)
+  HUDTest.lambda$testHUDLevelUpdate$1(HUDTest.java:47)
+  javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+  java.base/java.security.AccessController.doPrivileged(AccessController.java:391)
+  javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+  javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
