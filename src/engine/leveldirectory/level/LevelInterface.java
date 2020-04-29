@@ -21,10 +21,10 @@ public interface LevelInterface {
     Collection<GameObject> getGameObjects();
 
     /**
-     * used for retrieving builder stage bank items
-     * @return bank items
+     * used for retrieving builder stage bank controller
+     * @return bank controller
      */
-    Collection<BankItem> getBankItems();
+    BankController getBankController();
 
     /**
      * used for retrieving a level's dimensions

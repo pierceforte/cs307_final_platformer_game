@@ -181,7 +181,7 @@ public abstract class Page {
         Scene myScene = null;
 
         if (name.equals("Debug")) {
-            DebugEnvironment de = new DebugEnvironment(myStage, Pages.Debug);
+            //DebugEnvironment de = new DebugEnvironment(myStage, Pages.Debug);
         }
         if (name.equals("New Game")) {
             NewGamePage ng = new NewGamePage(myStage, Pages.FirstTimeCutScene);

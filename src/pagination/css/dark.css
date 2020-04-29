@@ -91,7 +91,7 @@
     -fx-text-fill: black;
     -fx-border-color: white;
     -fx-translate-x: 25;
-    -fx-translate-y: 190;
+    -fx-translate-y: 215;
     -fx-pref-height: 30;
     -fx-pref-width: 150;
 }
@@ -99,7 +99,13 @@
     -fx-font-family: "Times New Roman";
     -fx-font-size: 15pt;
     -fx-translate-x: 60;
-    -fx-translate-y: 180;
+    -fx-translate-y: 205;
+}
+#itemQuantity{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 12pt;
+    -fx-translate-x: 60;
+    -fx-translate-y: 175;
 }
 #moneyAvail{
     -fx-font-family: "Times New Roman";
@@ -115,11 +121,11 @@
 }
 #prevButton{
     -fx-translate-x: 75;
-    -fx-translate-y: 235;
+    -fx-translate-y: 255;
 }
 #nextButton{
     -fx-translate-x: 120;
-    -fx-translate-y: 235;
+    -fx-translate-y: 255;
 }
 #invalidPurchase{
     -fx-font-family: "Times New Roman";
@@ -233,7 +239,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 15pt;
     -fx-translate-x: 0;
-    -fx-translate-y: 200;
+    -fx-translate-y: 220;
     -fx-fill: goldenrod;
 }#back{
      -fx-translate-y: 800;

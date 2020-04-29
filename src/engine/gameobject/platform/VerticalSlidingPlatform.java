@@ -38,8 +38,6 @@ public class VerticalSlidingPlatform extends MovingPlatform implements Platform{
         MovingGameObject mover = (MovingGameObject) entity;
         mover.reverseXDirection();
         mover.reverseYDirection();
-        //TODO: needs to handle interaction with
-
     }
 
     @Override

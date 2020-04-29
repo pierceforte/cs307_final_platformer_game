@@ -3,7 +3,9 @@ package builder.bank;
 import builder.NotEnoughMoneyException;
 import builder.bank.view.BankView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -23,11 +25,17 @@ public class BankController {
      * @param moneyAvailable The amount of money the user has to purchase items.
      * @param bankView The frontend associated with the bank.
      */
-    public BankController(List<BankItem> bankItems, int moneyAvailable, BankView bankView) {
+    public BankController(LinkedHashMap<BankItem, Integer> bankItems, int moneyAvailable, BankView bankView) {
         bankModel = new BankModel(bankItems, moneyAvailable);
         this.bankView = bankView;
         bankView.initialize(bankModel);
         hasPurchasedItem = false;
+    }
+
+    public BankController(BankController bankController) {
+        this(new LinkedHashMap<> (bankController.getBankModel().getBankItems()),
+                bankController.getBankModel().getMoneyAvailable(),
+                new BankView(bankController.getBankView().getWidth(), bankController.getBankView().getHeight()));
     }
 
     /**

@@ -1,9 +1,8 @@
 package engine.leveldirectory.gamesequence;
 
-import builder.bank.BankModel;
 import builder.stage.BuilderPane;
+import builder.stage.PaneDimensions;
 import builder.bank.BankController;
-import builder.bank.BankItem;
 import builder.bank.view.BankView;
 import engine.gameobject.GameObject;
 import engine.general.Game;
@@ -25,13 +24,12 @@ import java.util.List;
  * @author Jerry Huang, Pierce Forte
  */
 public class GameSeqBuilderController extends GameSeqController implements SceneChanger {
-    private BorderPane myPane;
+
+    public static final String LEFT_PANE_ID = "builderLeftPane";
+
     private Pane leftPane;
-    private BankController bankController;
     private BuilderPane builderPane;
-    private List<BankItem> levelBankItems;
-    private List<GameObject> levelGameObjects;
-    private List<GameObjectView> levelGameObjectViews;
+    private BankController bankController;
     private Game game;
 
     /**
@@ -43,11 +41,10 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
      * @param height: height of the screen
      * @param width: width of the screen
      */
-    public GameSeqBuilderController(LevelContainer levelContainer, Game game, Scene scene, BorderPane root, double height,
-                                    double width) {
-        super(levelContainer, game, scene, root, height, width);
+    public GameSeqBuilderController(LevelContainer levelContainer, Game game, Scene scene,
+                                    BorderPane root, double height, double width) {
+        super(levelContainer, game, scene, root, height, width - BankView.DEFAULT_WIDTH);
         this.game = game;
-        myPane = root;
         setNextScene();
         setupTimeline();
         initialize();
@@ -69,12 +66,11 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     }
 
     private void initialize() {
-        levelGameObjects = getLevelGameObjects(getLevelContainer().getLevelNum());
-        levelGameObjectViews = createGameObjectViews(levelGameObjects);
-        levelBankItems = getLevelContainer().getCurrentLevel().getBankItems();
-        BankView bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
-        bankController = new BankController(levelBankItems, BankModel.DEFAULT_MONEY_AVAILABLE, bankView);
-        builderPane = new BuilderPane(getDimensions(), bankController, levelGameObjectViews);
+        List<GameObject> gameObjects = getLevelGameObjects(getLevelContainer().getLevelNum());
+        List<GameObjectView> gameObjectViews = createGameObjectViews(gameObjects);
+        PaneDimensions dimensions = getLevelContainer().getCurrentLevel().getDimensions();
+        bankController = new BankController(getLevelContainer().getCurrentLevel().getBankController());
+        builderPane = new BuilderPane(dimensions, bankController, gameObjectViews);
         setUpView();
     }
 
@@ -89,26 +85,25 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     private void step() {
         if (builderPane.isDone()) {
             endPhase();
+            return;
         }
-        else {
-            builderPane.update();
-        }
+        builderPane.update();
     }
 
     private void endPhase() {
         List<GameObject> newGameObjects = builderPane.getGameObjects();
         getLevelContainer().getCurrentLevel().addGameObject(newGameObjects);
-        myPane.getChildren().removeAll(leftPane, builderPane);
+        getRoot().getChildren().removeAll(builderPane, leftPane);
         this.getTimeline().stop();
         getNextPlayScene().run();
     }
 
     private void setUpView() {
         leftPane = new Pane();
-        leftPane.setId("builderLeftPane");
+        leftPane.setId(LEFT_PANE_ID);
         leftPane.getChildren().add(new SideBar(getMyScene(), game.getPC(), bankController.getBankView(), game));
-        myPane.setCenter(builderPane);
-        myPane.setLeft(leftPane);
         leftPane.getChildren().add(builderPane.getPlayButton());
+        getRoot().setCenter(builderPane);
+        getRoot().setLeft(leftPane);
     }
 }

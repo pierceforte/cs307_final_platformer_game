@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 public class BankView extends ViewPane {
 
     public static final double DEFAULT_WIDTH = 200;
-    public static final double DEFAULT_HEIGHT = 260;
+    public static final double DEFAULT_HEIGHT = 280;
 
     private Rectangle background;
     private ResourceBundle resources;
@@ -69,10 +69,6 @@ public class BankView extends ViewPane {
         dialog.setContentText(resources.getString("NotEnoughMoney"));
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         Platform.runLater(() -> dialog.showAndWait());
-    }
-
-    public void removeFromRoot() {
-        this.getChildren().removeAll(stockedBankView, emptyBankView, background);
     }
 
     private void activateEmptyBank() {

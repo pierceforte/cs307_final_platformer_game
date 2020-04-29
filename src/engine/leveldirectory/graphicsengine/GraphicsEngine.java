@@ -6,7 +6,6 @@ import engine.leveldirectory.hud.HUDController;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import pagination.loadandplay.AbstractPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +22,9 @@ public class GraphicsEngine {
     private HUDController scoreBoardController;
     private BorderPane borderPane;
 
-    public GraphicsEngine(Game game, ResourceBundle resourceBundle, AbstractPlayer abstractPlayer) {
+    public GraphicsEngine(Game game, ResourceBundle resourceBundle) {
         gameObjects = new ArrayList<>();
         nodes = new ArrayList<>();
-        //TODO: read in player lives
         scoreBoardController = new HUDController(game.getLevelContainer().getLevelNum(), 0, 5);
         this.resourceBundle = resourceBundle;
 
@@ -54,13 +52,8 @@ public class GraphicsEngine {
         NodeFactory nodeFactory = new NodeFactory();
         for (GameObject g : gameObjects) {
             ImageView temp = nodeFactory.generateImage(g);
-
-            // TODO: add ImageView to display
-
             nodes.add(temp);
             borderPane.getChildren().add(temp);
-
-            // TODO: sort which object is on top?
         }
     }
 }

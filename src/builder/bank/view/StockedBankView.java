@@ -18,10 +18,12 @@ import java.util.ResourceBundle;
  */
 public class StockedBankView extends ViewPane {
 
+    public static final String ID = "stockedBankView";
     public static final double ITEM_ICON_SIZE = 100;
 
     private ImageView itemIconDisplay;
     private Text itemCostDisplay;
+    private Text itemQuantityDisplay;
     private Text moneyAvailableDisplay;
     private ImageView nextButton;
     private ImageView prevButton;
@@ -34,6 +36,7 @@ public class StockedBankView extends ViewPane {
         this.resources = resources;
         hasPurchaseRequest = false;
         createPurchaseButton();
+        setId(ID);
     }
 
     public void update(BankModel bank) {
@@ -41,6 +44,7 @@ public class StockedBankView extends ViewPane {
         setMoneyAvailableDisplay(bank.getMoneyAvailable());
         setItemCostDisplay(item.getCost());
         setItemIcon(item.getImgPath());
+        setItemQuantityDisplay(bank.getCurItemQuantity());
         setChangeItemButtons(bank);
         attemptToAddChangeItemButton(bank.hasPrevItem(), prevButton);
         attemptToAddChangeItemButton(bank.hasNextItem(), nextButton);
@@ -91,6 +95,15 @@ public class StockedBankView extends ViewPane {
         itemIconDisplay.setImage(img);
     }
 
+    private void setItemQuantityDisplay(int quantity) {
+        String text = "x" + quantity;
+        if (itemQuantityDisplay == null) {
+            itemQuantityDisplay = createText(text, "itemQuantity");
+            return;
+        }
+        itemQuantityDisplay.setText(text);
+    }
+
     private void setChangeItemButtons(BankModel bank) {
         if (nextButton == null) {
             nextButton = new ChangeBankItemButton(BankViewButton.NEXT, bank);
@@ -111,7 +124,7 @@ public class StockedBankView extends ViewPane {
     }
 
     private void addDisplays() {
-        for (Node node : List.of(itemIconDisplay, itemCostDisplay, moneyAvailableDisplay, purchaseButton)) {
+        for (Node node : List.of(itemIconDisplay, itemCostDisplay, moneyAvailableDisplay, purchaseButton, itemQuantityDisplay)) {
             if (node != null && !getChildren().contains(node)) {
                 this.getChildren().add(node);
             }

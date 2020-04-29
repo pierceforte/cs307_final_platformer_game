@@ -26,7 +26,6 @@ public class Firebase {
                 .build();
          */
         /*
-        // TODO: fix this
         try {
             FirebaseApp.initializeApp(options);
         }

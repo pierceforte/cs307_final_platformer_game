@@ -36,11 +36,10 @@ public class LevelContainer {
     public void loadLevels() throws ReadSaveException, ClassNotFoundException, NoSuchMethodException,
             InstantiationException, IllegalAccessException, InvocationTargetException {
         LevelData levelData = new LevelData();
-        // TODO: int numLevels = levelData.getNumLevels()
         totalNumLevels = levelData.getNumLevels();
         List<Level> levels = new ArrayList<>();
         for (int i = 0; i < totalNumLevels; i++) {
-            Level levelTemp = new Level(levelData.getSavedLevel(i), levelData.getBankItems(i), levelData.getDimensions(i));
+            Level levelTemp = new Level(levelData.getSavedLevel(i), levelData.getBank(i), levelData.getDimensions(i));
             levels.add(levelTemp);
         }
         this.levels = levels;

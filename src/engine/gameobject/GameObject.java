@@ -33,7 +33,7 @@ public abstract class GameObject {
     public GameObject(String imgPath, Double xPos, Double yPos) {
         this(imgPath, 0d, 0d, yPos, xPos);
     }
-    
+
     /**
      * Get the image path for this object
      * @return path to the image for this object

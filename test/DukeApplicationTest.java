@@ -110,6 +110,10 @@ public class DukeApplicationTest extends ApplicationTest {
                 true, true, true, true, null)));
     }
 
+    protected void fireMouseEvent(Node node, MouseEvent mouseEvent) {
+        javafxRun(() -> node.fireEvent(mouseEvent));
+    }
+
     // HACKs: needed to get simulating an UI action working :(
     private void simulateAction (Node n, Runnable action) {
         // simulate robot motion, not strictly necessary but helps show what test is being run

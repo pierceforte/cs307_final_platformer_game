@@ -15,6 +15,11 @@ public class Enemy extends Opponent{
         initialY = yPos;
     }
 
+    public Enemy(Enemy copy) {
+        this(copy.getImgPath(), copy.getWidth(), copy.getHeight(),
+                copy.getX(), copy.getY(), copy.getXSpeed(), copy.getYSpeed());
+    }
+
     /**
      * Assigns how the enemy moves; eg. how do they attack the player?
      * @param target the target is located

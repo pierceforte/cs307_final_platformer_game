@@ -70,6 +70,7 @@ public class DraggableGameObjectView extends GameObjectView {
             public void handleDraggableMouseDrag(MouseEvent mouseEvent, Node node) {
                 super.handleDraggableMouseDrag(mouseEvent, node);
                 DraggableGameObjectView.this.handleDraggableMouseDrag();
+                DraggableGameObjectView.this.toFront();
             }
             @Override
             public void handleStationaryMousePress(MouseEvent mouseEvent, Node node) {
