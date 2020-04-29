@@ -30,16 +30,9 @@ public class HUDTest extends DukeApplicationTest {
         this.stage = stage;
         pane = new BorderPane();
         scene = new Scene(pane);
-        javafxRun(() -> {
-            stage.setScene(scene);
-        });
+        javafxRun(() -> stage.setScene(scene));
     }
 
-    /*
-    *
-    * EXPECTED TO FAIL
-    *
-    */
     @Test
     public void testHUDLevelUpdate() throws NoSuchMethodException, ReadSaveException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, InvalidLoginException {
         int initLevel = 0;
