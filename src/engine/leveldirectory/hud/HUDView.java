@@ -18,14 +18,18 @@ public class HUDView extends ViewPane {
     private Text scoreDisplay;
     private Text livesDisplay;
 
-    public HUDView(double width, double height, int level, int score, int lives) {
+    public HUDView(double width, double height, HUDModel hudModel) {
         super(width, height);
         setId(ID);
         resources = ResourceBundle.getBundle(RESOURCES_PATH);
-        setLevel(level);
-        setScore(score);
-        setLives(lives);
+        update(hudModel);
         this.getChildren().addAll(levelDisplay, scoreDisplay, livesDisplay);
+    }
+
+    public void update(HUDModel hudModel) {
+        setLevel(hudModel.getLevel());
+        setScore(hudModel.getScore());
+        setLives(hudModel.getLives());
     }
 
     public void setLevel(int level) {

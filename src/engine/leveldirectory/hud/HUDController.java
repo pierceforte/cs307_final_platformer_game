@@ -6,8 +6,8 @@ public class HUDController {
     private HUDView hudView;
 
     public HUDController(int level, int score, int lives) {
-        hudModel = new HUDModel(lives);
-        hudView = new HUDView(HUDView.WIDTH, HUDView.HEIGHT, level, score, lives);
+        hudModel = new HUDModel(level, score, lives);
+        hudView = new HUDView(HUDView.WIDTH, HUDView.HEIGHT, hudModel);
     }
 
     public HUDModel getModel() {
@@ -18,13 +18,18 @@ public class HUDController {
         return hudView;
     }
 
+    public void updateLevel(int level) {
+        hudModel.setLevel(level);
+        hudView.update(hudModel);
+    }
     public void updateScore(int score) {
         hudModel.updateScore(score);
+        hudView.update(hudModel);
     }
 
     public void lowerLife() {
         hudModel.lowerLife();
-        hudView.setLives(hudModel.getLives());
+        hudView.update(hudModel);
     }
 
     public int getLives() {
