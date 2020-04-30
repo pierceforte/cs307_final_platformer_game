@@ -21,40 +21,40 @@ public class Tester {
         BankController bc = ld.getBank(0);
         bc.getBankModel();
         List<GameObject> go = new ArrayList<>();
-        go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 3d,2d));
-        go.add(new CheckPoint("resources/images/objects/checkpoint.png", 1d, 2d, 27d,3d));
+        go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 2d,3d));
+        go.add(new CheckPoint("resources/images/objects/checkpoint.png", 1d, 2d,3d, 27d));
         for (Double i = 25d; i < 30; i++) {
-            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i,4d));
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 4d, i));
         }
         for (Double i = 18d; i < 21; i++) {
-            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i,6d));
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d,6d, i));
         }
         for (Double i = 7d; i < 25; i++) {
-            go.add(new StationaryPlatform("resources/images/objects/siderock.png", 1d, 1d, 18d,i));
+            go.add(new StationaryPlatform("resources/images/objects/siderock.png", 1d, 1d,i, 18d));
         }
         for (Double i = 7d; i < 25; i++) {
-            go.add(new StationaryPlatform("resources/images/objects/innerblock.png", 1d, 1d, 19d,i));
+            go.add(new StationaryPlatform("resources/images/objects/innerblock.png", 1d, 1d, i, 19d));
         }
         for (Double i = 7d; i < 25; i++) {
-            go.add(new StationaryPlatform("resources/images/objects/siderock.png", 1d, 1d, 20d,i));
+            go.add(new StationaryPlatform("resources/images/objects/siderock.png", 1d, 1d,i, 20d));
         }
-        go.add(new Enemy("dontusethis.png", 1d, 1d, 11d, 12d, 1d, 1d));
+        go.add(new Enemy("dontusethis.png", 1d, 1d, 12d, 11d,1d, 1d));
         for (Double i = 11d; i < 15; i++) {
-            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 12d,i));
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d,i, 12d));
         }
-        go.add(new CheckPoint("resources/images/objects/checkpoint.png", 1d, 1d, 3d, 16d));
+        go.add(new CheckPoint("resources/images/objects/checkpoint.png", 1d, 1d, 16d, 3d));
         for (Double i = 1d; i < 6; i++) {
-            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i, 17d));
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 17d, i));
         }
-        go.add(new Enemy("dontusethis.png", 1d, 1d, 15d, 22d, 1d, 1d));
+        go.add(new Enemy("dontusethis.png", 1d, 1d, 22d, 15d, 1d, 1d));
         for (Double i = 13d; i < 18; i++) {
-            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i, 23d));
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, 23d, i));
         }
         for (Double i = 13d; i < 18; i++) {
-            go.add(new StationaryPlatform("resources/images/objects/innerblocks.png", 1d, 1d, i, 24d));
+            go.add(new StationaryPlatform("resources/images/objects/innerblocks.png", 1d, 1d, 24d, i));
         }
         for (Double i = 1d; i < 31; i++) {
-            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d, i,25d));
+            go.add(new StationaryPlatform("resources/images/objects/grasstile.png", 1d, 1d,25d, i));
         }
         ld.saveLevel(go, 0);
 
