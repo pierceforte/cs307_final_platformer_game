@@ -101,7 +101,7 @@ public class LevelData {
         for (GameObject object : list) {
             addObj(object, temp);
         }
-        write(savedLevelLoc);
+        write(savedLevelLoc, temp);
     }
 
     private void addObj(GameObject object, JSONObject temp) {
@@ -207,9 +207,9 @@ public class LevelData {
      * Makes the users object into a string and then saves the string
      * @throws ReadSaveException - thrown if there is a problem writing to the user file
      */
-    private void write(String fileLoc) {
+    private void write(String fileLoc, JSONObject jsonObject) {
         try (FileWriter file = new FileWriter(fileLoc)) {
-            PrettyPrint pretty = new PrettyPrint(levels.toString());
+            PrettyPrint pretty = new PrettyPrint(jsonObject.toString());
             file.write(pretty.getString());
             file.flush();
         } catch (IOException e) {

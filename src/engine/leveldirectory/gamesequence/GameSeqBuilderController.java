@@ -94,8 +94,8 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
     private void endPhase() {
         List<GameObject> newGameObjects = builderPane.getGameObjects();
         LevelData saver = new LevelData();
-        saver.saveLevel(newGameObjects, getLevelContainer().getLevelNum());
         getLevelContainer().getCurrentLevel().addGameObject(newGameObjects);
+        saver.saveLevel(getLevelContainer().getCurrentLevel().getGameObjects(), getLevelContainer().getLevelNum());
         getRoot().getChildren().removeAll(builderPane, leftPane);
         this.getTimeline().stop();
         getNextPlayScene().run();
