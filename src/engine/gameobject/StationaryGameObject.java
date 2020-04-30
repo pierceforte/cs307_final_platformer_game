@@ -5,12 +5,12 @@ import java.util.List;
 
 public abstract class StationaryGameObject extends GameObject {
 
-    public StationaryGameObject(String imgPath, Double width, Double height, Double xPos, Double yPos) {
-        super(imgPath, width, height, xPos, yPos);
+    public StationaryGameObject(String imgPath, Double width, Double height, Double yPos, Double xPos) {
+        super(imgPath, width, height, yPos, xPos);
     }
 
     public List<Object> getParameters() {
-        return Arrays.asList(getImgPath(), getWidth(), getHeight(), getY(), getX());
+        return Arrays.asList(getImgPath(), getWidth(), getHeight(), getX(), getY());
     }
 
     public boolean isStationary() {
