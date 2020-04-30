@@ -21,7 +21,7 @@ public abstract class GameObject {
     private double xSpeed;
     private double ySpeed;
 
-    public GameObject(String imgPath, Double width, Double height, Double yPos, Double xPos) {
+    public GameObject(String imgPath, Double width, Double height, Double xPos, Double yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
         visible = false;
@@ -31,7 +31,7 @@ public abstract class GameObject {
     }
 
     public GameObject(String imgPath, Double xPos, Double yPos) {
-        this(imgPath, 0d, 0d, yPos, xPos);
+        this(imgPath, 0d, 0d, xPos, yPos);
     }
 
     /**

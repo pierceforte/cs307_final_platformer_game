@@ -15,7 +15,7 @@ public abstract class MovingGameObject extends GameObject{
 
     public MovingGameObject(String imgPath, Double width, Double height, Double xPos,
                             Double yPos, Double xSpeed, Double ySpeed) {
-        super(imgPath, width, height, yPos, xPos);
+        super(imgPath, width, height, xPos, yPos);
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         if (xSpeed != 0) xDir = ((Double)(xSpeed / Math.abs(xSpeed))).intValue();
