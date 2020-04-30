@@ -188,6 +188,7 @@ public class LevelData {
         try {
             return (GameObject) objClass.getDeclaredConstructor(classes).newInstance(params);
         }catch (NoSuchMethodException e) {
+            System.out.println(objClass);
             throw new NoSuchMethodException();
         }
 
