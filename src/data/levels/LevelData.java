@@ -22,15 +22,18 @@ public class LevelData {
     JSONObject levels;
     JSONObject banks;
     JSONObject dimensions;
+    JSONObject saver;
 
     private static final String levelLoc = "resources/data/levels.json";
     private static final String bankLoc = "resources/data/banks.json";
     private static final String dimensionsLoc = "resources/data/dimensions.json";
+    private static final String savedLevelLoc = "resources/data/saveLevels.json";
 
     public LevelData() {
         levels = jsonMaker(levelLoc);
         banks = jsonMaker(bankLoc);
         dimensions = jsonMaker(dimensionsLoc);
+        saver = jsonMaker(savedLevelLoc);
     }
 
     private JSONObject jsonMaker(String fileLoc) {
@@ -92,13 +95,13 @@ public class LevelData {
     }
 
     private void saveHelper(List<GameObject> list, String target) {
-        if (!levels.containsKey(target)) levels.put(target, new JSONObject());
-        JSONObject temp = (JSONObject) levels.get(target);
+        if (!saver.containsKey(target)) saver.put(target, new JSONObject());
+        JSONObject temp = (JSONObject) saver.get(target);
         temp.clear();
         for (GameObject object : list) {
             addObj(object, temp);
         }
-        write(levelLoc);
+        write(savedLevelLoc);
     }
 
     private void addObj(GameObject object, JSONObject temp) {
