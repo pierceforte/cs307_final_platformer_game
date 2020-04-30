@@ -4,6 +4,7 @@ import builder.stage.BuilderPane;
 import builder.stage.PaneDimensions;
 import builder.bank.BankController;
 import builder.bank.view.BankView;
+import data.levels.LevelData;
 import engine.gameobject.GameObject;
 import engine.general.Game;
 import engine.leveldirectory.level.LevelContainer;
@@ -92,7 +93,9 @@ public class GameSeqBuilderController extends GameSeqController implements Scene
 
     private void endPhase() {
         List<GameObject> newGameObjects = builderPane.getGameObjects();
+        LevelData saver = new LevelData();
         getLevelContainer().getCurrentLevel().addGameObject(newGameObjects);
+        saver.saveLevel(getLevelContainer().getCurrentLevel().getGameObjects(), getLevelContainer().getLevelNum());
         getRoot().getChildren().removeAll(builderPane, leftPane);
         this.getTimeline().stop();
         getNextPlayScene().run();

@@ -53,6 +53,8 @@ Features implemented:
     - A button with an image icon is available throughout the game, allowing users to switch between light and dark modes.
 - Load Games
     - Users can either choose to continue from where they left off (with their score maintained) or start over as a new player.
+- Save Games
+    - Users can save their modified levels after exiting the builder stage.
 - Preferences
     - Users can choose which team they are on (Snakes vs. Snails) and which character within these teams they would like to be.
 - Artificial Players
@@ -65,7 +67,7 @@ Features implemented:
 ### Notes/Assumptions
 
 Assumptions or Simplifications: 
-   - By going into great detail for our choice of game, we made the assumption that it would be okay focus more on our game as opposed to creating additional different games.
+   - By going into great detail for our choice of game, we made the assumption that it would be okay to focus more on our game as opposed to creating additional different games.
 
 Interesting data files: 
    - Our data files were rather challenging to design, but because we used reflection to support them, they are very extensible and flexible. Each is written in JSON and contains a set of information for each level, which includes constructors and variable information.
