@@ -23,6 +23,7 @@ public class LevelData {
     JSONObject banks;
     JSONObject dimensions;
 
+    private static final String saveLevelLoc = "resources/data/saveLevels.json";
     private static final String levelLoc = "resources/data/levels.json";
     private static final String bankLoc = "resources/data/banks.json";
     private static final String dimensionsLoc = "resources/data/dimensions.json";
@@ -92,13 +93,12 @@ public class LevelData {
     }
 
     private void saveHelper(List<GameObject> list, String target) {
-        if (!levels.containsKey(target)) levels.put(target, new JSONObject());
         JSONObject temp = (JSONObject) levels.get(target);
         temp.clear();
         for (GameObject object : list) {
             addObj(object, temp);
         }
-        write(levelLoc);
+        write(saveLevelLoc, temp);
     }
 
     private void addObj(GameObject object, JSONObject temp) {
@@ -203,9 +203,9 @@ public class LevelData {
      * Makes the users object into a string and then saves the string
      * @throws ReadSaveException - thrown if there is a problem writing to the user file
      */
-    private void write(String fileLoc) {
+    private void write(String fileLoc, JSONObject jsonObject) {
         try (FileWriter file = new FileWriter(fileLoc)) {
-            PrettyPrint pretty = new PrettyPrint(levels.toString());
+            PrettyPrint pretty = new PrettyPrint(jsonObject.toString());
             file.write(pretty.getString());
             file.flush();
         } catch (IOException e) {
