@@ -1,23 +1,30 @@
 package builder.bank;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedHashMap;
-
 /**
  * This class is the backend for the bank feature of the builder stage. Accordingly, it is the
  * "Model" of the bank's MVC design.
  *
- * This class does not have any dependencies, although it does require that its BankItems are provided in the
- * LinkedHashMap data structure. This data structure is critical for two reasons: 1) given that it is a Map,
- * it can support the need for each item to have an updatable quantity and 2) because it is a LinkedHashMap,
- * it maintains the order in which its keys were inserted, meaning the the current BankItem can be consistently
- * located based on its index.
+ * This class is well designed due to its encapsulation and flexibility. As part of a Model-View-Controller design
+ * for the bank, this backend class is independent from all frontend elements. Likewise, it does not depend on any
+ * game state, but it can be modified externally based on game state. Because it hides its data structure,
+ * modifying its implementation is also very simple: I recently changed the data structure from an ArrayList to a
+ * LinkedHashMap, and the only other code that was affected was the code used to create BankModel instances.
  *
+ * This class does not have any dependencies, although it does require that its BankItems are provided in the LinkedHashMap
+ * data structure. This data structure is critical for two reasons: 1) given that it is a Map, it can support the need for
+ * each item to have an updatable quantity and 2) because it is a LinkedHashMap, it maintains the order in which its keys
+ * are inserted, meaning the the current BankItem can be consistently located based on its index.
+ *
+ * NOTE: The only refactoring done after the deadline was to add a constructor which accepts a BankModel object,
+ * using this object to create a new BankModel instance. Doing this allowed me to eliminate the "getBankItems"
+ * method, effectively hiding the data structure used to store BankItems.
+ * NOTE: This class is related to the other masterpiece class (BankItem) because BankItems are elements in this class's data structure.
+ * 
  * @author Pierce Forte
  */
 public class BankModel {
-
     private int curIndex;
     private int moneyAvailable;
     private LinkedHashMap<BankItem, Integer> bankItems;
@@ -31,6 +38,14 @@ public class BankModel {
     public BankModel(LinkedHashMap<BankItem, Integer> bankItems, int moneyAvailable) {
         this.bankItems = new LinkedHashMap<>(bankItems);
         this.moneyAvailable = moneyAvailable;
+    }
+
+    /**
+     * The constructor to create a BankModel based on an existing BankModel object.
+     * @param bankModel an existing BankModel to be cloned
+     */
+    public BankModel(BankModel bankModel) {
+        this(bankModel.bankItems, bankModel.moneyAvailable);
     }
 
     /**
@@ -161,13 +176,5 @@ public class BankModel {
      */
     public int getCurItemQuantity() {
         return bankItems.get(getCurItem());
-    }
-
-    /**
-     * Returns the data structure holding all of the bank items.
-     * @return all of the bank items
-     */
-    public LinkedHashMap<BankItem, Integer> getBankItems() {
-        return bankItems;
     }
 }

@@ -23,12 +23,11 @@ public class BankController {
 
     /**
      * The constructor to create a BankController.
-     * @param bankItems A list of all the items available to the user.
-     * @param moneyAvailable The amount of money the user has to purchase items.
+     * @param bankModel The backend associated with the bank.
      * @param bankView The frontend associated with the bank.
      */
-    public BankController(LinkedHashMap<BankItem, Integer> bankItems, int moneyAvailable, BankView bankView) {
-        bankModel = new BankModel(bankItems, moneyAvailable);
+    public BankController(BankModel bankModel, BankView bankView) {
+        this.bankModel = bankModel;
         this.bankView = bankView;
         bankView.initialize(bankModel);
         hasPurchasedItem = false;
@@ -39,8 +38,7 @@ public class BankController {
      * @param bankController an existing BankController object to be cloned
      */
     public BankController(BankController bankController) {
-        this(new LinkedHashMap<> (bankController.getBankModel().getBankItems()),
-                bankController.getBankModel().getMoneyAvailable(),
+        this(new BankModel(bankController.getBankModel()),
                 new BankView(bankController.getBankView().getWidth(), bankController.getBankView().getHeight()));
     }
 

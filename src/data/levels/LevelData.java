@@ -2,6 +2,7 @@ package data.levels;
 
 import builder.bank.BankController;
 import builder.bank.BankItem;
+import builder.bank.BankModel;
 import builder.bank.view.BankView;
 import builder.stage.TilePaneDimensions;
 import data.ErrorLogger;
@@ -60,7 +61,7 @@ public class LevelData {
         if (!containsKey(banks, Integer.toString(level))) throw new ReadSaveException("read", bankLoc);
         JSONObject levelBank = (JSONObject) banks.get(Integer.toString(level));
         int moneyAvailable = Math.toIntExact((Long) levelBank.get("moneyAvailable"));
-        return new BankController(getBankItems(levelBank), moneyAvailable, getBankView(levelBank));
+        return new BankController(new BankModel(getBankItems(levelBank), moneyAvailable), getBankView(levelBank));
     }
 
     /**
@@ -243,8 +244,8 @@ public class LevelData {
             Class objClass = Class.forName((String) keyObj);
             JSONObject type = (JSONObject) levelBankItems.get((String) keyObj);
             GameObject gameObj = makeObject(objClass, (JSONArray) type.get("ctor"));
-            bankItems.put(new BankItem(gameObj, Math.toIntExact((Long) type.get("width")), Math.toIntExact((Long) type.get("height")),
-                    Math.toIntExact((Long) type.get("cost"))), Math.toIntExact((Long) type.get("quantity")));
+            bankItems.put(new BankItem(gameObj, Math.toIntExact((Long) type.get("cost"))),
+                    Math.toIntExact((Long) type.get("quantity")));
         }
         return bankItems;
     }

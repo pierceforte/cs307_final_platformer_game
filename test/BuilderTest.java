@@ -37,7 +37,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class BuilderTest extends DukeApplicationTest {
 
-    private static final int bankItemSize = 30;
     private static final int bankItemCost = 10;
     private static final int bankMoneyAvailable = 1000;
     private static final int minX = 0;
@@ -59,11 +58,11 @@ public class BuilderTest extends DukeApplicationTest {
     @Override
     public void start(Stage stage) {
         Raccoon raccoon = new Raccoon(raccoonPath + imgExtension,30d,30d, -1d, -1d, 1d);
-        BankItem one = new BankItem(new Raccoon(raccoon), bankItemSize, bankItemSize, bankItemCost);
+        BankItem one = new BankItem(new Raccoon(raccoon), bankItemCost);
         root = new BorderPane();
         leftPane = new Pane();
         bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
-        bankController = new BankController(new LinkedHashMap<>() {{this.put(one, 1);}}, bankMoneyAvailable, bankView);
+        bankController = new BankController(new BankModel(new LinkedHashMap<>() {{this.put(one, 1);}}, bankMoneyAvailable), bankView);
         bankModel = bankController.getBankModel();
         builderPane = new BuilderPane(new TilePaneDimensions(minX, maxX, minY, maxY), bankController, new ArrayList<>());
         javafxRun(() -> {
@@ -323,11 +322,12 @@ public class BuilderTest extends DukeApplicationTest {
 
     private void createBankWithDifferentItems() {
         Raccoon raccoon = new Raccoon(raccoonPath + imgExtension,30d,30d, -1d, -1d, 1d);
-        BankItem one = new BankItem(new Raccoon(raccoon), bankItemSize, bankItemSize, bankItemCost);
+        BankItem one = new BankItem(new Raccoon(raccoon), bankItemCost);
         Mongoose mongoose = new Mongoose(mongoosePath + imgExtension,30d,30d, -1d, -1d, 1d);
-        BankItem two = new BankItem(new Mongoose(mongoose), bankItemSize, bankItemSize, bankItemCost);
+        BankItem two = new BankItem(new Mongoose(mongoose), bankItemCost);
         bankView = new BankView(BankView.DEFAULT_WIDTH, BankView.DEFAULT_HEIGHT);
-        bankController = new BankController(new LinkedHashMap<>() {{put(one, 1);put(two, 1);}}, bankMoneyAvailable, bankView);
+        bankController = new BankController(
+                new BankModel(new LinkedHashMap<>() {{put(one, 1);put(two, 1);}}, bankMoneyAvailable), bankView);
         builderPane = new BuilderPane(new TilePaneDimensions(minX, maxX, minY, maxY), bankController, new ArrayList<>());
     }
 

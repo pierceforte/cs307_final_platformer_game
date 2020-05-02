@@ -13,8 +13,6 @@
           ["java.lang.Double", "-1"]
         ],
         "cost": 20,
-        "height": 1,
-        "width": 1,
         "quantity": 2
       },
       "engine.gameobject.platform.VerticalSlidingPlatform" : {
@@ -29,8 +27,6 @@
           ["java.lang.Double", "0"]
         ],
         "cost": 50,
-        "height" : 1,
-        "width" : 1,
         "quantity": 2
       },
       "engine.gameobject.platform.HorizontalSlidingPlatform" : {
@@ -45,8 +41,6 @@
           ["java.lang.Double", "0"]
         ],
         "cost": 25,
-        "height" : 1,
-        "width" : 1,
         "quantity": 3
       }
     }
@@ -65,8 +59,6 @@
           ["java.lang.Double", "-1"]
         ],
         "cost": 20,
-        "height": 1,
-        "width": 1,
         "quantity": 3
       },
       "engine.gameobject.platform.VerticalSlidingPlatform" : {
@@ -81,8 +73,6 @@
           ["java.lang.Double", "0"]
         ],
         "cost": 50,
-        "height" : 1,
-        "width" : 1,
         "quantity": 2
       },
       "engine.gameobject.platform.HorizontalSlidingPlatform" : {
@@ -97,8 +87,6 @@
           ["java.lang.Double", "0"]
         ],
         "cost": 25,
-        "height" : 1,
-        "width" : 1,
         "quantity": 2
       }
     }
