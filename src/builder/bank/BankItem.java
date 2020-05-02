@@ -17,17 +17,18 @@ import java.util.Objects;
  * new instance of its GameObject when we create a new BankItem, each of these equal (but difference instance) BankItems will have a
  * reference to the same GameObject.
  *
- * NOTE: The only refactoring done in this class after the deadline was to eliminate the "width" and "height" instance variables.
- * Because a BankItem's associated GameObject already records these values, having them recorded again here created the potential
- * for inconsistencies that could cause errors.
+ * NOTE: The only refactoring done in this class after the deadline was to eliminate the "imgPath", "width", and "height" instance
+ * variables. Because a BankItem's associated GameObject already records these values, having them recorded again here created
+ * the potential for inconsistencies that could cause errors. Because I eliminated these instance variables, I also modified the
+ * equals and hashCode methods, replacing the use of these instance variables with the GameObject instance variable.
+ *
  * NOTE: This class is related to the other masterpiece class (BankModel) because BankItems are part of the BankModel's data structure.
  *
  * @author Pierce Forte
  */
 public class BankItem {
-    private String imgPath;
-    private int cost;
     private GameObject gameObject;
+    private int cost;
 
     /**
      * The constructor to create a BankItem.
@@ -36,7 +37,6 @@ public class BankItem {
      */
     public BankItem(GameObject gameObject, int cost) {
         setGameObject(gameObject);
-        this.imgPath = gameObject.getImgPath();
         this.cost = cost;
     }
 
@@ -62,7 +62,7 @@ public class BankItem {
      * @return The image path for the button
      */
     public String getImgPath() {
-        return imgPath;
+        return gameObject.getImgPath();
     }
 
     /**
@@ -94,13 +94,12 @@ public class BankItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BankItem bankItem = (BankItem) o;
-        return gameObject.getWidth() == bankItem.getWidth() && gameObject.getHeight() == bankItem.getHeight() &&
-                cost == bankItem.cost && imgPath.equals(bankItem.imgPath);
+        return gameObject.equals(bankItem.gameObject) && cost == bankItem.cost;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(imgPath, gameObject.getWidth(), gameObject.getHeight(), cost);
+        return Objects.hash(gameObject, cost);
     }
 
     // sets the GameObject associated with this BankItem by attempting to create a new instance

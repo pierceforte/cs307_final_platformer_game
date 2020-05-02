@@ -20,8 +20,9 @@ import java.util.LinkedHashMap;
  * NOTE: The only refactoring done after the deadline was to add a constructor which accepts a BankModel object,
  * using this object to create a new BankModel instance. Doing this allowed me to eliminate the "getBankItems"
  * method, effectively hiding the data structure used to store BankItems.
+ *
  * NOTE: This class is related to the other masterpiece class (BankItem) because BankItems are elements in this class's data structure.
- * 
+ *
  * @author Pierce Forte
  */
 public class BankModel {

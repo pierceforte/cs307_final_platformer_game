@@ -1,6 +1,8 @@
 package engine.gameobject;
 
 import java.util.List;
+import java.util.Objects;
+
 import engine.general.Game;
 
 /**
@@ -197,4 +199,19 @@ public abstract class GameObject {
     public abstract List<Object> getParameters();
 
     public abstract boolean isStationary();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameObject that = (GameObject) o;
+        return width.equals(that.width) &&
+                height.equals(that.height) &&
+                imgPath.equals(that.imgPath);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(width, height, imgPath);
+    }
 }
