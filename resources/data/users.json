@@ -389,7 +389,7 @@
       "year":2000,
       "day":12
     },
-    "score":8800,
+    "score":13600,
     "password":"phf7",
     "paths":{
       "1":[0.0,0.0]
@@ -414,7 +414,11 @@
     },
     "id":"SaveTest",
     "avatar":"test,
+<<<<<<< HEAD
     \n    \r\n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    img",
+=======
+    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    img",
+>>>>>>> b57e829b59bbf4b1bb5743b2a8c59948b9bffabe
     "type":1,
     "levels":{
       "1":0
