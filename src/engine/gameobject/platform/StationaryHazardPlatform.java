@@ -9,7 +9,7 @@ public class StationaryHazardPlatform extends StationaryPlatform {
         super(imgPath, width, height, xPos, yPos);
     }
 
-    public StationaryHazardPlatform(StationaryPlatform copy) {
+    public StationaryHazardPlatform(StationaryHazardPlatform copy) {
         super(copy);
     }
 

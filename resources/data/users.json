@@ -223,7 +223,7 @@
       "year":1999,
       "day":15
     },
-    "score":4000,
+    "score":4200,
     "password":"nicole",
     "paths":{
       "1":[1.0,1.0,1.0,1.0,1.0,1.0,11.0,1.0,11.0,1.0]
@@ -235,6 +235,24 @@
       "1":55,
       "2":12,
       "3":0
+    }
+  },
+  "nl152":{
+    "birthday":{
+      "month":5,
+      "year":1998,
+      "day":21
+    },
+    "score":450,
+    "password":"john",
+    "paths":{
+      "1":[0.0,0.0]
+    },
+    "id":"nl152",
+    "avatar":"images\/avatars\/crystalsnail.png",
+    "type":1,
+    "levels":{
+      "1":0
     }
   },
   "qwerwe":{
@@ -371,7 +389,7 @@
       "year":2000,
       "day":12
     },
-    "score":5400,
+    "score":13800,
     "password":"phf7",
     "paths":{
       "1":[0.0,0.0]
@@ -396,7 +414,7 @@
     },
     "id":"SaveTest",
     "avatar":"test,
-    \n    \n    \n    img",
+    \n    \n    \n    \n    img",
     "type":1,
     "levels":{
       "1":0
